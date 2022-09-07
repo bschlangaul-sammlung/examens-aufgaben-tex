@@ -1,0 +1,9 @@
+[submodule ".repos/java"]
+	path = .repos/java
+	url = git@github.com:bschlangaul-sammlung/java-fuer-examens-aufgaben.git
+[submodule ".repos/logo"]
+	path = .repos/logo
+	url = git@github.com:bschlangaul-sammlung/logo-grafiken.git
+[submodule ".repos/examen-scans"]
+	path = .repos/examen-scans
+	url = git@github.com:bschlangaul-sammlung/examen-scans.git
