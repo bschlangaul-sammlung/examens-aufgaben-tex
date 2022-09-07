@@ -1,0 +1,170 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Anomalien und Abhängigkeiten},
+  Thematik = {Anomalien Abhängigkeiten},
+  Referenz = DB.Relationale-Entwurfstheorie.Normalformen.Anomalien-Abhaengigkeiten,
+  RelativerPfad = Module/10_DB/50_Relationale-Entwurfstheorie/30_Normalformen/Aufgabe_Anomalien-Abhaengigkeiten.tex,
+  ZitatSchluessel = db:ab:5,
+  ZitatBeschreibung = {Seite 1, Aufgabe 1: Anomalien und Abhängigkeiten, Aufgabe 1},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Update-Anomalie, Delete-Anomalie, Insert-Anomalie, Funktionale Abhängigkeiten, Attributhüllen-Algorithmus, Attributhülle, Superschlüssel},
+}
+
+\let\fa=\bFunktionaleAbhaengigkeit
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\ah=\bAttributHuelle
+\let\m=\bAttributMenge
+
+Gegeben ist die Relation \emph{Abteilungsmitarbeiter}, repräsentiert
+durch folgende Tabelle. Es sei angenommen, dass innerhalb einer
+Abteilung keine Mitarbeiter mit identischem Namen existieren. Die
+Abteilungsnummer ist eindeutig, es kann aber durchaus sein, dass mehrere
+Abteilungen die gleiche Bezeichnung tragen.
+\footcite[Seite 1, Aufgabe 1: Anomalien und Abhängigkeiten, Aufgabe 1]{db:ab:5}
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Name}  & \textbf{Straße} & \textbf{Ort} & \textbf{AbtNr} & \textbf{Bezeichnung} \\\hline
+Schweizer      & Hauptstraße     & Zürich       & A3             & Finanzen   \\\hline
+Deutscher      & Lindenstraße    & Passau       & A4             & Informatik \\\hline
+Österreicher   & Nebenstraße     & Wien         & A4             & Informatik \\\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie - orientiert an der obigen Tabelle - ein Beispiel für
+eine mögliche Änderungsanomalie an!
+
+\begin{bAntwort}
+\begin{description}
+\item[Update-Anomalie]
+\index{Update-Anomalie}
+
+Die Abteilung \emph{A4} wird umbenannt, beispielsweise in
+\emph{Softwareabteilung}. Die Änderung wird aus Versehen nicht in allen
+Tupeln mit \emph{AbtNr = A4} vollzogen.
+
+\item[Delete-Anomalie]
+\index{Delete-Anomalie}
+
+Herr \emph{Schweizer} (aus der Abteilung A4) verlässt die Firma und wird aus
+der Datenbank gelöscht. Damit gehen auch die Daten über die Abteilung \emph{A3}
+verloren.
+
+\item[Insert-Anomalie]
+\index{Insert-Anomalie}
+
+Es wird eine neue Abteilung \emph{A5} (\emph{Hardwareabteilung})
+geschaffen, der aber noch keine Mitarbeiter zugeteilt sind. Damit müsste
+ein Tupel (NULL, NULL, NULL, A5, Hardwareabteilung) in die Datenbank
+eingefügt werden. Da aber das Attribut \emph{Name} sicher in jedem
+Schlüsselkandidaten enthalten sein muss, kann der Wert von Name keinen
+Nullwert enthalten. Das Tupel kann nicht eingefügt werden.
+
+\end{description}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Bestimmen Sie eine Menge $F$ der funktionalen Abhängigkeiten, die
+sich aus Ihrer Analyse des Anwendungsbereiches ergeben. (Triviale
+Abhängigkeiten brauchen nicht angegeben werden.) Begründen Sie Ihre
+Entscheidung kurz.
+\index{Funktionale Abhängigkeiten}
+
+\begin{bAntwort}
+\begin{itemize}
+\item \fa{AbtNr -> Bezeichnung}
+
+Die \emph{Abteilungsnummer} ist eindeutig (als „künstliches“
+Unterscheidungsmerkmal für \emph{Abteilungen}) und legt damit die
+\emph{Abteilung}
+eindeutig fest.
+
+\item \fa{Name, AbtNr -> Strasse, Ort}
+
+Da der \emph{Name} innerhalb der \emph{Abteilung} eindeutig ist, ist
+damit der \emph{Mitarbeiter} und folglich auch die \emph{Adressdaten}
+eindeutig festgelegt. Da es sich bei dieser Attributkombination um den
+Primärschlüssel handelt, bestimmt diese Attributkombination auch das
+Attribut \emph{Bezeichnung}, allerdings darf es nicht in diese
+Funktionale Abhängigkeit aufgenommen werden, da die
+Abteilungsbezeichnung nicht von der Kombination aus \emph{Name} \&
+\emph{AbtNr} abhängig, sondern nur von der \emph{AbtNr} allein, somit
+muss dies als einzelne Funktionale Abhängigkeit formuliert werden und
+kann hier nicht aufgenommen werden
+
+$\rightarrow$ der Rückschluss daraus wäre nämlich, dass sich die
+\emph{Bezeichnung} der \emph{Abteilung} nur aus der Kombination von
+\emph{Mitarbeiter} und \emph{AbtNr} erkennen lässt und nicht allein aus
+der \emph{AbtNr} und das wäre ja nicht korrekt. Grundsätzlich gilt:
+Primärschlüssel und Funktionale Abhängigkeiten müssen getrennt
+betrachtet werden.
+
+\FA[F]{
+  Name, AbtNr -> Strasse, Ort;
+  AbtNr -> Bezeichnung;
+}
+\end{itemize}
+
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Bestimmen Sie \zB mit Hilfe des Attributhüllen-Algorithmus die
+Attributhülle
+\index{Attributhüllen-Algorithmus}\index{Attributhülle}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item $\ah{F, \m{Name, Bezeichnung}}$
+
+\begin{bAntwort}
+$\ah{F, \m{Name, Bezeichnung}} = \m{Name, Bezeichnung}$
+\end{bAntwort}
+
+%%
+% 2.
+%%
+
+\item $\ah{F, \m{Name, AbtNr}}$
+
+\begin{bAntwort}
+$\ah{F, \m{Name, AbtNr}} = \m{Name, AbtNr, Strasse, Ort, Bezeichnung}$
+\end{bAntwort}
+\end{enumerate}
+
+%%
+% (d)
+%%
+
+\item Ist \m{Name, Bezeichnung} bzw. \m{Name, AbtNr} ein Superschlüssel
+der Relation Abteilungsmitarbeiter? Kurze Begründung!
+\index{Superschlüssel}
+
+\begin{bAntwort}
+\m{Name, AbtNr}, da die Attributhülle von \m{Name, AbtNr} alle Attribute
+der Relation umfasst und \m{Name, Bezeichnung} nicht.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

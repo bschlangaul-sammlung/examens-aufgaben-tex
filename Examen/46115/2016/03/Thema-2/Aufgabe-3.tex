@@ -1,0 +1,126 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Bruchsicherheit von Smartphones},
+  Referenz = 46115-2016-F.T2-A3,
+  RelativerPfad = Staatsexamen/46115/2016/03/Thema-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46115:2016:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmische Komplexität (O-Notation), Lineare Suche},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 3,
+}
+
+Sie sollen mithilfe von Falltests eine neue Serie von Smartphones auf
+Bruchsicherheit testen.\index{Algorithmische Komplexität (O-Notation)}
+\footcite{examen:46115:2016:03}
+
+Dazu wird eine Leiter mit $n$ Sprossen verwendet; die höchste Sprosse,
+von der ein Smartphone heruntergeworfen werden kann ohne zu zerbrechen,
+heiße \emph{„höchste sichere Sprosse“}. Das Ziel ist, die höchste
+sichere Sprosse zu ermitteln. Man kann davon ausgehen, dass die höchste
+sichere Sprosse nicht von der Art des Wurfs abhängt und dass alle
+verwendeten Smartphones sich gleich verhalten. Eine Möglichkeit, die
+höchste sichere Sprosse zu ermitteln, besteht darin, ein Gerät erst von
+Sprosse $1$, dann von Sprosse $2$, etc. abzuwerfen, bis es schließlich
+beim Wurf von Sprosse $k$ beschädigt wird (oder Sie oben angelangt
+sind). Sprosse $k - 1$ (bzw. $n$) ist dann die höchste sichere Sprosse.
+Bei diesem Verfahren wird maximal ein Smartphone zerstört, aber der
+Zeitaufwand ist ungünstig.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Bestimmen Sie die Zahl der Würfe bei diesem Verfahren im
+schlechtesten Fall.
+\index{Lineare Suche}
+
+\begin{bAntwort}
+Die Zahl der Würfe im schlechtesten Fall ist $\mathcal{O} (k)$, wobei
+$k$ die Anzahl der Sprossen ist. Geht das Smartphone erst bei der
+höchsten Sprosse kaputt, muss es $k$ mal heruntergeworfen werden. Die
+Komplexität entspricht der der linearen Suche.
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Geben Sie nun ein Verfahren zur Ermittlung der höchsten sicheren
+Sprosse an, welches nur $\mathcal{O}(\log n)$ Würfe benötigt, dafür
+aber möglicherweise mehr Smartphones verbraucht.
+
+\begin{bAntwort}
+Man startet bei Sprosse $\frac{n}{2}$. Wenn das Smartphone kaputt geht,
+macht man weiter mit der Sprosse in der Mitte der unteren Hälfte,
+ansonsten mit der Sprosse in der Mitte der oberen Hälfte. Das Ganze
+rekursiv.
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Es gibt eine Strategie zur Ermittlung der höchsten sicheren
+Sprosse mit $\mathcal{O}\left(\sqrt{n}\right)$ Würfen, bei dessen Anwendung
+höchstens zwei Smartphones kaputtgehen. Finden Sie diese Strategie und
+begründen Sie Ihre Funktionsweise und Wurfzahl.
+
+Tipp: der erste Testwurf erfolgt von Sprosse $\left\lceil\sqrt{n}\,\right\rceil$.
+
+\begin{bExkurs}[Interpolationssuche]
+Die Interpolationssuche, auch Intervallsuche genannt, ist ein von der
+binären Suche abgeleitetes Suchverfahren, das auf Listen und Feldern zum
+Einsatz kommt.
+
+Während der Algorithmus der binären Suche stets das mittlere Element des
+Suchraums überprüft, versucht der Algorithmus der Interpolationssuche im
+Suchraum einen günstigeren Teilungspunkt als die Mitte zu erraten. Die
+Arbeitsweise ist mit der eines Menschen vergleichbar, der ein Wort in
+einem Wörterbuch sucht: Die Suche nach Zylinder wird üblicherweise am
+Ende des Wörterbuches begonnen, während die Suche nach Aal im vorderen
+Bereich begonnen werden dürfte.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Quadratische_Binärsuche}
+\end{bExkurs}
+
+\begin{bExkurs}[Quadratische Binärsuche]
+Quadratische Binärsuche ist ein Suchalgorithmus ähnlich der Binärsuche
+oder Interpolationssuche. Es versucht durch Reduzierung des Intervalls
+in jedem Rekursionsschritt die Nachteile der Interpolationssuche zu
+vermeiden.
+
+Nach dem Muster der Interpolationssuche wird zunächst in jedem
+rekursiven Schritt die vermutete Position $k$ interpoliert. Anschließend
+wird – um die Nachteile der Interpolationssuche zu vermeiden – das
+Intervall der Länge $\sqrt{n}$ gesucht, in
+dem sich der gesuchte Wert befindet. Auf dieses Intervall wird der
+nächste rekursive Aufruf der Suche angewendet.
+
+Auf diese Weise verkleinert sich der Suchraum bei gegebener Liste der
+Länge $n$ bei jedem rekursiven Schritt auf eine Liste der Länge $n$
+$\sqrt n$.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Quadratische_Binärsuche}
+\end{bExkurs}
+
+\begin{bAntwort}
+Das Vorgehen ist folgendermaßen: Man beginnt auf Stufe 0 und falls das
+Handy nicht kaputt geht, addiert man jeweils Wurzel n. Falls das Handy
+kaputt geht, geht man linear in Einerschritten das Intervall von der
+unteren Grenze (\dh von der Stufe vor der letzten Addition) bis zur
+Kaputtstufe ab.
+\bFussnoteUrl{http://www.inf.fu-berlin.de/lehre/WS06/HA/skript/vorlesung6.pdf}
+
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

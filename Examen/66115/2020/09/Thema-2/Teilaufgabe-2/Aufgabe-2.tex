@@ -1,0 +1,85 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Beweisen von Aussagen},
+  Referenz = 66115-2020-H.T2-TA2-A2,
+  RelativerPfad = Staatsexamen/66115/2020/09/Thema-2/Teilaufgabe-2/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66115:2020:09,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Komplexitätstheorie},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 2,
+}
+
+Beweisen Sie die folgenden Aussagen:
+\index{Komplexitätstheorie}
+\footcite{examen:66115:2020:09}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Sei fn)=2-.n?+3-n?+4- (log,n) + 7. Dann gilt f € O(n?).
+%%
+% b)
+%%
+
+\item Sei f(n) = 4”. Dann gilt nicht f € O(2").
+
+\begin{bAntwort}
+\bMetaNochKeineLoesung
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Sei fn) = (n+1)! (d. h. die Fakultät von n +1). Dann gilt f € O(n”).
+
+\begin{bAntwort}
+z. B. $5 \cdot 4 \cdot 3 \cdot  2 \cdot  1$ $5^5$
+\end{bAntwort}
+%%
+% d)
+%%
+
+\item Sei $f \colon \mathbb{N} \leftarrow \mathbb{N}$ definiert durch
+die folgende Rekursionsgleichung:
+
+\begin{equation*}
+f(n)=
+\begin{cases}
+3,& \text{für }n = 1\\
+
+(n - 1)^2 + f(n - 1),
+& \text{für }n > 1
+\end{cases}
+\end{equation*}
+
+Dann gilt $f \in \mathcal{O}(n^3)$
+
+\begin{bAntwort}
+
+\begin{align*}
+f(n)
+&=(n - 1)^2 + f(n - 1) + \dots + f(1)\\
+&=(n - 1)^2 + (n - 1)^2 + f(n - 2) + \dots + f(1)\\
+&=\underbrace{(n - 1)^2 + \dots + (n - 1)^2 + 3}_{n}\\
+&=\underbrace{(n - 1)^2 + \dots + (n - 1)^2}_{n - 1} + 3\\
+&= (n - 1)^2 \cdot (n - 1) + 3 \\
+&= (n - 1)^3 + 3
+\end{align*}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

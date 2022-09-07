@@ -1,0 +1,84 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{uml,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Klassendiagramm und Implementierung},
+  Thematik = {Binärbaum: Klassendiagramm und Implementierung},
+  Referenz = AUD.Baeume.Binaerer-Suchbaum.Klassendiagramm-Implementierung,
+  RelativerPfad = Module/30_AUD/80_Baeume/20_Binaerer-Suchbaum/Aufgabe_Klassendiagramm-Implementierung.tex,
+  ZitatSchluessel = aud:pu:5,
+  ZitatBeschreibung = {Binärbaum, Seite 1, Aufgabe 1},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum, Klassendiagramm, Implementierung in Java},
+}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Erstellen Sie ein Klassendiagramm für einen Binärbaum.
+\index{Binärbaum}\index{Klassendiagramm}
+\footcite[Binärbaum, Seite 1, Aufgabe 1]{aud:pu:5}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{einfacher Binärbaum}
+
+\begin{tikzpicture}
+\umlsimpleclass{Binärbaum}
+\umlclass[x=4]{Knoten}{wert}{}
+\umlaggreg[mult=0..1,arg=wurzel,pos=0.6]{Binärbaum}{Knoten}
+\umlaggreg[mult=0..2,pos=0.8]{Knoten}{Knoten}
+\end{tikzpicture}
+
+\bPseudoUeberschrift{Binärbaum mit Kompositum}
+
+\begin{tikzpicture}
+\umlsimpleclass[x=-1,y=5]{Binärbaum}
+\umlsimpleclass[x=3,y=5,type=abstrakt]{Baumelement}
+\umlsimpleclass[x=1,y=3]{Abschluss}
+\umlsimpleclass[x=5,y=3]{Datenknoten}
+\umlsimpleclass[x=5,y=1]{Inhalt}
+
+\umlassoc[mult2=1,name=wurzel]{Binärbaum}{Baumelement}
+\bUmlLeserichtung[pos=above,dir=right,distance=0cm]{wurzel}
+\umlVHVinherit{Abschluss}{Baumelement}
+\umlVHVinherit{Datenknoten}{Baumelement}
+
+\umlaggreg[mult=1]{Datenknoten}{Inhalt}
+\umlVHaggreg[mult2=2,pos2=1.8,anchor1=50]{Datenknoten}{Baumelement}
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Entwerfen Sie eine mögliche Implementierung zur Erzeugung eines
+binären Baumes in Java.
+\index{Implementierung in Java}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{einfacher Binärbaum}
+
+\bJavaDatei{aufgaben/aud/baum/einfach/Binaerbaum}
+\bJavaDatei{aufgaben/aud/baum/einfach/Knoten}
+
+\bPseudoUeberschrift{Binärbaum mit Kompositum}
+
+\bJavaDatei{aufgaben/aud/baum/kompositum/Binaerbaum}
+\bJavaDatei{aufgaben/aud/baum/kompositum/Baumelement}
+\bJavaDatei{aufgaben/aud/baum/kompositum/Abschluss}
+\bJavaDatei{aufgaben/aud/baum/kompositum/Datenknoten}
+\bJavaDatei{aufgaben/aud/baum/kompositum/Datenelement}
+\bJavaDatei{aufgaben/aud/baum/kompositum/Inhalt}
+
+\bJavaTestDatei{aufgaben/aud/baum/kompositum/BinaerbaumTest}
+
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

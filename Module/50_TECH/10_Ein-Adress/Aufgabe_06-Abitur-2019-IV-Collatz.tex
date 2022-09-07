@@ -1,0 +1,139 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,spalten,struktogramm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Abitur 2019 IV},
+  Thematik = {Collatz},
+  Referenz = TECH.Ein-Adress.06-Abitur-2019-IV-Collatz,
+  RelativerPfad = Module/50_TECH/10_Ein-Adress/Aufgabe_06-Abitur-2019-IV-Collatz.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Ein-Adress-Befehl-Assembler},
+}
+
+% Eingeschickt 3.2.2021
+% zurückbekommen und korrigiert 5.2.2021
+
+Das Collatz-Problem ist ein immer noch ungelöstes Problem der
+Mathematik. Dabei geht es um Zahlenfolgen, die nach folgendem
+Algorithmus gebildet werden, wobei der Eingabewert $n$ eine natürliche
+Zahl größer $0$ ist:
+\index{Ein-Adress-Befehl-Assembler}
+
+\begin{center}
+\begin{struktogramm}(80,25)[collatzfolge(n)]
+\while{wiederhole solange $n$ ungleich $1$ ist.}
+\ifthenelse{4}{4}
+{$n$ ist gerade}{wahr}{falsch}
+\assign[7]{$n = \frac{n}{2}$}
+\change
+\assign[7]{$n = 3 \cdot n + 1$}
+\ifend
+\whileend
+\end{struktogramm}
+\end{center}
+
+\noindent
+Obwohl der Algorithmus sehr einfach ist, ist bis heute ungeklärt, ob er
+tatsächlich bei jedem beliebigen Startwert von $n$ nach endlich vielen
+Durchläufen der Wiederholung terminiert.
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie die Zahlenfolge an, die man mit dem Startwert $7$
+erhält, wenn $n$ nach jedem Durchlauf der Wiederholung ausgegeben wird.
+
+\begin{bAntwort}
+7
+22
+11
+34
+17
+52
+26
+13
+40
+20
+10
+5
+16
+8
+4
+2
+1
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Beschreiben Sie, wie man mithilfe der ganzzahligen Division ohne
+Rest prüfen kann, ob eine Zahl $a$ durch eine andere Zahl $b$ teilbar
+ist.
+
+\begin{bAntwort}
+Wenn man das Ergebnis der Division der beiden Zahlen $a$ und $b$ mit $b$
+multipliziert und nach der Mulitplikation als Ergebnis wieder die Zahl
+$a$ feststeht, dann handelt es sich um eine Division ohne Rest, ergibt
+sich eine Zahl, die kleiner als $a$ ist, so handelt es sich um eine
+Division mit Rest.
+\end{bAntwort}
+
+\newpage
+
+%%
+% (c)
+%%
+
+\item Geben Sie ein Programm für die Registermaschine an, das den
+gegebenen Algorithmus \texttt{collatzfolge(n)} umsetzt, wobei zusätzlich
+die Anzahl der Durchläufe der Wiederholung bestimmt werden soll. Der
+Startwert für $n$ steht am Anfang bereits in Speicherzelle $100$.
+
+\begin{bAntwort}
+\begin{multicols}{2}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Ohne Modulo}
+
+\bAssemblerDatei{Aufgabe_06-Abitur-2019-IV-Collatz-ohne-Modulo.mia}
+
+\columnbreak
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Mit Modulo}
+
+\bAssemblerDatei{Aufgabe_06-Abitur-2019-IV-Collatz-mit-Modulo.mia}
+
+\end{multicols}
+%%
+%
+%%
+
+\newpage
+
+\bPseudoUeberschrift{Minisprache}
+
+\bMinispracheDatei{Aufgabe_06-Abitur-2019-IV-Collatz.mis}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Java}
+
+\bJavaDatei[firstline=3]{aufgaben/tech_info/assembler/ein_adress/Collatz}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

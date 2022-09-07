@@ -1,0 +1,158 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,formale-sprachen,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Konfigurationsfolge von Kellerautomaten},
+  Thematik = {Konfigurationsfolge doppelt so viele b’s wie a’s},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.Konfigurationsfolge-Kellerautomat,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_Konfigurationsfolge-Kellerautomat.tex,
+  ZitatSchluessel = theo:ab:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kellerautomat},
+}
+
+\let\m=\bMengeOhneMathe
+\let\z=\bZustandsnameTiefgestellt
+
+Gegeben ist der folgende nichtdeterministische Kellerautomat mit
+\index{Kellerautomat}
+\footcite{theo:ab:2}
+
+\begin{center}
+\bKellerAutomat{
+  zustaende={z_0, z_1, z_2, z_3, z_4},
+  alphabet={a, b},
+  kelleralphabet={\#, A, B},
+  ende={z_4},
+}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (2.71cm,-6cm) {$z_0$};
+  \node[state] (z1) at (4.71cm,-2.43cm) {$z_1$};
+  \node[state] (z2) at (8.71cm,-2.43cm) {$z_2$};
+  \node[state] (z3) at (9.71cm,-5.71cm) {$z_3$};
+  \node[state,accepting] (z4) at (4.29cm,-8.14cm) {$z_4$};
+
+  \bKellerKante[left,bend left]{z0}{z1}{
+    a, KELLERBODEN, A A KELLERBODEN;
+  }
+
+  \bKellerKante[left]{z0}{z4}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[below,bend left]{z0}{z3}{
+    b, KELLERBODEN, B KELLERBODEN;
+  }
+
+  \bKellerKante[above right,bend left]{z1}{z0}{
+    EPSILON, KELLERBODEN, KELLERBODEN;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    a, A, A A A;
+    b, A, EPSILON;
+  }
+
+  \bKellerKante[right,bend left]{z2}{z3}{
+    EPSILON, B, EPSILON;
+  }
+
+  \bKellerKante[above]{z2}{z1}{
+    EPSILON, KELLERBODEN, A KELLERBODEN;
+  }
+
+  \bKellerKante[below,bend left]{z3}{z0}{
+    EPSILON, KELLERBODEN, KELLERBODEN;
+  }
+
+  \bKellerKante[above,loop below]{z3}{z3}{
+    b, B, B B;
+  }
+
+  \bKellerKante[left,bend left]{z3}{z2}{
+    a, B, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Apk0ic3s9}
+
+\begin{enumerate}
+
+\item Geben Sie für die folgenden Wörter, die in der Sprache enthalten sind,
+eine Berechnung (Folge von Konfigurationen) des Kellerautomaten an:
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item $w_1 = \texttt{bab}$
+
+\begin{bAntwort}
+$(\z0, bab, \#) \vdash
+(\z3, ab, B\#) \vdash
+(\z2, b, \#) \vdash
+(\z1, b, A\#) \vdash
+(\z1, \varepsilon, \#) \vdash
+(\z0, \varepsilon, \#) \vdash
+(\z4, \varepsilon, \varepsilon)$
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item $w_2 = \texttt{abb}$
+
+\begin{bAntwort}
+$(\z0, abb, \#) \vdash
+(\z1, bb, AA\# )\vdash
+(\z1, b, A\#) \vdash
+(\z1, \varepsilon, \#) \vdash
+(\z0, \varepsilon, \#) \vdash
+(\z4, \varepsilon, \varepsilon)$
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item $w_3 = \texttt{abababbbb}$
+
+\begin{bAntwort}
+$(\z0, abababbbb, \#) \vdash
+(\z1, bababbbb, AA\#) \vdash
+(\z1, ababbbb, A\#) \vdash
+(\z1, babbbb, AAA\#) \vdash
+(\z1, abbbb, AA\#) \vdash
+(\z1, bbbb, AAAA\#) \vdash
+(\z1, bbb, AAA\#) \vdash
+(\z1, bb, AA\#) \vdash
+(\z1, b, A\#) \vdash
+(\z1, \varepsilon, \#) \vdash
+(\z0, \varepsilon, \#) \vdash
+(\z4, \varepsilon, \varepsilon)$
+\end{bAntwort}
+
+\end{enumerate}
+
+\item Charakterisiere die Wörter der Sprache in eigenen Worten.
+
+\begin{bAntwort}
+\bAusdruck{w}
+{
+  w
+  \text{ enthält genau doppelt so viele }
+  b \text{’s wie }
+  a \text{’s}
+}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

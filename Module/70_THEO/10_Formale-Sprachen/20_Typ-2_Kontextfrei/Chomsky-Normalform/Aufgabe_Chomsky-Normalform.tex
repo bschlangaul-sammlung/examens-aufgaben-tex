@@ -1,0 +1,100 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,chomsky-normalform}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Chomsky-Normalform},
+  Thematik = {Drei Grammatiken (SABCX, ST, SAB)},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Chomsky-Normalform.Chomsky-Normalform,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Chomsky-Normalform/Aufgabe_Chomsky-Normalform.tex,
+  ZitatSchluessel = theo:ab:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Chomsky-Normalform},
+}
+
+\let\schrittE=\bChomskyUeberErklaerung
+
+Überführen Sie jeweils die angegebene kontextfreie Grammatik in
+Chomsky-Normalform.\index{Chomsky-Normalform}
+\footcite{theo:ab:2}
+
+\begin{enumerate}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item \bGrammatik{variablen={S, A, B, C, X}, alphabet={a, b, c}} mit $P$:
+
+\begin{bProduktionsRegeln}
+S -> X A B | EPSILON,
+A -> a A B | A B | c,
+B -> B B | C | a,
+C -> C C | c | EPSILON,
+X -> A | b
+\end{bProduktionsRegeln}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item \bGrammatik{variablen={S, T}, alphabet={a, b, c}} mit $P$:
+
+\begin{bProduktionsRegeln}
+S -> a S b S | T,
+T -> c T | c
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1}
+
+\bNichtsZuTun
+
+\item \schrittE{2}
+
+\begin{bProduktionsRegeln}
+S -> a S b S | c T | c,
+T -> c T | c
+\end{bProduktionsRegeln}
+
+\item \schrittE{3}
+
+\begin{bProduktionsRegeln}
+S -> A S A S | C T | c,
+T -> C T | c,
+A -> a,
+B -> b,
+C -> c,
+\end{bProduktionsRegeln}
+
+\item \schrittE{4}
+
+\begin{bProduktionsRegeln}
+S -> A U | C T | c,
+T -> C T | c,
+A -> a,
+B -> b,
+C -> c,
+U -> S V
+V -> A S
+\end{bProduktionsRegeln}
+
+\end{enumerate}
+\end{bAntwort}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item \bGrammatik{variablen={S, A, B}, alphabet={a, b, c}} mit $P$:
+
+\begin{bProduktionsRegeln}
+S -> A B,
+A -> a A A | EPSILON,
+B -> b B B | EPSILON
+\end{bProduktionsRegeln}
+\end{enumerate}
+
+\end{document}

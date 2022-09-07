@@ -1,0 +1,137 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {gerichteter Distanzgraph angegeben durch Adjazenzmatrix},
+  Thematik = {Graph M A P R N},
+  Referenz = AUD.Graphen.Dijkstra.Graph-M-A-P-R-N,
+  RelativerPfad = Module/30_AUD/90_Graphen/10_Dijkstra/Aufgabe_Graph-M-A-P-R-N.tex,
+  ZitatSchluessel = aud:ab:6,
+  ZitatBeschreibung = {(Check-Up) Seite 3, Aufgabe 5},
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Dijkstra, Halde (Heap)},
+}
+
+Ein gerichteter Distanzgraph sei durch seine Adjazenzmatrix gegeben (in
+einer Zeile stehen die Längen der von dem Zeilenkopf ausgehenden Wege.)
+\footcite[(Check-Up) Seite 3, Aufgabe 5]{aud:ab:6}
+\index{Algorithmus von Dijkstra}
+
+\begin{bGraphenFormat}
+M: -1 0
+A: 0 -3
+P: 2 2
+R: 5 0
+N: 4 -3
+A -> M: 5
+P -> M: 10
+P -> A: 3
+R -> A: 9
+N -> A: 2
+A -> P: 2
+R -> P: 1
+N -> R: 4
+M -> N: 7
+R -> N: 6
+\end{bGraphenFormat}
+
+\[
+\begin{blockarray}{cccccc}
+    &  A &  M &  N &  P &  R \\
+\begin{block}{c(ccccc)}
+  A &  * &  5 &  - &  2 &  - \\
+  M &  - &  * &  7 &  - &  - \\
+  N &  2 &  - &  * &  - &  4 \\
+  P &  3 & 10 &  - &  * &  - \\
+  R &  9 &  - &  6 &  1 &  * \\
+\end{block}
+\end{blockarray}
+\]
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Stellen Sie den Graph in der üblichen Form dar.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (A) at (0,-3) {A};
+\node (M) at (-1,0) {M};
+\node (N) at (4,-3) {N};
+\node (P) at (2,2) {P};
+\node (R) at (5,0) {R};
+
+\path[->] (A) edge node {5} (M);
+\path[->] (A) edge[bend left=15] node {2} (P);
+\path[->] (M) edge node {7} (N);
+\path[->] (N) edge node {2} (A);
+\path[->] (N) edge[bend left=15] node {4} (R);
+\path[->] (P) edge[bend left=15] node {3} (A);
+\path[->] (P) edge node {10} (M);
+\path[->] (R) edge node {9} (A);
+\path[->] (R) edge[bend left=15] node {6} (N);
+\path[->] (R) edge node {} (P);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Bestimmen Sie mit dem Algorithmus von Dijkstra ausgehend von $M$
+die kürzeste Wege zu allen anderen Knoten.
+
+\begin{bAntwort}
+\begin{tabular}{lllllll}
+\bf{Nr.}     & \bf{besucht} & \bf{A}       & \bf{M}       & \bf{N}       & \bf{P}       & \bf{R}       \\
+\hline
+0            &              & $\infty$     & 0            & $\infty$     & $\infty$     & $\infty$     \\
+1            & M            & $\infty$     & \bf{0}       & 7            & $\infty$     & $\infty$     \\
+2            & N            & 9            & |            & \bf{7}       & $\infty$     & 11           \\
+3            & A            & \bf{9}       & |            & |            & 11           & 11           \\
+4            & P            & |            & |            & |            & \bf{11}      & 11           \\
+5            & R            & |            & |            & |            & |            & \bf{11}      \\
+\end{tabular}
+
+\begin{tabular}{llll}
+\bf{nach}                                         & \bf{Entfernung}                                   & \bf{Reihenfolge}                                  & \bf{Pfad}                                         \\
+\hline
+M  $\rightarrow$  A                               & 9                                                 & 3                                                 & M $\rightarrow$ N $\rightarrow$ A                 \\
+M  $\rightarrow$  M                               & 0                                                 & 1                                                 &                                                   \\
+M  $\rightarrow$  N                               & 7                                                 & 2                                                 & M $\rightarrow$ N                                 \\
+M  $\rightarrow$  P                               & 11                                                & 4                                                 & M $\rightarrow$ N $\rightarrow$ A $\rightarrow$ P \\
+M  $\rightarrow$  R                               & 11                                                & 5                                                 & M $\rightarrow$ N $\rightarrow$ R                 \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Beschreiben Sie wie ein Heap\index{Halde (Heap)} als
+Prioritätswarteschlange in diesem Algorithmus verwendet werden kann.
+
+\begin{bAntwort}
+Ein Heap kann in diesem Algorithmus dazu verwendet werden, den nächsten
+Knoten mit der kürzesten Distanz zum Startknoten auszuwählen.
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Geben Sie die Operation \emph{„Entfernen des Minimums“} für einen
+Heap an. Dazu gehört selbstverständlich die Restrukturierung des Heaps.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=5,lastline=38]{aufgaben/aud/baum/Heap}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

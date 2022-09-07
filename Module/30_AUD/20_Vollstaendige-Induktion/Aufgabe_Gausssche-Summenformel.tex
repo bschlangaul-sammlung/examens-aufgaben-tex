@@ -1,0 +1,99 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,vollstaendige-induktion}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Gaußsche Summenformel},
+  Thematik = {Gaußsche Summenformel},
+  Referenz = AUD.Vollstaendige-Induktion.Gausssche-Summenformel,
+  RelativerPfad = Module/30_AUD/20_Vollstaendige-Induktion/Aufgabe_Gausssche-Summenformel.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vollständige Induktion},
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Gegeben sei folgende rekursive Methodendeklaration in der Sprache Java.
+Es wird als Vorbedingung vorausgesetzt, dass die Methode \bJavaCode{sum}
+nur für Werte $n \geq 0$ aufgerufen wird.\index{Vollständige Induktion}
+
+\bJavaDatei[firstline=8,lastline=14]{aufgaben/aud/induktion/Gauss}
+
+\noindent
+Beweisen Sie mittels vollständiger Induktion, dass der Methodenaufruf
+\bJavaCode{sum(n)} die Summe der ersten $n$ aufeinanderfolgenden
+natürlichen Zahlen für alle $n \geq 0$ berechnet, wobei gilt
+
+\begin{displaymath}
+\sum_{k=0}^{n}k = \frac{n(n+1)}{2}
+\end{displaymath}
+
+\begin{bAntwort}
+
+%%
+%
+%%
+
+\bInduktionAnfang
+
+\begin{displaymath}
+\sum_{k=0}^{0}k = \frac{0(0+1)}{2} = \frac{0}{2} = 0
+\end{displaymath}
+
+\begin{displaymath}
+\texttt{sum(0)} = 0
+\end{displaymath}
+
+\bInduktionVoraussetzung
+
+\begin{displaymath}
+\sum_{k=0}^{n}k = \frac{n(n+1)}{2}
+\end{displaymath}
+
+\begin{displaymath}
+\texttt{sum(n)} = n + \frac{(n-1)((n-1)+1)}{2} = n + \frac{(n-1)n}{2}
+\end{displaymath}
+
+\bInduktionSchritt
+
+\begin{displaymath}
+\sum_{k=0}^{n+1}k = \frac{(n+1)\bigl((n+1)+1\bigr)}{2}
+\end{displaymath}
+
+\begin{align*}
+\texttt{sum(n+1)}
+&= \m{(n+1)} + \frac{(\m{(n+1)}-1)\m{(n+1)})}{2}
+& \e{$n+1-1=n$}\\
+%
+& = (n + 1) + \m{\frac{n(n + 1)}{2}}
+& \e{$(n+1)$ eingesetzt}\\
+%
+& = \frac{\m{2}(n + 1)}{\m{2}} + \frac{n(n + 1)}{2}
+& \e{$(n+1)$ als Bruch geschrieben}\\
+%
+&
+= \frac{2(n+1) + n(n+1)}{\m{2}} &
+\e{Hauptnenner $2$}\\
+%
+&
+= \frac{(2 + n)\m{(n+1)}}{2} &
+\e{$(n+1)$ ausgeklammert} \\
+%
+& = \frac{(\m{n + 2})(n+1)}{2} &
+\e{Kommutativgesetz angewandt} \\
+%
+&
+= \frac{\m{(n+1)(n+2)}}{2} &
+\e{getauscht nach Kommutativgesetz} \\
+%
+&
+= \frac{\m{(n+1)}\bigl(\m{(n+1)}+1\bigr)}{2} &
+\e{mit $(n+1)$ an der Stelle von $n$}\\
+\end{align*}
+\end{bAntwort}
+
+\bJavaTestDatei{aufgaben/aud/induktion/GaussTest}
+
+\end{document}

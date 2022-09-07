@@ -1,0 +1,81 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Turingmaschine M von w},
+  Referenz = 66115-2021-F.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/66115/2021/03/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2021:03,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entscheidbarkeit},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Wir betrachten eine Gödelisierung von Turingmaschinen und bezeichnen mit
+$M_w$ die Turingmaschine, die gemäß der Kodierung des Binärworts $w$
+kodiert wird. Außerdem bezeichnen wir mit $M_w(x)$ die Ausgabe der
+Maschine $M_w$ bei Eingabe $x$. Sie dürfen davon ausgehen, dass $x$
+immer ein Binärstring ist. Der bekannte Satz von Rice sagt:
+\index{Entscheidbarkeit}
+\footcite{examen:66115:2021:03}
+
+Sei S eine Menge berechenbarer Funktionen mit $\emptyset \neq S \neq
+\mathcal{R}$, wobei $\mathcal{R}$ die Menge aller berechenbaren
+Funktionen ist. Dann ist die Sprache \bAusdruck{w}{f_{M_w} \in S}
+unentscheidbar.
+
+Hier ist $f_{M_w}$ die von $M_w$ berechnete Funktion.
+
+Zeigen Sie für jede der nachfolgenden Sprachen über dem Alphabet
+\bMenge{0,1} entweder, dass sie entscheidbar ist, oder zeigen Sie mit
+Hilfe des Satzes von Rice, dass sie unentscheidbar ist. Geben Sie beim
+Beweis der Unentscheidbarkeit die Menge $S$ der berechenbaren Funktionen
+an, auf die Sie den Satz von Rice anwenden. Wir bezeichnen die Länge der
+Eingabe $x$ mit $|x|$.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item \bAusdruck{w}{M_w\text{ akzeptiert die Binarkodierungen der
+Primzahlen (und lehnt alles andere ab)}}
+
+%%
+% b)
+%%
+
+\item \bAusdruck{w}{\text{es gibt eine Hingabe }x\text{, so dass
+}M_w(x)\text{ das Symbol }1\text{ enthält}}
+
+%%
+% c)
+%%
+
+\item \bAusdruck{w}{M_w(x)\text{ hält für jedes }x\text{ mit }|x| <
+1000\text{ nach höchstens }100\text{ Schritten an}}
+
+%%
+% d)
+%%
+
+\item \bAusdruck{w}{M_w\text{ hat für jede Eingabe dieselbe Ausgabe}}
+
+%%
+% e)
+%%
+
+\item \bAusdruck{w}{\text{die Menge der Eingaben, die von }M_w\text{
+akzeptiert werden, ist endlich}}
+
+\end{enumerate}
+\end{document}

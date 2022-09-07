@@ -1,0 +1,179 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{sql,rmodell}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Turmspringen},
+  Referenz = 46116-2017-H.T2-TA2-A4,
+  RelativerPfad = Staatsexamen/46116/2017/09/Thema-2/Teilaufgabe-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46116:2017:09,
+  ZitatBeschreibung = {Thema 2 Teilaufgabe 2 Aufgabe
+4},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL, SQL mit Übungsdatenbank, GROUP BY},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2017,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 4,
+}
+
+\noindent
+Für\index{SQL}\footcite[Thema 2 Teilaufgabe 2 Aufgabe
+4]{examen:46116:2017:09} die bayerische Meisterschaft im Turmspringen
+ist folgendes Datenbankschema angelegt:
+\footcite{db:ab:2}
+
+\begin{liRelationenSchemaFormat}
+Springer(Startnummer*, Nachname, Vorname, Geburtsdatum, Körpergröße)
+Sprung(SID*, Beschreibung, Schwierigkeit)
+springt(SID[Sprung], Startnummer[Springer], Durchgang)
+\end{liRelationenSchemaFormat}
+
+\begin{bRelationenModell}
+\bRelationMenge{Springer}{\bPrimaer{Startnummer}, Nachname, Vorname, Geburtsdatum, Körpergröße}
+
+\bRelationMenge{Sprung}{\bPrimaer{SID}, Beschreibung, Schwierigkeit}
+
+\bRelationMenge{springt}{\bPrimaer{SID, Startnummer, Durchgang}}
+
+FK (SID) referenziert Sprung (SID)\\
+FK (Startnummer) referenziert Springer (Startnummer)
+\end{bRelationenModell}
+
+\begin{bAdditum}[Übungsdatenbank]
+% Datenbankname: turmspringen
+\begin{minted}{sql}
+CREATE TABLE Springer (
+  Startnummer INTEGER PRIMARY KEY,
+  Nachname VARCHAR(20),
+  Vorname VARCHAR(20),
+  Geburtsdatum DATE,
+  Körpergröße INTEGER
+);
+
+CREATE TABLE Sprung (
+  SID INTEGER PRIMARY KEY,
+  Beschreibung VARCHAR(50),
+  Schwierigkeit INTEGER
+);
+
+CREATE TABLE springt (
+  SID INTEGER REFERENCES Sprung(SID),
+  Startnummer INTEGER REFERENCES Springer(Startnummer),
+  Durchgang INTEGER
+);
+
+INSERT INTO Springer VALUES
+  (1, 'Schrempf', 'Andreas', '1998-01-23', 190),
+  (2, 'Schulz', 'Alexej', '1999-12-22', 182);
+
+INSERT INTO Sprung VALUES
+  (1, '10m', 2),
+  (2, '15m', 5);
+
+INSERT INTO springt VALUES
+  (1, 1, 1),
+  (1, 1, 2),
+  (2, 2, 1);
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+\end{bAdditum}
+
+\noindent
+Das Attribut Schwierigkeit kann die Werte 1 bis 10 annehmen, das
+Attribut Durchgang ist positiv und ganzzahlig. Die Körpergröße der
+Springer ist in Zentimeter angegeben.
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Welche Springer sind größer als 1,80 m? Schreiben Sie eine
+SQL-Anweisung, welche in der Ausgabe mit dem größten Springer beginnt.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT Vorname, Nachname, Körpergröße
+FROM Springer
+WHERE Körpergröße > 180
+ORDER BY Körpergröße DESC;
+\end{minted}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Welche Springer haben im ersten Durchgang einen Sprung mit einer
+Schwierigkeit von unter 6 gezeigt? Schreiben Sie eine SQL-Anweisung,
+welche Startnummer und Nachname dieser Springer ausgibt.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT Springer.Startnummer, Springer.Nachname
+FROM Springer, Sprung, springt
+WHERE
+  Sprung.SID = springt.SID AND
+  Springer.Startnummer = springt.Startnummer AND
+  springt.Durchgang = 1 AND
+  Sprung.Schwierigkeit < 6;
+\end{minted}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Formulieren Sie in Umgangssprache, aber trotzdem möglichst
+präzise, wonach mit folgender Abfrage gesucht wird:\index{GROUP BY}
+
+\begin{minted}{sql}
+SELECT springt.Startnummer, s.Nachname, s.Vorname, MAX(springt.Durchgang)
+FROM springt, Springer s
+WHERE springt.Startnummer = s.Startnummer
+GROUP BY springt.Startnummer, s.Nachname, s.Vorname
+\end{minted}
+
+\begin{bAntwort}
+Die Abfrage gibt die Startnummer, den Nachnamen, den Vornamen und
+die Anzahl der Sprünge, d. h. die Anzahl der Durchgänge der
+einzelnen Springer an.
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Gesucht ist die \emph{„durchschnittliche Körpergröße“} all der
+Springer, die vor dem 01.01.2000 geboren wurden. Formulieren Sie eine
+SQL-Anweisung, wobei die Spalte mit der durchschnittlichen Körpergröße
+genau diesen Namen \emph{„durchschnittliche Körpergröße“} haben soll.
+
+\begin{bAntwort}
+Umlaute und Leerzeichen sind bei Spaltenbeschriftungen nicht erlaubt.
+
+\begin{minted}{sql}
+SELECT AVG(Körpergröße) AS durchschnittliche_Koerpergroesse
+FROM SPRINGER
+WHERE Geburtsdatum < DATE('2000-01-01');
+\end{minted}
+\end{bAntwort}
+
+oder
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT AVG(Körpergröße) AS durchschnittliche_Koerpergroesse
+FROM SPRINGER
+WHERE Geburtsdatum < '01.01.2000';
+\end{minted}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

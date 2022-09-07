@@ -1,0 +1,32 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Potenzberechnung},
+  Thematik = {Potenzberechnung},
+  Referenz = TECH.Mehr-Adress.12-Potenz,
+  RelativerPfad = Module/50_TECH/20_Mehr-Adress/Aufgabe_12-Potenz.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Mehr-Adress-Befehl-Assembler},
+}
+
+Erstelle ein rekursives Assemblerprogramm, das seine beiden Parameter
+über zwei Variablen $a$ und $n$ aus dem Speicher übernimmt und den Wert
+$\text{power}(a, n)$ berechnet. Das Ergebnis soll in $R0$ liegen. Dabei
+soll die Rekursion gelten:\index{Mehr-Adress-Befehl-Assembler}
+
+\begin{displaymath}
+\text{power}(a, n) = a \cdot \text{power}(a, n − 1)
+\end{displaymath}
+
+\noindent
+Die Lösung der Berechnung soll zum Schluss in $R5$ liegen.
+
+\begin{bAntwort}
+\bAssemblerDatei{Aufgabe_12-Potenz.mi}
+
+\bJavaDatei[firstline=3]{aufgaben/tech_info/assembler/mehr_adress/Power}
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Rechtslineare Grammatik},
+  Referenz = 46115-2019-H.T2-A2,
+  RelativerPfad = Staatsexamen/46115/2019/09/Thema-2/Aufgabe-2.tex,
+  ZitatSchluessel = examen:46115:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 2,
+}
+
+\let\m=\bMenge
+
+Gegeben\index{Reguläre Sprache}
+\footcite{examen:46115:2019:09} ist die rechtslineare Grammatik
+$G = (\m{a, b}, \m{S, A, B, C, D}, S, P)$ mit
+\begin{bProduktionsRegeln}
+S -> aA,
+A -> bB,
+A -> aD,
+B -> aC,
+B -> bB,
+C -> bD,
+C -> b,
+D -> aA
+\end{bProduktionsRegeln}. Sei $L$ die von $G$ erzeugte Sprache.
+\bFlaci{Gpkv4ansc}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Zeichnen Sie einen nichtdeterministischen endlichen Automaten, der
+$L$ akzeptiert!
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (S) {S};
+\node[state,above right=of S] (A) {A};
+\node[state,below right=of S] (B) {B};
+\node[state,right=of B] (C) {C};
+\node[state,right=of A] (D) {D};
+\node[state,accepting,above right=of C] (E) {E};
+
+\path (A) edge[above,bend left] node{a} (D);
+\path (A) edge[left] node{b} (B);
+\path (B) edge[above,loop below] node{b} (B);
+\path (B) edge[above] node{a} (C);
+\path (C) edge[above] node{b} (E);
+\path (C) edge[right] node{b} (D);
+\path (D) edge[above,bend left] node{a} (A);
+\path (S) edge[above] node{a} (A);
+
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ahh979eqz}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Konstruieren Sie auf nachvollziehbare Weise einen regulären
+Ausdruck $\alpha$ mit $L(\alpha)=L$!
+
+\begin{bAntwort}
+$(ab+ab|(a|b+)+ab+ab)$
+(von Flaci automatisch konvertiert)
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

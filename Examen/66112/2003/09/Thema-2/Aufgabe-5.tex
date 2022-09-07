@@ -1,0 +1,74 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{vollstaendige-induktion}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {drei hoch},
+  Referenz = 66112-2003-H.T2-A5,
+  RelativerPfad = Staatsexamen/66112/2003/09/Thema-2/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66112:2003:09,
+  ZitatBeschreibung = {Thema 2 Aufgabe 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vollständige Induktion},
+  EinzelpruefungsNr = 66112,
+  Jahr = 2003,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 5,
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Zeigen Sie mit Hilfe vollständiger Induktion, dass das folgende
+Programm bzgl. der Vorbedingung $x > 0$ und der Nachbedingung drei\_hoch
+$x =  3^x$ partiell korrekt ist!\index{Vollständige Induktion}
+\footcite[Thema 2 Aufgabe 5]{examen:66112:2003:09}
+
+\begin{minted}{lisp}
+(define (drei_hoch x)
+  (cond ((= x 0) 1)
+    (else (* 3 (drei_hoch (- x 1))))
+  )
+)
+\end{minted}
+
+\def\drei{\text{drei\_hoch}\,}
+
+\begin{bAntwort}
+
+%%
+%
+%%
+
+\bInduktionAnfang
+
+$\drei 1 = 3 \cdot (\drei 0) = 3 \cdot 1 = 3$
+
+%%
+%
+%%
+
+\bInduktionVoraussetzung
+
+für alle $x < x 0$ gilt $\drei x = 3 x$
+
+%%
+%
+%%
+
+\bInduktionSchritt
+
+x->x+1
+
+\begin{align*}
+\drei (x + 1)
+& = 3 \cdot \drei (- (x + 1) 1))\\
+& = 3 \cdot (\drei x)\\
+& = 3 \cdot 3^x\\
+& = 3^{x+1}
+\end{align*}
+\end{bAntwort}
+\end{document}

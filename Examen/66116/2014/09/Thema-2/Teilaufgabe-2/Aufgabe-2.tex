@@ -1,0 +1,95 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Wahlsystem},
+  Referenz = 66116-2014-H.T2-TA2-A2,
+  RelativerPfad = Staatsexamen/66116/2014/09/Thema-2/Teilaufgabe-2/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66116:2014:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Modell-Präsentation-Steuerung (Model-View-Controller), Implementierung in Java},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 2,
+}
+
+Sie sollen das Design für ein einfaches Wahlsystem
+entwerfen.\footcite{examen:66116:2014:09} Das System soll dabei die
+Verteilung der Stimmen auf die einzelnen Parteien ermöglichen.
+Zusätzlich soll es verschiedene Darstellungen dieser Daten erlauben:
+Eine Tabelle, in der die Daten gelesen und auch eingegeben werden
+können, und ein Diagramm als alternative Darstellung der Informationen.
+Das System soll mit dem \emph{Model-View-Controller} Muster modelliert
+werden.
+\footcite[StEx H14, T2, TA2, A2 (geänderte Aufgabenstellung), Aufgabe 4]{sosy:ab:6}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item Beschreiben Sie das \emph{Model-View-Controller} Muster:
+\index{Modell-Präsentation-Steuerung (Model-View-Controller)}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Beschreiben Sie das Problem, welches das Muster adressiert.
+
+\begin{bAntwort}
+Das MVC-Muster wird verwendet, um spätere Änderungen bzw. Erweiterungen
+zu vereinfachen. Dies unterstützt somit auch die Wiederverwendbarkeit.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Beschreiben Sie die Aufgaben der Komponenten, die im Muster
+verwendet werden.
+
+\begin{bAntwort}
+Im Modell werden die Daten verwaltet, die View ist für die Darstellung
+der daten sowie die Benutzerinteraktion zuständig und der Controller
+übernimmt die Steue- rung zwischen View und Modell.
+
+Das MVC-Muster ist aus den drei Entwurfsmustern Beobachter, Kompositum
+und Strategie zusammengesetzt.
+\end{bAntwort}
+
+\end{enumerate}
+
+%%
+% 2.
+%%
+
+\item Modellieren Sie das System unter Anwendung des Musters:
+
+\begin{enumerate}
+
+%%
+% a.
+%%
+
+\item Entwerfen Sie ein UML Klassendiagramm.
+
+%%
+% b.
+%%
+
+\item Implementieren Sie eine setup-Methode, die das Objektmodell
+erstellt.\index{Implementierung in Java}
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

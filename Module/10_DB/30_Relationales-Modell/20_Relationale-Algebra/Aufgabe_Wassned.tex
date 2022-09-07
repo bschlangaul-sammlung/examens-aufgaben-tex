@@ -1,0 +1,59 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4: Relationale Algebra Einstieg},
+  Thematik = {Wassned},
+  Referenz = DB.Relationales-Modell.Relationale-Algebra.Wassned,
+  RelativerPfad = Module/10_DB/30_Relationales-Modell/20_Relationale-Algebra/Aufgabe_Wassned.tex,
+  ZitatSchluessel = db:pu:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Relationale Algebra},
+}
+
+Gegeben ist folgende Datenbank-Anfrage:
+\index{Relationale Algebra}
+\footcite{db:pu:2}
+
+\begin{math}
+\pi_{\text{Bezeichnung}}(
+  \sigma_{\text{SWS} = 2 \land\neg(\text{Name} = \mlq \text{Wassned} \mrq)}(
+    \text{Vorlesung} \bowtie \text{Professor}
+  )
+)
+\end{math}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie eine umgangssprachliche Formulierung der Anfrage an!
+
+\begin{bAntwort}
+Eine Liste mit den Bezeichnungen der Vorlesungen, die 2 Semester
+Wochenstunden dauern und die nicht vom dem Professor „Wassned“ gelesen
+werden.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie die Ergebnistabelle an!
+
+\begin{bAntwort}
+
+\begin{tabular}{|l|}
+\hline
+\textbf{Bezeichnung}\\
+Japanische Malerei\\
+Chinesische Schrift\\
+\hline
+\end{tabular}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

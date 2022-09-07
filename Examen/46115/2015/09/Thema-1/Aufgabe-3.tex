@@ -1,0 +1,133 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Unimodale Zahlenfolge},
+  Referenz = 46115-2015-H.T1-A3,
+  RelativerPfad = Staatsexamen/46115/2015/09/Thema-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46115:2015:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Teile-und-Herrsche (Divide-and-Conquer), Binäre Suche, Implementierung in Java},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2015,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 3,
+}
+
+\section{Aufgabe 3
+\index{Teile-und-Herrsche (Divide-and-Conquer)}
+\footcite{examen:46115:2015:09}}
+
+Eine Folge von Zahlen $a_1, \dots, a_n$ heiße unimodal, wenn sie bis zu
+einem bestimmten Punkt echt ansteigt und dann echt fällt. Zum Beispiel
+ist die Folge $1,3,5,6,5,2,1$ unimodal, die Folgen $1,3,5,4,7,2,1$ und
+$1,2,3,3,4,3,2,1$ aber nicht.
+
+\begin{bExkurs}[Unimodale Abbildung]
+Eine unimodale Abbildung oder unimodale Funktion ist in der Mathematik
+eine Funktion mit einem eindeutigen (lokalen und globalen) Maximum wie
+zum Beispiel $f(x)=-x^{2}$.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Unimodale_Abbildung}
+\end{bExkurs}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item Entwerfen Sie einen Algorithmus, der zu (als Array) gegebener
+unimodaler Folge $a_1, \dots, a_n$ in Zeit $\mathcal{O}(\log n)$ das
+Maximum $\max a_i$ berechnet. Ist die Folge nicht unimodal, so kann Ihr
+Algorithmus ein beliebiges Ergebnis liefern. Größenvergleiche,
+arithmetische Operationen und Arrayzugriffe können wie üblich in
+konstanter Zeit ($\mathcal{O}(1)$) getätigt werden. Hinweise: binäre
+Suche, divide-and-conquer.
+\index{Binäre Suche}
+
+\begin{bAntwort}
+Wir wählen einen Wert in der Mitte der Folge aus. Ist der direkte linke
+und der direkte rechte Nachbar dieses Wertes kleiner, dann ist das
+Maximum gefunden. Ist nur linke Nachbar größer, setzen wir die Suche wie
+oben beschrieben in der linken Hälfte, sonst in der rechten Hälfte fort.
+\end{bAntwort}
+
+%%
+% 2.
+%%
+
+\item Begründen Sie, dass Ihr Algorithmus tatsächlich in Zeit
+$\mathcal{O}(\log n)$ läuft.
+
+\begin{bAntwort}
+Da der beschriebene Algorithmus nach jedem Bearbeitungsschritt nur auf
+der Hälfte der Feld-Element zu arbeiten hat, muss im schlechtesten Fall
+nicht die gesamte Folge durchsucht werden. Nach dem ersten Teilen der
+Folge bleiben nur noch $\frac{n}{2}$ Elemente, nach dem zweiten Schritt
+$\frac{n}{4}$, nach dem dritten $\frac{n}{8}$ usw. Allgemein bedeutet
+dies, dass im $i$-ten Durchlauf maximal $\frac{n}{2^i}$ Elemente zu
+durchsuchen sind. Entsprechend werden $\log_2 n$ Schritte
+benötigt.\footcite[Seite 122]{saake} Somit hat der Algorithmus zum
+Finden des Maximums in einer unimodalen Folge in der Landau-Notation
+ausgedrückt die Zeitkomplexität $\mathcal{O}(\log
+n)$.\footcite{wiki:binaere-suche}
+\end{bAntwort}
+
+%%
+% 3.
+%%
+
+\item Schreiben Sie Ihren Algorithmus in Pseudocode oder in einer
+Programmiersprache Ihrer Wahl, \zB Java, auf. Sie dürfen voraussetzen,
+dass die Eingabe in Form eines Arrays der Größe $n$ vorliegt.
+\index{Implementierung in Java}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Rekursiver Ansatz}
+
+\bJavaExamen[firstline=23,lastline=39]{46115}{2015}{09}{UnimodalFinder}
+
+\bPseudoUeberschrift{Iterativer Ansatz}
+
+\bJavaExamen[firstline=53,lastline=69]{46115}{2015}{09}{UnimodalFinder}
+\end{bAntwort}
+
+%%
+% 4.
+%%
+
+\item Beschreiben Sie in Worten ein Verfahren, welches in Zeit
+$\mathcal{O}(n)$ feststellt, ob eine vorgelegte Folge unimodal ist oder
+nicht.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=71,lastline=92]{46115}{2015}{09}{UnimodalFinder}
+\end{bAntwort}
+
+%%
+% 5.
+%%
+
+\item Begründen Sie, dass es kein solches Verfahren (Test auf
+Unimodalität) geben kann, welches in Zeit $\mathcal{O}(\log n)$ läuft.
+
+\begin{bAntwort}
+Da die Unimodalität nur durch einen Werte an einer beliebigen Stelle der
+Folge verletzt werden kann, müssen alle Elemente durchsucht und
+überprüft werden.
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Komplette Klasse}
+\bJavaExamen[firstline=23,lastline=39]{46115}{2015}{09}{UnimodalFinder}
+
+\bPseudoUeberschrift{Test}
+
+\bJavaTestDatei{examen/examen_46115/jahr_2015/herbst/UnimodalFinderTest}
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Ableitung einer Phrasenstrukturgrammatik},
+  Thematik = {a-2-hoch-n},
+  Referenz = THEO.Formale-Sprachen.Typ-0_Phrasenstruktur.a-2-hoch-n,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/40_Typ-0_Phrasenstruktur/Aufgabe_a-2-hoch-n.tex,
+  ZitatSchluessel = thoe:fs:3,
+  ZitatBeschreibung = {Seite 15-16},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Unbeschränkte Sprache},
+}
+
+Die folgende Grammatik erzeugt die Sprache \bAusdruck{a^{2^n}}{n \in
+\mathbb{N}}, nicht kontextsensitiv ist:\index{Unbeschränkte Sprache}
+\footcite[Seite 15-16]{thoe:fs:3}
+
+\bGrammatik{variablen={S, L, R, D}, alphabet={a}}
+\begin{bProduktionsRegeln}
+S -> L a R,
+L -> L D | EPSILON,
+D a -> a a D,
+D R -> R,
+R -> EPSILON,
+\end{bProduktionsRegeln}
+
+\noindent
+Leiten Sie das Wort $a^8$ ab.
+
+\begin{bAntwort}
+\bAbleitung{LaR
+-> LDaR
+-> LDDaR
+-> LDDDaR
+-> DDDaR
+-> DDaaDR
+-> DaaDaDR
+-> aaDaDaDR
+-> aaaaDDaDR
+-> aaaaaaaaDDDR
+-> aaaaaaaaDDR
+-> aaaaaaaaR
+-> aaaaaaa}
+\end{bAntwort}
+
+\end{document}

@@ -1,0 +1,133 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,minimierung}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {NEA-DEA-Äquivalenzklassen},
+  Thematik = {NEA-DEA-Aequivalenzklassen},
+  Referenz = THEO.Formale-Sprachen.Typ-3_Regulaer.NEA-DEA-Aequivalenzklassen,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/10_Typ-3_Regulaer/Aufgabe_NEA-DEA-Aequivalenzklassen.tex,
+  ZitatSchluessel = theo:ab:1,
+  ZitatBeschreibung = {Seite 11, Aufgabe 7},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache, Deterministisch endlicher Automat (DEA), Minimierungsalgorithmus, Reguläre Ausdrücke, Äquivalenzklassen},
+}
+
+\let\f=\bFussnote
+\let\l=\bLeereZelle
+\def\Z#1#2{(#1, #2)}
+
+Gegeben ist der deterministische endliche Automat
+\bAutomat{
+  zustaende={A, B, C, D, E},
+  alphabet={0, 1},
+  start=A,
+  ende=E,
+}.
+\index{Reguläre Sprache}
+\footcite[Seite 11, Aufgabe 7]{theo:ab:1}
+\index{Deterministisch endlicher Automat (DEA)}
+
+\begin{center}
+\begin{tabular}{l||l|l}
+$\delta$ & 0 & 1 \\\hline\hline
+A & B & C \\\hline
+B & E & C \\\hline
+C & D & C \\\hline
+D & E & A \\\hline
+E & E & E \\\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Minimieren Sie den Automaten mit dem bekannten
+Minimierungsalgorithmus. Dokumentieren Sie die Schritte geeignet.
+\index{Minimierungsalgorithmus}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li automat]
+\node[state,initial] (A) {A};
+\node[state,right=of A] (C) {C};
+\node[state,above=of C] (B) {B};
+\node[state,below=of C] (D) {D};
+\node[state,right=5cm of A,accepting] (E) {E};
+
+\path (A) edge[above] node{0} (B);
+\path (A) edge[above] node{1} (C);
+\path (B) edge[above] node{0} (E);
+\path (B) edge[right] node{1} (C);
+\path (C) edge[right] node{0} (D);
+\path (C) edge[above,loop right] node{1} (C);
+\path (D) edge[above] node{1} (A);
+\path (D) edge[above] node{0} (E);
+\path (E) edge[above,loop right] node{0,1} (E);
+\end{tikzpicture}
+\bFlaci{A5amu40wc}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+A & \l  & \l  & \l  & \l  & \l \\ \hline
+B & \f2 & \l  & \l  & \l  & \l \\ \hline
+C &     & \f2 & \l  & \l  & \l \\ \hline
+D & \f2 &     & \f2 & \l  & \l \\ \hline
+E & \f1 & \f1 & \f1 & \f1 & \l \\ \hline\hline
+  & A   & B   & C   & D   & E  \\ \hline
+\end{tabular}
+\end{center}
+
+\bFussnoten
+
+\begin{liUebergangsTabelle}{0}{1}
+\Z A B & \Z B E \f2 & \Z C C \\
+\Z A C & \Z B D     & \Z C C \\
+\Z A D & \Z B E \f2 & \Z C A \\
+\Z B C & \Z E D \f2 & \Z C C \\
+\Z B D & \Z E E     & \Z C A \\
+\Z C D & \Z D E \f2 & \Z C A \\
+\end{liUebergangsTabelle}
+
+\bPseudoUeberschrift{Minimiert}
+
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,initial] (A+C) at (2.14cm,-2.14cm) {A+C};
+  \node[state] (B+D) at (5.29cm,-2.14cm) {B+D};
+  \node[state,accepting] (E) at (8.43cm,-2.14cm) {E};
+
+  \path (A+C) edge[auto,bend left] node{$0$} (B+D);
+  \path (A+C) edge[auto,loop above] node{$1$} (A+C);
+  \path (B+D) edge[auto,bend left] node{$1$} (A+C);
+  \path (B+D) edge[auto] node{$0$} (E);
+  \path (E) edge[auto,loop above] node{$0,1$} (E);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ara57j4oa}
+\end{bAntwort}
+
+\item Geben Sie einen regulären Ausdruck für die erkannte Sprache an.
+\index{Reguläre Ausdrücke}
+
+\begin{bAntwort}
+$r = (0|1)^*00(0|1)^*$
+\end{bAntwort}
+
+\item Geben Sie die Äquivalenzklassen der Myhill-Nerode-Äquivalenz der
+Sprache durch reguläre Ausdrücke an.
+\index{Äquivalenzklassen}
+
+\begin{bAntwort}
+Die Äquivalenzklassen lauten: $[A, C], [B, D], [E]$
+
+\begin{align*}
+r_A &= (1^*(01)^*)^*\\
+r_B &= (1^*(01)^*)^*0\\
+r_C &= r\\
+\end{align*}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,168 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Binärzahl dekrementieren},
+  Thematik = {Binärzahl dekrementieren},
+  Referenz = THEO.Formale-Sprachen.Typ-1_Kontextsensitiv.Turing-Maschine.Binaerzahl-dekrementieren,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/30_Typ-1_Kontextsensitiv/Turing-Maschine/Aufgabe_Binaerzahl-dekrementieren.tex,
+  ZitatSchluessel = theo:ab:3,
+  ZitatBeschreibung = {Aufgabe 3},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+}
+
+\let\t=\bTuringUebergangZelle
+
+Sei \bAlphabet{0, 1} und $\Gamma = \{ 0, 1, \bTuringLeerzeichen \}$.
+Konstruiere eine Turingmaschine $M$, die eine in Binärform gegebene,
+natürliche Zahl $(\neq 0)$ um $1$ dekrementiert (und wieder in Binärform
+ausgibt). Der Schreib-/Lesekopf steht zu Beginn der Berechnung auf dem
+ersten Leerzeichen links von der Eingabe und soll auch am Ende wieder
+dort stehen. Beachte, dass führende Nullen in der Eingabe/Ausgabe nicht
+vorkommen dürfen.
+\index{Turing-Maschine}
+\footcite[Aufgabe 3]{theo:ab:3}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tabular}{r|l}
+\textbf{dezimal} & \textbf{binär} \\\hline
+0 & 0 \\
+1 & 1 \\
+2 & 10 \\
+3 & 11 \\
+4 & 100 \\
+5 & 101 \\
+6 & 110 \\
+7 & 111 \\
+8 & 1000 \\
+9 & 1001 \\
+10 & 1010 \\
+11 & 1011 \\
+12 & 1100 \\
+13 & 1101 \\
+14 & 1110 \\
+15 & 1111 \\
+16 & 10000 \\
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\noindent
+Die Maschine geht zunächst ans rechte Ende des Wortes, dann invertiert
+sie alle $0$ Bits, bis sie auf eine $1$ trifft. Diese wird durch $0$
+ersetzt. Damit ist der Dekrementierungsvorgang beendet. Nun sucht Sie
+das linke Ende des Wortes und löscht eventuell entstandene führende
+Nullen. Trifft Sie dabei auf das Leerzeichen, so war die Ausgabe die
+Zahl $0$ und diese wird wieder aufs Band geschrieben. Insgesamt ergibt
+sich
+
+\begin{center}
+\bTuringMaschine{zustaende={z_0, z_1, z_2, z_3, z_4, z_5}, start={z_0}, ende={z_5}}
+\end{center}
+
+mit unten angegebener Übergangsfunktion:
+
+\begin{tabular}{lllll}
+δ &
+0 &
+1 &
+d &
+Kommentar\\\hline
+
+z0 &
+∅ &
+∅ &
+\t{z1, LEER, R} &
+Gehe auf erstes Zeichen des Wortes\\\hline
+
+z1 &
+\t{z1, 0, R} &
+\t{z1, 1, R} &
+\t{z2, LEER, L} &
+Gehe ans rechte Ende des Wortes\\\hline
+
+z2 &
+\t{z2, 1, L} &
+\t{z3, 0, L} &
+∅ &
+Flippe alle 0 Bits bis die erste 1 erreicht wird, setzte diese auf 0\\\hline
+
+z3 &
+\t{z3, 0, L} &
+\t{z3, 1, L} &
+\t{z4, LEER, R} &
+suche linkes Ende des Wortes\\\hline
+
+z4 &
+\t{z4, LEER, R} &
+\t{z5, 1, L} &
+\t{z5, 0, L} &
+lösche führende Nullen , schreibe evtl. 0 aufs Band\\\hline
+
+z5 &
+∅ &
+∅ &
+∅ &
+Endzustand\\\hline
+\end{tabular}
+
+\begin{center}
+\begin{tikzpicture}[li turingmaschine]
+  \node[state,initial] (z0) at (2.86cm,-2.29cm) {$z_0$};
+  \node[state] (z1) at (6.43cm,-2.29cm) {$z_1$};
+  \node[state] (z2) at (9.57cm,-2.29cm) {$z_2$};
+  \node[state] (z3) at (2.57cm,-4.86cm) {$z_3$};
+  \node[state] (z4) at (6.14cm,-6.29cm) {$z_4$};
+  \node[state,accepting] (z5) at (9.57cm,-6.29cm) {$z_5$};
+
+  \bTuringKante[above]{z0}{z1}{
+    1, 1, R;
+    0, 0, R;
+    LEER, LEER, R;
+  }
+
+  \bTuringKante[above]{z1}{z2}{
+    LEER, LEER, L;
+  }
+
+  \bTuringKante[above,loop above]{z1}{z1}{
+    1, 1, R;
+    0, 0, R;
+  }
+
+  \bTuringKante[above,loop above]{z2}{z2}{
+    0, 1, L;
+  }
+
+  \bTuringKante[above]{z2}{z3}{
+    1, 0, L;
+  }
+
+  \bTuringKante[above,loop above]{z3}{z3}{
+    1, 1, L;
+    0, 0, R;
+  }
+
+  \bTuringKante[above]{z3}{z4}{
+    LEER, LEER, R;
+  }
+
+  \bTuringKante[above,loop above]{z4}{z4}{
+    0, LEER, R;
+  }
+
+  \bTuringKante[above]{z4}{z5}{
+    1, 1, L;
+    LEER, 0, R;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ahifz611c}
+\end{bAntwort}
+
+\end{document}

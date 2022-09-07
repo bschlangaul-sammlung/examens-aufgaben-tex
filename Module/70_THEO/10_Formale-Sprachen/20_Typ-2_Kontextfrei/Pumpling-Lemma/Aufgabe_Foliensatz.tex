@@ -1,0 +1,55 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,pumping-lemma}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Pumping-Lemma},
+  Thematik = {an bn cn},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Pumpling-Lemma.Foliensatz,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Pumpling-Lemma/Aufgabe_Foliensatz.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 42},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Pumping-Lemma (Kontextfreie Sprache)},
+}
+
+Gegeben sei die Sprachen
+\index{Pumping-Lemma (Kontextfreie Sprache)}
+\footcite[Seite 42]{theo:fs:2}
+
+\begin{center}
+\bAusdruck{a^n b^n c^n}{n \in \mathbb{N}}
+\end{center}
+
+\noindent
+Weisen Sie nach, dass $L$ nicht kontextfrei ist.
+
+\begin{bExkurs}[Pumping-Lemma für Kontextfreie Sprachen]
+\bPumpingKontextfrei
+\end{bExkurs}
+
+\begin{bAntwort}
+Also gibt es eine Pumpzahl. Sie sei $j$. (Wähle geschickt ein „langes“
+Wort...) $a^j b^j c^j$ ist ein Wort aus $L$, das sicher länger als $j$
+ist.
+
+Da $L$ kontextfrei ist, muss es nach dem Pumping-Lemma auch für
+dieses Wort eine beliebige Zerlegung geben:
+
+$a^j b^j c^j = uvwxy$ mit $|vx| \geq 1$ und $|vwx| \leq j$
+
+Weil $vwx$ höchstens $j$ lang ist, kann es nie $a$‘s und $c$‘s
+zugleich enthalten (es stehen $j$ $b$‘s dazwischen!).
+
+Andererseits enthält $vx$ mindestens ein Zeichen. Das Wort $\omega
+= uv^0 wx^0 y = uwy$ enthält dann nicht mehr gleich viele $a$‘s, $b$‘s
+und $c$‘s. (Widerspruch)!
+
+Die Behauptung ist falsch.
+
+\noindent
+$\Rightarrow$ $L$ ist nicht kontextfrei!
+
+\end{bAntwort}
+\end{document}

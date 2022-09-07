@@ -1,0 +1,274 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6:},
+  Thematik = {Halden - Heaps},
+  Referenz = 46115-2017-H.T2-A6,
+  RelativerPfad = Staatsexamen/46115/2017/09/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:46115:2017:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Halde (Heap)},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2017,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 6,
+}
+
+Gegeben sei folgende Feld-Einbettung (Array-Darstellung) einer Min-Halde:
+\index{Halde (Heap)}
+\footcite{examen:46115:2017:09}
+
+\begin{bProjektSprache}{Baum}
+0 2 3 7 6 5 4 8 9 10 11 12
+\end{bProjektSprache}
+
+\begin{center}
+\begin{tabular}{llllllllllll}
+\bf{0}  & \bf{1}  & \bf{2}  & \bf{3}  & \bf{4}  & \bf{5}  & \bf{6}  & \bf{7}  & \bf{8}  & \bf{9}  & \bf{10} & \bf{11} \\
+\hline
+0       & 2       & 3       & 7       & 6       & 5       & 4       & 8       & 9       & 10      & 11      & 12      \\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Stellen Sie die Halde graphisch als (links-vollständigen) Baum
+dar.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.0
+  [.2
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.6
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.5
+      [.12 ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Entfernen Sie das kleinste Element (die Wurzel 0) aus der obigen
+initialen Halde, stellen Sie die Haldeneigenschaft wieder her und geben
+Sie nur das Endergebnis in Felddarstellung an.
+
+\begin{bAntwort}
+\begin{tabular}{lllllllllll}
+\bf{0}  & \bf{1}  & \bf{2}  & \bf{3}  & \bf{4}  & \bf{5}  & \bf{6}  & \bf{7}  & \bf{8}  & \bf{9}  & \bf{10} \\
+\hline
+2       & 6       & 3       & 7       & 10      & 5       & 4       & 8       & 9       & 12      & 11      \\
+\end{tabular}
+\end{bAntwort}
+
+\begin{bAdditum}[zu b)]
+\begin{bBaum}{Entfernen von „0“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.12
+  [.2
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.6
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.5 ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „12“ und „2“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.2
+  [.12
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.6
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.5 ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „12“ und „6“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.2
+  [.6
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.12
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.5 ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „12“ und „10“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.2
+  [.6
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.10
+      [.12 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.5 ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAdditum}
+
+%%
+% c)
+%%
+
+\item Fügen Sie nun den Wert 1 in die obige initiale Halde ein, stellen
+Sie die Haldeneigenschaft wieder her und geben Sie nur das Endergebnis
+in Felddarstellung an.
+
+\begin{bAntwort}
+\begin{tabular}{lllllllllllll}
+\bf{0}  & \bf{1}  & \bf{2}  & \bf{3}  & \bf{4}  & \bf{5}  & \bf{6}  & \bf{7}  & \bf{8}  & \bf{9}  & \bf{10} & \bf{11} & \bf{12} \\
+\hline
+0       & 2       & 1       & 7       & 6       & 3       & 4       & 8       & 9       & 10      & 11      & 12      & 5       \\
+\end{tabular}
+\end{bAntwort}
+
+\begin{bAdditum}[zu c)]
+
+\begin{bBaum}{Nach dem Einfügen von „1“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.0
+  [.2
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.6
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.5
+      [.12 ]
+      [.1 ]
+    ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „1“ und „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.0
+  [.2
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.6
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.3
+    [.1
+      [.12 ]
+      [.5 ]
+    ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „1“ und „3“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.0
+  [.2
+    [.7
+      [.8 ]
+      [.9 ]
+    ]
+    [.6
+      [.10 ]
+      [.11 ]
+    ]
+  ]
+  [.1
+    [.3
+      [.12 ]
+      [.5 ]
+    ]
+    [.4 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAdditum}
+\end{enumerate}
+
+\end{document}

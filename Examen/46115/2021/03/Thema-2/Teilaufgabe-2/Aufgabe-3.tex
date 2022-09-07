@@ -1,0 +1,126 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{pseudo}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Lineare und Binäre Suchverfahren},
+  Referenz = 46115-2021-F.T2-TA2-A3,
+  RelativerPfad = Staatsexamen/46115/2021/03/Thema-2/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46115:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binäre Suche},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+\index{Binäre Suche}
+\footcite{examen:46115:2021:03}
+
+\noindent
+Gegeben ist ein aufsteigend sortiertes Array $A$ von $n$ ganzen Zahlen
+und eine ganze Zahl $x$. Es wird der Algorithmus \texttt{BinarySearch}
+betrachtet, der $A$ effizient nach dem Wert $x$ absucht. Ergebnis ist
+der Index $i$ mit $x = A[i]$ oder NIL, falls $x \notin A$.
+
+\begin{function}
+\caption{BinarySearch(int A, int r)}
+$l=1$\;
+$r= A.length$\;
+\While{$r\geq l$}{
+  \uIf{x < A[m]}{
+    r = m - 1\;
+  }
+  \uElseIf{x=A[m]}{
+    \Return m\;
+  }
+  \Else{
+    l = m + 1\;
+  }
+  \Return NIL \;
+}
+\end{function}
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Durchsuchen Sie das folgende Feld jeweils nach den in (i) bis
+(iii) angegebenen Werten mittels binärer Suche. Geben Sie für jede
+Iteration die Werte /,r,m und den betretenen if-Zweig an. Geben Sie
+zudem den Ergebnis-Index bzw. NIL an.
+
+Index
+
+i]s] «| «| 2] 4] off
+
+wen [ilsfol7] io] w]u]al ale!
+\begin{enumerate}
+%%
+% (i)
+%%
+
+\item 10
+%%
+% (ii)
+%%
+
+\item 13
+%%
+% (iii)
+%%
+
+\item 22
+\end{enumerate}
+
+%%
+% b)
+%%
+
+\item Betrachten Sie auf das Array aus Teilaufgabe a). Für welche Werte
+durchläuft der Algorith- mus nie den letzten else-Teil in Zeile 11?
+Hinweis: Unterscheiden Sie auch zwischen enthaltenen und
+nicht-enthaltenen Werten.
+
+%%
+% c)
+%%
+
+\item Wie ändert sich das Ergebnis der binären Suche, wenn im sortierten
+Eingabefeld zwei aufeinanderfolgende, unterschiedliche Werte
+vertauscht wurden? Betrachten Sie hierbei die betroffenen Werte, die
+anderen Feldelemente und nicht enthaltene Werte in Abhängigkeit vom Ort
+der Vertauschung.
+
+%%
+% d)
+%%
+
+\item Angenommen, das Eingabearray A für den Algorithmus für die binäre
+Suche enthält nur die Zahlen 0 und 1, aufsteigend sortiert. Zudem ist
+jede der beiden Zahlen mindestens ein Mal vorhanden. Ändern Sie den
+Algorithmus für die binäre Suche so ab, dass er den bzw. einen Index k
+zurückgibt, für den gilt: Alk] =1 und Ak—1]=0.
+
+%%
+% e)
+%%
+
+\item Betrachten Sie die folgende rekursive Variante von BinarySearch.
+
+1 int RekBinarySearch(int[] A. int x. int £. int r)
+
+| mi
+
+3 | (rekursive Implementierung)
+
+Der initiale Aufruf der rekursiven Variante lautet:
+RekBinarySearch (A, z, 1, A.length)
+\end{enumerate}
+
+\end{document}

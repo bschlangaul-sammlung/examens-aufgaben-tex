@@ -1,0 +1,122 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Binomialkoeffizient},
+  Referenz = 46115-2014-F.T2-A4,
+  RelativerPfad = Staatsexamen/46115/2014/03/Thema-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46115:2014:03,
+  ZitatBeschreibung = {Thema 2 Aufgabe 4},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Rekursion, Implementierung in Java, Iterative Realisation},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 4,
+}
+
+\section{Aufgabe 4
+\index{Rekursion}
+\footcite[Thema 2 Aufgabe 4]{examen:46115:2014:03}
+}
+
+Für Binomialkoeffizienten
+$\binom{n}{k}$
+gelten neben den grundlegenden Beziehungen
+$\binom{n}{0} = 1$
+und
+$\binom{n}{n} = 1$
+auch folgende Formeln:
+
+\begin{bExkurs}[Binomialkoeffizient]
+Der Binomialkoeffizient ist eine mathematische Funktion, mit der sich
+eine der Grundaufgaben der Kombinatorik lösen lässt. Er gibt an, auf wie
+viele verschiedene Arten man $k$ bestimmte Objekte aus einer Menge von
+$n$ verschiedenen Objekten auswählen kann (ohne Zurücklegen, ohne
+Beachtung der Reihenfolge). Der Binomialkoeffizient ist also die Anzahl
+der $k$-elementigen Teilmengen einer $n$-elementigen Menge.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Binomialkoeffizient}
+\end{bExkurs}
+
+\begin{description}
+\item[A]
+$
+\binom{n+1}{k}
+=
+\binom{n}{k-1}
++
+\binom{n}{k}
+$
+\item[B]
+$
+\binom{n}{k}
+=
+\binom{n-1}{k-1}
+\cdot
+\frac{n}{k}
+$
+
+\end{description}
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Implementieren\index{Implementierung in Java} Sie unter Verwendung
+von Beziehung (A) eine rekursive Methode \bJavaCode{binRek(n, k)} zur
+Berechnung des Binomialkoeffizienten in einer objektorientierten
+Programmiersprache oder entsprechendem Pseudocode!
+\footcite[(entnommen aus Algorithmen und Datenstrukturen, Übungsblatt 2, Universität Würzburg), Aufgabe 6]{aud:pu:7}
+
+\begin{bAntwort}
+Zuerst verwandeln wir die Beziehung (A) geringfügig um, indem wir $n$
+durch $n-1$ ersetzen:
+
+$
+\binom{n}{k}
+=
+\binom{n-1}{k-1}
++
+\binom{n-1}{k}
+$
+
+\bJavaExamen[firstline=18,lastline=24]{46115}{2014}{03}{Binomialkoeffizient}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Implementieren Sie unter Verwendung von Beziehung (B) eine
+iterative Methode\index{Iterative Realisation} \bJavaCode{binIt(n, k)} zur
+Berechnung des Binomialkoeffizienten in einer objektorientierten
+Programmiersprache oder entsprechendem Pseudocode!
+
+\begin{bAntwort}
+\bJavaExamen[firstline=35,lastline=47]{46115}{2014}{03}{Binomialkoeffizient}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Geben Sie die Laufzeitkomplexität der Methoden
+\bJavaCode{binRek(n, k)} und \bJavaCode{binIt(n, k)} aus den
+vorhergehenden beiden Teilaufgaben in O-Notation an!
+
+\end{enumerate}
+
+\bPseudoUeberschrift{Komplette Java-Klasse}
+
+\bJavaExamen{46115}{2014}{03}{Binomialkoeffizient}
+
+\bPseudoUeberschrift{Test}
+
+\bJavaTestDatei{examen/examen_46115/jahr_2014/fruehjahr/BinomialkoeffizientTest}
+
+\end{document}

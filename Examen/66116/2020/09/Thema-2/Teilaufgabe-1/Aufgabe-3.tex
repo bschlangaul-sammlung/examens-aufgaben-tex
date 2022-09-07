@@ -1,0 +1,151 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Fahrkartenautomat},
+  Referenz = 66116-2020-H.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2020/09/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2020:09,
+  BearbeitungsStand = TeX-Fehler,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Anwendungsfalldiagramm},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Im Folgenden ist eine Systembeschreibung für einen „Fahrkartenautomat“
+angegeben.\index{Anwendungsfalldiagramm}
+\footcite{examen:66116:2020:09}
+
+Es gibt zwei Arten von Bahnfahrern: Gelegenheitsfahrer und Vielfahrer.
+Bei der Benutzung des Kartenautomaten kann sich grundsätzlich jeder die
+Hilfe anzeigen lassen und ein Beschwerdeformular ausfüllen.
+
+Gelegenheitsfahrer haben keine Benutzer-Id und können Einzelfahrkarten
+auswählen und anschließend kaufen. Damit ein Kaufvorgang erfolgreich
+abgeschlossen wird, muss ein entsprechender Geldbetrag eingezahlt
+werden. Dies geschieht entweder mit Bargeld oder per EC-Karte. Nach dem
+Kauf eines Tickets kann man sich dafür optional eine separate Quittung
+drucken lassen.
+
+Vielfahrer haben eine eindeutige Benutzer-Id mit Passwort, um sich am
+Automaten zu authentifizieren. Ein Vielfahrer kann sowohl eine
+Einzelfahrkarte als auch eine personalisierte Monatskarte erwerben.
+Sofern er eine Monatskarte besitzt (Information im System hinterlegt),
+kann er sich kostenfrei eine Ersatzfahrkarte ausstellen lassen, falls er
+seine Monatskarte verloren hat. Wenn die Authentifizierung oder ein
+Kaufvorgang fehlschlägt, soll eine entsprechende Fehlermeldung
+erscheinen.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben Sie die im Text erwähnten Akteure für das beschriebene
+System an.
+
+\begin{bAntwort}
+Bahnfahrer
+
+\begin{itemize}
+\item Gelegenheitsfahrer
+
+\item Vielfahrer
+\end{itemize}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Identifizieren Sie zwei weitere Stakeholder und nennen Sie dazu je
+zwei unterschiedliche Anwendungsfälle des Systems, in die diese
+involviert sind.
+
+\begin{bAntwort}
+EC-Karte
+Bargeld
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Geben Sie mindestens sechs verschiedene Anwendungsfälle für das
+beschriebene System an.
+
+\begin{bAntwort}
+\begin{itemize}
+\item Hilfe anzeigen
+\item Beschwerdeformular ausfüllen
+\item Auswahl
+\begin{itemize}
+\item Einzelfahrkarten
+\item Monatskarte
+\end{itemize}
+\item Einzelfahrkarten kaufen
+\item Zahlen
+\begin{itemize}
+\item Bargeld
+\item EC-Karte
+\end{itemize}
+\item Quittung drucken
+\item Authentifizieren
+
+\begin{itemize}
+\item Bargeld
+\item EC-Karte
+\end{itemize}
+\end{itemize}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Erstellen Sie aus Ihren vorherigen Antworten ein Use-Case-Diagramm
+für das beschriebene System, in dem die Akteure und Anwendungsfälle
+inkl. möglicher Generalisierungen und Beziehungen eingetragen sind.
+Achten Sie insbesondere auf mögliche <<include>>- und
+<<extends>>-Beziehungen und Bedingungen für Anwendungsfälle.
+
+\begin{bAntwort}
+\begin{tikzpicture}[scale=0.5,transform shape]
+\begin{umlsystem}{Fahrkartenautomat}
+\umlusecase[y=0,x=0]{Karte kaufen}
+\umlusecase[y=-2,x=0]{Karte bezahlen}
+\umlusecase[y=-4,x=0]{Karte auswählen}
+\umlusecase[y=2,x=0]{Quittung drucken}
+\umlusecase[y=-3,x=-3,width=1.5cm]{Monatskarte auswählen}
+\umlusecase[y=-5,x=-3,width=1.5cm]{Einzelkarte auswählen}
+\end{umlsystem}
+
+\umlactor[x=-6,y=-2]{Bahnfahrer}
+\umlactor[x=-4,y=0]{Vielfahrer}
+\umlactor[x=-4,y=-4]{Gelegenheitsfahrer}
+\umlactor[x=4,y=-2]{Bargeld}
+\umlactor[x=4,y=-4]{EC-Karte}
+\umlinclude{usecase-1}{usecase-2}
+\umlinclude{usecase-2}{usecase-3}
+\umlextend{usecase-4}{usecase-1}
+
+\umlinherit{Vielfahrer}{Bahnfahrer}
+\umlinherit{Gelegenheitsfahrer}{Bahnfahrer}
+
+\umlassoc{Bargeld}{usecase-2}
+\umlassoc{EC-Karte}{usecase-2}
+
+% \umlassoc{user}{usecase-3}
+\end{tikzpicture}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

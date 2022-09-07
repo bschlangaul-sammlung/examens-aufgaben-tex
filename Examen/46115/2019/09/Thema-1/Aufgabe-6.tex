@@ -1,0 +1,168 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6 (Stacks)},
+  Thematik = {Mystery-Stacks},
+  Referenz = 46115-2019-H.T1-A6,
+  RelativerPfad = Staatsexamen/46115/2019/09/Thema-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:46115:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Stapel (Stack)},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 6,
+}
+
+\let\j=\bJavaCode
+
+Gegeben sei die Implementierung eines Stacks ganzer Zahlen mit folgender
+Schnittstelle:
+\index{Stapel (Stack)}
+\footcite{examen:46115:2019:09}
+
+\bJavaExamen[firstline=3]{46115}{2019}{09}{mystery_stack/IntStack}
+
+\noindent
+Betrachten Sie nun die Realisierung der folgenden Datenstruktur
+\j{Mystery}, die zwei Stacks benutzt.
+
+\bJavaExamen[firstline=3,lastline=18]{46115}{2019}{09}{mystery_stack/Mystery}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Skizzieren Sie nach jedem Methodenaufruf der im folgenden
+angegebenen Befehlssequenz den Zustand der beiden Stacks eines Objekts
+\j{m} der Klasse \j{Mystery}. Geben Sie zudem bei jedem Aufruf der
+Methode \j{bar} an, welchen Wert diese zurückliefert.
+
+\bJavaExamen[firstline=21,lastline=30]{46115}{2019}{herbst}{mystery_stack/Mystery}
+
+\begin{bAntwort}
+\def\e#1#2#3#4{
+\bJavaCode{#1} &
+\{ #2 \} &
+\{ #3 \} &
+#4\\
+}
+
+\begin{tabular}{l|l|l|l}
+Code & Stack b & Stack b & Rückgabewert \\\hline\hline
+
+\e{m.foo(3);}{3}{}{}
+\e{m.foo(5);}{5, 3}{}{}
+\e{m.foo(4);}{4, 5, 3}{}{}
+
+\e{m.bar();}{}{5, 4}{3}
+
+\e{m.foo(7);}{7}{5, 4}{}
+
+\e{m.bar();}{7}{4}{5}
+
+\e{m.foo(2);}{2, 7}{}{}
+
+\e{m.bar();}{2, 7}{}{4}
+\e{m.bar();}{}{2}{7}
+\end{tabular}
+
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Sei $n$ die Anzahl der in einem Objekt der Klasse \j{Mystery}
+gespeicherten Werte. Im folgenden wird gefragt, wieviele Aufrufe von
+Operationen der Klasse \j{IntStack} einzelne Aufrufe von Methoden der
+Klasse \j{Mystery} verursachen. Begründen Sie jeweils Ihre Antwort.
+
+\begin{enumerate}
+
+%%
+% (i)
+%%
+
+\item Wie viele Aufrufe von Operationen der Klasse \j{IntStack}
+verursacht die Methode \j{foo(x)} im besten Fall?
+
+\begin{bAntwort}
+Einen Aufruf, nämlich \bJavaCode{a.push(i)}
+\end{bAntwort}
+
+%%
+% (ii)
+%%
+
+\item Wie viele Aufrufe von Operationen der Klasse \j{IntStack}
+verursacht die Methode \j{foo(x)} im schlechtesten Fall?
+
+\begin{bAntwort}
+Einen Aufruf, nämlich \bJavaCode{a.push(i)}
+\end{bAntwort}
+
+%%
+% (ii)
+%%
+
+\item Wie viele Aufrufe von Operationen der Klasse \j{IntStack}
+verursacht die Methode \j{bar()} im besten Fall?
+
+\begin{bAntwort}
+Wenn der Stack \j{b} nicht leer ist, dann werden zwei Aufrufe
+benötigt, nämlich \j{b.isEmpty()} und \j{b.pop()}
+\end{bAntwort}
+
+%%
+% (iv)
+%%
+
+\item Wie viele Aufrufe von Operationen der Klasse \j{IntStack}
+verursacht die Methode \j{bar()} im schlechtesten Fall?
+
+\begin{bAntwort}
+Wenn der Stack \j{b} leer ist, dann liegen all $n$ Objekte im Stack
+\j{a}. Die Objekte im Stack \j{a} werden in der \j{while}-Schleife nach
+\j{b} verschoben. Pro Objekt sind drei Aufrufe nötig, also $3 \cdot n$.
+\j{b.isEmpty()} (erste Zeile in der Methode) und \j{b.pop()} (letzte
+Zeile in der Methode) wird immer aufgerufen. Wenn alle Objekt von \j{a}
+nach \j{b} verschoben wurden, wird zusätzlich noch einmal in der
+Bedingung der \j{while}-Schleife \j{a.isEmpty()} aufgerufen. Im
+schlechtesten Fall werden also $3 \cdot n + 3$ Operationen der Klasse
+\j{IntStack} aufgerufen.
+\end{bAntwort}
+\end{enumerate}
+
+%%
+% (c)
+%%
+
+\item Welche allgemeinen Eigenschaften werden durch die Methoden \j{foo}
+und \j{bar} realisiert? Unter welchem Namen ist diese Datenstruktur
+allgemein bekannt?
+
+\begin{bAntwort}
+\begin{description}
+\item[\j{foo()}] Legt das Objekt auf den Stack \j{a}. Das Objekt wird in
+die Warteschlange eingereiht. Die Methode müsste eigentlich
+\j{enqueue()} heißen.
+
+\item[\j{bar()}] Verschiebt alle Objekte vom Stack \j{a} in umgekehrter
+Reihenfolge in den Stack \j{b}, aber nur dann, wenn Stack \j{b} leer
+ist. Entfernt dann den obersten Wert aus dem Stack \j{b} und gibt ihn
+zurück. Das zuerst eingereihte Objekt wird aus der Warteschlange
+entnommen. Die Methode müsste eigentlich \j{dequeue()} heißen.
+\end{description}
+
+Die Datenstruktur ist unter dem Namen Warteschlange oder Queue bekannt
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

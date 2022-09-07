@@ -1,0 +1,73 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{er}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3: Olympische Spiele},
+  Thematik = {Olympische Spiele},
+  Referenz = DB.Datenbankentwurf.Entity-Relation-Modell.Olympische-Spiele,
+  RelativerPfad = Module/10_DB/20_Datenbankentwurf/01_Entity-Relation-Modell/Aufgabe_Olympische-Spiele.tex,
+  ZitatSchluessel = db:ab:4,
+  ZitatBeschreibung = {Aufgabe 3},
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell},
+}
+
+\let\a=\bErMpAttribute
+\let\d=\bErDatenbankName
+\let\e=\bErMpEntity
+\let\r=\bErMpRelationship
+
+Geben Sie ein Entity-Relationship-Diagramm (mit Schlüssel und
+Funktionalität) für folgendes Problem an:\index{Entity-Relation-Modell}
+\footcite[Aufgabe 3]{db:ab:4}
+
+\bigskip
+
+Eine europäische Fachzeitschrift für Leichtathletik möchte in einer
+relationalen Datenbank die folgenden Informationen zu den Olympischen
+Sommerspielen speichern:
+
+Für jeden \e{Sportler}, der bei den Olympischen Spielen teilgenommen
+hat, sollen der \a{Name}, die \a{Nationalität}, die \a{Größe} und das
+\a{Gewicht} bekannt sein. Zusätzlich soll abgefragt werden können, ob
+der betreffenden Sportler \a{aus Europa} stammt.
+
+Zu den \e{Olympischen Spielen} sollen das \a{Jahr}, der
+\a{Austragungsort} und die \a{Teilnehmerzahl} gespeichert werden.
+
+Außerdem soll bekannt sein, welcher
+Sportler bei welchen Spielen welchen Rekord \r{erzielt} hat.
+
+Zu jedem \e{Rekord} sollen die \a{Disziplin} und die \a{Art} des Rekords
+(Weltrekord, Europarekord,...) gespeichert werden. Darüber soll ohne
+Umweg abrufbar sein, ob es sich um einen Rekord in der
+\a{Leichtathletik} handelt.
+
+Es sei vorausgesetzt, dass jeder Sportler eindeutig durch seinen Namen
+identifizierbar ist und dass Olympische Spiele in verschiedenen Jahren
+in derselben Stadt stattfinden können. Ein Rekord soll eindeutig durch
+die Disziplin und die Art des Rekords gekennzeichnet sein.
+
+\begin{bAntwort}
+Die Frage, ob ein Sportler Europäer ist, und die Anzahl der Teilnehmer
+kann über SQL-Anfragen gelöst werden. Diese Informationen brauchen
+nicht explizit gespeichert zu werden. Die Feststellung, ob ein Sportler
+\emph{Europäer} ist konnte man auch ohne spezielles Attribut Europäer
+ﬁnden, indem man beispielsweise folgende Anfrage stellt: Gib mir alle
+Sportler, für deren Nationalität gilt: Nationalität = deutsch ODER
+Nationalität = französisch. Auch die Anzahl der Teilnehmer kann man ohne
+eigenes Attribut Teilnehmerzahl mit Hilfe des Relationsship-Typen
+\emph{nimmt teil} herausﬁnden. Über die Angaben bei der(min, max)
+Notation kann man natürlich diskutieren. Hier wurde angenommen: Ein
+Sportler kann bei Olympischen Spielen Rekorde aufstellen, muss aber
+nicht. Bei einer Olympiade kann ein Rekord von mehreren Sportlern
+aufgestellt werden, ein Sportler muss aber beteiligt sein. Bei
+Olympischen Spielen können viele Rekorde aufgestellt werden, es muss
+aber keiner aufgestellt werden. Ein Sportler kann bei mehreren
+Olympischen Spielen teilnehmen. An den Olympischen Spielen nehmen
+mehrere Sportler teil.
+\end{bAntwort}
+
+\end{document}

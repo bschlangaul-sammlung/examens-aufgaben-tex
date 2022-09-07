@@ -1,0 +1,165 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,rmodell}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Universitätsdatenbank},
+  Referenz = 66111-1996-F.A2,
+  RelativerPfad = Staatsexamen/66111/1996/03/Aufgabe-2.tex,
+  ZitatSchluessel = bloechl,
+  ZitatBeschreibung = {Seite 219-221},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell, Verfeinertes Relationenmodell, SQL},
+  EinzelpruefungsNr = 66111,
+  Jahr = 1996,
+  Monat = 03,
+  AufgabeNr = 2,
+}
+
+Eine Universitätsdatenbank soll folgende Daten verwalten.
+\footcite[Seite 219-221]{bloechl}
+
+\begin{itemize}
+
+\item Studenten (Name, Matrikelnummer, Geburtsdatum, Adressen,
+Semesteranzahl, Studiengang, Fakultät, belegte Lehrveranstaltungen und
+deren Art)
+
+\item Lehrveranstaltungen (Anfangszeit, Semester, Art (Vorlesung,
+Seminar, Übung, Praktikum) Name, Anzahl der Hörer, Nummer im
+Vorlesungsverzeichnis, Anzahl Semesterwochenstunden, Dozent, Raum)
+\end{itemize}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Entwerfen Sie ein ER-schema für diese Applikation!
+Berücksichtigen Sie dabei, dass eine Vorlesung in 2
+Unterrichtseinheiten aufgeteilt werden kann (z. B. Mo 10.00 und Do
+14.00). Begründen Sie Ihren Entwurf!\index{Entity-Relation-Modell}
+\footcite{examen:66111:1996:03}
+
+%%
+% b)
+%%
+
+\item Spezifizieren Sie für die Entity-Typen Attribut und zeichnen Sie
+die Schlüsselattribute aus!
+
+%%
+% c)
+%%
+
+\item Geben Sie ein relationales Datenbankschema an!\index{Verfeinertes
+Relationenmodell}
+\footcite[Uni-ER-Modell, Aufgabe 2]{db:ab:4}
+
+\begin{bAntwort}
+\ttfamily
+\footnotesize
+Dozent(\bPrimaer{PersNr:INT}, Name:VARCHAR(20),
+\bFremd{FakName:VARCHAR(40)[Fakultät]})\\
+
+Fakultät(\bPrimaer{Name:VARCHAR(40)})\\
+
+Lehrveranstaltung(\bPrimaer{Nr:INT}, Name:VARCHAR(20), SWS:INT,
+Semester:INT, Art:VARCHAR(20), \bFremd{PersNr:INT[Dozemtn]})\\
+
+Student(\bPrimaer{MatrNr:INT}, Name:VARCHAR(40), Geburtsdatum:DATE,
+Semesteranzahl:INT, \bFremd{FakName:VARCHAR(40)[Fakultät]},
+Studiengang:VARCHAR(40))\\
+
+Adresse(\bPrimaer{Adresse:VARCHAR(100)})\\
+
+belegt(\bFremd{Nr:INT[Lehrveranstaltung], MatrNr:INT[Adresse]})\\
+
+besitzt(\bFremd{Adresse:VARCHAR(100)[Adresse], MatrNr:INT[Student]})\\
+
+Durchführung(\bPrimaer{Zeit:DATE, RaumNr:INT}, \bFremd{Nr:INT[Student]})\\
+\end{bAntwort}
+
+\item Welche Fremdschlüssel gibt es in diesem Schema?
+\end{enumerate}
+
+\noindent
+Es soll nun mit SQL\index{SQL} eine entsprechende relationale Datenbank
+angelegt werden. Geben Sie für folgende Aufgaben die jeweiligen
+SQL-Befehle an.
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+
+\item Die Tabellenschemata von \texttt{Student} und \texttt{besitzt}
+sollen erzeugt werden.
+
+\begin{bAntwort}
+% Datenbankname: universitaetsdatenbank
+\begin{minted}{sql}
+CREATE TABLE Fakultaet (
+  Name VARCHAR(20) PRIMARY KEY
+);
+
+CREATE TABLE Adresse (
+  Adresse VARCHAR(30) PRIMARY KEY
+);
+
+CREATE TABLE Student (
+  MatrNr INTEGER PRIMARY KEY,
+  Name VARCHAR(20) NOT NULL,
+  Geburtsdatum DATE,
+  Semesteranzahl INTEGER,
+  Fakultaetsname VARCHAR(20),
+  Studiengang VARCHAR(20),
+  FOREIGN KEY (Fakultaetsname) REFERENCES Fakultaet(Name)
+);
+
+CREATE TABLE besitzt (
+  Adresse VARCHAR(30) NOT NULL,
+  MatrNr INTEGER NOT NULL,
+  PRIMARY KEY (Adresse, MatrNr),
+  FOREIGN KEY (Adresse) REFERENCES Adresse(Adresse),
+  FOREIGN KEY (MatrNr) REFERENCES Student(MatrNr)
+);
+
+INSERT INTO Adresse VALUES ('Kaulbacherstraße 3');
+
+\end{minted}
+\end{bAntwort}
+
+\item Am Tabellenschema von \texttt{Student} werden zwei Änderungen
+vorgenommen:
+
+\begin{itemize}
+\item Es soll ein weiteres Attribut Vorname hinzugefügt werden.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+ALTER TABLE Student ADD COLUMN Vorname VARCHAR(20);
+\end{minted}
+\end{bAntwort}
+
+\item Als Integritätsbedingung wird festgelegt, dass die Semesterzahl
+kleiner als 15 sein muss.
+\end{itemize}
+
+\begin{bAntwort}
+\begin{minted}{sql}
+ALTER TABLE Student ADD CHECK (Semesteranzahl < 15);
+\end{minted}
+
+oder
+
+\begin{minted}{sql}
+ALTER TABLE Student
+ADD CONSTRAINT begrenzung_Semester
+CHECK (Semesteranzahl < 15);
+\end{minted}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

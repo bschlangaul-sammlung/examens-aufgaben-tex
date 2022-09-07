@@ -1,0 +1,83 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Umfrage},
+  Referenz = 66116-2019-F.T2-TA2-A3,
+  RelativerPfad = Staatsexamen/66116/2019/03/Thema-2/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2019:03,
+  BearbeitungsStand = TeX-Fehler,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Anwendungsfalldiagramm},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Nehmen Sie an, dass in einem System zur Durchführung von Umfragen
+die drei Anwendungsfälle \emph{„Teilnahme“}, \emph{„Fragen beantworten“}
+und \emph{„Registrierung für Verlosung“} gegeben seien. Alle
+Anwendungsfälle sind einem Teilnehmer (an einer Umfrage) zugänglich.
+Stellen Sie die drei Anwendungsfälle in einem UML-Anwendungsfalldiagramm
+(„use case diagram“) dar. Verwenden Sie dabei sowohl die <<extend>> -
+als auch die <<include>>-Beziehung und beschreiben Sie die Bedeutung der
+Beziehungen für die Existenz des „Teilnahme“-Anwendungsfalls.
+\index{Anwendungsfalldiagramm}
+\footcite{examen:66116:2019:03}
+
+\begin{bAntwort}
+\begin{tikzpicture}
+\begin{umlsystem}{Umfrage}
+\umlusecase[y=-2]{Teilnahme}
+\umlusecase[y=0,x=2]{Fragen beantworten}
+\umlusecase[y=-4,x=2]{Registrierung für Verlosung}
+\end{umlsystem}
+
+\umlactor[x=-3,y=-2]{user}
+\umlinclude{usecase-1}{usecase-2}
+\umlextend{usecase-3}{usecase-1}
+
+\umlassoc{user}{usecase-1}
+\umlassoc{user}{usecase-2}
+\umlassoc{user}{usecase-3}
+\end{tikzpicture}
+
+\begin{description}
+\item[<<include>>]
+
+Der/die Anwender/in kann nur an der Umfrage teilnehmen, wenn er/sie die
+Fragen beantwortet hat.
+
+\item[<<extend>>]
+
+Der/die Anwender/in kann zusätzlich zur Teilnahme an der Umfrage sich
+für die Verlosung registrieren.
+\end{description}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Welche Informationen sollte eine typische Spezifikation eines
+Anwendungsfalls enthalten?
+
+\begin{bAntwort}
+Ein Use-Case-Diagramm zeigt das externe Verhalten eines Systems aus der
+Sicht der Nutzer, indem es die Nutzer, die Use-Cases und deren
+Beziehungen zueinander darstellt.
+\footcite[Seite 241]{rupp}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

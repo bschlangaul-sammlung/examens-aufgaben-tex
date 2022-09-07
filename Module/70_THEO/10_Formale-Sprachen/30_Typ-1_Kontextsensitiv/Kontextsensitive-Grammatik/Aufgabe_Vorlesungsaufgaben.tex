@@ -1,0 +1,74 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Übung kontextsensitive Grammatiken},
+  Thematik = {Vorlesungsaufgaben kontextsensitive Grammatiken},
+  Referenz = THEO.Formale-Sprachen.Typ-1_Kontextsensitiv.Kontextsensitive-Grammatik.Vorlesungsaufgaben,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/30_Typ-1_Kontextsensitiv/Kontextsensitive-Grammatik/Aufgabe_Vorlesungsaufgaben.tex,
+  ZitatSchluessel = theo:fs:3,
+  ZitatBeschreibung = {Seite 8},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextsensitive Grammatik},
+}
+
+% Info_2021-04-23-2021-04-23_09.35.52.mp4 37min
+
+Gegen sei folgende Grammatik:
+\index{Kontextsensitive Grammatik}
+\footcite\footcite[Seite 8]{theo:fs:3}
+
+\bGrammatik{} mit
+$V = \{S, B, C\}$,
+\bAlphabet{a, b, c},
+$S=S$ und
+
+\begin{bProduktionsRegeln}
+S -> aSBC | aBC,
+CB -> BC,
+aB -> ab,
+bB -> bb,
+bC -> bc,
+cC -> cc,
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Geben Sie die Sprache an, die die folgende Grammatik erzeugt:
+
+\begin{bAntwort}
+\bAusdruck{a^n b^b c^n}{n \in \mathbb{N}}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Gib Sie eine Ableitung mit der folgenden Grammatik für das Wort
+aaabbbccc an.
+
+% Info_2021-04-23-2021-04-23_09.35.52.mp4 54min
+
+\begin{bAntwort}
+\bAbleitung{aSBC ->
+aaSBCBC ->
+aaaBCBCBC ->
+aaaBBCCBC ->
+aaaBBCBCC ->
+aaaBBBCCC ->
+aaabBBCCC ->
+aaabbBCCC ->
+aaabbbCCC ->
+aaabbbcCC ->
+aaabbbccC ->
+aaabbbccc}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Höherwertige Funktionen},
+  Thematik = {Höherwertige Funktionen},
+  Referenz = FUMUP.Funktionale-Programmierung.Hoeherwertige-Funktionen,
+  RelativerPfad = Module/60_FUMUP/30_Funktionale-Programmierung/Aufgabe_Hoeherwertige-Funktionen.tex,
+  ZitatSchluessel = fumup:ab:3,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Funktionale Programmierung mit Haskell},
+}
+
+Implementiere in der Datei switch.hs. Die Funktion
+\bHaskellCode{switch} bekommt eine einwertige Entscheidungsfunktion
+\bHaskellCode{s}, sowie ein Feld aus einwertigen Funktionen übergeben.
+Ihr Ergebnis ist eine einwertige Funktion (mit Parameter
+\bHaskellCode{x}). Diese Funktion interpretiert den Rückgabewert der
+Entscheidungsfunktion (\bHaskellCode{s x}) als Index, mit dem eine
+Funktion aus dem Feld auswählt wird. Diese gewählte Funktion wird dann
+für \bHaskellCode{x} auswertet. Wenn der ermittelte Funktionsindex
+nicht im Feld liegt, soll \bHaskellCode{x} unverändert zurückgegeben
+werden.
+\index{Funktionale Programmierung mit Haskell}
+\footcite{fumup:ab:3}
+
+\begin{bAntwort}
+\bHaskellDatei{switch.hs}
+\end{bAntwort}
+
+\end{document}

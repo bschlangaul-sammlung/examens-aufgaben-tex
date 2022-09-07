@@ -1,0 +1,165 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Turingmaschine Konfigurationsfolge},
+  Referenz = 66115-2019-F.T1-A4,
+  RelativerPfad = Staatsexamen/66115/2019/03/Thema-1/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66115:2019:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 4,
+}
+
+\let\l=\bTuringLeerzeichen
+\let\d=\bUeberfuehrungsFunktion
+\let\m=\bMenge
+\def\p{ $\vdash$ \\}
+
+Wir betrachten die Turingmaschine \bTuringMaschine[M]{}. Hierbei ist
+die Zustandsmenge $Q = \m{q_0, q_a, q_b, q_L, q_f}$ mit Startzustand
+$q_0$ und akzeptierenden Zuständen $F = \m{q_f}$. Das Eingabealphabet
+ist \bAlphabet{a, b, |}\footnote{In der Angabe ist das Trennzeichen ein
+„\$“. Wir verwenden stattdessen ein „|“, denn „\$“ ist eine
+Tex-Sonderzeichen und müsste deshalb ständig besonders behandelt
+werden.} das Bandalphabet ist \bBandAlphabet{\l} mit Blank-Zeichen \l{}
+für leeres Feld. Die Übergangsfunktion \bTuringUeberfuehrung, wobei der
+Schreib-Lese-Kopf mit L nach links, mit N nicht und mit R nach rechts
+bewegt wird, ist durch folgende Tabelle gegeben (bspw. ist $\d{q0, a} =
+(q_a, \l, R)$):\index{Turing-Maschine}
+\footcite{examen:66115:2019:03}
+
+% a b | O
+
+% do (da, I, R) (q, O, R) (as, |, N) (qf, O, N)
+% da (da, a, R) (da, b, R) (Biss |, R) (az, a, L)
+% db (9b a, R) (4, b, R) (9; |, R) (az, b, L)
+
+% qL (91,0, L) (gr, b, L) (qr, |, L) (go, O, R)
+
+\begin{center}
+\begin{tikzpicture}[li turingmaschine]
+  \node[state,initial] (q0) at (2.71cm,-4.71cm) {$q_0$};
+  \node[state] (qa) at (5.86cm,-3.14cm) {$q_a$};
+  \node[state] (qb) at (6cm,-6.86cm) {$q_b$};
+  \node[state] (qL) at (8.86cm,-4.71cm) {$q_L$};
+  \node[state,accepting] (qf) at (2.71cm,-7cm) {$q_f$};
+
+  \bTuringKante[above left]{q0}{qa}{
+    a, LEER, R;
+  }
+
+  \bTuringKante[left,pos=0.8]{q0}{qb}{
+    b, LEER, R;
+  }
+
+  \bTuringKante[left]{q0}{qf}{
+    |, |, N;
+    LEER, LEER, N;
+  }
+
+  \bTuringKante[above,loop above]{qa}{qa}{
+    a, a, R;
+    b, b, R;
+    |, |, R;
+  }
+
+  \bTuringKante[right,pos=0.1]{qa}{qL}{
+    LEER, a, L;
+  }
+
+  \bTuringKante[above,loop below]{qb}{qb}{
+    a, a, R;
+    b, b, R;
+    |, |, R;
+  }
+
+  \bTuringKante[below right]{qb}{qL}{
+    LEER, b, L;
+  }
+
+  \bTuringKante[above,loop above]{qL}{qL}{
+    a, a, L;
+    b, b, L;
+    |, |, L;
+  }
+
+  \bTuringKante[above]{qL}{q0}{
+    LEER, LEER, R;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Aj54q4rd9}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Die Notation $(v,q,aw)$ beschreibt eine Konfiguration der
+Turingmaschine: der interne Zustand ist $q$, der Schreib-Lesekopf steht
+auf einem Feld mit $a \in \Gamma$, rechts vom Schreib-Lesekopf steht $w
+\in \Gamma^*$, links vom Schreib-Lesekopf steht $v \in \Gamma^*$.
+
+Vervollständigen Sie die Folge von Konfigurationen, die die
+Turingmaschine bei Eingabe $ab|$ bis zum Erreichen des Zustands $q_f$
+durchläuft. Sie können auch Ihre eigene Notation zur Darstellung von
+Konfigurationen verwenden.
+
+\setlength{\leftskip}{3cm}
+
+$(\l, q_0, a b | )$ \p
+$(\l, q_a, \l b | )$ \p
+$(\l, q_a, b | )$ \p
+$\dots$
+
+\setlength{\leftskip}{0pt}
+
+\begin{bAntwort}
+$(\l, q_0, a b | )$ \p % 0
+% a entfernt
+$(\l, q_a, \l b | )$ \p % 1
+$(\l, q_a, b | )$ \p % 2
+$(b, q_a, |)$ \p % 3
+% a geschrieben
+$(b|, q_L, a)$ \p % 4
+$(b, q_L, | a)$ \p % 5
+$(\l, q_L, \l b | a)$ \p % 6
+$(\l, q_b, \l b | a)$ \p % 7
+% b entfernt
+$(\l, q_b, \l | a)$ \p % 8
+$(\l, q_b, | a)$ \p % 9
+$(|, q_b, a)$ \p % 10
+% b geschrieben
+$(|a, q_L, b)$ \p % 11
+$(|, q_L, a b)$ \p % 12
+$(\l, q_L, | a b)$ \p % 13
+$(\l, q_0, \l | a b)$ \p % 14
+$(\l, q_f, | a b)$ % 15
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Sei $w \in \{ a, b \}^*$ beliebig. Mit welchem Bandinhalt
+terminiert die Turingmaschine bei Eingabe von $w|$? Geben Sie auch eine
+kurze Begründung an.
+
+\begin{bAntwort}
+Die Turingmaschine terminiert bei alle möglichen Wörtern $w \in \{ a, b
+\}^*$, auch bei dem leeren Wort vor $|$. Die Turing-Maschine verschiebt
+alle $a$’s und $b$’s vor dem Trennzeichen $|$ nach rechts.
+Ist das Trennzeichen $|$ schließlich das erste Zeichen von links
+gesehen, dann terminiert die Maschine.
+\end{bAntwort}
+\end{enumerate}
+\end{document}

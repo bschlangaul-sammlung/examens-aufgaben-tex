@@ -1,0 +1,159 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{gantt,cpm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Gantt und zwei Softwareentwickler},
+  Referenz = 66116-2018-H.T2-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2018/09/Thema-2/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = sosy:ab:5,
+  ZitatBeschreibung = {erweiterte Aufgabenstellung, Seite
+2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Gantt-Diagramm, CPM-Netzplantechnik},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2018,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\f=\footnotesize
+\let\FZ=\bCpmFruehI
+\let\SZ=\bCpmSpaetI
+\let\v=\bCpmVon
+\let\vz=\bCpmVonZu
+\let\z=\bCpmZu
+
+Ein\index{Gantt-Diagramm} \footcite[erweiterte Aufgabenstellung, Seite
+2]{sosy:ab:5} Team von zwei Softwareentwicklern soll ein Projekt
+umsetzen, das in sechs Arbeitspakete unterteilt ist. Die Dauer der
+Arbeitspakete und ihre Abhängigkeiten können Sie aus folgender Tabelle
+entnehmen:
+\footcite[Thema 2 Teilaufgabe 1 Aufgabe 1]{examen:66116:2018:09}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Name & Dauer in Wochen & Abhängig von\\\hline\hline
+A1 & 2 & - \\\hline
+A2 & 5 & - \\\hline
+A3 & 2 & A1 \\\hline
+A4 & 5 & A1, A2 \\\hline
+A5 & 7 & A3 \\\hline
+A6 & 4 & A4 \\\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Zeichnen Sie ein Gantt-Diagramm, das eine kürzestmögliche
+Projektabwicklung beinhaltet.
+
+\begin{bAntwort}
+\begin{center}
+\begin{ganttchart}[x unit=0.7cm, y unit chart=0.6cm]{1}{14}
+\gantttitlelist{1,...,14}{1} \\
+\ganttbar[name=A1]{A1}{3}{5} \\
+\ganttbar[name=A2]{A2}{1}{5} \\
+\ganttbar[name=A3]{A3}{6}{7} \\
+\ganttbar[name=A4]{A4}{6}{10} \\
+\ganttbar[name=A5]{A5}{8}{14} \\
+\ganttbar[name=A6]{A6}{11}{14}
+\ganttlink{A1}{A3}
+\ganttlink{A1}{A4}
+\ganttlink[link type=f-s]{A2}{A4}
+\ganttlink[link type=f-s]{A3}{A5}
+\ganttlink[link type=f-s]{A4}{A6}
+\end{ganttchart}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Bestimmen Sie die Länge des kritischen Pfades und geben Sie an,
+welche Arbeitspakete an ihm beteiligt sind.
+
+\begin{bAntwort}
+Auf dem kritischen Pfad befinden die Arbeitspakete A2, A4 und A6. Die
+Länge des kritischen Pfades ist 14.
+\end{bAntwort}
+
+%%
+% (c*)
+%%
+
+\item Wandeln Sie das Gantt-Diagramm in ein
+CPM-Netzplan\index{CPM-Netzplantechnik} um.
+
+\begin{bAntwort}
+\begin{tikzpicture}[font=\scriptsize,scale=0.95]
+\bCpmEreignis{SP}{0}{1.5}
+
+\bCpmEreignis{1A}{1.5}{3}
+\bCpmEreignis{1E}{3}{3}
+\bCpmEreignis{2A}{1.5}{0}
+\bCpmEreignis{2E}{3}{0}
+\bCpmEreignis{3A}{4.5}{3}
+\bCpmEreignis{3E}{6}{3}
+\bCpmEreignis{4A}{4.5}{0}
+\bCpmEreignis{4E}{6}{0}
+\bCpmEreignis{5A}{7.5}{3}
+\bCpmEreignis{5E}{9}{3}
+\bCpmEreignis{6A}{7.5}{0}
+\bCpmEreignis{6E}{9}{0}
+
+\bCpmEreignis{EP}{10.5}{1.5}
+
+\bCpmVorgang{1A}{1E}{2}
+\bCpmVorgang{2A}{2E}{5}
+\bCpmVorgang{3A}{3E}{2}
+\bCpmVorgang{4A}{4E}{5}
+\bCpmVorgang{5A}{5E}{7}
+\bCpmVorgang{6A}{6E}{4}
+
+\bCpmVorgang[schein]{1E}{3A}{}
+\bCpmVorgang[schein]{2E}{4A}{}
+\bCpmVorgang[schein]{1E}{4A}{}
+\bCpmVorgang[schein]{3E}{5A}{}
+\bCpmVorgang[schein]{4E}{6A}{}
+
+\bCpmVorgang[schein]{SP}{1A}{}
+\bCpmVorgang[schein]{SP}{2A}{}
+
+\bCpmVorgang[schein]{5E}{EP}{}
+\bCpmVorgang[schein]{6E}{EP}{}
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% (d*)
+%%
+
+\item Berechnen Sie für jedes Ereignis den \emph{frühesten Termin} und
+den \emph{spätesten Termin} sowie die \emph{Gesamtpufferzeiten}.
+
+\begin{bAntwort}
+{\scriptsize
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$i$   & SP & 1A & 1E & 2A & 2E & 3A & 3E & 4A & 4E & 5A & 5E & 6A & 6E & EP\\\hline\hline
+\FZ   & 0  & 0  & 2  & 0  & 5  & 2  & 4  & 5  & 10 & 4  & 11 & 10 & 14 & 14\\\hline
+\SZ   & 0  & 3  & 5  & 0  & 5  & 5  & 7  & 5  & 10 & 7  & 14 & 10 & 14 & 14\\\hline
+$GP$  & 0  & 3  & 3  & 0  & 0  & 3  & 3  & 0  & 0  & 3  & 3  & 0  & 0  & 0 \\\hline
+\end{tabular}
+}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

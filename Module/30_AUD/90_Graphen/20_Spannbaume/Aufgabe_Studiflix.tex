@@ -1,0 +1,85 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Algorithmus von Prim},
+  Thematik = {Studiflix},
+  Referenz = AUD.Graphen.Spannbaume.Studiflix,
+  RelativerPfad = Module/30_AUD/90_Graphen/20_Spannbaume/Aufgabe_Studiflix.tex,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Prim},
+}
+
+\bFussnoteUrl{https://studyflix.de/informatik/prim-algorithmus-1293}
+\index{Algorithmus von Prim}
+
+\begin{bGraphenFormat}
+B: 3 4
+A: 0 5
+C: 5 5
+D: 2 2
+E: 5 2
+F: 0 0
+G: 3 0
+A -- B: 14
+A -- D: 10
+B -- D: 18
+B -- E: 13
+C -- B: 16
+C -- E: 9
+D -- E: 30
+D -- F: 17
+D -- G: 12
+E -- G: 16
+F -- G: 22
+\end{bGraphenFormat}
+
+\begin{tikzpicture}[li graph]
+\node (A) at (0,5) {A};
+\node (B) at (3,4) {B};
+\node (C) at (5,5) {C};
+\node (D) at (2,2) {D};
+\node (E) at (5,2) {E};
+\node (F) at (0,0) {F};
+\node (G) at (3,0) {G};
+
+\path (A) edge node {14} (B);
+\path (A) edge node {10} (D);
+\path (B) edge node {18} (D);
+\path (B) edge node {13} (E);
+\path (C) edge node {16} (B);
+\path (C) edge node {9} (E);
+\path (D) edge node {30} (E);
+\path (D) edge node {17} (F);
+\path (D) edge node {12} (G);
+\path (E) edge node {16} (G);
+\path (F) edge node {22} (G);
+\end{tikzpicture}
+
+\begin{bAntwort}
+\begin{tikzpicture}[li graph]
+\node (A) at (0,5) {A};
+\node (B) at (3,4) {B};
+\node (C) at (5,5) {C};
+\node (D) at (2,2) {D};
+\node (E) at (5,2) {E};
+\node (F) at (0,0) {F};
+\node (G) at (3,0) {G};
+
+\path[li markierung] (A) edge node {14} (B);
+\path[li markierung] (A) edge node {10} (D);
+\path (B) edge node {18} (D);
+\path[li markierung] (B) edge node {13} (E);
+\path (C) edge node {16} (B);
+\path[li markierung] (C) edge node {9} (E);
+\path (D) edge node {30} (E);
+\path[li markierung] (D) edge node {17} (F);
+\path[li markierung] (D) edge node {12} (G);
+\path (E) edge node {16} (G);
+\path (F) edge node {22} (G);
+\end{tikzpicture}
+\end{bAntwort}
+
+\end{document}

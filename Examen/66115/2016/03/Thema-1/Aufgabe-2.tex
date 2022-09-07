@@ -1,0 +1,100 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,chomsky-normalform}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Nonterminale: SA, Terminale: 012},
+  Referenz = 66115-2016-F.T1-A2,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-1/Aufgabe-2.tex,
+  ZitatSchluessel = theo:ab:5,
+  ZitatBeschreibung = {Aufgabe 2e)},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Chomsky-Normalform},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 2,
+}
+
+\let\schrittE=\bChomskyUeberErklaerung
+
+Betrachten Sie die folgende Grammatik \bGrammatik{variablen={S, A},
+alphabet={0, 1, 2}} mit\footcite[Aufgabe 2e)]{theo:ab:5}
+\index{Chomsky-Normalform}
+\footcite{examen:66115:2016:03}
+
+\begin{bProduktionsRegeln}
+S -> 0 S 0 | 1 S 1 | 2 A 2 | 0 | 1 | EPSILON,
+A -> A 2
+\end{bProduktionsRegeln}
+\bFlaci{Gf6scqja9}
+
+\noindent
+Konstruieren Sie für die Grammatik $G$ schrittweise eine äquivalente
+Grammatik in Chomsky-Normalform. Geben Sie für jeden einzelnen Schritt
+des Verfahrens das vollständige Zwischenergebnis an und erklären Sie
+kurz, was in dem Schritt getan wurde.
+
+\begin{bAntwort}
+Die Regeln \bProduktionen{S -> 2 A 2} und  \bProduktionen{A -> A 2}
+können gelöscht werden, da es keine Regel \bProduktionen{A -> EPSILON}
+oder \bProduktionen{A -> S} gibt. So erhalten wir:
+
+\begin{bProduktionsRegeln}
+S -> 0 S 0 | 1 S 1 | 0 | 1 | EPSILON
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+
+\item \schrittE{1}
+
+falls $S \rightarrow \varepsilon \in P$ neuen Startzustand $S_1$
+einführen
+
+\begin{bProduktionsRegeln}
+S -> 0 S 0 | 1 S 1 | 0 | 1 | 0 0 | 1 1,
+S_1 -> EPSILON | S
+\end{bProduktionsRegeln}
+
+\item \schrittE{2}
+
+\bNichtsZuTun
+
+\item \schrittE{3}
+
+N = Null
+E = Eins
+
+\begin{bProduktionsRegeln}
+S -> N S N | E S E | 0 | 1 | N N | E E,
+S_1 -> EPSILON | S,
+A -> A Z,
+N -> 0,
+E -> 1,
+\end{bProduktionsRegeln}
+
+\item \schrittE{4}
+
+% S.S -> S | EPSILON
+% S   -> T1 S.1 | T2 S.2 | 0 | 1 | T1 T1 | T2 T2
+% T1  -> 0
+% T2  -> 1
+% S.1 -> S T1
+% S.2 -> S T2
+
+\begin{bProduktionsRegeln}
+S -> N S_N | E S_E | 0 | 1 | N N | E E, % T1 S.1 | T2 S.2 | 0 | 1 | T1 T1 | T2 T2
+S_1 -> EPSILON | S, % S.S -> S | EPSILON
+S_N -> S N, % S.1 -> S T1
+S_E -> S E, % S.2 -> S T2
+N -> 0, % T1  -> 0
+E -> 1, % T2  -> 1
+\end{bProduktionsRegeln}
+
+\end{enumerate}
+\end{bAntwort}
+
+\end{document}

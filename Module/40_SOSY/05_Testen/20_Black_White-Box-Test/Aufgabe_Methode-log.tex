@@ -1,0 +1,152 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{kontrollflussgraph,java,spalten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3: Schleifen-Inneres-Überdeckung},
+  Thematik = {Methode „log()“},
+  Referenz = SOSY.Testen.Black_White-Box-Test.Methode-log,
+  RelativerPfad = Module/40_SOSY/05_Testen/20_Black_White-Box-Test/Aufgabe_Methode-log.tex,
+  ZitatSchluessel = sosy:ab:7,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontrollflussgraph, Überdeckbarkeit, C2b Schleife-Inneres-Pfadüberdeckung (Boundary-Interior Path Coverage)},
+}
+
+\let\c=\bKontrollCode
+\let\p=\bKontrollKnotenPfad
+\let\k=\bKontrollTextzeileKnoten
+
+Gegeben sei folgende Methode und ihr Kontrollflussgraph:
+\footcite{sosy:ab:7}
+\index{Kontrollflussgraph}
+
+\begin{multicols}{2}
+\bJavaDatei[firstline=4,lastline=16]{aufgaben/sosy/ab_7/Aufgabe3}
+
+\begin{bKontrollflussgraph}[xscale=1,yscale=-0.8]
+\node at (0,0) (S) {S};
+\node at (0,1) (1) {1};
+\node at (0,2) (2) {2};
+\node at (0,3) (3) {3};
+\node at (-1,4) (4) {4};
+\node at (1,4) (5) {5};
+\node at (0,5) (6) {6};
+\node at (0,6) (7) {7};
+\node at (0,7) (E) {E};
+
+\path (S) -- (1);
+\path (1) -- (2);
+\path (2) -- (3);
+\path (3) -- (4);
+\path[falsch] (3) -- (5);
+\path (4) -- (6);
+\path (5) -- (6);
+\path (6) -- (7);
+\path (7) -- (-2,6) -- (-2,2) -- (2);
+\path[falsch] (2) -- (2,2) -- (2,7) -- (E);
+\end{bKontrollflussgraph}
+\end{multicols}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Begründen Sie, warum der Pfad \p{S-1-2-3-5-6-7-2-E}
+infeasible (= nicht überdeckbar) ist, also weshalb es keine Eingabe
+gibt, unter der dieser Pfad durchlaufen werden kann.
+\index{Überdeckbarkeit}
+
+\begin{bAntwort}
+Damit dieser Pfad durchlaufen werden könnte, müsste die Eingabe $a$
+gleichzeitig $2$ und ungerade sein.
+
+\begin{bKontrollflussgraph}[xscale=1,yscale=-1]
+\node at (0,0) (S) {S};
+
+\node[pin={
+  \c{int x = y; int z = 0;}
+}] at (0,1) (1) {1};
+
+\node[pin={
+    [pin distance=1cm]
+    5:\c{while (x > 1)}
+}] at (0,2) (2) {2};
+
+\node[pin={
+  [pin distance=2cm]
+  \c{if (x \% 2 == 0)}
+}] at (0,3) (3) {3};
+
+\node[pin={
+  [pin distance=1cm]
+  180:\c{z++; x /= 2;}
+}] at (-1,4) (4) {4};
+
+\node[pin={
+  [pin distance=1cm]
+  \c{x--;}
+}] at (1,4) (5) {5};
+
+\node at (0,5) (6) {6};
+\node at (0,6) (7) {7};
+\node[pin={
+  -90:\c{return z;}
+}] at (0,7) (E) {E};
+
+\path (S) -- (1);
+\path (1) -- (2);
+\path[wahr] (2) -- (3) \bBedingung{right}{x > 1};
+\path[wahr] (3) -- (4);
+\path[falsch] (3) -- (5);
+\path (4) -- (6);
+\path (5) -- (6);
+\path (6) -- (7);
+\path (7) -- (-2,6) -- (-2,2) -- (2);
+\path[falsch] (2) -- (2,2) -- (2,7) \bBedingung{right}{x <= 1} -- (E) ;
+\end{bKontrollflussgraph}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie eine minimale Menge von Pfaden an, mit der eine
+vollständigen Schleifen-Inneres-Überdeckung erzielt werden kann, sowie
+gegebenenfalls zu jedem Pfad eine Eingabe, unter der dieser Pfad
+durchlaufen werden kann.
+\index{C2b Schleife-Inneres-Pfadüberdeckung (Boundary-Interior Path Coverage)}
+
+\begin{bAntwort}
+
+\begin{description}
+\item[ohne Schleifenausführung] \strut
+
+\begin{itemize}
+\item \p{S-1-2-E} (a=1)
+\end{itemize}
+
+\item[boundary-Tests] \strut
+
+\begin{itemize}
+\item \p{S-1-2-3-4-6-7-2-E} \\(a=2)
+\item \p{S-1-2-3-5-6-7-2-E} \\(infeasible)
+\end{itemize}
+
+\item[interior-Tests] \strut
+
+\begin{itemize}
+\item \p{S-1-2-3-4-6-7-2-3-4-6-7-2-E} \\(a=4)
+\item \p{S-1-2-3-4-6-7-2-3-5-6-7-2-E} \\(a=6)
+\item \p{S-1-2-3-5-6-7-2-3-4-6-7-2-E} \\(a=3)
+\item \p{S-1-2-3-5-6-7-2-3-5-6-7-2-E} \\(infeasible)
+\end{itemize}
+\end{description}
+
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

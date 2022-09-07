@@ -1,0 +1,154 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Vorlesungsaufgabe Kellerautomaten},
+  Thematik = {a hoch n c hoch i b hoch n},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.Vorlesungsaufgabe-1,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_Vorlesungsaufgabe-1.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 25},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, Kellerautomat, Kontextfreie Grammatik, Konfigurationsfolge},
+}
+
+\let\m=\bMenge
+\let\e=\bEpsilon
+\let\z=\bZustandsnameTiefgestellt
+\def\p{$\vdash$ }
+
+\begin{enumerate}
+\item Geben Sie einen Kellerautomaten an, der die folgende Sprache erkennt:
+\index{Kontextfreie Sprache}
+\footcite[Seite 25]{theo:fs:2}
+\index{Kellerautomat}
+
+\bAusdruck{a^n c^i b^n}{n, i \in \mathbb{N}_0}
+
+\begin{bAntwort}
+\bKellerAutomat{zustaende={z_0, z_1, z_2}, alphabet={a, b, c}, kelleralphabet={\#, A}, ende=z_2}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (3cm,-6.57cm) {$z_0$};
+  \node[state] (z1) at (5.29cm,-2.86cm) {$z_1$};
+  \node[state,accepting] (z2) at (8cm,-6.57cm) {$z_2$};
+
+  \bKellerKante[left]{z0}{z1}{
+    c, A, A;
+    c, KELLERBODEN, KELLERBODEN;
+  }
+
+  \bKellerKante[above]{z0}{z2}{
+    EPSILON, KELLERBODEN, EPSILON;
+    b, A, EPSILON;
+  }
+
+  \bKellerKante[below,loop below]{z0}{z0}{
+    a, KELLERBODEN, A KELLERBODEN;
+    a, A, A A;
+  }
+
+  \bKellerKante[right]{z1}{z2}{
+    b, A, EPSILON;
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    c, A, A;
+    c, KELLERBODEN, KELLERBODEN;
+  }
+
+  \bKellerKante[below,loop below]{z2}{z2}{
+    EPSILON, KELLERBODEN, EPSILON;
+    b, A, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Apky9znog}
+
+% akzeptiert
+% c
+% ab
+% aabb
+% aacbb
+
+% akzeptiert nicht
+% a
+% b
+% aab
+
+Tabellenform:
+
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Aktueller Zustand &  Eingabe   & Keller & Folgezustand & Keller \\\hline\hline
+\z0 & a  & \# & \z0 & A\# \\
+\z0 & a  & A  & \z0 & AA  \\\hline
+
+\z0 & c  & \# & \z1 & \#  \\
+\z0 & c  & A  & \z1 & A   \\\hline
+
+\z0 & \e & \# & \z2 & \e  \\
+\z0 & b  & A  & \z2 & \e  \\\hline
+
+\z1 & c  & \# & \z1 & \#  \\
+\z1 & c  & A  & \z1 & A   \\\hline
+
+\z1 & \e & \# & \z2 & \e  \\
+\z1 & b  & A  & \z2 & \e  \\\hline
+
+\z2 & \e & \# & \z2 & \e  \\
+\z2 & b  & A  & \z2 & \e  \\\hline
+\end{tabular}
+\end{bAntwort}
+
+\item Geben Sie eine Grammatik für diese Sprache an.
+\index{Kontextfreie Grammatik}
+
+\begin{bAntwort}
+\begin{bProduktionsRegeln}
+S -> a S b | EPSILON | c | c C,
+C -> c C | EPSILON
+\end{bProduktionsRegeln}
+
+alternativ:
+
+\begin{bProduktionsRegeln}
+S -> a S b | EPSILON | C,
+C -> c C | EPSILON
+\end{bProduktionsRegeln}
+\end{bAntwort}
+
+\item Geben Sie Konfigurationsfolgen für die Erzeugung des Wortes an
+\index{Konfigurationsfolge}
+
+\begin{itemize}
+\item aacbb
+
+\begin{bAntwort}
+(\z0, aacbb, \#)   \p
+(\z0, acbb,  A\#)  \p
+(\z0, cbb,   AA\#) \p
+(\z1, bb,    AA\#) \p
+(\z2, b,     A\#)  \p
+(\z2, \e,    \#)   \p
+(\z2, \e,   \e)
+\end{bAntwort}
+
+\item accb
+
+\begin{bAntwort}
+(\z0, accb, \#)  \p
+(\z0, ccb,  A\#) \p
+(\z1, cb,   A\#) \p
+(\z2, b,    A\#) \p
+(\z2, \e,   \#)  \p
+(\z2, \e,   \e)
+\end{bAntwort}
+\end{itemize}
+\end{enumerate}
+\end{document}

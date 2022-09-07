@@ -1,0 +1,76 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,normalformen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Schlüssel},
+  Referenz = 66116-2020-F.T1-TA2-A5,
+  RelativerPfad = Staatsexamen/66116/2020/03/Thema-1/Teilaufgabe-2/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Schlüssel},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 5,
+}
+
+Gegeben sei die Relation \bRelation{A,B,C}
+\index{Schlüssel}
+\footcite{examen:66116:2020:03}
+
+\begin{enumerate}
+\item Schreiben Sie eine SQL-Anfrage, mit der sich zeigen lässt, ob das
+Paar $A$, $B$ ein Superschlüssel der Relation $R$ ist. Beschreiben Sie
+ggf. textuell - falls nicht eindeutig ersichtlich - wie das Ergebnis
+Ihrer Anfrage interpretiert werden muss, um zu erkennen ob $A$, $B$ ein
+Superschlüssel ist.
+
+\begin{bAntwort}
+Diese Anfrage darf keine Ergebnisse liefern, dann ist das Paar $A$, $B$ ein
+Superschlüssel.
+
+\begin{minted}{sql}
+SELECT *
+FROM R
+GROUP BY A, B
+HAVING COUNT(*) > 1;
+\end{minted}
+\end{bAntwort}
+
+\item Erläutern Sie den Unterschied zwischen einem Superschlüssel und
+einem Kandidatenschlüssel. Tipp: Was muss gelten, damit $A$, $B$ ein
+Kandidatenschlüssel ist und nicht nur ein Superschlüssel?
+
+\begin{bAntwort}
+Ein Superschlüssel ist ein Attribut oder
+eine Attributkombination, von der \emph{alle Attribute} einer Relation
+funktional \emph{abhängen}.
+\footcite[Seite 181 Kapitel 6.2 „Superschlüssel“]{kemper}
+
+Ein Kandidatenschlüssel ist ein \emph{minimaler} Superschlüssel. Keine
+Teilmenge dieses Superschlüssels ist ebenfalls Superschlüssels.
+
+\end{bAntwort}
+
+\item Sei $A$, $B$ der Kandidatenschlüssel für die Relation $R$. Geben
+Sie eine minimale Ausprägung der Relation $R$ an, die diese Eigenschaft
+erfüllt.
+
+\begin{bAntwort}
+\begin{tabular}{|l|l|l|}
+\hline
+A & B & C \\\hline\hline
+1 & 2 & 3 \\\hline
+2 & 1 & 4 \\\hline
+1 & 1 & 5 \\\hline
+2 & 2 & 5 \\\hline
+\end{tabular}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

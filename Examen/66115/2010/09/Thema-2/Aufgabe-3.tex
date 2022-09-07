@@ -1,0 +1,54 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe},
+  Thematik = {Hashing mit Modulo 10},
+  Referenz = 66115-2010-H.T2-A3,
+  RelativerPfad = Staatsexamen/66115/2010/09/Thema-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2010:09,
+  ZitatBeschreibung = {Seite 4},
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Streutabellen (Hashing)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2010,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 3,
+}
+
+Gegegen sei ein Array der Größe 10, \zB \bJavaCode{int[] hashfeld = new
+int [10]}. Die Hashfunktion sei der Wert modulo 10, $h(x) = x \% 10$.
+Kollisionen werden mit linearer Verschiebung um 1 (modulo 10) gelöst.
+\index{Streutabellen (Hashing)}
+\footcite[Seite 4]{examen:66115:2010:09}
+
+\bJavaCode{in(x)} bedeutet, dass die Zahl x eingefügt wird,
+\bJavaCode{search(x)}, dass nach x gesucht wird mit den Antworten „ja“
+bzw. „nein“ und \bJavaCode{out(x)}, dass x gelöscht wird, sofern x
+gespeichert ist.
+
+Es wird folgende Sequenz von Operationen auf ein anfangs leeres Array
+ausgeführt:
+
+\bJavaCode{in(19)},
+\bJavaCode{in(29)},
+\bJavaCode{in(39)},
+\bJavaCode{in(10)},
+\bJavaCode{out(29)},
+\bJavaCode{out(39)},
+\bJavaCode{search(29)},
+\bJavaCode{in(11)},
+\bJavaCode{in(17)},
+\bJavaCode{out(10)},
+\bJavaCode{in(2)},
+\bJavaCode{in(22)}
+
+Geben Sie den Inhalt von \bJavaCode{hashfeld} an
+
+nach \bJavaCode{search(29)}\\
+nach \bJavaCode{out(10)}\\
+und nach \bJavaCode{in(22)}.
+\end{document}

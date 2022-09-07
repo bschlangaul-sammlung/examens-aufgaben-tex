@@ -1,0 +1,95 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,formale-sprachen}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Potenzmengenalgorithmus},
+  Thematik = {Vorlesungsaufgaben},
+  Referenz = THEO.Formale-Sprachen.Typ-3_Regulaer.Potenzmengenalgorithmus.Vorlesungsaufgaben-Potenzmengenalgorithmus,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/10_Typ-3_Regulaer/Potenzmengenalgorithmus/Aufgabe_Vorlesungsaufgaben-Potenzmengenalgorithmus.tex,
+  ZitatSchluessel = theo:fs:1,
+  ZitatBeschreibung = {Seite 46},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Potenzmengenalgorithmus},
+}
+
+% Info_2021-02-26-2021-02-26_13.01.25.mp4 2h:40 - 2h:
+
+Gegeben ist der folgende nichtdeterministische endliche Automat:
+\index{Potenzmengenalgorithmus}
+\footcite[Seite 46]{theo:fs:1}
+
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,right of=0] (2) {$z_2$};
+\node[state,above of=2] (1) {$z_1$};
+\node[state,right of=2,accepting] (3) {$z_3$};
+
+\path (0) edge[above] node{a} (1);
+\path (0) edge[above] node{a} (2);
+\path (2) edge[right] node{b} (1);
+\path (2) edge[above] node{b} (3);
+\path (3) edge[loop,above] node{a,b} (3);
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Überführenn Sie den gegebenen nichtdeterministischen endlichen Automaten
+mit dem Potenzmengenalgorithmus in einen deterministischen endlichen
+Automaten.
+
+\begin{bAntwort}
+\let\p=\bPotenzmenge
+
+\begin{tabular}{l|l|l|l}
+neuer Name & Zustandsmenge & Eingabe a & Eingabe b \\\hline\hline
+$z'_0$ &
+\p{z_0} &
+\p{z_1, z_2} &
+\p{} \\
+
+$z'_1$ &
+\p{z_1, z_2} &
+\p{}&
+\p{z_1, z_3} \\
+
+$z'_2$ &
+\p{z_1, z_3} &
+\p{z_3} &
+\p{z_3} \\
+
+$z'_3$ &
+\p{z_3} &
+\p{z_3} &
+\p{z_3} \\
+
+$z'_t$ &
+\p{} &
+\p{} &
+\p{} \\
+\end{tabular}
+
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial,label=270:\p{z_0}] (0) {$z'_0$};
+\node[state,right of=0,label=270:\p{z_1, z_2}] (1) {$z'_1$};
+\node[state,right of=1,accepting,label=270:\p{z_1, z_3}] (2) {$z'_2$};
+\node[state,right of=2,accepting,label=270:\p{z_3}] (3) {$z'_3$};
+\node[state,above right of=0,label=90:\p{}] (t) {$z'_t$};
+
+\path (0) edge[above] node{a} (1);
+\path (0) edge[left] node{b} (t);
+\path (1) edge[right] node{a} (t);
+\path (1) edge[above] node{b} (2);
+\path (2) edge[above] node{a,b} (3);
+\path (3) edge[above,loop right] node{a,b} (3);
+\path (t) edge[above,loop right] node{a,b} (t);
+
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{document}

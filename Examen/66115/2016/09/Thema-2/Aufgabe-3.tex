@@ -1,0 +1,117 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Registermaschinen (RAMs)},
+  Referenz = 66115-2016-H.T2-A3,
+  RelativerPfad = Staatsexamen/66115/2016/09/Thema-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2016:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Berechenbarkeit},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 3,
+}
+
+Sei\index{Berechenbarkeit} \footcite{examen:66115:2016:09} $M_0, M_1,
+\dots$ eine Registermaschinen (RAMs). Beantworten Sie folgende Fragen
+zur Aufzählbarkeit und Entscheidbarkeit. Beweisen Sie Ihre Antwort.
+\footcite[Seite 8, Aufgabe 6]{theo:ab:4}
+
+\begin{bExkurs}[Registermaschinen (RAMs)]
+Die Random Access Machine (kurz RAM) ist eine spezielle Art von
+Registermaschine. Sie hat die Fähigkeit der indirekten Adressierung der
+Register.
+
+Die Random Access Machine besteht aus:
+
+\begin{itemize}
+\item einem Programm bestehend aus endlich vielen durchnummerierten
+Befehlen (beginnend mit Nummer $1$)
+
+\item einem Befehlszähler $b$
+
+\item einem Akkumulator $c(0)$
+
+\item und einem unendlich großen Speicher aus durchnummerierten
+Speicherzellen (Registern) $c(1), c(2), c(3), \dots$
+\end{itemize}
+
+Jedes Register (einschließlich $b$ und $c(0)$) speichert eine beliebig
+große natürliche Zahl.\footcite{wiki:registermaschine}
+\end{bExkurs}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Ist folgende Menge entscheidbar?
+
+$A = \{ x \in \mathbb{N} \,|\, x = 100 \text{ oder } M_x \text{ hält bei Eingabe
+} x \}$
+
+\begin{bAntwort}
+Ja, $x \geq 100$ ist entscheidbar und aufgrund des „oder“ ist die 2.
+Bedingung nur für $x < 100$ relevant. Da $x < 100$ eine endliche Menge
+darstellt, kann eine endliche Liste geführt werden und ein Experte kann
+für jeden Fall entscheiden, ob $M_x$ hält oder nicht, somit ist $A$
+entscheidbar.
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Ist folgende Menge entscheidbar?
+
+$B = \{
+(x, y) \in \mathbb{N} \times \mathbb{N}
+\,| \,
+M_x
+\text{ hält bei Eingabe }
+x
+\text{ genau dann, wenn }
+M_y
+\text{ bei Eingabe }
+y
+\text{ hält}
+\}$
+
+\begin{bAntwort}
+Nein. Dieses Problem entspricht der parallelen Ausführung des
+Halteproblems auf zwei Bändern. Das Halteproblem ist unentscheidbar,
+damit ist auch die parallele Ausfürhung des Halteproblems und damit $B$
+unentscheidbar.
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Ist folgende Menge aufzählbar?
+
+$C = \{
+x \in \mathbb{N}
+\,|\,
+M_x
+\text{ hält bei Eingabe }
+0
+\text{ mit dem Ergebnis }
+1
+\}$
+
+\begin{bAntwort}
+Ja, die Menge ist aufzählbar, da die Menge aller Turningmaschinen
+aufzählbar und über natürliche Zahlen definiert ist (die wiederum
+aufzählbar sind).
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

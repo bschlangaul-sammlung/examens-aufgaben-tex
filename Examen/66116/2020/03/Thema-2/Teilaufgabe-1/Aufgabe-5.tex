@@ -1,0 +1,111 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Object2D},
+  Referenz = 66116-2020-F.T2-TA1-A5,
+  RelativerPfad = Staatsexamen/66116/2020/03/Thema-2/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+\let\j=\bJavaCode
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Implementieren Sie ein Programm in einer objektorientierten
+Programmiersprache, z. B. Java, für das folgende UML-Klassendiagramm.
+\index{Implementierung in Java}
+\footcite{examen:66116:2020:03}
+
+Die \j{shift}-Methode soll die \j{x}-Postion eines Objektes um
+\j{xShift} verändern und die \j{y}-Position um \j{yShift}. Die
+\j{draw}-Methode soll die Werte der Attribute der Klasse auf der Konsole
+ausgeben (- dies kann in Java mit \j{System.out.printin ("...")}
+erfolgen).
+
+% abstract .
+% Object2D interface
+% Drawable
+% + shift(int xShift, int yShift):
+% void + draw(): void
+% Point Square
+% xPos : int topLeft : Point
+% yPos : int bottomRight : Point |
+% + Point (int x, int y) | + Square(int top, int left,
+% + shift(int xShift, int yShift): int bottom, int right)
+% void + shift(int xShift, int yShift):
+% + draw(): void void
+% er + draw (): void
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{03}{object2d/Drawable}
+\bJavaExamen{66116}{2020}{03}{object2d/Object2D}
+\bJavaExamen{66116}{2020}{03}{object2d/Point}
+\bJavaExamen{66116}{2020}{03}{object2d/Square}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Schreiben Sie eine Methode, die ein zweidimensionales Array aus
+ganzen Zahlen (Datentyp \j{int}) als Parameter bekommt und ein
+eindimensionales Array (bestehend aus ganzen Zahlen (Datentyp \j{int}))
+zurückgibt, dessen Elemente jeweils der Summe der Einträge in der
+entsprechenden Zeile des zweidimensionalen Arrays entsprechen.
+
+Achtung: Die Zeilen des zweidimensionalen Arrays können unterschiedlich
+lang sein.
+
+Zur Vereinfachung sei die Signatur der Methode gegeben: \j{public int[]
+computeSum(int[][] input)}
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{03}{ComputeSum}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Implementieren Sie eine einfach verkettete Liste in einer Klasse
+List (z. B. in Java), in der in jedem Listenelement ein String
+gespeichert wird. Die Klasse soll folgende Methoden bereitstellen:
+
+\begin{itemize}
+\item \j{void addFirst (String element)}: Diese Methode fügt ein Element
+am Anfang einer Liste ein.
+
+\item \j{void addLast (String element)}: Diese Methode hängt ein Element
+an das Ende der Liste an.
+
+\item \j{boolean exists(String element)}: Diese Methode gibt true
+zurück, wenn die Liste ein Element mit dem Inhalt element beinhaltet,
+andernfalls gibt sie false zurück.
+\end{itemize}
+
+Hinweis: Zwei \j{String}-Objekte können mittels der Funktion
+\j{equals(..)} verglichen werden.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{03}{List}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

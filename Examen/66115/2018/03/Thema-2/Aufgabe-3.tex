@@ -1,0 +1,124 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Exponentieller Blow-Up},
+  Referenz = 66115-2018-F.T2-A3,
+  RelativerPfad = Staatsexamen/66115/2018/03/Thema-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2018:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2018,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 3,
+}
+
+Gesucht\index{Reguläre Sprache} \footcite{examen:66115:2018:03} ist eine
+reguläre Sprache $C \subseteq \{a, b\}^*$, deren minimaler
+deterministischer endlicher Automat (DEA) mindestens 4 Zustände mehr
+besitzt als der minimale nichtdeterministische endliche Automat (NEA).
+Gehen Sie wie folgt vor:
+\footcite[Seite 23, Aufgabe 13]{theo:ab:1}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Definieren Sie $C \subseteq \{a, b\}^*$ und erklären Sie kurz, warum es
+bei dieser Sprache NEAs gibt, die deutlich kleiner als der minimale DEA
+sind.
+
+\begin{bAntwort}
+Sprache mit exponentiellem Blow-Up:
+
+Ein NEA der Sprache
+
+\begin{align*}
+L_k &= \{ xay \, | \, x, y \in \{a, b\}^* \land |y| = k - 1 \}\\
+    &= \{ w \in \{a, b\}^* | \text{ der k-te Buchstabe von hinten ist ein } a\}\\
+\end{align*}
+
+kommt mit $k + 1$ Zuständen aus.
+
+Jeder DEA $M$ mit $L(M) = L$ hat dann mindestens $2^k$ Zustände. Wir
+wählen $k = 3$. Dann hat der zughörige NEA 4 Zustände und der zugehörige
+DEA mindestens $8$. Sei also $L_k = \{ xay | x, y \in \{a, b\}^* \land
+|y| = 2 \}$ die gesuchte Sprache.
+
+Der informelle Grund, warum ein DEA für die Sprache $L_k$ groß sein muss, ist
+dass er sich immer die letzten n Symbole merken muss.
+\bFussnoteUrl{https://www.tcs.ifi.lmu.de/lehre/ss-2013/timi/handouts/handout-02}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie den minimalen DEA $M$ für $C$ an.
+(Zeichnung des DEA genügt; die Minimalität muss nicht begründet werden.)
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,initial] (z0) at (2.14cm,-2.14cm) {$z_0$};
+  \node[state,accepting] (z1) at (2cm,-7cm) {$z_1$};
+  \node[state,accepting] (z2) at (10.43cm,-2.14cm) {$z_2$};
+  \node[state,accepting] (z3) at (8cm,-5cm) {$z_3$};
+  \node[state] (z4) at (8cm,-2.14cm) {$z_4$};
+  \node[state] (z5) at (5.14cm,-2.14cm) {$z_5$};
+  \node[state,accepting] (z6) at (10.43cm,-7cm) {$z_6$};
+  \node[state] (z7) at (5.14cm,-5cm) {$z_7$};
+
+  \path (z0) edge[auto] node{$a$} (z5);
+  \path (z0) edge[auto,loop above] node{$b$} (z0);
+  \path (z1) edge[auto] node{$b$} (z0);
+  \path (z1) edge[auto] node{$a$} (z5);
+  \path (z2) edge[auto,loop above] node{$a$} (z2);
+  \path (z2) edge[auto] node{$b$} (z6);
+  \path (z3) edge[auto] node{$a$} (z4);
+  \path (z3) edge[auto,bend left] node{$b$} (z7);
+  \path (z4) edge[auto] node{$a$} (z2);
+  \path (z4) edge[auto] node{$b$} (z6);
+  \path (z5) edge[auto] node{$a$} (z4);
+  \path (z5) edge[auto] node{$b$} (z7);
+  \path (z6) edge[auto] node{$b$} (z1);
+  \path (z6) edge[auto] node{$a$} (z3);
+  \path (z7) edge[auto] node{$b$} (z1);
+  \path (z7) edge[auto,bend left] node{$a$} (z3);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ahhefpjir}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Geben Sie einen NEA $N$ für $C$ an, der mindestens $4$ Zustände
+weniger besitzt als $M$. (Zeichnung des NEA genügt)
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,right of=0] (1) {$z_1$};
+\node[state,right of=1] (2) {$z_2$};
+\node[state,right of=2,accepting] (3) {$z_3$};
+
+\path (0) edge[above] node{a} (1);
+\path (1) edge[above] node{a,b} (2);
+\path (2) edge[above] node{a,b} (3);
+\path (0) edge[loop,above] node{a,b} (0);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ajrz7h5r7}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

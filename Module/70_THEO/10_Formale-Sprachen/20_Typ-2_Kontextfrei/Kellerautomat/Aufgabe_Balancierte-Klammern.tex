@@ -1,0 +1,64 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Balancierte Klammern},
+  Thematik = {Balancierte Klammern},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.Balancierte-Klammern,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_Balancierte-Klammern.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kellerautomat},
+}
+
+Erstellen Sie einen Kellerautomaten der nur balancierte Klammerausdrücke
+mit eckigen Klammern akzeptiert.\index{Kellerautomat}
+\bFussnoteUrl[Seite 9]{https://eecs.wsu.edu/~ananth/CptS317/Lectures/PDA.pdf}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1, z_2, z_3},
+  alphabet={[, ]},
+  kelleralphabet={\#, K},
+  ende={z_2, z_3},
+}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (2.14cm,-2.14cm) {$z_0$};
+  \node[state] (z1) at (7.14cm,-2.14cm) {$z_1$};
+  \node[state,accepting] (z2) at (9.71cm,-2.14cm) {$z_2$};
+  \node[state,accepting] (z3) at (2.57cm,-4.71cm) {$z_3$};
+
+  \bKellerKante[above,bend left]{z0}{z1}{
+    EPSILON, K, K;
+  }
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    [, KELLERBODEN, K KELLERBODEN;
+    [, K, K K;
+  }
+
+  \bKellerKante[left]{z0}{z3}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,bend left]{z1}{z0}{
+    EPSILON, KELLERBODEN, KELLERBODEN;
+  }
+
+  \bKellerKante[above]{z1}{z2}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    ], K, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Apwobf482}
+\end{bAntwort}
+
+\end{document}

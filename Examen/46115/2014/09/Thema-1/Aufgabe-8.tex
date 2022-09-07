@@ -1,0 +1,158 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph,syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {dfs-number Graph s,a-h},
+  Referenz = 46115-2014-H.T1-A8,
+  RelativerPfad = Staatsexamen/46115/2014/09/Thema-1/Aufgabe-8.tex,
+  ZitatSchluessel = examen:46115:2014:09,
+  ZitatBeschreibung = {Thema 1 Aufgabe 8},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Tiefensuche, Stapel (Stack)},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 8,
+}
+
+\section{Aufgabe 8
+\index{Tiefensuche}
+\footcite[Thema 1 Aufgabe 8]{examen:46115:2014:09}
+}
+
+\begin{bGraphenFormat}
+a: 8 3
+b: 2 3
+c: 2 1
+d: 0 1
+e: 7 5
+f: 7 2
+g: 5 0
+h: 0 5
+s: 5 3
+a -- e
+a -- f
+a -- s
+b -- c
+b -- d
+b -- h
+c -- d
+c -- h
+c -- s
+d -- h
+e -- f
+f -- s
+g -- s
+h -- s
+\end{bGraphenFormat}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Führen Sie auf dem folgenden ungerichteten Graphen \texttt{G} eine
+Tiefensuche ab dem Knoten \texttt{s} aus (graphische Umsetzung).
+Unbesuchte Nachbarn eines Knotens sollen dabei in \emph{alphabetischer
+Reihenfolge} abgearbeitet werden. Die Tiefensuche soll auf Basis eines
+\emph{Stacks}\index{Stapel (Stack)} umgesetzt werden. Geben Sie die
+Reihenfolge der besuchten Knoten, also die \texttt{dfs-number} der
+Knoten, und den Inhalt des Stacks in jedem Schritt an.
+\footcite[Seite 2: Tiefensuche, Breitensuche, Aufgabe 3]{aud:ab:6}
+
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (a) at (8,3) {a};
+\node (b) at (2,3) {b};
+\node (c) at (2,1) {c};
+\node (d) at (0,1) {d};
+\node (e) at (7,5) {e};
+\node (f) at (7,2) {f};
+\node (g) at (5,0) {g};
+\node (h) at (0,5) {h};
+\node (s) at (5,3) {s};
+
+\path (a) edge node {} (e);
+\path (a) edge node {} (f);
+\path (a) edge node {} (s);
+\path (b) edge node {} (c);
+\path (b) edge node {} (d);
+\path (b) edge node {} (h);
+\path (c) edge node {} (d);
+\path (c) edge node {} (h);
+\path (c) edge node {} (s);
+\path (d) edge node {} (h);
+\path (e) edge node {} (f);
+\path (f) edge node {} (s);
+\path (g) edge node {} (s);
+\path (h) edge node {} (s);
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+In der Musterlösung auf Seite 3 lautet das Ergebnis s, a, e, f, c, b, d, h, g.
+Ich glaube jedoch diese Lösung ist richtig:
+
+\textbf{fett:} Knoten, der entnommen wird.
+
+\textit{kursiv:} Knoten, die zum Stapel hinzugefügt werden.
+
+\begin{tabular}{|r|r|l|}
+\hline
+\textbf{Reihenfolge} & \textbf{Stapel} & \textbf{besucht} \\\hline\hline
+1 & \textit{\textbf{s}} & s \\\hline
+2 & \textit{a, c, f, g, \textbf{h}} & h \\\hline
+3 & a, c, f, g, \textit{b, \textbf{d}} & d \\\hline
+4 & a, c, f, g, \textbf{b} & b \\\hline
+5 & a, c, f, \textbf{g} & g \\\hline
+6 & a, c, \textbf{f} & f \\\hline
+7 & a, c, \textbf{e} & e \\\hline
+8 & a, \textbf{c} & c \\\hline
+9 & \textbf{a} & a \\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Führen Sie nun eine Breitensuche auf dem gegebenen Graphen aus,
+diese soll mit einer Queue umgesetzt werden. Als Startknoten wird wieder
+$s$ verwendet. Geben Sie auch hier die Reihenfolge der besuchten Knoten
+und den Inhalt der Queue bei jedem Schritt an.
+
+\begin{bAntwort}
+\textbf{fett:} Knoten, der entnommen wird.
+
+\textit{kursiv:} Knoten, die zur Warteschlange hinzugefügt werden.
+
+\begin{tabular}{|r|l|l|}
+\hline
+\textbf{Reihenfolge} & \textbf{Warteschlange} & \textbf{besucht} \\\hline\hline
+1 & \textit{\textbf{s}} & s\\\hline
+2 & \textit{\textbf{a}, c, f, g, h} & a\\\hline
+3 & \textbf{c}, f, g, h, \textit{e} & c\\\hline
+4 & \textbf{f}, g, h, e, \textit{b, d} & f\\\hline
+5 & \textbf{g}, h, e, b, d & g\\\hline
+6 & \textbf{h}, e, b, d & h\\\hline
+7 & \textbf{e}, b, d & e\\\hline
+8 & \textbf{b}, d & b\\\hline
+9 & \textbf{d} & d\\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Geben Sie in Pseudocode den Ablauf von Tiefen- und Breitensuche
+an, wenn diese wie beschrieben mit einem Stack bzw. einer Queue
+implementiert werden.
+
+\end{enumerate}
+\end{document}

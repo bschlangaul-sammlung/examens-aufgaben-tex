@@ -1,0 +1,102 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 14},
+  Thematik = {Klasse „DoublyLinkedList“},
+  Referenz = 66112-2005-F.T1-A1,
+  RelativerPfad = Staatsexamen/66112/2005/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = aud:pu:7,
+  ZitatBeschreibung = {entnommen aus Algorithmen und Datenstrukturen,
+Präsenzübung 4, Universität Bayreuth, Aufgabe 14},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Klassendiagramm},
+  EinzelpruefungsNr = 66112,
+  Jahr = 2005,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+Betrachten\footcite[entnommen aus Algorithmen und Datenstrukturen,
+Präsenzübung 4, Universität Bayreuth, Aufgabe 14]{aud:pu:7} Sie
+folgendes Klassendiagramm\index{Klassendiagramm}, das doppelt-verkettete
+Listen spezifiziert. Die Assoziation \bJavaCode{head} zeigt auf das
+erste Element der Liste. Die Assoziationen \bJavaCode{previous} und
+\bJavaCode{next} zeigen auf das vorherige bzw. folgende Element.
+\footcite{examen:66112:2005:03}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8, transform shape]
+\tiny
+\umlclass
+{DoublyLinkedList}{}
+{
+  insert(i: Integer)\\
+  check(): Boolean
+}
+
+\umlclass[x=5]
+{ListElem}{
+  data: Integer
+}
+{
+  insert(i: Integer)\\
+}
+
+\umluniassoc[arg=head,mult=1,pos=0.7]{DoublyLinkedList}{ListElem}
+
+\umlassoc[%
+  pos1=0.3,
+  arg1=previous,
+  arg2=next,
+  mult1=1,
+  mult2=1,
+  angle1=-30,
+  angle2=30,
+  loopsize=3cm,
+]{ListElem}{ListElem}
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Implementieren Sie die doppelt-verketteten Listen in einer geeigneten
+objektorientierten Sprache (\zB Java oder C++), das heißt:
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Implementieren Sie die Klasse \bJavaCode{ListElem}. Die Methode
+\bJavaCode{insert} ordnet eine ganze Zahl \bJavaCode{i} in eine
+aufsteigend geordnete doppelt-verkettete Liste \bJavaCode{l} an die
+korrekte Stelle ein. Sei \zB das Objekt \bJavaCode{l} eine
+Repräsentation der Liste \bJavaCode{[0, 2, 2, 6, 8]} dann liefert
+\bJavaCode{l.insert(3)} eine Repräsentation der Liste \bJavaCode{[0,
+2, 2, 3, 6, 8]}.
+
+\begin{bAntwort}
+\bJavaExamen{66112}{2005}{03}{ListElem}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Implementieren Sie die Klasse \bJavaCode{DoublyLinkedList}, wobei
+die Methode \bJavaCode{insert} eine Zahl \bJavaCode{i} in eine
+aufsteigend geordnete Liste einordnet. Die Methode \bJavaCode{check}
+überprüft, ob eine Liste korrekt verkettet ist, \dh ob für jedes
+ListElem-Objekt \bJavaCode{o}, das über den \bJavaCode{head} der Liste
+erreichbar ist, der Vorgänger des Nachfolgers von \bJavaCode{o} gleich
+\bJavaCode{o} ist.
+\end{enumerate}
+
+\begin{bAntwort}
+\bJavaExamen{66112}{2005}{03}{DoublyLinkedList}
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,181 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,syntax}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Turing-Maschine zur Multiplikation mit 3},
+  Thematik = {Turing-Maschine Multiplikation},
+  Referenz = THEO.Formale-Sprachen.Typ-1_Kontextsensitiv.Turing-Maschine.Turing-Maschine-Multiplikation,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/30_Typ-1_Kontextsensitiv/Turing-Maschine/Aufgabe_Turing-Maschine-Multiplikation.tex,
+  ZitatSchluessel = theo:ab:3,
+  ZitatBeschreibung = {Aufgabe 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+}
+
+Gesucht ist eine Turing-Maschine, die die Funktion $f : \mathbf{N}
+\rightarrow \mathbf{N}$ mit $f(x) = 3x$ berechnet. Zu Beginn der
+Berechnung steht die Eingabe binär codiert auf dem Band, wobei der Kopf
+auf die linkeste Ziffer (most significant bit) zeigt. Am Ende der
+Berechnung soll der Funktionswert binär codiert auf dem Band stehen,
+wobei der Kopf auf ein beliebiges Feld zeigen darf.
+\index{Turing-Maschine}
+\footcite[Aufgabe 5]{theo:ab:3}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Überlege, was bei der Multiplikation mit 3 im Binären tatsächlich
+passiert. Leite hieraus die Arbeitsweise des Algorithmus für die
+Turingmaschine ab und beschreibe diese. Tipp: Die schriftliche
+Multiplikation mit Binärzahlen funktioniert genauso wie die schriftliche
+Multiplikation mit Dezimalzahlen!
+
+\begin{bAntwort}
+$13 \cdot 3 = 0b1101 \cdot 0b11 = 39 = 0b100111$:
+
+\begin{center}
+\begin{tabular}{llllll}
+  & 1 & 1 & 0 & 1 &   \\
+  &   & 1 & 1 & 0 & 1 \\
+{\tiny 1} & {\tiny 1} &   &   &   &   \\\hline
+1 & 0 & 0 & 1 & 1 & 1
+\end{tabular}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Erstelle dazu eine TM mit 3 Bändern. Die ersten beiden Bänder
+sollen für die Berechnung herangezogen werden. Auf dem dritten Band soll
+das Ergebnis stehen. (analog zur schriftlichen Multiplikation)
+
+\begin{bAntwort}
+\begin{tabular}{ll}
+$z_0$ & Versetzung der Zeiger von Band 2 und 3 im Vergleich zu 1. \\
+$z_1$ & kopiert das Wort von Band 1 auf Band 2 (mit Versetzung). \\
+$z_2$ & Binäre Addition ohne Übertrag. \\
+$z_3$ & Binäre Addition mit Übertrag. \\
+$z_4$ & Übertrag am Ende der Addition falls sich das Wort vergrößert \\
+$z_f$ & fertig \\
+\end{tabular}
+
+\begin{minted}{md}
+name: Multiplikation mit 3 (3-Band)
+init: z0
+accept: zf
+
+z0, 0,_,_
+z1, 0,_,_, -,>,>
+z0, 1,_,_
+z1, 1,_,_, -,>,>
+
+z1, 0,_,_
+z1, 0,0,_, >,>,>
+z1, 1,_,_
+z1, 1,1,_, >,>,>
+
+z1, _,_,_
+z2, _,_,_, -,<,<
+
+z2, _,0,_
+z2, _,0,0, <,<,<
+z2, _,1,_
+z2, _,1,1, <,<,<
+z2, 0,0,_
+z2, 0,0,0, <,<,<
+z2, 0,1,_
+z2, 0,1,1, <,<,<
+z2, 1,0,_
+z2, 1,0,1, <,<,<
+
+z2, 1,_,_
+zf, 1,_,1, -,-,-
+
+z2, 1,1,_
+z3, 1,1,0, <,<,<
+
+z3, 0,1,_
+z3, 0,1,0, <,<,<
+z3, 1,0,_
+z3, 1,0,0, <,<,<
+z3, 1,1,_
+z3, 1,1,1, <,<,<
+
+z3, 0,0,_
+z2, 0,0,1, <,<,<
+
+z3, 1,_,_
+z4, 1,_,0, <,<,<
+
+z4, _,_,_
+zf, _,_,1, -,-,-
+\end{minted}
+\bFussnoteUrl{http://turingmachinesimulator.com/shared/tgaybidewo}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Erstelle dazu eine TM mit 2 Bändern. Auf dem ersten Band steht die
+Eingabe und auf dem zweiten Band soll das Ergebnis stehen.
+
+\begin{bAntwort}
+\begin{tabular}{ll}
+$z_0$ & Die Binärzahl überlaufen \\
+$z_1$ & Zur nächsten Ziffer muss 0 addiert werden. \\
+$z_2$ & Zur nächsten Ziffer muss 1 addiert werden. \\
+$z_3$ & Zur nächsten Ziffer muss 2 addiert werden. \\
+$z_f$ & fertig \\
+\end{tabular}
+
+\begin{minted}{md}
+name: Multiplikation mit 3 (2-Band)
+init: z0
+accept: zf
+
+z0, 0,_
+z0, 0,_, >,-
+z0, 1,_
+z0, 1,_, >,-
+
+z0, _,_
+z1, _,_, <,-
+
+z1, 0,_
+z1, 0,0, <,<
+
+z1, 1,_
+z2, 1,1, <,<
+
+z2, 1,_
+z3, 1,0, <,<
+
+z3, 0,_
+z2, 0,0, <,<
+z3, _,_
+z2, _,0, -,<
+
+z2, 0,_
+z1, 0,1, <,<
+z2, _,_
+z1, _,1, -,<
+
+z3, 1,_
+z3, 1,1, <,<
+
+z1, _,_
+zf, _,_, -,-
+\end{minted}
+\bFussnoteUrl{http://turingmachinesimulator.com/shared/caoxpsgrgl}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

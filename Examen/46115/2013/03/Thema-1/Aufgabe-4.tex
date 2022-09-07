@@ -1,0 +1,128 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Turingmaschinen},
+  Referenz = 46115-2013-F.T1-A4,
+  RelativerPfad = Staatsexamen/46115/2013/03/Thema-1/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46115:2013:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2013,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 4,
+}
+
+\section{Aufgabe 4
+\index{Turing-Maschine}
+\footcite{examen:46115:2013:03}}
+
+Sei
+\bAusdruck{u v}
+{
+  u \in \bMenge{a,b}^*,
+  v \in \bMenge{c,d}^*,
+  \#_a(u) = \#_c(v)
+  \text{ und }
+  \#_b(u) = \#_d(v))
+}
+wobei $\#_a(u)$ die Anzahl der in $u$ vorkommenden $a$’s ist.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben Sie eine Turingmaschine $M$ an, die $L$ erkennt.
+Beschreiben Sie in Worten, wie Ihre Turingmaschine arbeitet.
+
+\begin{bAntwort}
+noch nicht fertig ... akzeptiert auch abcd!d
+\begin{center}
+\begin{tikzpicture}[li turingmaschine]
+  \node[state,initial] (q0) at (2.29cm,-5.57cm) {$q_0$};
+  \node[state] (q1) at (7.71cm,-3cm) {$q_1$};
+  \node[state] (q2) at (7cm,-10cm) {$q_2$};
+  \node[state] (q4) at (11.57cm,-5.86cm) {$q_4$};
+  \node[state] (q3) at (7.29cm,-5.86cm) {$q_3$};
+  \node[state,accepting] (q5) at (7.57cm,-4.29cm) {$q_5$};
+
+  \bTuringKante[above]{q0}{q1}{
+    a, A, R;
+  }
+
+  \bTuringKante[above]{q0}{q2}{
+    b, B, R;
+  }
+
+  \bTuringKante[above,loop above]{q1}{q1}{
+    a, a, R;
+    b, b, R;
+    d, d, R;
+    C, C, R;
+    D, D, R;
+  }
+
+  \bTuringKante[above]{q1}{q4}{
+    c, C, R;
+  }
+
+  \bTuringKante[above]{q2}{q4}{
+    d, D, R;
+  }
+
+  \bTuringKante[above,loop above]{q2}{q2}{
+    a, a, R;
+    c, c, R;
+    b, b, R;
+    C, C, R;
+    D, D, R;
+  }
+
+  \bTuringKante[above,loop above]{q4}{q4}{
+    c, c, R;
+    d, d, R;
+  }
+
+  \bTuringKante[above]{q4}{q3}{
+    LEER, LEER, L;
+  }
+
+  \bTuringKante[above,loop above]{q3}{q3}{
+    d, d, L;
+    c, c, L;
+    C, C, L;
+    D, D, L;
+    A, A, L;
+    B, B, L;
+  }
+
+  \bTuringKante[above]{q3}{q0}{
+    a, a, N;
+    b, b, N;
+  }
+
+  \bTuringKante[above]{q3}{q5}{
+    LEER, LEER, N;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ajhi5w0ha}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Welche Laufzeit (Zeitkomplexität) hat Ihre Turingmaschine (in
+O-Notation). Begründen Sie Ihre Angabe auf der Grundlage der
+Beschreibung.
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,89 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{master-theorem}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Mastertheorem},
+  Referenz = 66115-2019-H.T2-A6,
+  RelativerPfad = Staatsexamen/66115/2019/09/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66115:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Master-Theorem},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 6,
+}
+
+\let\O=\bO
+\let\o=\bOmega
+\let\T=\bT
+\let\t=\bTheta
+
+Der Hauptsatz der Laufzeitfunktionen ist bekanntlich folgendermaßen
+definiert:\index{Master-Theorem}
+\footcite{examen:66115:2019:09}
+
+\bMasterFaelle
+
+\noindent
+Bestimmen und begründen Sie formal mit Hilfe dieses Satzes welche
+Komplexität folgende Laufzeitfunktionen haben.
+
+\begin{enumerate}
+%%
+% (a)
+%%
+
+% https://www.wolframalpha.com/input/?i=T%5Bn%5D%3D%3D8T%5Bn%2F3%5D%2B5n%5E2
+
+\item $T(n) = \T{8}{2} + 5n^2$
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{8} % a
+{2} % b
+{5n^2} % f(n)
+
+\bMasterFallRechnung
+% 1. Fall
+{für $\varepsilon = 4$: \\
+$f(n) = 5n^2 \in \O{n^{\log_2 {8 - 4}}} = \O{n^{\log_2 4}} = \O{n^2}$}
+% 2. Fall
+{$f(n) = 5n^2 \notin \t{n^{\log_2 {8}}} = \t{n^3}$}
+% 3. Fall
+{$f(n) = 5n^2 \notin \O{n^{\log_2 {8 + \varepsilon}}}$}
+
+\bMasterWolframLink{T[n]=8T[n/3]\%2B5n^2}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item $T(n) = \T{9}{3} + 5n^2$
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{9} % a
+{3} % b
+{5n^2} % f(n)
+
+\bMasterFallRechnung
+% 1. Fall
+{$f(n) = 5n^2 \notin \O{n^{\log_3 {9 - \varepsilon}}}$ für $\varepsilon > 0$}
+% 2. Fall
+{$f(n) = 5n^2 \in \t{n^{\log_3 {9}}} = \t{n^2}$}
+% 3. Fall
+{$f(n) = 5n^2 \notin \O{n^{\log_3 {9 + \varepsilon}}}$ für $\varepsilon > 0$}
+
+$\Rightarrow T(n) \in \t{n^2 \cdot \log n}$
+
+\bMasterWolframLink{T[n]=9T[n/3]\%2B5n^2}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

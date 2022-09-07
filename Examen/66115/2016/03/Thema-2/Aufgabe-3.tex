@@ -1,0 +1,121 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Verständnis Komplexitätstheorie},
+  Thematik = {Verständnis},
+  Referenz = 66115-2016-F.T2-A3,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-2/Aufgabe-3.tex,
+  ZitatSchluessel = theo:ab:4,
+  ZitatBeschreibung = {StEx F2016 T2 A3, StEx H2017 T1 A3, Aufgabe 15},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Komplexitätstheorie},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 3,
+}
+
+% Check-Up
+% i o theo ab 4
+% i e 66115:2016:03 2 3
+% i e 66115:2017:09 1 3
+
+Beantworten Sie kurz, präzise und mit Begründung folgende Fragen: (Die
+Begründungen müssen keine formellen mathematischen Beweise sein)
+\footcite[StEx F2016 T2 A3, StEx H2017 T1 A3, Aufgabe 15]{theo:ab:4}
+\index{Komplexitätstheorie}
+\footcite{examen:66115:2016:03}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+% 1:08
+
+\item In der O-Notation insbesondere für die Zeitkomplexität von
+Algorithmen lässt man i.\,A. konstante Faktoren oder kleinere Terme weg.
+\ZB schreibt man anstelle $\mathcal{O}(3n^2 + 5)$ einfach nur
+$\mathcal{O}(n^2)$. Warum macht man das so?
+
+\begin{bAntwort}
+Das Wachstum im Unendlich ist bestimmt durch den größten Exponenten.
+Konstante falle bei einer asymptotischen. Analyse weg. nicht wesentlich
+schneller
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+% 1h11min
+
+\item Was ist die typische Vorgehensweise, wenn man für ein neues
+Problem die NP-Vollständigkeit untersuchen will?
+
+\begin{bAntwort}
+Die alten Probleme werden reduziert. Das neue Problem ist größer als die
+alten Probleme. Das Problem muss in NP liegen.
+
+\begin{enumerate}
+\item Problem $in$ NP durch Angabe eines nichtdeterministischen
+Algorithmus in Polynomialzeit
+
+\item Problem NP-schwer via Reduktion: $L_{\text{NP-vollständig}} \leq
+L_{\text{neues Problem}}$
+\end{enumerate}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+% 1h14min
+
+\item Was könnte man tun, um $P = NP$ zu beweisen?
+
+\begin{bAntwort}
+Es würde genügen, zu einem einzigen NP-Problem beweisen, dass es in P
+liegt.
+
+Zu einem Problem einen deterministen Turingmaschin finden, die es
+in polynomineller Zeit löst.
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+% 1h17min
+
+\item Sind NP-vollständige Problem mit Loop-Programmen lösbar? (Antwort
+mit Begründung!)
+
+\begin{bAntwort}
+nicht lösbar mit Loop-Programmen. Begründung ähnlich wie bei der
+Ackermann-Funktion. z. B. Passwort. Zu Passwort beliebig bräuchte man
+beliebige for schleifen, was dem endlichen Anzahl an Loop-Schleifen
+widerspricht.
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+% 1h26min
+
+\item Wie zeigt man aus der NP-Härte des SAT-Problems die NP-Härte des
+3SAT-Problems? (3SAT ist ein SAT-Problem wobei alle Klauseln maximal 3
+Literale haben.)
+
+\begin{bAntwort}
+in den Lösungen enthalten
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

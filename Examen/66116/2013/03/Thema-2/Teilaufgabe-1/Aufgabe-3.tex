@@ -1,0 +1,161 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {B-Baum k=2},
+  Referenz = 66116-2013-F.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2013/03/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = aud:ab:5,
+  ZitatBeschreibung = {Aufgabe 4},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {B-Baum},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2013,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Gegeben sei der folgende B-Baum:\footcite[Aufgabe 4]{aud:ab:5}
+\index{B-Baum}
+\footcite{examen:66116:2013:03}
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.append style={level distance=15mm,sibling distance=65mm},
+  level 2/.append style={level distance=15mm,sibling distance=22mm}
+]
+\node{12}[->]
+  child{node{6 \nodepart{two} 9}
+    child{node {1 \nodepart{two} 2 \nodepart{three} 4 \nodepart{four} 5}}
+    child{node {7 \nodepart{two} 8}}
+    child{node {10 \nodepart{two} 11}}
+  }
+  child{node{15 \nodepart{two} 19}
+    child{node {13 \nodepart{two} 14}}
+    child{node {16 \nodepart{two} 17 \nodepart{three} 18}}
+    child{node {20 \nodepart{two} 21}}
+  }
+;
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item Was bedeutet $k$ bei einem B-Baum mit Grad $k$? Geben Sie $k$ für
+den obigen B-Baum an.
+
+\begin{bAntwort}
+Jeder Knoten außer der Wurzel hat mindestens $k$ und höchstens $2k$
+Einträge. Die Wurzel hat zwischen einem und $2k$ Einträgen. Die Einträge
+werden in allen Knoten sortiert gehalten. Alle Knoten mit $n$ Einträgen,
+außer den Blättern, haben $n + 1$ Kinder.
+\footcite[Seite 225]{kemper}
+
+Für den gegebenen Baum kann die Ordnung $k = 2$ angegeben werden.
+\end{bAntwort}
+
+%%
+% 2.
+%%
+
+\item Was sind die Vorteile von B-Bäumen im Vergleich zu binären Baumen?
+
+\begin{bAntwort}
+B-Bäume sind immer höhenbalanciert. B-Bäume haben eine geringere Höhe,
+wodurch eine schnellere Suche möglich wird, da weniger Aufrufe nötig
+sind.\bFussnoteUrl{http://wwwbayer.in.tum.de/lehre/WS2001/HSEM-bayer/BTreesAusarbeitung.pdf}
+\end{bAntwort}
+
+%%
+% 3.
+%%
+
+\item Wozu werden B-Bäume in der Regel verwendet und wieso?
+
+\begin{bAntwort}
+B-Bäume werden für Hintergrundspeicherung (z. B. von Datenbanksystemen,
+Dateisystem) verwendet. Die Knotengrößen werden auf die
+Seitenkapazitäten abgestimmt.\footcite[Seite 223]{kemper}
+
+B-Bäume sind eine daten- und Indexstruktur, die häuﬁg in Datenbanken und
+Daeisystemen eingesetzt werden. Da ein B-Baum immer vollständig
+balanciert ist und die Schlüssel sortiert gespeichert werden, ist ein
+schnelles Aufﬁnden von Inhalten gegeben.
+\end{bAntwort}
+
+%%
+% 4.
+%%
+
+\item Fügen Sie den Wert $3$ in den B-Baum ein, und zeichnen Sie den
+vollständigen B-Baum nach dem Einfügen und möglichen darauf folgenden
+Operationen.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.append style={level distance=15mm,sibling distance=70mm},
+  level 2/.append style={level distance=15mm,sibling distance=20mm}
+]
+\node{12}[->]
+  child{node{\textbf{3} \nodepart{two} 6 \nodepart{three} 9}
+    child{node {\textbf{1} \nodepart{two} \textbf{2}}}
+    child{node {\textbf{4} \nodepart{two} \textbf{5}}}
+    child{node {7 \nodepart{two} 8}}
+    child{node {10 \nodepart{two} 11}}
+  }
+  child{node{15 \nodepart{two} 19}
+    child{node {13 \nodepart{two} 14}}
+    child{node {16 \nodepart{two} 17 \nodepart{three} 18}}
+    child{node {20 \nodepart{two} 21}}
+  }
+;
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% 5.
+%%
+
+\item Entfernen Sie aus dem ursprünglichen B-Baum den Wert $19$. Zeichnen
+Sie das vollständige Ergebnis nach dem Löschen und möglichen darauf
+folgenden Operationen. Sollte es mehrere richtige Lösungen geben, reicht
+es eine Lösung zu zeichnen.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.append style={level distance=15mm,sibling distance=65mm},
+  level 2/.append style={level distance=15mm,sibling distance=22mm}
+]
+\node{12}[->]
+  child{node{6 \nodepart{two} 9}
+    child{node {1 \nodepart{two} 2 \nodepart{three} 4 \nodepart{four} 5}}
+    child{node {7 \nodepart{two} 8}}
+    child{node {10 \nodepart{two} 11}}
+  }
+  child{node{15 \nodepart{two} \textbf{18}}
+    child{node {13 \nodepart{two} 14}}
+    child{node {16 \nodepart{two} 17}}
+    child{node {20 \nodepart{two} 21}}
+  }
+;
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

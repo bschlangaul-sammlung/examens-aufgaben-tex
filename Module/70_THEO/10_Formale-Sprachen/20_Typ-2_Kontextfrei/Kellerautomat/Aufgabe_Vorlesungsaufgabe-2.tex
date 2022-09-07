@@ -1,0 +1,134 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Vorlesungsaufgabe Kellerautomaten},
+  Thematik = {Nonterminal: P, Terminale: 01},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.Vorlesungsaufgabe-2,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_Vorlesungsaufgabe-2.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 27},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kellerautomat},
+}
+
+\let\m=\bMenge
+\let\z=\bZustandsnameTiefgestellt
+
+Erstellen Sie einen Kellerautomaten zu der Grammatik
+\bGrammatik{variablen={S}, alphabet={0, 1}} mit den folgenden
+Produktionsregeln\footcite[Seite 27]{theo:fs:2}
+\index{Kellerautomat}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item
+
+\begin{bProduktionsRegeln}
+S -> EPSILON | 0 | 1 | 0 S 0 | 1 S 1,
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={\z0, \z1},
+  alphabet={0, 1},
+  kelleralphabet={\#, N, E},
+  ende={z_1},
+}
+
+N = Null
+
+E = Eins
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (3.57cm,-3.57cm) {$z_0$};
+  \node[state,accepting] (z1) at (6.86cm,-3.57cm) {$z_1$};
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    0, KELLERBODEN, N KELLERBODEN;
+    0, N, N N;
+    0, E, N E;
+    1, KELLERBODEN, E KELLERBODEN;
+    1, E, E E;
+    1, N, N E;
+  }
+
+  \bKellerKante[above]{z0}{z1}{
+    EPSILON, KELLERBODEN, EPSILON;
+    EPSILON, N, N;
+    EPSILON, E, E;
+    1, N, N;
+    1, E, E;
+    0, E, E;
+    0, N, N;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    0, N, EPSILON;
+    1, E, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ahij8jnn7}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item
+
+\begin{bProduktionsRegeln}
+S -> A 1 B,
+A -> 0 A | EPSILON,
+B -> 0 B | 1 B | EPSILON,
+\end{bProduktionsRegeln}
+\end{enumerate}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={\z0, \z1},
+  alphabet={0, 1},
+  kelleralphabet={\#, E},
+  ende={z_1},
+}
+
+\noindent
+E = Eins ist gesetzt
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (4cm,-8cm) {$z_0$};
+  \node[state,accepting] (z1) at (7.86cm,-8cm) {$z_1$};
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    0, KELLERBODEN, KELLERBODEN;
+    1, KELLERBODEN, E KELLERBODEN;
+  }
+
+  \bKellerKante[above]{z0}{z1}{
+    0, E, EPSILON;
+    1, E, EPSILON;
+    EPSILON, E, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    0, KELLERBODEN, KELLERBODEN;
+    1, KELLERBODEN, KELLERBODEN;
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ar3imp8a7}
+\end{bAntwort}
+
+\end{document}

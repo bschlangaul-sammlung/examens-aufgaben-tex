@@ -1,0 +1,120 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Dijkstra},
+  Referenz = 46114-2008-H.T1-A2,
+  RelativerPfad = Staatsexamen/46114/2008/09/Thema-1/Aufgabe-2.tex,
+  ZitatSchluessel = 46114:2008:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Dijkstra},
+  EinzelpruefungsNr = 46114,
+  Jahr = 2008,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 2,
+}
+
+Gegeben sei folgender Graph:
+\index{Algorithmus von Dijkstra}
+\footcite{46114:2008:09}
+
+\begin{tabbing}
+\hspace{1cm} \= \hspace{3cm} \kill
+V: \> \{a, b, c, d, e\} \\
+E: \> a $\rightarrow$ a, b \\
+\> b $\rightarrow$ b, d, e \\
+\> c $\rightarrow$ c, d \\
+\> d $\rightarrow$ a, e \\
+\end{tabbing}
+
+\begin{bGraphenFormat}
+a: 0 0
+b: 1 1
+c: 4 1
+d: 3 0
+e: 2 2
+a -- b
+b -- d
+b -- e
+c -- d
+d -- e
+d -- a
+\end{bGraphenFormat}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Stellen Sie den Graphen grafisch dar!
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (a) at (0,0) {a};
+\node (b) at (1,1) {b};
+\node (c) at (4,1) {c};
+\node (d) at (3,0) {d};
+\node (e) at (2,2) {e};
+
+\path (a) edge (b);
+\path (b) edge (d);
+\path (b) edge (e);
+\path (c) edge (d);
+\path (d) edge (a);
+\path (d) edge (e);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Berechnen Sie mit dem Algorithmus von Dijkstra schrittweise die Länge der kürzesten
+Pfade ab dem Knoten a! Nehmen Sie dazu an, dass alle Kantengewichte 1 sind. Erstellen
+Sie eine Tabelle gemäß folgendem Muster:
+
+ausgewählt |a| b c d e
+
+Ergebnis:
+
+Hinweis: Nur mit Angabe der jeweiligen Zwischenschritte gibt es Punkte. Es reicht also
+nicht, nur das Endergebnis hinzuschreiben.
+
+\begin{bAntwort}
+\begin{tabular}{lllllll}
+\bf{Nr.}        & \bf{ausgewählt} & \bf{a}          & \bf{b}          & \bf{c}          & \bf{d}          & \bf{e}          \\
+\hline
+1               & a               & \bf{0}          & 1               & $\infty$        & 1               & $\infty$        \\
+2               & b               & |               & \bf{1}          & $\infty$        & 1               & 2               \\
+3               & d               & |               & |               & 2               & \bf{1}          & 2               \\
+4               & c               & |               & |               & \bf{2}          & |               & 2               \\
+5               & e               & |               & |               & |               & |               & \bf{2}          \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Welchen Aufwand hat der Algorithmus von Dijkstra bei Graphen mit
+|V| Knoten und |E| Kanten,
+
+\begin{itemize}
+\item wenn die Kantengewichte alle 1 sind? Mit welcher Datenstruktur und
+welchem Vorgehen lässt sich der Aufwand in diesem Fall reduzieren (mit
+kurzer Begründung)?
+
+\item wenn die Kantengewichte beliebig sind und als Datenstruktur eine
+Halde verwendet wird (mit kurzer Begründung)?
+\end{itemize}
+
+\end{enumerate}
+
+\end{document}

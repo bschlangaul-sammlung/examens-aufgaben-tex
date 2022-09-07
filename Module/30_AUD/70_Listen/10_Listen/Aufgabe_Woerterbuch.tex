@@ -1,0 +1,73 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5: Listen},
+  Thematik = {Wörterbuch},
+  Referenz = AUD.Listen.Listen.Woerterbuch,
+  RelativerPfad = Module/30_AUD/70_Listen/10_Listen/Aufgabe_Woerterbuch.tex,
+  ZitatSchluessel = aud:ab:5,
+  ZitatBeschreibung = {Seite 4, Aufgabe 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Einfach-verkettete Liste, Kompositum (Composite)},
+}
+
+Erstellen Sie ein Deutsch-Englisch Wörterbuch. Verwenden Sie dazu eine
+einfach verkettete Liste mit Kompositum. Identifizieren Sie die
+benötigten Klassen, legen Sie das Wörterbuch an und implementieren Sie
+anschließend die geforderten Methoden.\index{Einfach-verkettete Liste}
+\footcite[Seite 4, Aufgabe 5]{aud:ab:5}
+\index{Kompositum (Composite)}
+
+\begin{itemize}
+\item Ein Listenelement, welches immer jeweils auf seinen Nachfolger
+verweisen kann, enthält jeweils einen Eintrag des Wörterbuchs. Ein
+Eintrag besteht aus dem deutschen und dem zugehörigen englischen Wort.
+Diese können natürlich jeweils zurückgegeben werden.
+
+\item Mit der Methode \bJavaCode{einfuegen (String deutsch, String
+englisch)} soll ein neuer Eintrag in das Wörterbuch eingefügt werden
+können. Wie in jedem Wörterbuch müssen die (deutschen) Einträge jedoch
+alphabetisch sortiert sein, sodass nicht an einer beliebigen Stelle
+eingefügt werden kann. Um die korrekte Einfügeposition zu finden, ist
+das Vergleichen von Strings notwendig. Recherchieren Sie dazu, wie die
+Methode \bJavaCode{compareTo()} in Java funktioniert!
+
+\item Der Aufruf der Methode \bJavaCode{uebersetze(String deutsch)} auf
+der Liste soll nun für ein übergebenes deutsches Wort die englische
+Übersetzung ausgeben.
+
+\end{itemize}
+
+\begin{bAntwort}
+
+\bPseudoUeberschrift{Klasse \texttt{WörterbuchEintrag}}
+
+\noindent
+Die abstrakte Klasse im Kompositumentwurfsmuster von der sowohl die
+primitive Klasse als auch die Behälterklasse erben.
+
+\bJavaDatei[firstline=3]{aufgaben/aud/listen/woerterbuch/WoerterbuchEintrag}
+
+\bPseudoUeberschrift{Klasse \texttt{WortPaar}}
+
+\noindent
+Das Listenelement (die primitive Klasse im Kompositumentwurfsmuster).
+
+\bJavaDatei[firstline=3]{aufgaben/aud/listen/woerterbuch/WortPaar}
+
+\bPseudoUeberschrift{Klasse \texttt{Wörterbuch}}
+
+\noindent
+Die Behälterklasse im Kompositumentwurfsmuster.
+
+\bJavaDatei[firstline=6]{aufgaben/aud/listen/woerterbuch/Woerterbuch}
+
+\bPseudoUeberschrift{Test}
+
+\bJavaTestDatei{aufgaben/aud/listen/woerterbuch/WoerterbuchTest}
+
+\end{bAntwort}
+\end{document}

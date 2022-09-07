@@ -1,0 +1,129 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Vorlesungsaufgaben},
+  Thematik = {Vorlesungsaufgaben},
+  Referenz = THEO.Berechenbarkeit.LOOP-Vorlesungsaufgaben,
+  RelativerPfad = Module/70_THEO/20_Berechenbarkeit/Aufgabe_LOOP-Vorlesungsaufgaben.tex,
+  ZitatSchluessel = theo:fs:4,
+  ZitatBeschreibung = {Seite 11},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Berechenbarkeit},
+}
+
+LOOP-Implementierung\footcite[Seite 11]{theo:fs:4}\index{Berechenbarkeit}
+
+\begin{enumerate}
+\item Geben Sie eine LOOP-Implementierung für
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item $add(x_i, x_j)$
+
+\begin{bAntwort}
+\begin{minted}{md}
+x_0 := x_i;
+LOOP x_j DO
+  x0 := succ(x_0);
+END
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item $mult(x_i, x_j)$
+
+\begin{bAntwort}
+\begin{minted}{md}
+x_0 := x_i;
+LOOP x_j DO
+  x0 := add(x_0, x_i);
+END
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item $power(x_i, x_j)$
+
+\begin{bAntwort}
+\begin{minted}{md}
+x_0 := succ(0);
+LOOP x_j DO
+  x0 := mult(x_0, x_i);
+END
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item $hyper(x_i, x_j)$
+
+\begin{bAntwort}
+\begin{minted}{md}
+x_0 := succ(0);
+LOOP x_j DO
+  x_0 := power(x_i, x_0);
+END
+\end{minted}
+\end{bAntwort}
+
+\item $2^{x_i}$
+
+\begin{bAntwort}
+% Info_2021-05-07-2021-05-07_09.32.08.mp4 1h42min
+Mit \emph{power}
+
+\begin{minted}{md}
+x_0 := power(2, x_i);
+\end{minted}
+
+Mit \emph{mult}
+
+\begin{minted}{md}
+x_0 := 1;
+x_2 := 2;
+LOOP x_i DO
+  x0 := mult(x_0, x_2);
+END
+\end{minted}
+\end{bAntwort}
+\end{enumerate}
+
+an.
+
+\item Beweisen Sie, dass der größte gemeinsame Teiler zweier natürlicher
+Zahlen LOOP-berechenbar ist.
+
+\begin{bAntwort}
+% Info_2021-05-07-2021-05-07_09.32.08.mp4 1h47min
+\begin{minted}{md}
+ggT(x_1, x_2)
+
+x_3 := MAX(x_1, x_2);
+x_4 := MIN(x_1, x_2);
+
+LOOP x_4 DO
+  x_5 := x_3 - x_4;
+  x_3 := MAX(x_4, x_5);
+  x_4 := MIN(x_4, x_5);
+END
+x_0 := x_3;
+\end{minted}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,syntaxbaum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Ableitungen},
+  Thematik = {Ableitungen},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Ableitung-Ableitungsbaum.Ableitungen,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Ableitung-Ableitungsbaum/Aufgabe_Ableitungen.tex,
+  ZitatSchluessel = theo:ab:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Ableitung (Kontextfreie Sprache), Ableitungsbaum},
+}
+
+Bestimmen Sie für die folgende Grammatik jeweils für die angegebenen
+Wörter $w_i$ mehrere Ableitungen sowie Parsebäume, wenn dies nicht
+eindeutig möglich ist.
+\index{Ableitung (Kontextfreie Sprache)}
+\footcite{theo:ab:2}
+\index{Ableitungsbaum}
+
+\begin{bProduktionsRegeln}
+S -> AB,
+A -> aAb | epsilon,
+B -> cBc | c
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item $w_1 = abccc$
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1.2cm]
+\Tree
+[.S [.A a [.A $\varepsilon$ ] b ] [.B c [.B c ] c ] ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item $w_2 = ccc$
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1.2cm]
+\Tree
+[.S [.A $\varepsilon$ ] [.B c [.B c ] c ] ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item $w_3 = aabbc$
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1.2cm]
+\Tree
+[.S [. A a [.A a [.A $\varepsilon$ ] b ] b ] [.B c ] ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{enumerate}
+Welche Sprache wird durch die Grammatik erzeugt?
+
+\begin{bAntwort}
+Die Sprache beinhaltet alle Wörter, die gleich viele $a$’s gefolgt von
+gleich vielen $b$’s und auf ungeradzahlig viele $c$’s endet.
+\end{bAntwort}
+
+\end{document}

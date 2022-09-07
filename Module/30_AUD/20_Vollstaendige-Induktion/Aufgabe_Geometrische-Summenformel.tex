@@ -1,0 +1,89 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,vollstaendige-induktion}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe Geometrische Summenformel},
+  Thematik = {Geometrische Summenformel geoSum()},
+  Referenz = AUD.Vollstaendige-Induktion.Geometrische-Summenformel,
+  RelativerPfad = Module/30_AUD/20_Vollstaendige-Induktion/Aufgabe_Geometrische-Summenformel.tex,
+  ZitatSchluessel = sosy:e-klausur,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vollständige Induktion},
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Gegeben sei folgende Methode:\footcite{sosy:e-klausur}
+\index{Vollständige Induktion}
+
+\bJavaDatei[firstline=3,lastline=11]{aufgaben/sosy/totale_korrektheit/GeoSum}
+
+\noindent
+Weisen Sie mittels vollständiger Induktion nach, dass
+
+\begin{displaymath}
+\text{geoSum}(n,q) = 1 - q^{n+1}
+\end{displaymath}
+
+\noindent
+Dabei können Sie davon ausgehen, dass $q > 0$, $ n \in \mathbb{N}_0$
+
+\begin{bAntwort}
+\bInduktionAnfang
+
+\begin{displaymath}
+f(0): \text{geoSum}(0, q) = 1 - q^{0+1} = 1 - q^1 = 1 - q
+\end{displaymath}
+
+\bInduktionVoraussetzung
+
+\begin{displaymath}
+f(n): \text{geoSum}(n, q) = 1 - q^{n+1}
+\end{displaymath}
+
+\bInduktionSchritt
+
+\begin{align*}
+f(n)
+& = \text{geoSum}(n, q)\\
+%
+& = \m{(1 - q) \cdot q^n +
+    \text{geoSum}(n - 1, q)}
+& \e{Java-Code in Mathe-Formel umgewandelt}\\
+%
+& = (1 - q) \cdot q^n +
+    \m{1 - q^{(n - 1) + 1}}
+& \e{für rekursiven Methodenaufruf gegebene Formel eingesetzt}\\
+%
+& = (1 - q) \cdot q^n +
+    1 - q^{\m{n}}
+& \e{Addition im Exponent}\\
+\end{align*}
+
+\begin{align*}
+f(n+1)
+& = \text{geoSum}(n + 1, q)\\
+%
+& = (1 - q) \cdot q^{n + 1} +
+    1 - q^{n + 1}
+& \e{von Java konvertierte Formel verwendet und $n + 1$ eingesetzt}\\
+%
+& = \m{q^{n + 1} - q^{(n + 1) + 1}} +
+    1 - q^{n + 1}
+& \e{ausmultipliziert}\\
+%
+& = - q^{(n + 1) + 1} + 1
+& \e{$q^{n + 1} - q^{n + 1} = 0$}\\
+%
+& =  1 \m{- q^{(n + 1) + 1}}
+& \e{Kommutativgesetz der Addition}\\
+%
+& =  1 - q^{(\m{n + 1}) + 1}
+& \e{was zu zeigen war}\\
+\end{align*}
+\end{bAntwort}
+
+\end{document}

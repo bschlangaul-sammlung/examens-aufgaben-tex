@@ -1,0 +1,125 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,entwurfsmuster}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Kunden und Angestellte einer Firma},
+  Referenz = 66116-2015-F.T1-TA2-A3,
+  RelativerPfad = Staatsexamen/66116/2015/03/Thema-1/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = aud:pu:7,
+  ZitatBeschreibung = {Vererbung und Abstrakte Klassen II, Aufgabe 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java, Vererbung, Interface, Abstrakte Klasse, Adapter},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+In\footcite[Vererbung und Abstrakte Klassen II, Aufgabe 2]{aud:pu:7}
+dieser Aufgabe implementieren\index{Implementierung in Java} Sie ein
+konzeptionelles Datenmodell für eine Firma, die Personendaten von
+Angestellten und Kunden verwalten möchte. Gegeben seien dazu folgende
+Aussagen:
+\index{Vererbung}
+\footcite[Thema 1 Teilaufgabe 2 Aufgabe 3 Seite 5]{examen:66116:2015:03}
+
+\begin{itemize}
+\item Eine \emph{Person} hat einen \emph{Namen} und ein
+\emph{Geschlecht} (männlich oder weiblich).
+
+\item Ein \emph{Angestellter} ist eine \emph{Person}, zu der zusätzlich
+das monatliche \emph{Gehalt} gespeichert wird.
+
+\item Ein \emph{Kunde} ist eine \emph{Person}, zu der zusätzlich eine
+\emph{Kundennummer} hinterlegt wird.
+\end{itemize}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie in einer objektorientierten Programmiersprache Ihrer
+Wahl (geben Sie diese an) eine Implementierung des aus den obigen
+Aussagen resultierenden konzeptionellen Datenmodells in Form von
+\textbf{Klassen} und \textbf{Interfaces} an. Gehen Sie dabei wie folgt
+vor:
+
+\begin{itemize}
+\item Schreiben Sie ein Interface\index{Interface} \bJavaCode{Person}
+sowie zwei davon erbende Interfaces \bJavaCode{Angestellter} und
+\bJavaCode{Kunde}. Die Interfaces sollen jeweils lesende
+Zugriffsmethoden (Getter) die entsprechenden Attribute (Name,
+Geschlecht, Gehalt, Kundennummer) deklarieren.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2015}{03}{Person}
+\bJavaExamen{66116}{2015}{03}{Angestellter}
+\bJavaExamen{66116}{2015}{03}{Kunde}
+\end{bAntwort}
+
+\item Schreiben Sie eine abstrakte Klasse\index{Abstrakte Klasse}
+\bJavaCode{PersonImpl}, die das Interface \bJavaCode{Person}
+implementiert. Für jedes Attribut soll ein Objektfeld angelegt werden.
+Außerdem soll ein Konstruktor definiert werden, der alle Objektfelder
+initialisiert.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2015}{03}{PersonImpl}
+\end{bAntwort}
+
+\item Schreiben Sie zwei Klassen \bJavaCode{AngestellterImpl} und
+\bJavaCode{KundeImpl}, die von \bJavaCode{PersonImpl} erben und die
+jeweils dazugehörigen Interfaces implementieren. Es sollen wiederum
+Konstruktoren definiert werden, die alle Objektfelder initialisieren und
+dabei auf den Konstruktor der Basisklasse \bJavaCode{PersonImpl} Bezug
+nehmen.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2015}{03}{AngestellterImpl}
+\bJavaExamen{66116}{2015}{03}{KundeImpl}
+\end{bAntwort}
+\end{itemize}
+
+%%
+% b)
+%%
+
+\item Verwenden Sie das Entwurfsmuster \textbf{Adapter}, um zu
+ermöglichen, dass vorhandene Angestellte die Rolle eines Kunden
+einnehmen können. Der Adapter soll eine zusätzliche Klasse sein, die das
+Kunden-Interface implementiert. Wenn möglich, sollen Methodenaufrufe an
+den adaptierten Angestellten delegiert werden. Möglicherweise müssen Sie
+neue Objektfelder einführen.\index{Adapter}
+
+\begin{bExkurs}[Entwurfsmuster „Adapter“]
+\bEntwurfsAdapter
+\end{bExkurs}
+
+%%
+% c)
+%%
+
+\item Verwenden Sie das Entwurfsmuster \textbf{Simple Factory}, um die
+Erzeugung von Angestellten, Kunden, sowie Adapter-Instanzen aus Aufgabe
+(b) zu vereinheitlichen. Die entsprechende Erzeugungs-Methode soll neben
+einem Typ-Diskriminator (\zB einem Aufzählungstypen oder mehreren
+booleschen Werten) alle Parameter übergeben bekommen, die für den
+Konstruktor irgendeiner Implementierungsklasse des Interface
+\bJavaCode{Person} notwendig sind.
+
+Hinweis: Um eine Adapter-Instanz zu erzeugen, müssen Sie möglicherweise
+zwei Konstruktoren aufrufen.
+
+\begin{bExkurs}[Entwurfsmuster „Einfache Fabrik“]
+\bEntwurfsEinfacheFabrik
+\end{bExkurs}
+
+\end{enumerate}
+\end{document}

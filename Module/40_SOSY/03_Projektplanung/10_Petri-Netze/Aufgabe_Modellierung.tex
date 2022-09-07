@@ -1,0 +1,85 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{petri}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2: Modellierung},
+  Thematik = {Modellierung},
+  Referenz = SOSY.Projektplanung.Petri-Netze.Modellierung,
+  RelativerPfad = Module/40_SOSY/03_Projektplanung/10_Petri-Netze/Aufgabe_Modellierung.tex,
+  ZitatSchluessel = sosy:ab:4,
+  ZitatBeschreibung = {Seite 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Petri-Netz},
+}
+
+Modellieren Sie folgendes Szenario als Petri-Netz:
+
+\bigskip
+
+\noindent
+Ein Modul gilt als bestanden, wenn beide Prüfungen $P_1$ und $P_2$
+bestanden sind. Beide Prüfungen dürfen bei Nicht-Bestehen jeweils
+maximal zwei mal wiederholt werden. Die Prüfungen dürfen nicht
+gleichzeitig geschrieben werden. Erst wenn eine von beiden bestanden
+wurde, darf die nächste begonnen werden. Wurde eine der beiden Prüfungen
+insgesamt drei mal nicht bestanden, so gilt das gesamte Modul als nicht
+bestanden.\index{Petri-Netz}
+\footcite[Seite 2]{sosy:ab:4}
+
+\begin{bAntwort}
+Man beachte die sog. Inhibitorkanten Linien mit Punkt am Ende). Z. B.
+kann t 7 nur schalten, wenn die Stelle „Wdh. Versuche P1“ keine
+Markierung enthält.
+
+\begin{center}
+\begin{tikzpicture}[li petri,font=\scriptsize,scale=0.8,transform shape]
+\node[place,tokens=1,label=north:Prüfung 1] at (-3,0) (p1) {};
+\node[place,tokens=1,label=north:Semaphore] at (0,0) (s) {};
+\node[place,tokens=1,label=north:Prüfung 2] at (3,0) (p2) {};
+
+\node[place,tokens=0,label=west:P1 geschrieben] at (-3,-3) (p1-geschrieben) {};
+\node[place,tokens=0,label=east:P2 geschrieben] at (3,-3) (p2-geschrieben) {};
+
+\node[place,tokens=2,label=west:P1 Versuche] at (-5,-6) (p1-versuche) {};
+\node[place,tokens=0,label=north:P1 nicht bestanden] at (-3,-6) (p1-nicht-bestanden) {};
+\node[place,tokens=0,label=north:P1 bestanden] at (-1,-6) (p1-bestanden) {};
+\node[place,tokens=0,label=north:P2 bestanden] at (1,-6) (p2-bestanden) {};
+\node[place,tokens=0,label=north:P2 nicht bestanden] at (3,-6) (p2-nicht-bestanden) {};
+\node[place,tokens=2,label=east:P2 Versuche] at (5,-6) (p2-versuche) {};
+
+\node[place,tokens=0,label=south:Modul nicht bestanden] at (-3,-9) (modul-nicht-bestanden) {};
+\node[place,tokens=0,label=south:Modul bestanden] at (3,-9) (modul-bestanden) {};
+
+\node[transition] at (-3,-1.5) (t0) {}
+  edge[pre] (p1) edge[pre] (s) edge[post] (p1-geschrieben);
+
+\node[transition] at (3,-1.5) (t1) {}
+  edge[pre] (p2) edge[pre] (s) edge[post] (p2-geschrieben);
+
+\node[transition] at (-4,-4.5) (t2) {}
+  edge[pre] (p1-geschrieben) edge[post] (p1-nicht-bestanden);
+\node[transition] at (-2,-4.5) (t3) {}
+  edge[pre] (p1-geschrieben) edge[post] (s) edge[post] (p1-bestanden);
+\node[transition] at (2,-4.5) (t4) {}
+  edge[pre] (p2-geschrieben) edge[post] (s) edge[post] (p2-bestanden);
+\node[transition] at (4,-4.5) (t5) {}
+  edge[pre] (p2-geschrieben) edge[post] (p2-nicht-bestanden);
+
+\node[transition] at (-3,-7.5) (t7) {}
+  edge[inhibitor] (p1-versuche) edge[pre] (p1-nicht-bestanden)  edge[post] (modul-nicht-bestanden);
+\node[transition] at (0,-7.5) (t6) {}
+  edge[pre] (p1-bestanden) edge[pre] (p2-bestanden) edge[post] (modul-bestanden);
+\node[transition] at (3,-7.5) (t8) {}
+  edge[inhibitor] (p2-versuche) edge[pre] (p2-nicht-bestanden)  edge[post] (modul-nicht-bestanden);
+
+\node[transition] at (-6,-4.5) (t9) {}
+  edge[pre] (p1-versuche) edge[pre] (p1-nicht-bestanden) edge[post] (p1-geschrieben);
+\node[transition] at (6,-4.5) (t10) {}
+  edge[pre] (p2-versuche) edge[pre] (p2-nicht-bestanden) edge[post] (p2-geschrieben);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{document}

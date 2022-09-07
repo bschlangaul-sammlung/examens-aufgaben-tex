@@ -1,0 +1,111 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {Klasse „BinBaum“},
+  Referenz = 66112-2003-H.T2-A8,
+  RelativerPfad = Staatsexamen/66112/2003/09/Thema-2/Aufgabe-8.tex,
+  ZitatSchluessel = examen:66112:2003:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum, Implementierung in Java},
+  EinzelpruefungsNr = 66112,
+  Jahr = 2003,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 8,
+}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Implementieren\index{Binärbaum} \footcite{examen:66112:2003:09}
+Sie in einer objektorientierten Sprache einen binären Suchbaum für ganze
+Zahlen! Dazu gehören Methoden zum Setzen und Ausgeben der Attribute
+\bJavaCode{zahl}, \bJavaCode{linker_teilbaum} und
+\bJavaCode{rechter_teilbaum}. Design: eine Klasse \bJavaCode{Knoten} und
+eine Klasse \bJavaCode{BinBaum}. Ein Knoten hat einen linken und einen
+rechten Nachfolger. Ein Baum verwaltet die Wurzel. Er hängt neue Knoten
+an und löscht Knoten.
+\footcite[Abgewandelt von Herbst 2003, Thema 2 Aufgabe 8, Seite 8, Seite 1, Aufgabe 2]{aud:pu:5}
+\index{Implementierung in Java}
+
+\begin{bAntwort}
+\bJavaExamen[firstline=3,lastline=9]{66112}{2003}{09}{BinBaum}
+\bJavaExamen{66112}{2003}{09}{Knoten}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Schreiben Sie eine Methode \bJavaCode{fügeEin(...)}, die eine
+Zahl in den Baum einfügt!
+
+\begin{bAntwort}
+\bJavaExamen[firstline=11,lastline=36]{66112}{2003}{09}{BinBaum}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Schreiben Sie eine Methode \bJavaCode{void
+besuchePostOrder(...)}, die die Zahlen in der Reihenfolge postorder
+ausgibt!
+
+\begin{bAntwort}
+\bJavaExamen[firstline=38,lastline=53]{66112}{2003}{09}{BinBaum}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Ergänzen Sie Ihr Programm um die rekursiv implementierte Methode
+\bJavaCode{int berechneSumme(...)}, die die Summe der Zahlen des
+Unterbaums, dessen Wurzel der Knoten ist, zurückgibt! Falls der
+Unterbaum leer ist, ist der Rückgabewert 0!
+
+\begin{minted}{java}
+int summe (Knoten x)...
+\end{minted}
+
+\begin{bAntwort}
+\bJavaExamen[firstline=55,lastline=73]{66112}{2003}{09}{BinBaum}
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Schreiben Sie eine Folge von Anweisungen, die einen Baum mit Namen
+BinBaum erzeugt und nacheinander die Zahlen 5 und 7 einfügt! In den
+binären Suchbaum werden noch die Zahlen 4, 11, 6 und 2 eingefügt.
+Zeichnen Sie den Baum, den Sie danach erhalten haben, und schreiben Sie
+die eingefügten Zahlen in der Reihenfolge der Traversierungsmöglichkeit
+\texttt{postorder} auf!
+
+%%
+% (f)
+%%
+
+\item Implementieren Sie eine Operation \bJavaCode{isSorted(...)}, die
+für einen (Teil-)baum feststellt, ob er sortiert ist.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=75,lastline=92]{66112}{2003}{09}{BinBaum}
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAntwort}
+\bJavaExamen{66112}{2003}{09}{BinBaum}
+\bJavaExamen{66112}{2003}{09}{Knoten}
+\end{bAntwort}
+
+\end{document}

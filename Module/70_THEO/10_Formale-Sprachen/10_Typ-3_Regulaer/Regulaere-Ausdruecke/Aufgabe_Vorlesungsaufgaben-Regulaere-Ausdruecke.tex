@@ -1,0 +1,102 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Übungen zu regulären Ausdrücken},
+  Thematik = {Vorlesungsaufgaben},
+  Referenz = THEO.Formale-Sprachen.Typ-3_Regulaer.Regulaere-Ausdruecke.Vorlesungsaufgaben-Regulaere-Ausdruecke,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/10_Typ-3_Regulaer/Regulaere-Ausdruecke/Aufgabe_Vorlesungsaufgaben-Regulaere-Ausdruecke.tex,
+  ZitatSchluessel = theo:fs:1,
+  ZitatBeschreibung = {Seite 21},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Ausdrücke},
+}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Gegeben ist eine Sprache $L \subset \Sigma^*$ mit
+\bAlphabet{a,b}. Zu der Sprache $L$ gehören alle Wörter, die die
+Zeichenfolge \texttt{abba} beinhalten.
+\index{Reguläre Ausdrücke}\footcite[Seite 21]{theo:fs:1}
+
+Geben Sie einen regulären Ausdruck für diese Sprache an („klassischer“
+regulärer Ausdruck).
+
+\begin{bAntwort}
+$(a|b)^*abba(a|b)^*$
+
+\bJavaDatei[firstline=5,lastline=5]{aufgaben/theo_inf/regulaere_ausdruecke/TestRegularExpressions}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Gebe möglichst einfache reguläre Ausdrücke für die folgenden
+Sprachen $L_x \subset \Sigma^*$ mit \bAlphabet{a,b} und $x \in \{1, 2, 3\}$ („klassischer“ regulärer Ausdruck).
+
+\begin{description}
+
+%%
+%
+%%
+
+\item[$L_1$] = $\{ x | x \text{ beinhaltet eine gerade Anzahl von } a \}$
+
+\begin{bAntwort}
+$b^*(ab^*ab^*)^*$
+
+\bJavaDatei[firstline=6,lastline=6]{aufgaben/theo_inf/regulaere_ausdruecke/TestRegularExpressions}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item[$L_2$] = $\{ x | x \text{ beinhaltet eine ungerade Anzahl von } b \}$
+
+\begin{bAntwort}
+$a^*ba^*(ba^*ba^*)^*$
+
+\bJavaDatei[firstline=7,lastline=7]{aufgaben/theo_inf/regulaere_ausdruecke/TestRegularExpressions}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item[$L_3$] = $\{ x | x \text{ beinhaltet an seinen geradzahligen Positionen ausschließlich } a \}$
+
+\begin{bAntwort}
+$((a|b)a)^*(a^*|b)$
+
+\bJavaDatei[firstline=8,lastline=8]{aufgaben/theo_inf/regulaere_ausdruecke/TestRegularExpressions}
+\end{bAntwort}
+\end{description}
+
+%%
+%
+%%
+
+\item Geben Sie einen regulären Ausdruck an, der eine syntaktisch
+gültige E-Mail-Adresse erkennt. (mindestens 1 Zeichen
+(Groß-/Kleinbuchstabe oder Zahl) vor dem \texttt{@}; mindestens 1
+Zeichen (Groß-/Kleinbuchstabe oder Zahl) nach dem \texttt{@}; alle
+E-Mail-Adressen sollen auf \texttt{.de} oder \texttt{.com} enden.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=9,lastline=9]{aufgaben/theo_inf/regulaere_ausdruecke/TestRegularExpressions}
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAntwort}
+\bJavaDatei[firstline=3]{aufgaben/theo_inf/regulaere_ausdruecke/TestRegularExpressions}
+\end{bAntwort}
+
+\end{document}

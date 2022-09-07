@@ -1,0 +1,104 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Turingmaschin mit mindestens 1000 Schritten},
+  Referenz = 66115-2017-F.T1-A6,
+  RelativerPfad = Staatsexamen/66115/2017/03/Thema-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66115:2017:03,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entscheidbarkeit},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2017,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 6,
+}
+
+Es sei $E$ die Menge aller (geeignet codierten) Turingmaschinen $M$ mit
+folgender Eigenschaft: Es gibt eine Eingabe $w$, so dass $M$ gestartet
+auf $w$ mindestens 1000 Schritte rechnet und dann irgendwann hält.
+\index{Entscheidbarkeit}
+\footcite{examen:66115:2017:03}
+
+Das Halteproblem auf leerer Eingabe $H_0$ ist definiert als die Menge
+aller Turingmaschinen, die auf leerer Eingabe gestartet, irgendwann
+halten.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Zeigen Sie, dass $E$ unentscheidbar ist (etwa durch Reduktion vom
+Halteproblem $H_0$).
+
+% Info_2021-05-07-2021-05-07_13.30.16.mp4
+% 1h34min - 1h47min
+\begin{bAntwort}
+zu zeigen: $L_H \leq L \rightarrow L$ ist genauso unentscheidbar wie $L_H$
+
+Eingabeinstanzen von $L_H (TM(M), u)$ durch Funktion umbauen in
+Eingabeinstanzen von $L (TM (M^\prime))$.
+
+Idee: Turingmaschine so modifizieren, dass sie zunächst
+1000 Schritte macht und dann $M$ auf $u$ startet.
+\footcite[Seite 53]{theo:fs:4}
+
+Dazu definieren wir die Funktion $f : \Sigma^* \rightarrow \Sigma^*$ wie
+folgt:
+
+\begin{equation*}
+f(u) =
+\begin{cases}
+c(M^\prime) &
+\text{falls }u = c(M^\prime)w\text{ ist für eine Turingmaschine }M\text{ und Eingabe }w\\
+
+0 & \text{sonst}
+\end{cases}
+\end{equation*}
+
+Dabei sei M’ eine Turingmaschine, die sich wie folgt verhält:
+\begin{enumerate}
+\item Geht 1000 Schritte nach rechts
+\item Schreibt festes Wort w (für M’ ist w demnach fest!)
+\item Startet M
+\end{enumerate}
+
+\begin{description}
+\item [total:]
+
+ja
+
+\item [berechenbar:]
+
+Syntaxcheck, 1000 Schritte über 1000 weitere Zustände realisierbar
+
+\item [Korrektheit:]
+
+$u \in L_{halt} \Leftrightarrow u = c(M)w$ für TM $M$, die auf $w$ hält
+$\Leftrightarrow f(u) = c(M^\prime)$, wobei $M^\prime$ $1000$ Schritte
+macht und dann hält $\Leftrightarrow f(u) \in L$
+\end{description}
+\end{bAntwort}
+\footcite[Seite 54]{theo:fs:4}
+
+%%
+% b)
+%%
+
+\item Begründen Sie, dass $E$ partiell entscheidbar ist.
+
+%%
+% c)
+%%
+
+\item Geben Sie ein Problem an, welches nicht einmal partiell
+entscheidbar ist.
+
+\end{enumerate}
+\end{document}

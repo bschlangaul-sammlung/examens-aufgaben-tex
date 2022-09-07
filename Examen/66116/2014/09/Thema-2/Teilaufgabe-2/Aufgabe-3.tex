@@ -1,0 +1,197 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java,kontrollflussgraph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2: Kontrollflussorientiertes Testen},
+  Thematik = {Methode „specialSums()“},
+  Referenz = 66116-2014-H.T2-TA2-A3,
+  RelativerPfad = Staatsexamen/66116/2014/09/Thema-2/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2014:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontrollflussorientieres Testen, Kontrollflussgraph, C0-Test Anweisungsüberdeckung (Statement Coverage), C1-Test Zweigüberdeckung (Branch Coverage)},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\let\c=\bKontrollCode
+\let\b=\bBedingung
+
+Im\index{Kontrollflussorientieres Testen}
+\footcite{examen:66116:2014:09} Folgenden ist ein Algorithmus angegeben,
+der für eine positive Zahl \bJavaCode{until} die Summe aller Zahlen
+bildet, die kleiner als \bJavaCode{until} und Vielfache von $4$ oder
+$6$ sind. Für nicht positive Zahlen soll $0$ zurückgegeben werden. Der
+Algorithmus soll also folgender Spezifikation genügen:
+\footcite[Kontrollflussorientiertes Testen, Aufgabe 2]{sosy:ab:7}
+
+\bigskip
+
+{\footnotesize
+\noindent
+$\texttt{until} > 0 \Rightarrow \texttt{specialSums(until)} =
+\sum \{y \, | \, 0 < y < \texttt{until} \land (y\%4 = 0 \lor y\%6 = 0)\}$
+
+\noindent
+$\texttt{until} \leq 0 \Rightarrow \texttt{specialSums(until)} = 0$
+}
+
+\bigskip\noindent
+wobei $\%$ den Modulo-Operator bezeichnet.
+
+\bJavaExamen[firstline=4,lastline=14]{66116}{2014}{09}{SpecialSum}
+
+\noindent
+Beachten Sie, dass der Algorithmus nicht der Spezifikation genügt. Der
+Fehler liegt in der Bedingung der for-Schleife. Der Fehler kann jedoch
+einfach korrigiert werden indem die Bedingung
+
+\begin{center}
+$i \leq \texttt{until}$ in $i < \texttt{until}$
+\end{center}
+
+geändert würde.
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+% public static long specialSums(int until) {
+%   long sum = 0; // 0
+%   if (until > 0) { // 1
+%     for (int i = 1; i <= until; i++) { // 2 // 5
+%       if (i % 4 == 0 || i % 6 == 0) { // 3
+%         sum += i; // 4
+%       }
+%     }
+%   }
+%   return sum; // 6
+% }
+
+\item Zeichnen Sie das zum Programm gehörige Ablaufdiagramm.
+\index{Kontrollflussgraph}
+
+\begin{bAntwort}
+\begin{bKontrollflussgraph}[xscale=1,yscale=-1.5]
+\node[pin=\c{long sum = 0;}] at (0,0.5) (0) {0};
+\node[pin=\c{if (until > 0)}] at (0,1) (1) {1};
+\node[pin=\c{for (int i = 1; i <= until; i++)}] at (1,2) (2) {2};
+\node[pin=\c{if (i \% 4 == 0 || i \% 6 == 0)}] at (2,3) (3) {3};
+\node[pin=\c{sum += i;}] at (3,4) (4) {4};
+\node[pin=\c{i++}] at (2,5) (5) {5};
+\node[pin=\c{return sum;}] at (0,5.5) (6) {6};
+
+\path (0) -- (1);
+\path[wahr] (1) -- (2) \b{right}{until > 0};
+\path[falsch] (1) -- (6) \b{left}{until <= 0};
+\path[wahr] (2) -- (3) \b{right}{i <= until};
+\path[falsch] (2) -- (6);
+\path[wahr] (3) -- (4) \b{right}{i \% 4 == 0 || i \% 6 == 0};
+\path[falsch] (3) -- (5);
+\path (4) -- (5);
+\path (5) -- (2);
+\end{bKontrollflussgraph}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Schreiben Sie einen Testfall, der das Kriterium „100\%
+Anweisungsüberdeckung“ erfüllt, aber den Fehler trotzdem nicht aufdeckt.
+\index{C0-Test Anweisungsüberdeckung (Statement Coverage)}
+
+\begin{bAntwort}
+Der Fehler fällt nur dann auf, wenn \texttt{until} durch $4$ oder $6$
+ohne Rest teilbar ist. \texttt{until = 0\%4} oder \texttt{until = 0\%6}.
+Wähle daher den Testfall $\{(1, 0)\}$. Alternativ kann für die Eingabe
+auch 2, 3, 5, 7, 9, 10, 11, 13, ... gewählt werden.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Schreiben Sie einen Testfall, der das Kriterium „100\%
+Zweigüberdeckung“ erfüllt, aber den Fehler trotzdem nicht aufdeckt.
+\index{C1-Test Zweigüberdeckung (Branch Coverage)}
+
+\begin{bAntwort}
+Betrachte den Testfall $\{(0, 0), (5, 4)\}$.
+
+\begin{description}
+\item[erste if-Bedingung]
+Das erste Tupel mit $\text{until} = 0$ stellt sicher, dass
+die erste \bJavaCode{if}-Bedingung \bJavaCode{false} wird.
+
+\item[Bedingung der for-Schleife]
+Für die zweite Eingabe $\text{until} = 5$ werden für $i$ die Werte $1, 2,
+3, 4, 5, 6$ angenommen. Wobei für $i = 6$ die Bedingung der for-Schleife
+\bJavaCode{false} ist.
+
+\item[Innere if-Bedingung]
+Für $i = 1, 2, 3, 5$ wird die innere if-Bedingung jeweils \bJavaCode{false},
+für $i = 4$ wird sie \bJavaCode{true}.
+\end{description}
+
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Schreiben Sie einen Testfall, der den Fehler aufdeckt. Berechnen
+Sie Anweisungsüberdeckung und Zweigüberdeckung ihres Testfalls.
+
+\begin{bAntwort}
+\begin{description}
+\item[Anweisungsüberdeckung]
+Wähle $\{(4, 0)\}$. Durch die fehlerhafte Bedingung in der for-Schleife
+wird der Wert $i = 4$ akzeptiert. Da alle Anweisungen ausgeführt werden,
+wird eine Anweisungsüberdeckung mit 100\% erreicht.
+
+\item[Verzweigungsüberdeckung]
+Da die erste Verzweigung nur zur Hälfte überdeckt wird und die anderen
+beiden vollständig, gilt für die Verzweigungsüberdeckung:
+
+$\frac{1+2+2}{2+2+2} = \frac{5}{6}$
+\end{description}
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Es ist nicht immer möglich vollständige Pfadüberdeckung zu
+erreichen. Geben Sie einen gültigen Pfad des Programmes an, der nicht
+erreichbar ist. Ein Testfall kann als Menge von Paaren dargestellt
+werden, wobei jedes Paar $(I, O)$ die Eingabe $I$ und die zu dieser
+erwartete Ausgabe $O$ darstellt.
+
+\begin{bAntwort}
+Ein gültiger Pfad im Kontrollflussgraphen wäre
+\bKontrollTextzeileKnoten{0} - \bKontrollTextzeileKnoten{1} -
+\bKontrollTextzeileKnoten{2} - \bKontrollTextzeileKnoten{3} -
+\bKontrollTextzeileKnoten{4} - \bKontrollTextzeileKnoten{5} -
+\bKontrollTextzeileKnoten{2} - \bKontrollTextzeileKnoten{6}. Der
+Übergang von \bKontrollTextzeileKnoten{3} auf
+\bKontrollTextzeileKnoten{4} ist hier aber nicht möglich, da beim
+ersten Durchlaufen der for-Schleife (\bKontrollTextzeileKnoten{2}) $i$
+immer $1$ ist und $1$ weder durch $4$ noch durch $6$ teilbar ist. Somit
+kann die Bedingung des inneren ifs (\bKontrollTextzeileKnoten{3}) beim
+ersten Durchlauf nie \emph{wahr} sein, womit immer der Übergang
+\bKontrollTextzeileKnoten{3} - \bKontrollTextzeileKnoten{5} zu Beginn
+genommen werden muss. Alle Pfade, die zu Beginn
+\bKontrollTextzeileKnoten{3} - \bKontrollTextzeileKnoten{4} enthalten,
+sind somit nicht überdeckbar.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

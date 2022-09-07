@@ -1,0 +1,180 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Reguläre Sprachen},
+  Referenz = 66115-2016-F.T1-A1,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2016:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+\def\Z#1#2{$q_#1z_#2$}
+\def\q#1{$q_#1$}
+\def\z#1{$z_#1$}
+\let\m=\bMenge
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben\index{Reguläre Sprache} \footcite{examen:66115:2016:03} Sie
+einen möglichst einfachen regulären Ausdruck für die Sprache
+\bAusdruck[L_1] {a_1,a_2,\dots,a_n} {n \geq 3, a_i \in \bMenge{a, b}
+\text{ für alle } i = 1,\dots,n \text{ und } a_1 \geq a_n} an.
+
+\begin{bAntwort}
+\texttt{((a(a|b)+b)|(b(a|b)+a))}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Geben Sie einen möglichst einfachen regulären Ausdruck für die
+Sprache
+\bAusdruck[L_2]
+{w \in \m{a,b}^*}
+{
+  w
+  \text{ enthält genau ein }
+  b
+  \text{ und ist von ungerader Länge}
+}
+an.
+
+\begin{bAntwort}
+\texttt{(aa)*(b|aba)(aa)*}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Beschreiben Sie die Sprache des folgenden Automaten $A_1$,
+möglichst einfach und präzise in ihren eigenen Worten.
+
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,,initial] (q0) at (2.14cm,-2.14cm) {$q_0$};
+  \node[state,] (q1) at (4cm,-2.14cm) {$q_1$};
+  \node[state,] (q2) at (6cm,-2.14cm) {$q_2$};
+  \node[state,,accepting] (q3) at (7.57cm,-2.14cm) {$q_3$};
+
+  \path (q0) edge[auto,bend left] node{a} (q1);
+  \path (q0) edge[auto,loop] node{b} (q0);
+  \path (q1) edge[auto] node{b} (q2);
+  \path (q1) edge[auto,bend left] node{a} (q0);
+  \path (q2) edge[auto] node{a} (q3);
+  \path (q2) edge[auto,bend left] node{b} (q0);
+  \path (q3) edge[auto,loop] node{a,b} (q3);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Arz003ccg}
+
+\begin{bAntwort}
+Die Sprache enthält das Teilwort $aba$
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Betrachten Sie folgenden Automaten $A_2$:
+
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,initial] (z0) at (2.14cm,-2.14cm) {$z_0$};
+  \node[state,accepting] (z1) at (4.86cm,-2.14cm) {$z_1$};
+
+  \path (z0) edge[auto,bend left] node{a,b} (z1);
+  \path (z1) edge[auto,bend left] node{a,b} (z0);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ap9qbkumc}
+
+Im Original sind die Zustände mit $q_x$ benannt. Damit wir die
+Schnittmenge besser bilden können, wird hier $z_x$ verwendet.
+
+Konstruieren Sie einen endlichen Automaten, der die Schnittmenge der
+Sprachen $L(A_1)$ und $L(A_2)$ akzeptiert.
+
+\begin{bAntwort}
+
+$A_1$
+
+\begin{tabular}{l|l|l}
+  & a & b \\\hline
+\q0 & \q1 & \q0 \\
+\q1 & \q0 & \q2 \\
+\q2 & \q3 & \q0 \\
+\q3 & \q3 & \q3 \\
+\end{tabular}
+
+$A_2$
+
+\begin{tabular}{l|l|l}
+  & a & b \\\hline
+\z0 & \z1 & \z1 \\
+\z1 & \z0 & \z0 \\
+\end{tabular}
+
+Neuer Endzustand:  \Z31
+
+\begin{tabular}{l|l|l}
+     & a    & b    \\\hline
+ \Z00 &  \Z11 &  \Z01 \\
+ \Z10 &  \Z01 &  \Z21 \\
+ \Z20 &  \Z31 &  \Z01 \\
+ \Z30 &  \Z31 &  \Z31 \\
+ \Z01 &  \Z10 &  \Z00 \\
+ \Z11 &  \Z00 &  \Z20 \\
+ \Z21 &  \Z30 &  \Z00 \\
+ \Z31 &  \Z30 &  \Z30 \\
+\end{tabular}
+
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,initial] (q0z0) at (2.14cm,-2.14cm) {\Z00};
+  \node[state] (q1z0) at (2.14cm,-8.43cm) {\Z10};
+  \node[state] (q2z0) at (5.29cm,-8.43cm) {\Z20};
+  \node[state] (q3z0) at (7.43cm,-2.14cm) {\Z30};
+  \node[state] (q0z1) at (2.14cm,-5.29cm) {\Z01};
+  \node[state] (q1z1) at (5.43cm,-4.29cm) {\Z11};
+  \node[state] (q2z1) at (5.29cm,-2.14cm) {\Z21};
+  \node[state,accepting] (q3z1) at (8.86cm,-5.43cm) {\Z31};
+
+  \path (q0z0) edge[auto,bend left=10] node{a} (q1z1);
+  \path (q0z0) edge[auto,bend left] node{b} (q0z1);
+  \path (q1z0) edge[auto,bend left] node{a} (q0z1);
+  \path (q1z0) edge[auto] node{b} (q2z0);
+  \path (q2z0) edge[auto] node{a} (q3z1);
+  \path (q2z0) edge[auto] node{b} (q0z1);
+  \path (q3z0) edge[auto,bend left] node{a,b} (q3z1);
+  \path (q0z1) edge[auto,bend left] node{b} (q0z0);
+  \path (q0z1) edge[auto,bend left] node{a} (q1z0);
+  \path (q1z1) edge[auto,bend left=10] node{a} (q0z0);
+  \path (q1z1) edge[auto] node{b} (q2z0);
+  \path (q2z1) edge[auto] node{a} (q3z0);
+  \path (q2z1) edge[auto] node{b} (q0z0);
+  \path (q3z1) edge[auto,bend left] node{a,b} (q3z0);
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ar3pc5rh7}
+
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

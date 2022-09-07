@@ -1,0 +1,139 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{master-theorem}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {4 Rekursionsgleichungen},
+  Referenz = 66115-2011-F.T1-A1,
+  RelativerPfad = Staatsexamen/66115/2011/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2011:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Master-Theorem},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2011,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\O=\bO
+\let\o=\bOmega
+\let\T=\bT
+\let\t=\bTheta
+
+Bestimmen Sie mit Hilfe des Master-Theorems für die folgenden
+Rekursionsgleichungen möglichst scharfe asymptotische untere und obere
+Schranken, falls das Master-Theorem anwendbar ist! Geben Sie andernfalls
+eine kurze Begründung, warum das Master-Theorem nicht anwendbar ist!
+\index{Master-Theorem}
+\footcite{examen:66115:2011:03}
+
+\bMasterExkurs
+
+\begin{enumerate}
+%%
+% a)
+%%
+
+\item $T(n) = \T{16}{2} + 40n - 6$
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{16} % a
+{2} % b
+{40n - 6} % f(n) ohne $mathe$
+
+\bMasterFallRechnung
+% 1. Fall
+{für $\varepsilon = 14$: \\
+$f(n) = 40n - 6 \in \O{n^{\log_2 {16 - 14}}} = \O{n^{\log_2 2}} = \O{n}$}
+% 2. Fall
+{$f(n) = 40n - 6 \notin \t{n^{\log_2 {16}}} = \t{n^4}$}
+% 3. Fall
+{$f(n) = 40n - 6 \notin \o{n^{\log_2 {16 + \varepsilon}}}$}
+
+$\Rightarrow T(n) \in \t{n^4}$
+
+\bMasterWolframLink{T[n]=16T[n/2]\%2B40n-6}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item $T(n) = \T{27}{3} + 3n^2 \log n$
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{27} % a
+{3} % b
+{3n^2 \log n} % f(n) ohne $mathe$
+
+\bMasterFallRechnung
+% 1. Fall
+{$f(n) = 3n^2 \log n = n \in \O{n^{\log_3 {27 - 24}}} = \O{n^{\log_3 3}} = \O{n}$}
+% 2. Fall
+{$f(n) = 3n^2 \log n = n \notin \t{n^{\log_3 {27}}} = \t{n^3}$}
+% 3. Fall
+{$f(n) = 3n^2 \log n = n \notin \o{n^{\log_3 {27 + \varepsilon}}}$}
+
+$\Rightarrow T(n) \in \t{n^3}$
+
+\bMasterWolframLink{T[n]==27T[n/3]\%2B3n^2*log(n)}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item $T(n) = \T{4}{2} + 3n^2 + \log n$
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{4} % a
+{2} % b
+{3n^2 + \log n} % f(n) ohne $mathe$
+
+\bMasterFallRechnung
+% 1. Fall
+{$f(n) = 3n^2 + \log n = n^2 = n \notin \O{n^{\log_2 {4 - \varepsilon}}}$}
+% 2. Fall
+{$f(n) = 3n^2 + \log n = n^2 = n \in \t{n^{\log_2 {4}}} = \t{n^2}$}
+% 3. Fall
+{$f(n) = 3n^2 + \log n = n^2 = n \notin \o{n^{\log_2 {4 + \varepsilon}}}$}
+
+$\Rightarrow T(n) \in \t{n^2 \log n}$
+
+\bMasterWolframLink{T[n]==4T[n/2]\%2B3n^2\%2Blog(n)}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item $T(n)= \T{4}{2} + 100 \log n + \sqrt{2n} + n^{-2}$
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{4} % a
+{2} % b
+{100 \log n + \sqrt{2n} + n^{-2}} % f(n) ohne $mathe$
+
+\bMasterFallRechnung
+% 1. Fall
+{$f(n) = 100 \log n + \sqrt{2n} + n^{-2} = n \in \O{n^{\log_2 {4 - 2}}} = \O{n}$}
+% 2. Fall
+{$f(n) = 100 \log n + \sqrt{2n} + n^{-2} = n \notin \t{n^{\log_2 {4}}} = \t{n^2}$}
+% 3. Fall
+{$f(n) = 100 \log n + \sqrt{2n} + n^{-2} = n \notin \o{n^{\log_2 {4 + \varepsilon}}}$}
+
+$\Rightarrow T(n) \in \t{n^2}$
+
+\bMasterWolframLink{T[n]==4*T[n/2]\%2B100*log_2(n)√(2N)\%2Bn^(-2)}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

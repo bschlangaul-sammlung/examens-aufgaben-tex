@@ -1,0 +1,65 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Handelsunternehmen},
+  Referenz = 66116-2012-F.T1-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2012/03/Thema-1/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2012:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2012,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+Ein Handelsunternehmen möchte seine Struktur verbessern und ein
+Datenbanksystem zur Verwaltung seiner Filialen, angebotenen Waren und
+Kunden erstellen.\index{Entity-Relation-Modell}
+\footcite{examen:66116:2012:03}
+
+Die Basis dieses Systems bilden die Filialen des Unternehmens. Jede
+Filiale ist eindeutig durch ihre Filialnummer gekennzeichnet und
+befindet sich in einer Stadt. Außerdem hat jede Filiale einen
+Filialleiter.
+
+Zu jeder Filiale gehört genau ein Lager mit einer eindeutigen
+Lagernummer und ebenfalls einem Leiter. Jedes Lager verfügt über eine
+bestimmte Menge an verschiedenen Waren. Jede Ware kann in mehreren
+Lagern vorrätig sein und ist über eine Nummer, einen Namen und einen
+Preis gekennzeichnet.
+
+Ein Kunde kann in einer Filiale des Unternehmens Bestellungen aufgeben.
+Der Kunde hat eine Kundennummer, einen Namen und eine Adresse, Eine
+Bestellung enthält dabei jeweils einen Warenartikel, dessen gewünschte
+Menge und das Datum, an dem die Bestellung abgeholt wird.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erstellen Sie ein Entity-Relationship-Diagramm für obige Datenbank.
+
+%%
+% b)
+%%
+
+\item Setzen Sie das in Teilaufgabe a) erstellte
+Entity-Relationship-Diagramm in ein Relationenschema um. Relationships
+sollen mit einer möglichst geringen Anzahl von Relationen realisiert
+werden. Dabei sind unnötige Redundanzen zu vermeiden. Ein
+Relationenschema ist in folgender Form anzugeben: Relation (Attributl,
+Attribut2, ...). Schlüsselattribute sind dabei zu unterstreichen. Achten
+Sie bei der Wahl des Schlüssels auf Eindeutigkeit und Minimalität.
+
+\end{enumerate}
+
+\end{document}

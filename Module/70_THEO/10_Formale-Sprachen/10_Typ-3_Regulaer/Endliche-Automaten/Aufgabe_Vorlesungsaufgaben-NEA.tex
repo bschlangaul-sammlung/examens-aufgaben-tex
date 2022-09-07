@@ -1,0 +1,62 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Nichtdeterministischer endlicher Automat},
+  Thematik = {Vorlesungsaufgaben},
+  Referenz = THEO.Formale-Sprachen.Typ-3_Regulaer.Endliche-Automaten.Vorlesungsaufgaben-NEA,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/10_Typ-3_Regulaer/Endliche-Automaten/Aufgabe_Vorlesungsaufgaben-NEA.tex,
+  ZitatSchluessel = theo:fs:1,
+  ZitatBeschreibung = {Seite 34},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Nichtdeterministisch endlicher Automat (NEA)},
+}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Stellen Sie einen nichtdeterministischen endlichen Automaten auf,
+der alle durch 2 teilbaren Binärzahlen (letztes Wort ist 0) akzeptiert.
+\index{Nichtdeterministisch endlicher Automat (NEA)}
+\footcite[Seite 34]{theo:fs:1}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,right of=0,accepting] (1) {$z_1$};
+
+\path (0) edge[above,loop] node{0,1} (0);
+\path (0) edge[above] node{0} (1);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Stellen Sie einen NEA auf, der alle Wörter über einem Alphabet
+\bAlphabet{a, b} akzeptiert, die als vorletztes Zeichen ein $b$
+besitzen.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,right of=0] (1) {$z_1$};
+\node[state,right of=1,accepting] (2) {$z_2$};
+
+\path (0) edge[above] node{b} (1);
+\path (0) edge[above,loop] node{a,b} (0);
+\path (1) edge[above] node{a,b} (2);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

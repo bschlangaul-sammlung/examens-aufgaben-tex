@@ -1,0 +1,79 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{er}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Mitarbeiterverwaltung},
+  Referenz = 66116-2019-H.T2-TA2-A2,
+  RelativerPfad = Staatsexamen/66116/2019/09/Thema-2/Teilaufgabe-2/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66116:2019:09,
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 2,
+}
+
+In einer Datenbank zur Mitarbeiterverwaltung werden die Mitarbeiter über
+ihr Ausscheiden aus dem Betrieb hinaus (z. B. Ruhestand oder
+Arbeitsplatzwechsel) gespeichert. Im Folgenden ist ein Ausschnitt aus
+dem ER-Diagramm dargestellt. Erweitern Sie das Diagramm um genau eine
+Entität, welche die derzeit aktiven Mitarbeiter aus allen Unterklassen
+umfasst. Benennen und erläutern Sie das von Ihnen verwendete
+Modellierungskonstrukt.
+\index{Entity-Relation-Modell}
+\footcite{examen:66116:2019:09}
+
+\begin{center}
+\begin{tikzpicture}[er2]
+\node[entity] (Mitarbeiter) {Mitarbeiter};
+
+\node[below=1cm of Mitarbeiter,circle,draw] (disjunkt) {d}
+  edge[weak] node {$\bigcup$} (Mitarbeiter);
+
+\node[entity,below left=2cm of disjunkt] (Sekretär) {Sekretär}
+  edge (disjunkt);
+
+\node[entity,below=1.3cm of disjunkt] (Forscher) {Forscher}
+  edge (disjunkt);
+
+\node[entity,below right=2cm of disjunkt] (Techniker) {Techniker}
+  edge (disjunkt);
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+EER-Notation nach
+Elmasri/Navathe
+
+\begin{center}
+\begin{tikzpicture}[er2]
+\node[entity] (Mitarbeiter) {Mitarbeiter};
+
+\node[below=1cm of Mitarbeiter,circle,draw] (disjunkt) {d}
+  edge[weak] node {$\bigcup$} (Mitarbeiter);
+
+\node[entity,below left=2cm of disjunkt] (Sekretär) {Sekretär}
+  edge (disjunkt);
+
+\node[entity,below=1.3cm of disjunkt] (Forscher) {Forscher}
+  edge (disjunkt);
+
+\node[entity,below right=2cm of disjunkt] (Techniker) {Techniker}
+  edge (disjunkt);
+
+\node[below=1cm of Forscher,circle,draw] (union) {u}
+  edge (Sekretär) edge (Forscher) edge (Techniker);
+
+\node[below=1cm of union,entity] (AktiveMitarbeiter) {Aktive Mitarbeiter}
+edge node {$\bigcup$} (union);
+\end{tikzpicture}
+\end{center}
+U = Vereinigungsmenge
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Backtracking: Das Damenproblem},
+  Thematik = {Damenproblem},
+  Referenz = AUD.Algorithmenmuster.Backtracking.Damenproblem,
+  RelativerPfad = Module/30_AUD/60_Algorithmenmuster/50_Backtracking/Aufgabe_Damenproblem.tex,
+  ZitatSchluessel = aud:fs:3,
+  ZitatBeschreibung = {Seite 18 - 19},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java, Backtracking},
+}
+
+Implementieren sie mittels Backtracking einen Algorithmus, der acht
+Damen auf einem Schachbrett so aufgestellt, dass keine zwei Damen
+einander gemäß ihren in den Schachregeln definierten Zugmöglichkeiten
+schlagen können. Für Damen heißt dies konkret: Es dürfen keine zwei
+Damen auf derselben Reihe, Linie oder Diagonale stehen. Es gibt $92$
+mögliche Lösungen für das $8 \times 8$ Feld.
+\index{Implementierung in Java}\index{Backtracking}
+\footcite[Seite 18 - 19]{aud:fs:3}
+
+\begin{bAntwort}
+\bJavaDatei[firstline=3,lastline=49]{aufgaben/aud/muster/backtracking/damenproblem/Damenproblem}
+\end{bAntwort}
+
+\begin{bAdditum}
+\bJavaDatei{aufgaben/aud/muster/backtracking/damenproblem/Damenproblem}
+\bJavaDatei{aufgaben/aud/muster/backtracking/damenproblem/Ausgabe}
+\end{bAdditum}
+\end{document}

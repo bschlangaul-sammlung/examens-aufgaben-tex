@@ -1,0 +1,81 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Theoriefragen Datenbank},
+  Referenz = 46116-2015-H.T1-TA2-A1,
+  RelativerPfad = Staatsexamen/46116/2015/09/Thema-1/Teilaufgabe-2/Aufgabe-1.tex,
+  ZitatSchluessel = db:ab:7,
+  ZitatBeschreibung = {Aufgabe 12: (Begriffe definieren)},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Datenunabhängigkeit, Superschlüssel, Referentielle Integrität},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2015,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 1,
+}
+
+Erläutern Sie die folgenden Begriffe in knappen Worten:
+\footcite[Aufgabe 12: (Begriffe definieren)]{db:ab:7}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Datenunabhängigkeit\index{Datenunabhängigkeit}
+
+\begin{bAntwort}
+Änderungen an der physischen Speicher- oder der Zugriffsstruktur
+(beispielsweise durch das Anlegen einer Indexstruktur) haben keine
+Auswirkungen auf die logische Struktur der Datenbasis, also auf das
+Datenbankschema.\footcite{examen:46116:2015:09}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Superschlüssel\index{Superschlüssel}
+
+\begin{bAntwort}
+Ein Superschlüssel ist ein Attribut oder Attributkombination, von der
+alle Attribute einer Relation funktional abhängen.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Referentielle Integrität\index{Referentielle Integrität}
+
+\begin{bAntwort}
+Unter Referentieller Integrität verstehen wir Bedingungen, die zur
+Sicherung der Datenintegrität bei Nutzung relationaler Datenbanken
+beitragen können. Demnach dürfen Datensätze über ihre
+Fremdschlüssel nur auf existierende Datensätze verweisen.
+
+Danach besteht die Referentieller Integrität grundsätzlich aus zwei
+Teilen:
+
+\begin{enumerate}
+
+\item Ein neuer Datensatz mit einem Fremdschlüssel kann nur dann in
+einer Tabelle eingefügt werden, wenn in der referenzierten Tabelle ein
+Datensatz mit entsprechendem Wert im Primärschlüssel oder einem
+eindeutigen Alternativschlüssel existiert.
+
+\item Eine Datensatzlöschung oder Änderung des Schlüssels in einem
+Primär-Datensatz ist nur möglich, wenn zu diesem Datensatz keine
+abhängigen Datensätze in Beziehung stehen.
+\footcite{wiki:referentielle-Integritaet}
+\end{enumerate}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

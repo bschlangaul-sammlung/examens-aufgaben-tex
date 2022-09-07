@@ -1,0 +1,273 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe,sortieren}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {(Sortierverfahren)},
+  Referenz = 46115-2019-H.T1-A4,
+  RelativerPfad = Staatsexamen/46115/2019/09/Thema-1/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46115:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Selectionsort},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 4,
+}
+
+In der folgenden Aufgabe soll ein Feld $A$ von ganzen Zahlen
+\emph{aufsteigend} sortiert werden. Das Feld habe $n$ Elemente $A[1]$
+bis $A[n]$. Der folgende Algorithmus sei gegeben:
+\index{Selectionsort}
+\footcite{examen:46115:2019:09}
+
+\begin{minted}{componentpascal}
+var A : array[1..n] of integer;
+
+procedure selection_sort
+var i, j, smallest, tmp : integer;
+begin
+  for j := 1 to n-1 do begin
+    smallest := j;
+    for i := j + 1 to n do begin
+      if A[i] < A[smallest] then
+        smallest := i;
+    end
+    tmp = A[j];
+    A[j] = A[smallest];
+    A[smallest] = tmp;
+  end
+end
+\end{minted}
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Sortieren Sie das folgende Feld mittels des Algorithmus. Notieren
+Sie alle Werte, die die Variable \emph{smallest} jeweils beim Durchlauf
+der inneren Schleife annimmt. Geben Sie die Belegung des Feldes nach
+jedem Durchlauf der äußeren Schleife in einer neuen Zeile an.
+
+\begin{bAntwort}
+\def\u#1{\bPseudoUeberschrift{nach #1. Durchlauf ( $j = #1$ )}}
+\let\v=\bVertauschen
+
+%%
+%
+%%
+
+Ausgang
+
+\v{>27 32 <3 6 17 44 42 29 8 14}
+
+%%
+%
+%%
+
+\u{1}
+
+smallest: (1) 3
+
+\v{3 >32 27 <6 17 44 42 29 8 14}
+
+%%
+%
+%%
+
+\u{2}
+
+smallest: (2) 3 4
+
+\v{3 6 >27 32 17 44 42 29 <8 14}
+
+%%
+%
+%%
+
+\u{3}
+
+smallest: (3) 5 9
+
+\v{3 6 8 >32 <17 44 42 29 27 <14}
+
+%%
+%
+%%
+
+\u{4}
+
+smallest: (4) 5 10
+
+\v{3 6 8 14 17 44 42 29 27 32}
+
+%%
+%
+%%
+
+\u{5}
+
+smallest: (5) -
+
+\v{3 6 8 14 17 >44 42 29 <27 32}
+
+%%
+%
+%%
+
+\u{6}
+
+smallest: (6) 7 8 9
+
+\v{3 6 8 14 17 27 >42 <29 44 32}
+
+%%
+%
+%%
+
+\u{7}
+
+smallest: (7) 8
+
+\v{3 6 8 14 17 27 29 >42 44 <32}
+
+%%
+%
+%%
+
+\u{8}
+
+smallest: (8) 10
+
+\v{3 6 8 14 17 27 29 32 44 42}
+
+%%
+%
+%%
+
+\u{9}
+
+smallest: (9) 10
+
+\v{3 6 8 14 17 27 29 32 >44 <42}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{fertig}
+
+\v{3 6 8 14 17 27 29 32 42 44}
+
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Der Wert der Variablen \emph{smallest} wird bei jedem Durchlauf
+der äußeren Schleife mindestens ein Mal neu gesetzt. Wie muss das Feld
+$A$ beschaffen sein, damit der Variablen \emph{smallest} ansonsten
+niemals ein Wert zugewiesen wird? Begründen Sie Ihre Antwort.
+
+\begin{bAntwort}
+Wenn das Feld bereits aufsteigend sortiert ist, dann nimmt die Variable
+\emph{smallest} in der innneren Schleife niemals einen neuen Wert an.
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Welche Auswirkung auf die Sortierung oder auf die Zuweisungen an
+die Variable \emph{smallest} hat es, wenn der Vergleich in Zeile 9 des
+Algorithmus statt $A[i] < A[\text{smallest}]$ lautet $A[i] \leq
+A[\text{smallest}]$? Begründen Sie Ihre Antwort.
+
+\begin{bAntwort}
+Der Algorithmus sortiert dann nicht mehr \emph{stabil}, \dh die
+Eingabereihenfolge von Elementen mit \emph{gleichem Wert} wird beim
+Sortieren nicht mehr \emph{bewahrt}.
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Betrachten Sie den Algorithmus unter der Maßgabe, dass Zeile 9 wie
+folgt geändert wurde:
+
+\begin{minted}{componentpascal}
+if A[i] > A[smallest] then
+\end{minted}
+
+Welches Ergebnis berechnet der Algorithmus nun?
+
+\begin{bAntwort}
+Der Algorithmus sortiert jetzt absteigend.
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Betrachten Sie die folgende \emph{rekursive} Variante des
+Algorithmus. Der erste Parameter ist wieder das zu sortierende Feld, der Parameter
+$n$ ist die Größe des Feldes und der Parameter $index$ ist eine ganze
+Zahl. Die Funktion \mintinline{componentpascal}{min_index(A, x, y)} berechnet
+für $1 \leq x \leq y \leq n$ den Index des kleinsten Elements aus der
+Menge \mintinline{componentpascal}{{A[x], A[x+1],...,A[y]}}
+
+\begin{minted}{componentpascal}
+procedure rek_selection_sort(A, n, index : integer)
+var k, tmp : integer;
+begin
+if (Abbruchbedingung) then return;
+  k = min_index(A, index, n);
+  if k <> index then begin
+  tmp := A[k];
+  A[k] := A[index];
+  A[index] := tmp;
+  end
+  (rekursiver Aufruf)
+end
+\end{minted}
+
+Der initiale Aufruf des Algorithmus lautet:
+\mintinline{componentpascal}{rek_selection_sort(A, n, 1)}
+
+Vervollständigen Sie die fehlenden Angaben in der Beschreibung des
+Algorithmus für
+
+\begin{itemize}
+\item die Abbruchbedingung in Zeile 4 und
+
+\begin{bAntwort}
+\texttt{n = index} bzw \texttt{n == index}
+
+Begründung: Wenn der aktuelle Index so groß ist wie die Anzahl der
+Elemente im Feld, dann muss / darf abgebrochen werden, denn dann ist das
+Feld soriert.
+\end{bAntwort}
+
+\item den rekursiven Aufruf in Zeile 11.
+
+\begin{bAntwort}
+\mintinline{componentpascal}{rek_selection_sort(A, n, index + 1)}
+
+Am Ende der Methode wurde an die Index-Position \emph{index} das
+kleinste Element gesetzt, jetzt muss an die nächste Index-Position
+(\emph{index + 1}) der kleinste Wert, der noch nicht sortieren Zahlen,
+gesetzt werden.
+\end{bAntwort}
+\end{itemize}
+
+Begründen Sie Ihre Antworten.
+\end{enumerate}
+
+\bJavaExamen[firstline=3]{46115}{2019}{09}{SelectionSort}
+\end{document}

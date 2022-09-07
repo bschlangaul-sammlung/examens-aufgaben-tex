@@ -1,0 +1,169 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Normalformen (Mietwagenfirma)},
+  Thematik = {Mietwagenfirma},
+  Referenz = DB.Relationale-Entwurfstheorie.Normalformen.Mietwagenfirma,
+  RelativerPfad = Module/10_DB/50_Relationale-Entwurfstheorie/30_Normalformen/Aufgabe_Mietwagenfirma.tex,
+  ZitatSchluessel = db:pu:4,
+  ZitatBeschreibung = {Seite 2 Normalformen, Aufgabe 3},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Zweite Normalform, Delete-Anomalie, Update-Anomalie, Insert-Anomalie, Dritte Normalform},
+}
+
+\let\fa=\bFunktionaleAbhaengigkeit
+
+Gegeben sei die folgende relationale Datenbank der Mietwagenfirma
+„MobilRent“, Station „München-Mitte“.\footcite[Seite 2 Normalformen, Aufgabe 3]{db:pu:4}
+
+\begin{center}
+\tiny
+\begin{tabular}{lllrrllccll}
+\underline{KdNr} & Name & Wohnort & \underline{Buchungsdatum} & Aktion & Fahrzeug & Typ &
+Tarif & Tage & Rueckgabestation & Stationsleiter
+\\\hline
+
+123 & Chomsky & Nürnberg & 23.01.2004 & 0 & Cala & Klein &
+1 & 2 & Nürnberg-Nord & Backus \\
+
+123 & Chomsky & Nürnberg & 07.10.2003 & -25\% & Vanny & Transp &
+5 & 1 & Nürnberg-Nord & Hoare \\
+
+220 & Neumann & München & 02.04.2004 & 0 & Baro & Klein &
+1 & 2 & München-Mitte & Zuse \\
+
+710 & Turing & München & 20.02.2004 & -10\% & Cala & Klein &
+1 & 2 & München-Mitte & Zuse \\
+
+888 & Neumann & Passau & 07.10.2003 & -25\% & Lux & Mittelkl &
+3 & 3 & München-Mitte & Zuse \\
+\end{tabular}
+\end{center}
+
+\noindent
+$KdNr$ steht für die Kundennummer der Kunden. An bestimmten Tagen
+gewährt die Firma Rabatt. Folgende funktionale Abhängigkeiten seien
+vorgegeben.
+
+\bigskip
+
+\bFunktionaleAbhaengigkeiten{
+  KdNr -> Name, Wohnort;
+  KdNr, Buchungsdatum -> Fahrzeug, Typ, Tarif, Tage, Rueckgabe-Station;
+  Buchungsdatum -> Aktion;
+  Fahrzeug -> Typ, Tarif;
+  Typ -> Tarif;
+  Rueckgabestation -> Stationsleiter;
+}
+
+\bigskip
+
+\noindent
+Der Primärschlüssel besteht aus den Attributen \emph{KdNr} und
+\emph{Buchungsdatum}.
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Begründe, dass diese Tabelle in 1. Normalform vorliegt.
+
+\begin{bAntwort}
+Es gibt nur atomare Werte. Alle Attributewerte sind atomar.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Erläutere, warum nur Tabellen mit zusammengesetzem Primärschlüssel
+die zweite Normalform verletzen können.
+\index{Zweite Normalform}
+
+\begin{bAntwort}
+Nur bei Tabellen mit zusammengesetzten Primärschlüssel kann es
+vorkommen, dass ein Nichtschlüssel-Attribut von einer echten Teilmenge
+des Primärschlüssel voll funktional abhängt.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Zeige mögliche Anomalien auf, die hier auftreten können.
+
+\begin{bAntwort}
+\begin{description}
+\item[Delete-Anomalie]
+
+\zB Kunde \emph{888} wird gelöscht, gleichzeitig gehen alle
+Informationen über das Fahrzeug \emph{A3} verloren.
+\index{Delete-Anomalie}
+
+\item[Update-Anomalie]
+
+\zB \emph{Chomsky} zieht um, Wohnort wird nicht in allen Tupeln geändert.
+\index{Update-Anomalie}
+
+\item[Insert-Anomalie]
+
+\zB Eine neue Rückgabestation kann erst eröffnet werden, wenn ein
+Kunde ein bereits gebuchtes Auto auch an dieser Station zurückgeben
+will.
+\index{Insert-Anomalie}
+\end{description}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Überführe das Schema in die 2. Normalform.
+
+\begin{bAntwort}
+Der \emph{Name} ist voll funktional abhängig von \emph{KdNr}, nicht aber
+von \emph{Buchungsdatum}. Deswegen verletzt die FD \fa{KdNr -> Name} die
+2. Normalform (und also auch die 3. Normalform). \emph{Stationsleiter}
+ist nur transitiv von \emph{KdNr}, \emph{Buchungsdatum} abhängig (über
+\emph{Rückgabestation}). Dies verletzt die 3. Normalform. Überführung in
+2NF: Entfernung der vom Primärschlüssel nicht voll funktional abhängigen
+Attribute.
+
+MobilRent(\underline{KdNr, Buchungsdatum}, Fahrzeug, Typ, Tarif, Tage,
+Rückgabestation, Stationsleiter)
+
+Kunden(\underline{Kdnr}, Name, Wohnort)
+
+Aktion(\underline{Buchungsdatum}, Aktion)
+\end{bAntwort}
+
+%%
+% (3)
+%%
+
+\item Überführe das Schema in die 3. Normalform.
+\index{Dritte Normalform}
+
+\begin{bAntwort}
+Für die 3. NF: Entfernung der transitiven Abhängigkeiten. Die Tabellen
+\emph{„Kunde“} und \emph{„Sonderaktionen“} bleiben erhalten.
+
+Kunden(\underline{Kdnr}, Name, Wohnort)
+
+Aktion(\underline{Buchungsdatum}, Aktion)
+
+Fahrzeugtypen(\underline{Fahrzeug}, Typ)
+
+Tarife(\underline{Typ}, Tarif)
+
+Stationsleiter(\underline{Rückgabestation}, Stationsleiter)
+
+MobilRent(\underline{KdNr, Buchungsdatum}, Fahrzeug, Tage, Rückgabestation)
+\end{bAntwort}
+\end{enumerate}
+\end{document}

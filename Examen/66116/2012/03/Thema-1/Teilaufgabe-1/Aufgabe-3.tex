@@ -1,0 +1,205 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{rmodell,syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {SQL},
+  Thematik = {Gebrauchtwagen},
+  Referenz = 66116-2012-F.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2012/03/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2012:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL, SQL mit Übungsdatenbank},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2012,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\a=\bAttribut
+\let\f=\bFremd
+\let\p=\bPrimaer
+\let\r=\bRelationMenge
+
+\begin{liRelationenSchemaFormat}
+Fahrzeug (
+  MNR[Modell] {INTEGER},
+  FZGNR* {char(12)},
+  Baujahr {INTEGER},
+  KMStand {INTEGER},
+  Preis {INTEGER}
+)
+
+Modell (
+  MNR* {INTEGER},
+  HNR[Hersteller] {INTEGER},
+  Typ {char(20)},
+  Neupreis {INTEGER},
+  ps {INTEGER}
+)
+
+Hersteller (
+  HNR* {INTEGER},
+  Name {char(20)}
+)
+\end{liRelationenSchemaFormat}
+
+\noindent
+Gegeben sei das folgende Relationenschema:\index{SQL}
+\footcite{examen:66116:2012:03}
+
+\begin{bRelationenModell}
+\r{Fahrzeug}{\f{MNR[Modell]}, \p{FZGNR}, Baujahr, KMStand, Preis}
+\r{Modell}{\p{MNR}, \f{HNR[Hersteller]}, Typ, Neupreis, ps}
+\r{Hersteller}{\p{HNR}, Name}
+\end{bRelationenModell}
+
+\begin{bAdditum}[Übungsdatenbank]
+% Datenbankname: gebrauchtwagen
+\begin{minted}{sql}
+CREATE TABLE Hersteller (
+  HNR INTEGER PRIMARY KEY,
+  Name CHAR(20)
+);
+
+CREATE TABLE Modell (
+  MNR INTEGER PRIMARY KEY,
+  HNR INTEGER REFERENCES Hersteller(HNR),
+  Typ CHAR(20),
+  Neupreis INTEGER,
+  ps INTEGER
+);
+
+CREATE TABLE Fahrzeug (
+  MNR INTEGER REFERENCES Modell(MNR),
+  FZGNR CHAR(12) PRIMARY KEY,
+  Baujahr INTEGER,
+  KMStand INTEGER,
+  Preis INTEGER
+);
+
+INSERT INTO Hersteller VALUES
+  (1, 'BMW'),
+  (2, 'VW'),
+  (3, 'Daimler');
+
+INSERT INTO Modell VALUES
+  (1, 1, '1er', 30134, 122),
+  (2, 1, '2er', 42134, 180),
+  (3, 2, 'Gold', 19278, 90);
+
+INSERT INTO Fahrzeug VALUES
+  (1, 1, 2010, 60134, 11154),
+  (2, 2, 2017, 82134, 19130),
+  (3, 3, 2002, 119278, 9278);
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+\end{bAdditum}
+
+Dabei sind die Schlüsselattribute jeweils unterstrichen und zusätzlich
+für alle Attribute die Typen angegeben. Formulieren Sie die folgenden
+Anfragen bzw. Anweisungen in SQL.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben Sie die Anweisungen in SQL-DDL an, die notwendig sind, um
+die Relationen „Fahrzeug“, „Modell“ und „Hersteller“ zu erzeugen. Achten
+Sie dabei darauf, die Primärschlüssel der Relationen zu kennzeichnen.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+CREATE TABLE IF NOT EXISTS Hersteller (
+  HNR INTEGER PRIMARY KEY,
+  Name CHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS Modell (
+  MNR INTEGER PRIMARY KEY,
+  HNR INTEGER REFERENCES Hersteller(HNR),
+  Typ CHAR(20),
+  Neupreis INTEGER,
+  ps INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS Fahrzeug (
+  MNR INTEGER REFERENCES Modell(MNR),
+  FZGNR CHAR(12) PRIMARY KEY,
+  Baujahr INTEGER,
+  KMStand INTEGER,
+  Preis INTEGER
+);
+\end{minted}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Bestimmen Sie die Typen aller Modelle des Herstellers mit Namen
+BMW.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT m.Typ
+FROM Modell m, Hersteller h
+WHERE h.HNR = m.HNR AND h.Name = 'BMW'
+GROUP BY m.Typ;
+\end{minted}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Bestimmen Sie den Mindestpreis, bezogen auf das Attribut „Preis“,
+der Fahrzeuge eines jeden Herstellers.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT h1.Name AS Hersteller, (
+  SELECT MIN(f.Preis)
+  FROM Fahrzeug f, Modell m, Hersteller h2
+  WHERE
+    f.MNR = m.MNR AND
+    m.HNR = h2.HNR AND
+    H2.HNR = h1.HNR
+) AS Mindestpreis
+FROM Hersteller h1;
+\end{minted}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Bestimmen Sie die Namen der Hersteller, für die von jedem ihrer
+Modelle mindestens ein Fahrzeug in der Datenbank gespeichert ist.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT h.Name AS Hersteller
+FROM Fahrzeug f, Modell m, Hersteller h
+WHERE
+  f.MNR = m.MNR AND
+  m.HNR = h.HNR
+GROUP BY h.Name;
+\end{minted}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Bestimmen Sie die Namen aller Hersteller, von denen mindestens
+fünf Fahrzeuge eines beliebigen Modells in der Datenbank gespeichert
+sind.
+\end{enumerate}
+
+\end{document}

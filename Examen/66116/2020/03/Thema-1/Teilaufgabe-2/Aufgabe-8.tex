@@ -1,0 +1,334 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {Universitätssschema},
+  Referenz = 66116-2020-F.T1-TA2-A8,
+  RelativerPfad = Staatsexamen/66116/2020/03/Thema-1/Teilaufgabe-2/Aufgabe-8.tex,
+  ZitatSchluessel = examen:66116:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL, SQL mit Übungsdatenbank},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 8,
+}
+
+Gegeben sei das Universitätssschema. Formulieren Sie folgende Anfragen
+in SQL-92:
+\index{SQL}
+\footcite{examen:66116:2020:03}
+
+% Datenbankname: universitaet
+\begin{minted}{sql}
+CREATE TABLE Studierende (
+  MatrNr INTEGER PRIMARY KEY,
+  Name VARCHAR(15),
+  Semester INTEGER
+);
+
+CREATE TABLE Professoren (
+  PersNr INTEGER PRIMARY KEY,
+  Name VARCHAR(30),
+  Rang VARCHAR(30),
+  Raum INTEGER
+);
+
+CREATE TABLE Assistenten (
+  PersNr INTEGER PRIMARY KEY,
+  Name VARCHAR(20),
+  Fachgebiet VARCHAR(30),
+  Boss INTEGER,
+  FOREIGN KEY (Boss) REFERENCES Professoren(PersNr)
+);
+
+CREATE TABLE Vorlesungen (
+  VorlNr INTEGER PRIMARY KEY,
+  Titel VARCHAR(30),
+  SWS INTEGER,
+  gelesenVon INTEGER,
+  FOREIGN KEY (gelesenVon) REFERENCES Professoren(PersNr)
+);
+
+CREATE TABLE hören (
+  MatrNr INTEGER,
+  VorlNr INTEGER,
+  PRIMARY KEY(MatrNr, VorlNr),
+  FOREIGN KEY (MatrNr) REFERENCES Studierende(MatrNr),
+  FOREIGN KEY (VorlNr) REFERENCES Vorlesungen(VorlNr)
+);
+
+CREATE TABLE prüfen (
+  MatrNr INTEGER,
+  VorlNr INTEGER,
+  PersNr INTEGER,
+  Note INTEGER,
+  PRIMARY KEY(MatrNr, VorlNr, PersNr),
+  FOREIGN KEY (MatrNr) REFERENCES Studierende(MatrNr),
+  FOREIGN KEY (VorlNr) REFERENCES Vorlesungen(VorlNr),
+  FOREIGN KEY (PersNr) REFERENCES Professoren(PersNr)
+);
+
+CREATE TABLE voraussetzen (
+  Vorgänger INTEGER,
+  Nachfolger INTEGER,
+  PRIMARY KEY(Vorgänger, Nachfolger),
+  FOREIGN KEY (Vorgänger) REFERENCES Vorlesungen(VorlNr),
+  FOREIGN KEY (Nachfolger) REFERENCES Vorlesungen(VorlNr)
+);
+
+INSERT INTO Studierende
+  (MatrNr, Name, Semester)
+VALUES
+  (24002, 'Xenokrates', 18),
+  (25403, 'Jonas', 12),
+  (26120, 'Fichte', 10),
+  (26830, 'Aristoxenos', 8),
+  (27550, 'Schopenhauer', 6),
+  (28106, 'Carnap', 3),
+  (29120, 'Theophrastos', 2),
+  (29555, 'Feuerbach', 2);
+
+INSERT INTO Professoren
+  (PersNr, Name, Rang, Raum)
+VALUES
+  (2125, 'Sokrates', 'C4', 226),
+  (2126, 'Russel', 'C4', 226),
+  (2127, 'Kopernikus', 'C3', 226),
+  (2133, 'Popper', 'C3', 226),
+  (2134, 'Augustinus', 'C3', 226),
+  (2136, 'Curie', 'C4', 226),
+  (2137, 'Kant', 'C4', 226);
+
+INSERT INTO Assistenten
+  (PersNr, Name, Fachgebiet, Boss)
+VALUES
+  (3002, 'Platon', 'Ideenlehre', 2125),
+  (3003, 'Aristoteles', 'Syllogistik', 2125),
+  (3004, 'Wittgenstein', 'Sprachtheorie', 2126),
+  (3005, 'Rhetikus', 'Planetenbewegung', 2127),
+  (3006, 'Newton', 'Kaplersche Gesetze', 2127),
+  (3007, 'Spinosa', 'Gott und Natur', 2134);
+
+INSERT INTO Vorlesungen
+  (VorlNr, Titel, SWS, gelesenVon)
+VALUES
+  (4052, 'Logik', 4, 2125),
+  (4630, 'Die 3 Kritiken', 4, 2137),
+  (5001, 'Grundzüge', 4, 2137),
+  (5022, 'Glaube und Wissen', 2, 2134),
+  (5041, 'Ethik', 4, 2125),
+  (5043, 'Erkenntnisstheorie', 3, 2126),
+  (5049, 'Mäeutik', 2, 2125),
+  (5052, 'Wissenschaftstheorie', 3, 2126),
+  (5216, 'Bioethik', 2, 2126),
+  (5259, 'Der Wiener Kreis', 2, 2133);
+
+INSERT INTO hören
+  (MatrNr, VorlNr)
+VALUES
+  (25403, 5022),
+  (26120, 5001),
+  (27550, 4052),
+  (27550, 5001),
+  (28106, 5041),
+  (28106, 5052),
+  (28106, 5216),
+  (28106, 5259),
+  (29120, 5001),
+  (29120, 5041),
+  (29120, 5049),
+  (29555, 5001),
+  (29555, 5022),
+  (28106, 5001),
+  (28106, 5022);
+
+INSERT INTO prüfen
+  (MatrNr, VorlNr, PersNr, Note)
+VALUES
+  (28106, 5001, 2126, 1),
+  (25403, 5041, 2125, 2),
+  (27550, 4630, 2137, 2),
+  (25403, 4630, 2137, 5);
+
+INSERT INTO voraussetzen
+  (Vorgänger, Nachfolger)
+VALUES
+  (5001, 5041),
+  (5001, 5043),
+  (5001, 5049),
+  (5041, 5216),
+  (5043, 5052),
+  (5041, 5052),
+  (5052, 5259);
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Welche Vorlesungen liest der Boss des Assistenten \emph{Platon}
+(nur Vorlesungsnummer und Titel ausgeben)?
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT v.VorlNr, v.Titel
+FROM Vorlesungen v, Assistenten a
+WHERE a.Boss = v.gelesenVon AND a.Name = 'Platon';
+\end{minted}
+
+\begin{minted}{md}
+ vorlnr |  titel
+--------+---------
+   4052 | Logik
+   5041 | Ethik
+   5049 | Mäeutik
+(3 rows)
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Welche Studierende haben sich schon in mindestens einer direkten
+Voraussetzung von \emph{Wissenschaftstheorie} prüfen lassen?
+
+\begin{bAntwort}
+
+Wissenschaftstheorie (5052) $\rightarrow$
+Erkenntnistheorie (5043) Ethik (5041) $\rightarrow$
+Jonas (25403)
+
+\begin{minted}{sql}
+SELECT s.Name
+FROM Vorlesungen l, voraussetzen a, prüfen p, Studierende s
+WHERE
+  l.Titel = 'Wissenschaftstheorie' AND
+  l.VorlNr = a.Nachfolger AND
+  a.Vorgänger = p.VorlNr AND
+  p.MatrNr = s.MatrNr;
+\end{minted}
+
+\begin{minted}{md}
+ name
+-------
+ Jonas
+(1 row)
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Wie viele Studierende hören \emph{Ethik}?
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT COUNT(*)
+FROM Vorlesungen v, hören h
+WHERE
+  v.Titel = 'Ethik' AND
+  v.VorlNr = h.VorlNr;
+\end{minted}
+
+\begin{minted}{md}
+ count
+-------
+     2
+(1 row)
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Welche Studierende sind im gleichen Semester? — Geben Sie Paare
+von Studierenden aus.
+
+Achten Sie darauf, dass ein/e Studierende/r mit sich selbst kein Paar
+bildet. — Achten Sie auch darauf, dass kein Paar doppelt ausgeben wird:
+wenn das Paar \emph{StudentA}, \emph{StudentB} im Ergebnis enthalten
+ist, soll nicht auch noch das Paar \emph{StudentB}, \emph{StudentA}
+ausgegeben werden.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT s1.Name, s2.Name
+FROM Studierende s1, Studierende s2
+WHERE
+  s1.Semester = s2.Semester AND
+  s1.MatrNr < s2.MatrNr;
+\end{minted}
+
+\begin{minted}{md}
+     name     |   name
+--------------+-----------
+ Theophrastos | Feuerbach
+(1 row)
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item In welchen Fächern ist die Durchschnittsnote schlechter als 2?
+Geben Sie die Vorlesungsnummer und den Titel aus.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT v.VorlNr, v.Titel
+FROM prüfen p, Vorlesungen v
+WHERE p.VorlNr = v.VorlNr
+GROUP BY v.VorlNr, v.Titel
+HAVING AVG(p.Note) >  2;
+\end{minted}
+
+\begin{minted}{md}
+ vorlnr |     titel
+--------+----------------
+   4630 | Die 3 Kritiken
+(1 row)
+\end{minted}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Finden Sie alle Paare von Studierenden (\emph{MatrNr} duplikatfrei
+ausgeben), die mindestens zwei Vorlesungen gemeinsam hören.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT h1.MatrNr, h2.MatrNr
+FROM hören h1, hören h2
+WHERE
+  h1.VorlNr = h2.VorlNr AND
+  h1.MatrNr < h2.MatrNr
+GROUP BY h1.MatrNr, h2.MatrNr
+HAVING COUNT(*) > 1;
+\end{minted}
+
+\begin{minted}{md}
+ matrnr | matrnr
+--------+--------
+  28106 |  29120
+  28106 |  29555
+(2 rows)
+\end{minted}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

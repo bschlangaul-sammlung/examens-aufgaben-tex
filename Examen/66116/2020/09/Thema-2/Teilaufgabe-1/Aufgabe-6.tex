@@ -1,0 +1,95 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {gcd - Greatest Common Divisor},
+  Referenz = 66116-2020-H.T2-TA1-A6,
+  RelativerPfad = Staatsexamen/66116/2020/09/Thema-2/Teilaufgabe-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66116:2020:09,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Testen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 6,
+}
+
+Gegeben sei folgendes Java-Programm, das mit der Absicht geschrieben
+wurde, den größten gemeinsamen Teiler zweier Zahlen zu berechnen:
+\index{Testen}
+\footcite{examen:66116:2020:09}
+
+\begin{bJavaAngabe}
+/** Return the Greatest Common Divisor of two integer values. */
+
+public int gcd(int a, int b) {
+  if (a < 0 || b < O) {
+  return gcd(-b, a);
+
+  }
+  while (a != b) {
+    if (a>b){
+      a = a - b;
+    } else {
+      b = b % a;
+    }
+  }
+  return 3;
+}
+\end{bJavaAngabe}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Bestimmen Sie eine möglichst kleine Menge an Testfällen für das
+gegebene Programm, um (dennoch) vollständige Zweigüberdeckung zu haben.
+
+%%
+% b)
+%%
+
+\item Welche Testfälle sind notwendig, um die Testfälle der
+Zweigüberdeckung so zu erweitern, dass eine 100\% Anweisungsüberdeckung
+erfüllt ist? Begründen Sie Ihre Entscheidung.
+
+%%
+% c)
+%%
+
+\item Beschreiben Sie zwei allgemeine Nachteile der
+Anweisungsüberdeckung.
+
+%%
+% d)
+%%
+
+\item Das gegebene Programm enthält (mindestens) zwei Fehler. Bestimmen
+Sie jeweils eine Eingabe, die fehlerhaftes Verhalten des Programms
+verursacht. Nennen Sie den Fault und den Failure, der bei der gewählten
+Eingabe vorliegt. Sie müssen das Programm (noch) nicht verbessern.
+
+%%
+% e)
+%%
+
+\item Geben Sie für die gefundenen zwei Fehler jeweils eine mögliche
+Verbesserung an. Es reicht eine textuelle Beschreibung, Code ist nicht
+notwendig.
+
+%%
+% f)
+%%
+
+\item Erläutern Sie, warum es im Allgemeinen hilfreich sein kann, bei
+der Fehlerbehebung in einem größeren Programm die Versionsgeschichte
+miteinzubeziehen.
+\end{enumerate}
+\end{document}

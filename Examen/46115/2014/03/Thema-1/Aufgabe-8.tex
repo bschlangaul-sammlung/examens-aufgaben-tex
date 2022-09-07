@@ -1,0 +1,137 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Frühjahr 2014 (46115) - Thema 1 Aufgabe 8},
+  Thematik = {Miminaler Spannbaum im Graph A-H},
+  Referenz = 46115-2014-F.T1-A8,
+  RelativerPfad = Staatsexamen/46115/2014/03/Thema-1/Aufgabe-8.tex,
+  ZitatSchluessel = aud:ab:6,
+  ZitatBeschreibung = {Seite 1-2, Aufgabe 2},
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Minimaler Spannbaum, Algorithmus von Kruskal},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 8,
+}
+
+\section{Frühjahr 2014 (46115) - Thema 1 Aufgabe 8
+\index{Minimaler Spannbaum}
+\index{Algorithmus von Kruskal}
+\footcite[Seite 1-2, Aufgabe 2]{aud:ab:6}}
+
+Bestimmen Sie einen minimalen Spannbaum für einen ungerichteten Graphen,
+der durch die nachfolgende Entfernungsmatrix gegeben ist! Die Matrix ist
+symmetrisch und $\infty$ bedeutet, dass es keine Kante gibt. Zeichnen
+Sie den Graphen und geben Sie die Spannbaumkanten ein
+\footcite[Seite 5 (PDF 4)]{examen:46115:2014:03}!
+
+\[
+\begin{blockarray}{ccccccccc}
+  & A      & B      & C      & D      & E      & F      & G      & H      \\
+\begin{block}{c(cccccccc)}
+A & 0      & 8      & -1     & \infty & 8      & \infty & 7      & \infty \\
+B & 8      & 0      & \infty & 2      & \infty & \infty & \infty & 9      \\
+C & -1     & \infty & 0      & 5      & 8      & 1      & 7      & \infty \\
+D & \infty & 2      & 5      & 0      & 6      & 6      & \infty & \infty \\
+E & 8      & \infty & 8      & 6      & 0      & 6      & 3      & \infty \\
+F & \infty & \infty & 1      & 6      & 6      & 0      & 11     & 4      \\
+G & 7      & \infty & 7      & \infty & 3      & 11     & 0      & 5      \\
+H & \infty & 9      & \infty & \infty & \infty & 4      & 5      & 0      \\
+\end{block}
+\end{blockarray}
+\]
+
+% http://graphonline.ru/en/?graph=JACsZrMiExxkFxBK
+
+% 0,8,-1,0,8,0,7,0
+% 8,0,0,2,0,0,0,9
+% -1,0,0,5,8,1,7,0
+% 0,2,5,0,6,6,0,0
+% 8,0,8,6,0,6,3,0
+% 0,0,1,6,6,0,11,4
+% 7,0,7,0,3,11,0,5
+% 0,9,0,0,0,4,5,0
+
+\begin{bGraphenFormat}
+A: 2 5
+B: 5 6
+C: 5 1
+D: 7 0
+E: 2 0
+F: 5 3
+G: 0 1
+H: 3 4.5
+A -- B: 8
+A -- E: 8
+A -- G: 7
+B -- D*: 2
+B -- H: 9
+C -- D*: 5
+C -- E: 8
+C -- F*
+C -- G: 7
+D -- E: 6
+D -- F: 6
+E -- F: 6
+E -- G*: 3
+F -- G: 11
+F -- H*: 4
+G -- H*: 5
+\end{bGraphenFormat}
+
+\begin{bAntwort}
+\begin{minipage}{8cm}
+\begin{tikzpicture}[li graph]
+\node (A) at (2,5) {A};
+\node (B) at (5,6) {B};
+\node (C) at (5,1) {C};
+\node (D) at (7,0) {D};
+\node (E) at (2,0) {E};
+\node (F) at (5,3) {F};
+\node (G) at (0,1) {G};
+\node (H) at (3,4.5) {H};
+
+\path (A) edge node {8} (B);
+\path (A) edge node {8} (E);
+\path (A) edge node {7} (G);
+\path[li markierung] (B) edge node {2} (D);
+\path (B) edge node {9} (H);
+\path[li markierung] (C) edge node {5} (D);
+\path (C) edge node {8} (E);
+\path[li markierung] (C) edge node {1} (F);
+\path (C) edge node {7} (G);
+\path (D) edge node {6} (E);
+\path (D) edge node {6} (F);
+\path (E) edge node {6} (F);
+\path[li markierung] (E) edge node {3} (G);
+\path (F) edge node {11} (G);
+\path[li markierung] (F) edge node {4} (H);
+\path[li markierung] (G) edge node {5} (H);
+\end{tikzpicture}
+
+\end{minipage}
+\begin{minipage}{4cm}
+\begin{tabular}{lr}
+Kante & Gewicht \\
+\hline
+AC & -1 \\
+BD & 2 \\
+CF & 1 \\
+EG & 3 \\
+FH & 4 \\
+GH & 5 \\
+CD & 5 \\\hline
+& \textbf{19} \\
+\end{tabular}
+\end{minipage}
+
+Nach dem Algorithmus von Kruskal wählt man aus den noch nicht gewählten
+Kanten immer die kürzeste, die keinen Kreis mit den bisher gewählten
+Kanten bildet.
+\end{bAntwort}
+\end{document}

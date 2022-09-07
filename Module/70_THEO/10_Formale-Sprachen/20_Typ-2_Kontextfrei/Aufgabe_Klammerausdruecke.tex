@@ -1,0 +1,145 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,formale-sprachen,syntaxbaum}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Klammerausdrücke},
+  Thematik = {Klammerausdrücke},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Klammerausdruecke,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Aufgabe_Klammerausdruecke.tex,
+  ZitatSchluessel = theo:ab:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache},
+}
+
+% Zurückbekommen 22.03.21, 08:31
+% Korrigiert 23.03.21
+
+In Programmierumgebungen kommen Abfolgen von Klammern, runde, eckige und
+geschweifte, vor. Diese müssen in der richtigen Abfolge auf- bzw.
+geschlossen werden. Eine korrekte Abfolge von Klammern wäre zum
+Beispiel:
+\index{Kontextfreie Sprache}
+\footcite{theo:ab:2}
+
+\begin{minted}{md}
+{[](){(){[]([])}}}{}
+\end{minted}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Entwerfen Sie eine Grammatik, die die korrekte Abfolge solcher
+Klammerfolgen beschreibt.
+
+\begin{bAntwort}
+\begin{minted}{md}
+S -> { S } | ( S ) | [ S ] | S S | EPSILON
+\end{minted}
+\bFlaci{Ghjeb39xr}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie eine Ableitung für den oben angegebenen Klammerausdruck
+an.
+
+\begin{bAntwort}
+Der oben angegebene Klammerausdruck mit Einrückungen
+
+\begin{minted}{md}
+01 {
+02   []
+03   ()
+04   {
+05     ()
+06     {
+07       []
+08       (
+09         []
+10       )
+11     }
+12   }
+13 }
+14 {}
+\end{minted}
+
+Die Ableitung:
+
+\begin{minted}{md}
+S ->
+SS ->
+{S}S ->                    siehe Zeile 01 13
+{SS}S ->
+{[S]S}S ->                 siehe Zeile 02
+{[]S}S ->
+{[]SS}S ->
+{[](S)S}S ->               siehe Zeile 03
+{[](){S}}S ->              siehe Zeile 04 12
+{[](){SS}}S ->
+{[](){(S)S}}S ->
+{[](){()S}}S ->            siehe Zeile 05
+{[](){(){S}}}S ->          siehe Zeile 06 11
+{[](){(){SS}}}S ->
+{[](){(){[S]S}}}S ->       siehe Zeile 07
+{[](){(){[]S}}}S ->
+{[](){(){[](S)}}}S ->      siehe Zeile 08 10
+{[](){(){[]([S])}}}S ->    siehe Zeile 09
+{[](){(){[]([])}}}S ->
+{[](){(){[]([])}}}{S} ->   siehe Zeile 14
+{[](){(){[]([])}}}{}
+\end{minted}
+\end{bAntwort}
+
+\newpage
+
+\item Zeichnen Sie eine Ableitungsbaum für den oben angegebenen
+Klammerausdruck.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1.2cm,scale=0.7]
+\Tree
+[.S
+  [.S % 01
+    \{
+    [.S
+      [.S
+        [.S \Uchar91 [.S $\varepsilon$ ] \Uchar93 ]  % 02
+        [.S ( [.S $\varepsilon$ ] ) ] % 03
+      ]
+      [.S
+        \{ % 04
+        [.S
+          [.S ( [.S $\varepsilon$ ] ) ] % 05
+          [.S
+            \{ % 06
+              [.S \Uchar91 [.S $\varepsilon$ ] \Uchar93 ] % 07
+              [.S
+                ( % 08
+                  [.S \Uchar91 [.S $\varepsilon$ ] \Uchar93 ] % 09
+                ) % 08
+              ]
+            \} % 11
+          ]
+        ]
+        \} % 12
+      ]
+    ]
+    \}
+  ]
+  [.S \{ [.S $\varepsilon$ ] \} ] % 14
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

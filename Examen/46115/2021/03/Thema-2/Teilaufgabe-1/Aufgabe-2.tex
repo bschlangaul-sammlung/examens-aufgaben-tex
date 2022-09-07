@@ -1,0 +1,96 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {NEA ab},
+  Referenz = 46115-2021-F.T2-TA1-A2,
+  RelativerPfad = Staatsexamen/46115/2021/03/Thema-2/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:46115:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+Gegeben sei der folgende e-nichtdeterministische endliche Automat A über
+dem Alphabet\index{Reguläre Sprache}
+\footcite{examen:46115:2021:03}
+
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,initial] (q0) at (2.14cm,-1.57cm) {$q_0$};
+  \node[state] (q1) at (6.29cm,-1.71cm) {$q_1$};
+  \node[state] (q2) at (9.43cm,-1.71cm) {$q_2$};
+  \node[state] (q3) at (2.14cm,-4.71cm) {$q_3$};
+  \node[state,accepting] (q4) at (5.86cm,-4.71cm) {$q_4$};
+  \node[state] (q5) at (9.71cm,-4.86cm) {$q_5$};
+
+  \path (q0) edge[auto,bend left] node{$\varepsilon,a$} (q1);
+  \path (q0) edge[auto] node{$a$} (q3);
+  \path (q1) edge[auto,bend left] node{$b$} (q2);
+  \path (q1) edge[auto,bend left] node{$a$} (q0);
+  \path (q2) edge[auto] node{$a$} (q5);
+  \path (q2) edge[auto,bend left] node{$\varepsilon$} (q0);
+  \path (q2) edge[auto,bend left] node{$b$} (q1);
+  \path (q3) edge[auto] node{$b$} (q4);
+  \path (q5) edge[auto] node{$b$} (q4);
+\end{tikzpicture}
+\end{center}
+\bFlaci{A54bbh2iz}
+
+\begin{enumerate}
+
+  %%
+% a)
+%%
+
+\item Konstruieren Sie einen deterministischen endlichen Automaten für
+A. Wenden Sie dafür die Potenzmengenkonstruktion an.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li automat]
+  \node[state,initial] (q0) at (2.14cm,-2.14cm) {$q_0$};
+  \node[state] (q013) at (5.71cm,-2cm) {$q_013$};
+  \node[state,accepting] (q24) at (10.29cm,-5cm) {$q_24$};
+  \node[state] (q0125) at (4.14cm,-4.71cm) {$q_0125$};
+  \node[state] (q2) at (1.57cm,-6.29cm) {$q_2$};
+  \node[state] (q12) at (6.29cm,-8.29cm) {$q_12$};
+
+  \path (q0) edge[auto] node{$a$} (q013);
+  \path (q0) edge[auto] node{$b$} (q2);
+  \path (q013) edge[auto,loop above] node{$a$} (q013);
+  \path (q013) edge[auto] node{$b$} (q24);
+  \path (q24) edge[auto,bend left] node{$a$} (q0125);
+  \path (q24) edge[auto] node{$b$} (q12);
+  \path (q0125) edge[auto] node{$a$} (q013);
+  \path (q0125) edge[auto,bend left] node{$b$} (q24);
+  \path (q2) edge[auto] node{$a$} (q0125);
+  \path (q2) edge[auto] node{$b$} (q12);
+  \path (q12) edge[auto,loop above] node{$b$} (q12);
+  \path (q12) edge[auto] node{$a$} (q0125);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Arnqcysfc}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Beschreiben Sie die von A akzeptierte Sprache L(A) mit eigenen
+Worten und so einfach wie möglich.
+
+\begin{bAntwort}
+Endet auf ab, Präfix beliebig auch leer
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

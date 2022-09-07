@@ -1,0 +1,170 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe Klassendiagramm und Vererbung},
+  Thematik = {Kleintierpraxis},
+  Referenz = OOMUP.Diagramme.Struktur.Klassendiagramm.Kleintierpraxis,
+  RelativerPfad = Module/20_OOMUP/Diagramme/10_Struktur/10_Klassendiagramm/Aufgabe_Kleintierpraxis.tex,
+  ZitatSchluessel = oomup:ab:5,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Klassendiagramm, Vererbung},
+}
+
+In der Kleintierpraxis Dr. Huf werden \emph{Hunde}, \emph{Katzen} und
+\emph{Heimtiere}\footnote{Unter Heimtiere versteht man hier Kleintiere
+(d. h. keine Rinder, Pferde etc.), die zu Hause gehalten werden und
+keine Hunde oder Katzen sind (beispielsweise Meerschweinchen oder
+Kaninchen). Heimtiere können auch Nutztiere sein, die zur Schlachtung
+gehalten werden (\zB Hühner). In diesem Fall muss ein Tierarzt darauf
+achten, nur Medikamente anzuwenden, die für Lebensmittel liefernde Tiere
+zugelassen sind.} behandelt. In der Praxissoftware werden von jedem Tier
+\emph{Name}, \emph{Alter} (in Jahren) und \emph{Gewicht} (in kg mit
+mindestens 2 Dezimalen) erfasst. Bei einem \emph{Hund} wird zusätzlich
+aufgenommen, ob er \emph{reinrassig} ist, bei einer \emph{Katze}, ob sie
+ausschließlich \emph{in der Wohnung gehalten} wird, und beim
+\emph{Heimtier}, ob es zur \emph{Lebensmittellieferung} dient.
+\footcite{oomup:ab:5}
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Erstellen Sie ein entsprechendes Klassendiagramm (zunächst ohne
+Methoden), das den oben beschriebenen Sachverhalt geeignet erfasst.
+\index{Klassendiagramm}
+
+\begin{bAntwort}
+\begin{tikzpicture}
+\umlclass[type=abstrakt,x=3.5,y=3.5]{Kleintier}{
+  \# name : String \\
+  \# alter : int \\
+  \# gewicht : float
+}{}
+
+\umlclass{Hund}{- name : String}{}
+\umlclass[x=3.5]{Katze}{- istHauskatze : boolean}{}
+\umlclass[x=8]{Heimtier}{- wirdGeschlachtet : boolean}{}
+\umlVHVinherit[arm1=1.5cm]{Hund}{Kleintier}
+\umlVHVinherit[arm1=1.5cm]{Katze}{Kleintier}
+\umlVHVinherit[arm1=1.5cm]{Heimtier}{Kleintier}
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Implementieren Sie die Klassen gemäß des Modells aus Teilaufgabe a
+in der Programmierumgebung BlueJ. Beachten Sie dabei die abstrakte
+Oberklasse!
+\index{Vererbung}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Klasse \emph{Kleintier}}
+\bJavaDatei[firstline=3,lastline=6]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Kleintier}
+\bJavaDatei[firstline=10,lastline=13]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Kleintier}
+
+\bPseudoUeberschrift{Klasse \emph{Hund}}
+\bJavaDatei[firstline=3,lastline=8]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Hund}
+
+\bPseudoUeberschrift{Klasse \emph{Katze}}
+\bJavaDatei[firstline=3,lastline=9]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Katze}
+
+\bPseudoUeberschrift{Klasse \emph{Heimtier}}
+\bJavaDatei[firstline=3,lastline=9]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Heimtier}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Die Praxissoftware verfügt über eine Methode
+\verb|datenAusgeben()|, die den Namen und das Alter eines Tieres auf dem
+Bildschirm ausgibt. Fügen Sie im Klassendiagramm die Methode an
+geeigneter Stelle ein und implementieren Sie sie.
+
+\begin{bAntwort}
+Einfügen in der abstrakten Klasse \emph{Heimtier}. Fertiges
+Klassendiagramm siehe 1 (d)
+
+\begin{minted}{java}
+    public void datenAusgeben()
+    {
+        System.out.println("Name: " + name + ", Alter: " + alter);
+    }
+\end{minted}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Die Kosten für eine Narkose setzen sich zusammen aus einer
+Grundgebühr, die von der Tierart abhängt, und aus den Kosten für das
+verwendete Narkotikum. Diese wiederum berechnen sich aus dem Preis des
+Narkotikums pro kg Körpergewicht multipliziert mit dem Gewicht des
+Tieres. Ergänzen Sie das Klassendiagramm entsprechend um die Methode
+\verb|narkosekostenBerechnen()|, die die Kosten für eine Narkose auf dem
+Bildschirm ausgibt, und implementieren Sie sie.
+
+\begin{tikzpicture}
+\umlclass[type=abstrakt,x=3.5,y=4]{Kleintier}{
+  \# name : String \\
+  \# alter : int \\
+  \# gewicht : float
+}{
+  + datenAusgeben() : void\\
+  + narkoseKostenBerechnen(): float
+}
+
+\umlclass{Hund}{- name : String}{}
+\umlclass[x=3.5]{Katze}{- istHauskatze : boolean}{}
+\umlclass[x=8]{Heimtier}{- wirdGeschlachtet : boolean}{}
+\umlVHVinherit[arm1=1.5cm]{Hund}{Kleintier}
+\umlVHVinherit[arm1=1.5cm]{Katze}{Kleintier}
+\umlVHVinherit[arm1=1.5cm]{Heimtier}{Kleintier}
+\end{tikzpicture}
+
+\begin{bAntwort}
+Einfügen in der abstrakten Klasse \emph{Heimtier}.
+
+\bJavaDatei[firstline=3]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Hund}
+
+Einfügen in den Konstruktor der Klasse \emph{Hund}:
+\begin{minted}{java}
+narkoseGrundGebuehr = 1.50f;
+\end{minted}
+
+Einfügen in den Konstruktor der Klasse \emph{Katze}:
+\begin{minted}{java}
+narkoseGrundGebuehr = 1f;
+\end{minted}
+
+Einfügen in den Konstruktor der Klasse \emph{Heimtier}:
+\begin{minted}{java}
+narkoseGrundGebuehr = 2f;
+\end{minted}
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Falls es sich bei dem zu behandelnden Tier um einen Hund handelt,
+soll die Methode \verb|datenAusgeben()| (siehe Teilaufgabe c) dies
+zusammen mit dem Namen und dem Alter des Tieres auf dem Bildschirm
+ausgeben. Außerdem soll in diesem Fall ausgegeben werden, ob der Hund
+reinrassig ist oder nicht.
+
+\begin{bAntwort}
+Einfügen in der Klasse \emph{Hund}:
+
+\bJavaDatei[firstline=12,lastline=20]{aufgaben/oomup/klassendiagramm/kleintierpraxis/Hund}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,82 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe},
+  Thematik = {Musik-Datenbank},
+  Referenz = 66116-2015-F.T1-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2015/03/Thema-1/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2015:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+In einer Musik-Datenbank sollen folgende Informationen zu Interpreten und deren CDs modelliert
+werden:
+
+\begin{itemize}
+\item Zu einem Interpreten soll eine eindeutige ID, der Name, das Jahr
+seines Bühnenstarts, seine Geschäftsadresse sowie sein Musikgenre
+angegeben sein. Das Musikgenre kann mehrere Werte umfassen (mehrwertiges
+Attribut).
+
+\item Eine CD hat eine eindeutige ID, einen Namen (Titel), einen
+Interpreten, ein Erscheinungsdatum und bis zu 20 Positionen
+(Musikstücke). An jeder Position steht ein Musikstück. Für dieses ist
+der Titel und die Länge in Sekunden angegeben.
+
+\item Eine CD kann Auszeichnungen - \zB vom Typ goldene Schallplatte
+oder Emmy bekommen. Ebenso kann auch ein einzelnes Musikstück
+Auszeichnungen bekommen.
+\index{Entity-Relation-Modell}
+\footcite{examen:66116:2015:03}
+\end{itemize}
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item  Modellieren Sie das oben dargestellte Szenario möglichst
+vollständig in einem ER-Modell. Verwenden Sie, wann immer möglich,
+(binäre oder auch höherstellige) Relationships. Modellieren Sie
+Musikstücke in einem schwachen Entity-Typen.
+
+%%
+% b)
+%%
+
+\item Übertragen Sie Ihr ER-Modell - bis auf die Typen zu den
+Auszeichnungen - ins relationale Datenmodell. Erstellen Sie dazu
+Tabellen mit Hilfe von CREATE TABLE-Statements in Sov. Berücksichtigen
+Sie die Fremdschlüsselbeziehungen.
+
+%%
+% c)
+%%
+
+\item Es soll die Integritätsbedingung eingehalten werden, so dass die
+Anzahl der Positionen auf einer CD höchstens 20 ist. Schreiben Sie ein
+SELECT-Statement, das diese Integritätsbedin. gung überprüft, indem es
+die verletzenden CDs ausgibt.
+
+%%
+% d)
+%%
+
+\item Geben Sie geeignete INSERT-Statements an, die in alle beteiligten
+Tabellen jeweils mindestens ein Tupel einfügen, so dass alle
+Integritätsbedingungen erfüllt sind, nachdem alle Einfü- gungen
+ausgeführt wurden. Lediglich zu den Auszeichnungen müssen keine Tupel
+eingefügt werden.
+\end{enumerate}
+
+\end{document}

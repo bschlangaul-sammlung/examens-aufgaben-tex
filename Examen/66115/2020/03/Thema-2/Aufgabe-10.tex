@@ -1,0 +1,83 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 10},
+  Thematik = {Niedrigster gemeinsame Vorfahre},
+  Referenz = 66115-2020-F.T2-A10,
+  RelativerPfad = Staatsexamen/66115/2020/03/Thema-2/Aufgabe-10.tex,
+  ZitatSchluessel = examen:66115:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 10,
+}
+
+Sei $B$ ein binärer Suchbaum. In jedem Knoten $v$ von $B$ wird ein
+Schlüssel $v.\text{key} \in \mathbb{N}$ gespeichert sowie Zeiger
+$v.\text{left}$, $v.\text{right}$ und $v.\text{parent}$ auf sein linkes
+Kind, auf sein rechtes Kind und auf seinen Elternknoten. Die Zeiger sind
+\emph{nil}, wenn der entsprechende Nachbar nicht existiert. Für zwei
+Knoten $u$ und $v$ ist wie üblich der \emph{Abstand} die Anzahl der
+Kanten auf dem kürzesten Pfad von $u$ nach $v$.
+\index{Binärbaum}
+\footcite{examen:66115:2020:03}
+
+Für einen Knoten $w$ von $B$ sei $B(w)$ der Teilbaum von $B$ mit Wurzel
+$w$. Für zwei Knoten $u$ und $v$ von $B$ ist $w$ ein \emph{gemeinsamer}
+Vorfahre, wenn $u$ und $v$ in $B(w)$ liegen. Wir suchen den niedrigsten
+gemeinsamen Vorfahren $ngV(u,v)$ von $u$ und $v$, also einen gemeinsamen
+Vorfahren $w$, so dass für jeden Vorfahren $w’$ von $u$ und $v$ gilt,
+dass $w$ in $B(w’)$ liegt. Wir betrachten verschiedene Szenarien, in
+denen Sie jeweils den niedrigsten gemeinsamen Vorfahren von $u$ und $v$
+berechnen sollen.
+
+\begin{bExkurs}[Lowest Common Ancestor]
+Als Lowest Common Ancestor (LCA) oder „letzter gemeinsamer Vorfahre“
+wird in der Informatik und Graphentheorie ein Ermittlungskonzept
+bezeichnet, das einen gegebenen gewurzelten Baum von Datenstrukturen
+effizient vorverarbeitet, sodass anschließend Anfragen nach dem letzten
+gemeinsamen Vorfahren für beliebige Knotenpaare in konstanter Zeit
+beantwortet werden können.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Lowest_Common_Ancestor}
+\end{bExkurs}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Wir bekommen $u$ und $v$ als Zeiger auf die entsprechenden Knoten
+in $B$ geliefert. Beschreiben Sie in Worten und in Pseudocode einen
+Algorithmus, der den niedrigsten gemeinsamen Vorfahren von $u$ und $v$
+berechnet. Analysieren Sie die Laufzeit Ihres Algorithmus.
+
+\bJavaExamen{66115}{2020}{03}{NGV}
+
+%%
+% (b)
+%%
+
+\item Wir bekommen $u$ und $v$ wieder als Zeiger auf die entsprechenden
+Knoten in $B$ geliefert. Seien $d_u$, und $d_v$, die Abstände von $u$
+bzw. $v$ zum niedrigsten gemeinsamen Vorfahren von $u$ und $v$. Die
+Laufzeit Ihres Algorithmus soll $O(\text{max}\{d_u, d_v\})$ sein. Dabei
+kann Ihr Algorithmus in jedem Knoten $v$ eine Information
+$v.\text{info}$ speichern. Skizzieren Sie Ihren Algorithmus in Worten.
+
+%%
+% (c)
+%%
+
+\item Wir bekommen die Schlüssel $u.\text{key}$ und $v.\text{key}$. Die
+Laufzeit Ihres Algorithmus soll proportional zum Abstand der Wurzel von
+$B$ zum niedrigsten gemeinsamen Vorfahren von $u$ und $v$ sein.
+Skizzieren Sie Ihren Algorithmus in Worten.
+\end{enumerate}
+\end{document}

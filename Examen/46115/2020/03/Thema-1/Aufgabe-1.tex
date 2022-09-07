@@ -1,0 +1,184 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten,minimierung}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Reguläre Sprache},
+  Referenz = 46115-2020-F.T1-A1,
+  RelativerPfad = Staatsexamen/46115/2020/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:46115:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache, Reguläre Ausdrücke},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\f=\bFussnote
+\let\l=\bLeereZelle
+\def\p#1#2{(#1, #2)}
+\def\P#1#2{\textbf{(#1, #2)}}
+\let\k=\bAutomatenKante
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Betrachten Sie die formale Sprache $L \subseteq \{ 0, 1 \}^*$
+aller Wörter, die $01$ oder $110$ als Teilwort enthalten.
+\index{Reguläre Sprache}
+\footcite{examen:46115:2020:03}
+
+Geben Sie einen regulären Ausdruck für die Sprache $L$ an.
+\index{Reguläre Ausdrücke}
+
+\begin{bAntwort}
+(0|1)*(01|110)(0|1)*
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Entwerfen Sie einen (vollständigen) deterministischen endlichen
+Automaten, der die Sprache $L$ aus Teilaufgabe (a) akzeptiert. (Hinweis:
+es werden nicht mehr als 6 Zustände benötigt.)
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,below of=0] (1) {$z_1$};
+\node[state,right of=0] (2) {$z_2$};
+\node[state,right of=2] (3) {$z_3$};
+\node[state,below of=3,accepting] (4) {$z_4$};
+
+\path (0) edge[left] node{0} (1);
+\path (0) edge[above] node{1} (2);
+\path (1) edge[above,loop left] node{1} (1);
+\path (1) edge[above] node{1} (4);
+\path (2) edge[above] node{0} (1);
+\path (2) edge[above] node{1} (3);
+\path (3) edge[above,loop right] node{1} (3);
+\path (3) edge[right] node{0} (4);
+\path (4) edge[above,loop right] node{0,1} (4);
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{A54gek0vz}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Minimieren Sie den folgenden deterministischen endlichen Automaten:
+
+Machen Sie dabei Ihren Rechenweg deutlich!
+
+\begin{center}
+\begin{tikzpicture}[->,node distance=1.5cm]
+\node[state] (a) {a};
+\node[state,below=of a,initial] (b) {b};
+\node[state,right=of a,accepting] (c) {c};
+\node[state,right=of b,accepting] (d) {d};
+\node[state,right=of c] (e) {e};
+\node[state,right=of d] (f) {f};
+\node[state,right=of e,accepting] (g) {g};
+\node[state,right=of f,accepting] (h) {h};
+
+\path (a) edge[above] node{0} (c);
+\path (a) edge[right,pos=0.2] node{1} (d);
+\path (b) edge[above] node{1} (d);
+\path (b) edge[left,pos=0.2] node{0} (c);
+\path (c) edge[above,pos=0.2] node{1} (f);
+\path (c) edge[right,bend left] node{0} (d);
+\path (d) edge[below,pos=0.2] node{1} (e);
+\path (d) edge[left,bend left] node{0} (c);
+\path (e) edge[above,pos=0.2] node{0} (h);
+\path (e) edge[above] node{1} (c);
+\path (f) edge[above,pos=0.2] node{0} (g);
+\path (f) edge[above] node{1} (d);
+\path (g) edge[above] node{0} (e);
+\path (g) edge[right,bend left] node{1} (h);
+\path (h) edge[above] node{0} (f);
+\path (h) edge[left,bend left] node{1} (g);
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ajpw4j73w}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+\hline
+a & \l  & \l  & \l  & \l  & \l  & \l  & \l  & \l  \\ \hline
+b &     & \l  & \l  & \l  & \l  & \l  & \l  & \l  \\ \hline
+c & \f1 & \f1 & \l  & \l  & \l  & \l  & \l  & \l  \\ \hline
+d & \f1 & \f1 &     & \l  & \l  & \l  & \l  & \l  \\ \hline
+e & \f2 & \f2 & \f1 & \f1 & \l  & \l  & \l  & \l  \\ \hline
+f & \f3 & \f3 & \f1 & \f1 &    & \l  & \l  & \l  \\ \hline
+g & \f1 & \f1 & \f2 & \f2 & \f1 & \f1 & \l  & \l  \\ \hline
+h & \f1 & \f1 & \f2 & \f2 & \f1 & \f1 &    & \l  \\ \hline\hline
+% & a   & b   & c   & d   & e   & f   & g  & h   \\ \hline
+  & a   & b   & \underline{c}   & \underline{d}   & e   & f   & \underline{g}   & \underline{h}   \\ \hline
+\end{tabular}
+\end{center}
+
+\bFussnoten
+
+Die Zustandpaare werden aufsteigend sortiert notiert.
+
+\begin{liUebergangsTabelle}{0}{1}
+\P ab & \p cc     & \p dd \\
+\p ae & \p ch \f2 & \p cd \\
+\p af & \p cg \f3 & \p dd \\
+\p be & \p ch \f2 & \p cd \\
+\p bf & \p cg \f3 & \p dg \\
+\P cd & \P cd     & \P ef \\
+\p cg & \p de \f2 & \p ef \\
+\p ch & \p df \f2 & \p ff \\
+\p dg & \p ce \f2 & \p ee \\
+\p dh & \p cf \f2 & \p ef \\
+\P ef & \P gh     & \P cd \\
+\P gh & \P ef     & \P gh \\
+\end{liUebergangsTabelle}
+
+\begin{center}
+\begin{tikzpicture}[->,node distance=1.5cm]
+\node[state,initial] (ab) {ab};
+\node[state,right=of ab] (cd) {cd};
+\node[state,right=of cd] (ef) {ef};
+\node[state,right=of ef,accepting] (gh) {gh};
+
+\k {ab} {cd} {0,1} {above}
+\k {cd} {cd} {0} {above,loop above}
+\k {cd} {ef} {1} {above,bend left}
+\k {ef} {cd} {1} {above,bend left}
+\k {gh} {ef} {0} {above,bend left}
+\k {ef} {gh} {0} {above,bend left}
+\k {gh} {gh} {1} {above,loop above}
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Arzvh5kyz}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Ist die folgende Aussage richtig oder falsch? Begründen Sie Ihre
+Antwort!
+
+„Zu jeder regulären Sprache $L$ über dem Alphabet $\Sigma$ gibt es eine
+Sprache $L' \subseteq \Sigma^*$, die $L$ enthält (\dh $L \subseteq
+L’$) und nicht regulär ist.“
+\end{enumerate}
+\end{document}

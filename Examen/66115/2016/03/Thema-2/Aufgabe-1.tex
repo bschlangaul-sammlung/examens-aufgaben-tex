@@ -1,0 +1,209 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Verständnis formale Sprachen},
+  Thematik = {Verständnis},
+  Referenz = 66115-2016-F.T2-A1,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2016:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Formale Sprachen},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 1,
+}
+
+% Info_2021-06-11-2021-06-11_13.34.15.mp4
+
+Beantworten Sie kurz, präzise und mit Begründung folgende Fragen: (Die
+Begründungen müssen keine formellen mathematischen Beweise sein).
+\index{Formale Sprachen}
+\footcite{examen:66115:2016:03}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Welche Möglichkeiten gibt es, eine formale Sprache vom Typ 3 zu
+definieren?
+
+\begin{bAntwort}
+\begin{itemize}
+\item reguläre Grammatik
+\item endlicher nichtdeterministische und deterministischer Automat
+\item regulärer Ausdruck
+\end{itemize}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+% 12 min
+
+\item Was ist die Komplexität des Wortproblems für Typ-3 Sprachen und
+wieso ist das so?\footcite[Aufgabe 5a)]{theo:ab:5}
+
+\begin{bAntwort}
+$P$, CYK-Algorithmus löst es ein Polynomialzeit.
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+% 19 min
+
+\item Sind Syntaxbäume zu einer Grammatik immer eindeutig? Falls nicht,
+geben Sie ein Gegenbeispiel.
+
+\begin{bAntwort}
+Nein. Syntaxbäume zu einer Grammtik sind nicht immer eindeutig.
+
+\bPseudoUeberschrift{Gegenbeispiel}
+
+\bGrammatik{
+  variablen={S, A, B},
+  alphabet={a}
+}
+
+\begin{bProduktionsRegeln}
+S -> A A,
+S -> B B,
+A -> a,
+B -> a,
+\end{bProduktionsRegeln}
+
+\bAbleitung{S -> A A -> a A -> a a}
+
+\bAbleitung{S -> B B -> a B -> a a}\footcite{wiki:mehrdeutig}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Wie kann man die Äquivalenz zweier Typ-3 Sprachen nachweisen?
+
+% 23 min
+
+\begin{bAntwort}
+Myhill-Nerode-Äquivalenz. Wir können von den auf Äquivalenz zu
+überprüfenden Sprachen jeweils einen minimalen endlichen Automaten
+bilden. Sind diese entstanden zwei Automaten äquivalent so sind auch die
+Sprachen äquivalent.
+\footcite{wiki:aequivalenzproblem}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Wie kann man das Wortproblem für das Komplement einer Typ-3
+Sprache lösen?
+
+% 25 min
+
+\begin{bAntwort}
+Da das Komplement einer regulären Sprache wieder eine reguläre Sprache
+ergibt, kann das Wortproblem beim Komplement durch einen deterministisch
+endlichen Automaten gelöst werden. Tausche akzeptierende mit nicht
+akzeptierenden Zuständen des zugehörigen Automaten.
+
+Alternativ: Ergebnis des CYK-Algorithmus invertieren oder CYK auf
+Komplement, da reguläre Sprachen unter dem Komplement abgeschlossen
+sind.
+\end{bAntwort}
+
+%%
+% f)
+%%
+
+\item Weshalb gilt das Pumping-Lemma für Typ 3 Sprachen?
+
+\begin{bAntwort}
+endliche Anzahl von Zuständen $n$ im Automaten $\rightarrow$ für Wörter
+$|\omega| > n$ muss Zyklus vorhanden sein.
+\end{bAntwort}
+
+%%
+% g)
+%%
+
+\item Ist der Nachweis, dass das Typ-3 Pumping-Lemma für eine gegebene
+Sprache gilt, ausreichend, um zu zeigen, dass die Sprache vom Typ 3 ist?
+Falls nicht, geben Sie ein Gegenbeispiel, mit Begründung.
+
+\begin{bAntwort}
+Nein:
+
+Die Sprache $L = \left\{a^mb^nc^n \mid m,n \ge 1\right\} \cup
+\{b^mc^n \mid m,n \ge 0 \}$ ist nicht regulär. Allerdings erfüllt
+$L$ die Eigenschaften des Pumping-Lemmas, denn jedes Wort
+$z \in L$ lässt sich so zerlegen $z = uvw$, dass
+auch für alle $i\ge0$ $uv^iw \in L$. Dazu kann
+$v$ einfach als erster Buchstabe gewählt werden. Dieser ist
+entweder ein $a$, die Anzahl von führenden $a$s
+ist beliebig. Oder er ist ein $b$ oder $c$, ohne
+führende $a$s ist aber die Anzahl von führenden
+$b$s oder $c$s beliebig.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Pumping-Lemma}
+\end{bAntwort}
+
+%%
+% h)
+%%
+
+% 37 min
+
+\item Geben Sie ein Beispiel, an dem deutlich wird, dass
+deterministische und nichtdeterministische Typ-2 Sprachen
+unterschiedlich sind.
+
+\begin{bAntwort}
+\begin{description}
+\item[Deterministisch Kontextfrei]
+\bAusdruck{0^n 1^n}{n \geq 0}
+
+\item[Nichtdeterministisch Kontextfrei]
+\bAusdruck{\omega \omega^R}{\omega \geq \{0, 1\}^*} (R steht für rückwärts)
+\end{description}
+\bFussnoteUrl{https://docplayer.org/19566652-Einfuehrung-in-die-theoretische-informatik.html}
+\end{bAntwort}
+
+%%
+% i)
+%%
+
+% 39min
+
+\item Worin macht sich der Unterschied zwischen Typ 0 und 1 bemerkbar,
+wenn man Turingmaschinen benutzt, um das Wortproblem vom Typ 0 oder 1 zu
+lösen. Warum ist das so?
+\footcite[Aufgabe 5b)]{theo:ab:5}
+
+\begin{bAntwort}
+Typ 0: semi-entscheidbar, Typ 1: entscheidbar
+
+Typ 0: Unendlichkeit des Band kann die unendlich lange Berechenbarkeit
+zustande kommen.
+
+Typ 1: Linear beschränkte Turingmaschine endlich, dadurch Anzahl an
+Kombiniation
+
+Typ 1 Sprachen sind monoton wachsend.
+
+Da Typ 1 nur Wörter verlängert, kann daher in Polynomialzeit überprüft
+werden, ob das Wort in der Sprache liegt, indem die Regeln angewendet
+werden, bis das Wortende erreicht ist.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

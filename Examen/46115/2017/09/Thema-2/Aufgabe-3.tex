@@ -1,0 +1,61 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Primzahl},
+  Referenz = 46115-2017-H.T2-A3,
+  RelativerPfad = Staatsexamen/46115/2017/09/Thema-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46115:2017:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Dynamische Programmierung},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2017,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 3,
+}
+
+Die Methode \bJavaCode{pKR} berechnet die $n$-te Primzahl ($n \geq 1$)
+kaskadenartig rekursiv und äußerst ineffizient:
+\index{Dynamische Programmierung}
+\footcite{examen:46115:2017:09}
+
+\bJavaExamen[firstline=32,lastline=44]{46115}{2017}{09}{PrimzahlDP}
+
+\noindent
+Überführen Sie \bJavaCode{pKR} mittels \emph{dynamischer
+Programmierung} (hier also \emph{Memoization}) und mit möglichst
+\emph{wenigen Änderungen} so in die \emph{linear} rekursive Methode
+\bJavaCode{pLR}, dass \bJavaCode{pLR(n, new long[n + 1])} ebenfalls
+die $n$-te Primzahl ermittelt:
+
+\begin{minted}{java}
+private long pLR(int n, long[] ps) {
+  ps[1] = 2;
+  // ...
+}
+\end{minted}
+
+\begin{bAntwort}
+\begin{bExkurs}[Kaskadenartig rekursiv]
+Kaskadenförmige Rekursion bezeichnet den Fall, in dem mehrere rekursive
+Aufrufe nebeneinander stehen.
+\end{bExkurs}
+
+\begin{bExkurs}[Linear rekursiv]
+Die häufigste Rekursionsform ist die lineare Rekursion, bei der in jedem
+Fall der rekursiven Definition höchstens ein rekursiver Aufruf vorkommen
+darf.
+\end{bExkurs}
+
+\bJavaExamen[firstline=55,lastline=74]{46115}{2017}{09}{PrimzahlDP}
+
+\bPseudoUeberschrift{Der komplette Quellcode}
+
+\bJavaExamen{46115}{2017}{09}{PrimzahlDP}
+\end{bAntwort}
+
+\end{document}

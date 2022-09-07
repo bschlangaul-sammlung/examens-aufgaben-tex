@@ -1,0 +1,153 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen,synthese-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Entwurfstheorie},
+  Referenz = 66116-2017-F.T2-TA1-A5,
+  RelativerPfad = Staatsexamen/66116/2017/03/Thema-2/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2017:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Synthese-Algorithmus},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2017,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+\let\ah=\bAttributHuelle
+\let\ahL=\bLinksReduktion
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\fa=\bFunktionaleAbhaengigkeit
+\let\m=\bAttributMenge
+\let\schrittE=\bSyntheseUeberErklaerung
+
+In der folgenden Datenbank sind die Ausleihvorgänge einer Bibliothek gespeichert:
+\index{Synthese-Algorithmus}
+\footcite{examen:66116:2017:03}
+
+| Ausleihe | LNr | Name | Adresse | BNr | Titel | Kategorie | ExemplarNr |
+1 | Müller | Winklerstr. 1 Datenbanksysteme | Informatik 1
+1 | Miller | Winklerstr. 1 | Datenbanksysteme | Informatik 2
+2 | Huber | Friedrichstr. | 2 Anatomie I Medizin 5
+2 Huber | Friedrichstr. 3 Harry Potter Literatur 20
+3 Meier | Bismarkstr. 4 OODBS Informatik 1
+4 Meier Marktpl. 5 | Pippi Langstrumpf | Literatur 1
+
+Für die Datenbank gilt:
+
+Jeder Leser hat eine eindeutige Lesernummer (LNr), einen Namen und eine
+Adresse. Ein Buch hat eine Buchnummer (BNr), einen Titel und eine
+Kategorie. Es kann mehrere Exemplare eines Buches geben, welche durch
+eine, innerhalb einer Buchnummer eindeutigen, Exemplarnummer
+unterschieden werden.
+
+\begin{enumerate}
+\item Beschreiben Sie kurz, welche Redundanzen in der Datenbank vorhanden sind
+und welche Anomalien auftreten können.
+
+\item Nachfolgend sind alle nicht-trivialen funktionalen Abhängigkeiten,
+welche in der obigen Datenbank gelten, angegeben:
+
+\FA{
+  LNr -> Name;
+  LNr -> Adresse;
+  BNr -> Titel;
+  BNr -> Kategorie;
+  LNr, BNr, ExemplarNr -> Name, Adresse, Titel, Kategorie
+}
+
+% http://www.ict.griffith.edu.au/normalization_tools/normalization/ind.php#resources
+
+% LNr,BNr,ExemplarNr,Name,Adresse,Titel,Kategorie
+
+% LNr -> Name
+% LNr -> Adresse
+% BNr -> Titel
+% BNr -> Kategorie
+% LNr,BNr,ExemplarNr -> Name,Titel,Adresse,Kategorie
+
+Einziger Schlüsselkandidat ist \m{LNr, BNr, ExemplarNr}. Überführen Sie
+das Schema mit Hilfe des Synthesealgorithmus für 3NF in die dritte
+Normalform.
+
+\def\ahR#1#2#3#4{
+\shoveleft{\ah{FA - (\fa{#1 -> #2}) \cup (\fa{#1 -> #3}), \m{#1}} =}
+\\
+\shoveright{\m{#4}}\\
+}
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1}
+
+\begin{enumerate}
+\item \schrittE{1-1}
+
+\begin{liAHuelle}
+\\
+\ahL{LNr, BNr, ExemplarNr}{LNr}{Titel, Kategorie}
+\ahL{LNr, BNr, ExemplarNr}{BNr}{Name, Adresse}
+\ahL{LNr, BNr, ExemplarNr}{\textbf{ExemplarNr}}{\textbf{Name, Adresse, Titel, Kategorie}}
+\end{liAHuelle}
+
+\FA{
+  LNr -> Name;
+  LNr -> Adresse;
+  BNr -> Titel;
+  BNr -> Kategorie;
+  LNr, BNr -> Name, Adresse, Titel, Kategorie
+}
+
+\item \schrittE{1-2}
+
+\begin{liAHuelle}
+\\
+\ahR{LNr}{Name}{nichts}{Adresse}
+\ahR{LNr}{Adresse}{nichts}{Name}
+\ahR{BNr}{Titel}{nichts}{Kategorie}
+\ahR{BNr}{Kategorie}{nichts}{Titel}
+\ahR{LNr, BNr}{Name, Adresse, Titel, Kategorie}{Adresse, Titel, Kategorie}{Name, Adresse, Titel, Kategorie}
+\ahR{LNr, BNr}{Name, Adresse, Titel, Kategorie}{Name, Titel, Kategorie}{Name, Adresse, Titel, Kategorie}
+\ahR{LNr, BNr}{Name, Adresse, Titel, Kategorie}{Name, Adresse, Kategorie}{Name, Adresse, Titel, Kategorie}
+\ahR{LNr, BNr}{Name, Adresse, Titel, Kategorie}{Name, Adresse, Titel}{Name, Adresse, Titel, Kategorie}
+\end{liAHuelle}
+
+\FA{
+  LNr -> Name;
+  LNr -> Adresse;
+  BNr -> Titel;
+  BNr -> Kategorie;
+  LNr, BNr -> nichts
+}
+
+\item \schrittE{1-3}
+
+\FA{
+  LNr -> Name;
+  LNr -> Adresse;
+  BNr -> Titel;
+  BNr -> Kategorie;
+}
+
+\item \schrittE{1-4}
+
+\FA{
+  LNr -> Name, Adresse;
+  BNr -> Titel, Kategorie;
+}
+
+\end{enumerate}
+
+\item \schrittE{2}
+\item \schrittE{3}
+\item \schrittE{4}
+\end{enumerate}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

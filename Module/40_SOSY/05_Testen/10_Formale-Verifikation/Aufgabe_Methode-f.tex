@@ -1,0 +1,337 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,wpkalkuel,syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2:},
+  Thematik = {Methode „f()“},
+  Referenz = SOSY.Testen.Formale-Verifikation.Methode-f,
+  RelativerPfad = Module/40_SOSY/05_Testen/10_Formale-Verifikation/Aufgabe_Methode-f.tex,
+  ZitatSchluessel = sosy:ab:8,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {wp-Kalkül},
+}
+
+\let\wp=\bWpKalkuel
+\let\equivalent=\bWpEquivalent
+\let\erklaerung=\bWpErklaerung
+
+\def\code#1{„\texttt{#1}“}
+\def\FarbeA#1{\textcolor{orange}{#1}}
+\def\FarbeB#1{\textcolor{red}{#1}}
+\def\FarbeC#1{\textcolor{blue}{#1}}
+
+\def\NebenRechnung#1{\medskip\bigskip\par\textbf{Nebenrechnung: #1}\par\medskip}
+
+\def\AnweisungI{x=2*x+1+x*x;}
+\def\AnweisungII{y+=7;}
+\def\AnweisungIII{y=2*y;}
+\def\AnweisungIV{y-=8;}
+\def\AnweisungV{x*=2;}
+
+\def\A{\FarbeA{\AnweisungI\AnweisungII}}
+\def\B{\FarbeB{\AnweisungIII}}
+\def\C{\FarbeC{\AnweisungIV\AnweisungV}}
+\def\Q{(x \geq 8) \land (y \% 2 = 1)}
+
+Gegeben sei folgendes Programm:
+\index{wp-Kalkül}
+\text{wp}-Kalkül\footcite{sosy:ab:8}
+
+\begin{minted}{java}
+int f(int x, int y) {
+  /* P */
+  x = 2 * x + 1 + x * x;
+  y += 7;
+  if (x > 196) {
+    y = 2 * y;
+  } else {
+    y -= 8;
+    x *= 2;
+  } /* Q */
+  return x + y;
+}
+\end{minted}
+
+\noindent
+Bestimmen Sie die schwächste Vorbedingung (weakest precondition), für
+die die Nachbedingung $Q := (x \geq 8) \land (y \% 2 = 1)$ noch
+zutrifft.
+
+\begin{bAntwort}
+\setlength{\parindent}{0pt}
+
+Mit dem Distributivgesetz der Konjugation gilt: \bigskip
+
+$\wp{A; if(b) B; else C;}{Q} \equiv$
+
+$\wp{A;}{b} \land \wp{A;B;}{Q}$
+
+$\lor$%
+
+$\wp{A;}{\neg b} \land \wp{A;C;}{Q}$
+
+\bigskip Der tatsächliche Programmcode wird eingesetzt:\bigskip
+
+$\wp{\A{}if(x>196)\{\B\}else\{\C\}}{\Q} \equiv$
+
+% A if(b)
+$\wp{\A}{x > 196} \land$
+
+% A;B; Q
+$\wp{\A\B}{\Q}$
+
+%
+$\lor$
+
+% A if(!b)
+$\wp{\A}{x \leq 196} \land$
+
+% A;C; Q
+$\wp{\A\C}{\Q}$
+
+=: P
+
+%%
+%
+%%
+
+\NebenRechnung{$\wp{A;}{b}$}
+
+\bWpPseudoMatheUmgebung{
+  \wp{\A}{x > 196}
+}
+
+\erklaerung{Wir lassen $y+=7$ weg, weil in der Nachbedingung kein $y$
+vorkommt und setzen in den Term $x > 196$ für das $x$ die erste
+Code-Zeile $2 \cdot x + 1 + x \cdot x$ ein.}
+
+\equivalent{
+  \wp{}{2 \cdot x + 1 + x \cdot x > 196}
+}
+
+\erklaerung{Nach der Transmformationsregel \textit{Nichts passiert, die
+Vorbedingung bleibt gleich} kann das auch so geschrieben werden:}
+
+\equivalent{
+  2 \cdot x + 1 + x \cdot x > 196
+}
+
+\erklaerung{Die erste binomische Formel (Plus-Formel) lautet
+$(a + b)^2 = a^2 + 2ab + b^2$.
+Man kann die Formel auch umgedreht verwenden:
+$a^2 + 2ab + b^2 = (a + b)^2$.
+Die erste Code-Zeile $2 \cdot x + 1 + x \cdot x$
+kann umformuliert werden in
+$
+1 + 2 \cdot 1 \cdot x + x \cdot x =
+1^2 + 2 \cdot 1 \cdot x + x^2 =
+(1 + x)^2 =
+(x + 1)^2
+$.
+Wir haben für $a$ die Zahl $1$ und für $b$ den Buchstaben $x$
+eingesetzt.}
+
+\equivalent{
+  (x + 1)^2 > 196
+}
+
+%%
+%
+%%
+
+\NebenRechnung{$\wp{A;B;}{Q}$}
+
+\bWpPseudoMatheUmgebung{
+  \wp{\A\B}{\Q}
+}
+
+\erklaerung{Für das $x$ in der Nachbedingung setzen wir die erste
+Code-Zeile $2 \cdot x + 1 + x \cdot x$ ein.
+%
+Für das $y$ in der Nachbedingung setzen wir dritte Code-Zeile
+\texttt{\AnweisungIII} ein und dann die zweite Code-Zeile
+\texttt{\AnweisungII}. Das wp-Kalkül arbeitet den Code rückswärts ab.
+%
+in $y \% 2$ die dritte Anweisung $y = 2 \cdot y$ einfügen: $2 \cdot y \%
+2$
+%
+dann in $2 \cdot y \% 2$ die zweite Anweisung $y = y + 7$ einfügen: $2
+\cdot (y + 7) \% 2$}
+
+\equivalent{
+  (x + 1)^2 \geq 8 \land 2(y + 7)\%2 = 1
+}
+
+\erklaerung{Diese Aussage ist falsch, da $2(y + 7)$ immer eine gerade
+Zahl ergibt und der Rest von einer Division durch zwei einer geraden
+Zahl immer 0 ist und nicht 1.}
+
+\equivalent{
+  (x + 1)^2 \geq 8 \land \text{falsch}
+}
+
+\equivalent{
+  \text{falsch}
+}
+
+%%
+%
+%%
+
+\NebenRechnung{$\wp{A;}{\neg b}$}
+
+\bWpPseudoMatheUmgebung{
+  \wp{\A}{x \leq 196}
+}
+
+\erklaerung{Analog zu Nebenrechnung 1}
+
+\equivalent{
+  (x + 1)^2 \leq 196
+}
+
+%%
+%
+%%
+
+\NebenRechnung{$\wp{A;C;}{Q}$}
+
+\bWpPseudoMatheUmgebung{
+  \wp{\A\C}{\Q}
+}
+
+\erklaerung{\code{x*=2;}: $x \cdot 2$ für $x$ einsetzen:}
+
+\equivalent{
+  \wp{x=2*x+1+x*x;y+=7;y-=8;}
+  {(2 \cdot x \geq 8) \land (y \% 2 = 1)}
+}
+
+\erklaerung{\code{y-=8;}: $y - 8$ für $y$ einsetzen:}
+
+\equivalent{
+  \wp{x=2*x+1+x*x;y+=7;}
+  {(2 \cdot x \geq 8) \land ((y - 8) \% 2 = 1)}
+}
+
+\erklaerung{\code{y+=7}: $y + 7$ für $y$ einsetzen:}
+
+\equivalent{
+  \wp{x=2*x+1+x*x;}
+  {(2 \cdot x \geq 8) \land (((y + 7) - 8) \% 2 = 1)}
+}
+
+\erklaerung{\code{x=2*x+1+x*x;}: $(x + 1)^2$ für $x$ einsetzen:}
+
+\equivalent{
+\wp{}
+  {(2 \cdot (x + 1)^2 \geq 8) \land (((y + 7) - 8) \% 2 = 1)}
+}
+
+\erklaerung{Nur noch die Nachbedingung stehen lassen:}
+
+\equivalent{
+  (2 \cdot (x + 1)^2 \geq 8) \land ((\textcolor{red}{(y + 7) - 8}) \% 2 = 1)
+}
+
+\erklaerung{Subtraktion:}
+
+\equivalent{
+  (2 \cdot (x + 1)^2 \geq 8) \land ((\textcolor{red}{y - 1}) \% 2 = 1)
+}
+
+\erklaerung{Vereinfachen (links beide Seiten durch 2 teilen und rechts
+von beiden Seiten $1$ abziehen)}
+
+\equivalent{
+  (\frac{2 \cdot (x + 1)^2}{2} \geq \frac{8}{2}) \land (((y - 1) \% 2) - 1 = 1 - 1)
+}
+
+\erklaerung{Zwischenergebnis:}
+
+\equivalent{
+((x + 1)^2 \geq 4) \land y \% 2 = 0
+}
+
+\vspace{1cm}
+
+\bPseudoUeberschrift{Zusammenführung}
+
+\erklaerung{Die Zwischenergebnisse aus den Nebenrechnungen
+zusammenfügen:}
+
+\equivalent{
+  [
+    (x + 1)^2 > 196 \land
+    \text{falsch}
+  ]
+  \lor
+  [
+    (x + 1)^2 \leq 196 \land
+    (x + 1)^2 \geq 4 \land y\%2 = 0
+  ]
+}
+
+\erklaerung{„falsch“ und eine Aussage verbunden mit logischem Und
+„$\land$“ ist insgesamt falsch:}
+
+\equivalent{
+  \text{falsch}
+  \lor
+  [
+    (x + 1)^2 \leq 196 \land
+    (x + 1)^2 \geq 4 \land y\%2 = 0
+  ]
+}
+
+\erklaerung{falsch verbunden mit oder weglassen:}
+
+\equivalent{
+  (x + 1)^2 \leq 196
+  \land
+  (x + 1)^2 \geq 4 \land y\%2 = 0
+}
+
+\erklaerung{Umgruppieren, sodass nur noch ein $(x + 1)^2$ geschrieben
+werden muss:}
+
+\equivalent{
+  4 \leq (x + 1)^2 \leq 196
+  \land
+  y\%2 = 0
+}
+
+\erklaerung{$4 = 2^2$ und $196 = 14^2$}
+
+\equivalent{
+  2^2 \leq (x + 1)^2 \leq 14^2
+  \land
+  y\%2 = 0
+}
+
+\erklaerung{Hoch zwei weg lassen: Betragsklammer $|x|$ oder auch
+Betragsfunktion hinzufügen (Die Betragsfunktion ist festgelegt als
+„Abstand einer Zahl von der Zahl Null“.}
+
+\equivalent{
+  2 \leq | x + 1 | \leq 14 \land y\%2 = 0
+}
+
+\erklaerung{Auf die Gleichung der linken Aussage $-1$ anwenden:}
+
+\equivalent{
+  1 \leq |x| \leq 13 \land y\%2 = 0
+}
+
+\erklaerung{Die Betragsklammer weg lassen:}
+
+\equivalent{
+  (1 \leq x \leq 13 \lor -13 \leq x \leq -1) \land y\%2 = 0
+}
+
+\bWpPseudoMatheUmgebung{=: P}
+
+\end{bAntwort}
+\end{document}

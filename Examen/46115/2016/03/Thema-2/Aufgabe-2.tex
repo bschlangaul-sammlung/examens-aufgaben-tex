@@ -1,0 +1,149 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{komplexitaetstheorie}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {SUBSET SUM, Raumausstattungsunternehmen},
+  Referenz = 46115-2016-F.T2-A2,
+  RelativerPfad = Staatsexamen/46115/2016/03/Thema-2/Aufgabe-2.tex,
+  ZitatSchluessel = examen:46115:2016:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Komplexitätstheorie, Polynomialzeitreduktion},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 2,
+}
+
+\def\ssp{\bProblemName{}}
+
+Ein Raumausstattungsunternehmen steht immer wieder vor dem Problem,
+feststellen zu müssen, ob ein gegebener rechteckiger Fußboden mit
+rechteckigen Teppichresten ohne Verschnitt ausgelegt werden kann. Alle
+Längen sind hier ganzzahlige Meterbeträge. Haben sie beispielsweise zwei
+Reste der Größen $3 \times 5$ und einen Rest der Größe $2 \times 5$, so
+kann ein Fußboden der Größe $8 \times 5$ ausgelegt werden.
+\index{Komplexitätstheorie}
+\footcite{examen:46115:2016:03}
+
+Das Unternehmen beauftragt eine Softwarefirma mit der Entwicklung eines
+Programms, welches diese Frage für beliebige Größen von Fußboden und
+Teppichresten entscheiden soll. Bei der Abnahme weist die
+Softwarefirma darauf hin, dass das Programm im wesentlichen alle
+Möglichkeiten durchprobiert und daher für große Eingaben schnell
+ineffizient wird. Auf die Frage, ob man das nicht besser machen könne,
+lautet die Antwort, dass das vorgelegte Problem NP-vollständig sei und
+daher nach derzeitigem Kenntnisstand der theoretischen Informatik nicht
+mehr zu erwarten sei.\footcite[Seite 15, Aufgabe 12]{theo:ab:4}
+
+\begin{bExkurs}[\ssp]
+\bProblemSubsetSum
+\end{bExkurs}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Fixieren Sie ein geeignetes Format für Instanzen des Problems und
+geben Sie konkret an, wie die obige Beispielinstanz in diesem Format
+aussieht.
+
+\begin{bAntwort}
+Problem $L$
+\begin{description}
+\item[1. Alternative]
+$I = \{ x_1, y_1, \dots, x_n, y_n, c_x, c_y \}$
+
+\item[2. Alternative]
+$I = \{ w_1, \dots, w_n, c \}$
+\end{description}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Begründen Sie, dass das Problem in NP liegt.
+
+\begin{bAntwort}
+Es existiert ein nichtdeterministischer Algorithmus der das Problem in
+Polynomialzeit entscheidet:
+
+\begin{itemize}
+\item nichtdeterministisch Untermenge raten ($\mathcal{O}(n)$)
+\item Prüfe: ($\mathcal{O}(n$))
+\end{itemize}
+
+\begin{description}
+\item[1. Alternative]
+
+Elementsumme der Produkte ($x_i, y_i$) aus Untermenge $= c$
+
+\item[2. Alternative]
+
+Elementsumme der Untermenge $= c$
+\end{description}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Begründen Sie, dass das Problem NP-schwer ist durch Reduktion vom
+NP-vollständigen Problem SUBSET-SUM.
+\index{Polynomialzeitreduktion}
+
+\begin{bAntwort}
+\bPolynomiellReduzierbar{\ssp}{L}
+
+\begin{description}
+
+%%
+%
+%%
+
+\item[1. Alternative]
+
+Die Funktion $f$ ersetzt jedes $w_i$ durch $w_i$ , $1$ und $c$ durch
+$c$, $1$ und startet TM für $L$
+
+\begin{description}
+\item[Berechenbarkeit:]
+
+Hinzufügen von $1$ für jedes Element, offensichtlich in Polynomialzeit
+
+\item[Korrektheit:]
+
+$w \in \ssp \Leftrightarrow f (w) \in L$, offensichtlich, selbes Problem
+mit lediglich anders notierter Eingabe
+\end{description}
+
+%%
+%
+%%
+
+\item[2. Alternative]
+
+Die Funktion $f$ startet TM für $L$
+
+\begin{description}
+\item[Berechenbarkeit:]
+
+Identität, offensichtlich in Polynomialzeit
+
+\item[Korrektheit:]
+
+$w \in \ssp \Leftrightarrow f (w) \in L$ offensichtlich, selbes Problem
+
+\end{description}
+
+\end{description}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

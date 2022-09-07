@@ -1,0 +1,43 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Sortieren},
+  Thematik = {iterativ-rekursiv},
+  Referenz = AUD.Sortieralgorithmen.Selectionsort.iterativ-rekursiv,
+  RelativerPfad = Module/30_AUD/40_Sortieralgorithmen/20_Selectionsort/Aufgabe_iterativ-rekursiv.tex,
+  ZitatSchluessel = aud:e-klausur,
+  ZitatBeschreibung = {Aufgabe 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Iterative Realisation, Rekursion, Selectionsort},
+}
+
+In dieser Aufgabe soll ein gegebenes Integer Array mit Hilfe von
+\textbf{Selection Sort} sortiert werden. Es soll eine
+iterative\index{Iterative Realisation} und eine
+rekursive\index{Rekursion} Methode geschrieben werden.
+\index{Selectionsort}
+\footcite[Aufgabe 2]{aud:e-klausur}
+%
+Verwenden Sie zur Implementierung jeweils die Methodenköpfe
+\bJavaCode{selectionSortIterativ()} und
+\bJavaCode{selectionSortRekursiv()}. Eine \bJavaCode{swap}-Methode,
+die für ein gegebenes Array und zwei Indizes die Einträge an den
+jeweiligen Indizes des Arrays vertauscht, ist gegeben und muss nicht
+implementiert werden.
+%
+Es müssen keine weiteren Methoden geschrieben werden!
+
+\begin{bAntwort}
+\bPseudoUeberschrift{iterativ}
+
+\bJavaDatei[firstline=11,lastline=21]{aufgaben/aud/sortier/SelectionSort}
+
+\bPseudoUeberschrift{rekursiv}
+
+\bJavaDatei[firstline=23,lastline=35]{aufgaben/aud/sortier/SelectionSort}
+\end{bAntwort}
+
+\end{document}

@@ -1,0 +1,166 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,spalten,struktogramm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Abitur 2015 IV},
+  Thematik = {Papyrus Rhind},
+  Referenz = TECH.Ein-Adress.04-Abitur-2015-IV-Papyrus-Rhind,
+  RelativerPfad = Module/50_TECH/10_Ein-Adress/Aufgabe_04-Abitur-2015-IV-Papyrus-Rhind.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Ein-Adress-Befehl-Assembler},
+}
+
+% Eingeschickt 3.2.2021
+% zurückbekommen und korrigiert 5.2.2021
+
+%%
+%
+%%
+
+Auf dem ägyptischen \emph{Papyrus Rhind}, der etwa auf das Jahr 1550 v.
+Chr. datiert wird, ist eine Möglichkeit zur Multiplikation zweier
+natürlicher Zahlen $z_1$ und $z_2$ beschrieben. Als Struktogramm
+lässt sich dieser Algorithmus folgendermaßen darstellen:
+\index{Ein-Adress-Befehl-Assembler}
+
+\begin{center}
+\begin{struktogramm}(90,50)
+\assign{lies $z_1$}
+\assign{lies $z_2$}
+\assign{$erg = 0$}
+
+\while{wiederhole solange $z_1 > 0$}
+\ifthenelse{4}{4}
+{$z_1$ gerade}{wahr}{falsch}
+\change
+\assign{$erg = erg + z_2$}
+\ifend
+\assign{$z_1 = z_1 / 2$ (ganzzahlige Division durch 2)}
+\assign{$z_2 = z_2 \cdot 2$ }
+\whileend
+\end{struktogramm}
+\end{center}
+
+\noindent
+Das berechnete Produkt steht nach Abarbeitung des Algorithmus in der
+Variablen $erg$.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Berechnen Sie mithilfe der beschriebenen ägyptischen
+Multiplikation schrittweise das Produkt aus $z_1 = 13$ und $z_2 = 5$.
+
+\begin{bAntwort}
+\begin{tabular}{rrr}
+$z_1$ & $z_2$ & $erg$ \\\hline
+13 & 5  & 5   \\
+6  & 10 & -   \\
+3  & 20 & 25  \\
+1  & 40 & 65  \\
+0  & 80 & -  \\\hline
+   &    & 65  \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Nennen Sie die wesentliche Idee des Speichermodells eines
+Rechners, der nach dem von-Neumann-Prinzip aufgebaut ist. Geben Sie
+einen Vor- und einen Nachteil dieses Speichermodells an.
+
+\begin{bAntwort}
+Die 7 Grundprinzipien der \emph{Von-Neumann-Architektur}:
+
+\begin{enumerate}
+\item Der Rechner besteht aus 4 Werken.
+
+\item Der Rechner ist programmgesteuert.
+
+\item Die Programme und Daten liegen im selben Speicher.
+
+\item Der Hauptspeicher ist in Zellen gleicher Größe aufgeteilt.
+
+\item Die Programme bestehen aus Folgen von Befehlen (Sequentielle
+Ausführung)
+
+\item Der Programmablauf ist durch Sprünge möglich.
+
+\item Die Daten und Programme werden in Binärdarstellung gespeichert und
+verarbeitet.
+\end{enumerate}
+
+\bigskip
+
+\begin{description}
+\item[Vorteil:]
+
+Da in von-Neumann-Rechnern keine redundanten Komponenten verbaut werden,
+bleibt der Hardwareaufwand gering.
+
+\item[Nachteil:]
+
+Der wichtigste Nachteil ist der sogenannte Von-Neumann-Flaschenhals. Er
+existiert, da das Bussystem alle Befehle und Daten streng sequentiell
+transportiert.
+\end{description}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Bestätigen Sie anhand zweier Beispiele, dass mithilfe des
+folgenden Programmausschnitts entschieden werden kann, ob
+Speicherzelle 101 eine gerade oder ungerade Zahl enthält.
+
+\begin{minted}{asm}
+LOAD 101
+SHRI 1
+SHLI 1
+SUB 101
+\end{minted}
+
+\begin{tabular}{lll}
+                           & gerade Zahl & ungerade Zahl \\\hline
+\bAssemblerCode{LOAD 101} & 8 (0b1000)  & 9 (0b1001)    \\
+\bAssemblerCode{SHRI 1}   & 4 (0b0100)  & 4 (0b0100)    \\
+\bAssemblerCode{SHLI 1}   & 8 (0b1000)  & 8 (0b1000)    \\
+\bAssemblerCode{SUB 101}  & 0           & -1            \\
+\end{tabular}
+
+\item Schreiben Sie ein Programm für die angegebene Registermaschine,
+das den Algorithmus des \emph{Papyrus Rhind} umsetzt. Gehen Sie dabei
+davon aus, dass die beiden positiven ganzzahligen Faktoren $z_1$ und
+$z_2$ bereits in den Speicherzellen $101$ und $102$ stehen und dass alle
+weiteren nicht vom Programm belegten Speicherzellen mit dem Wert $0$
+vorbelegt sind.
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Assembler}
+
+\bAssemblerDatei{Aufgabe_04-Abitur-2015-IV-Papyrus-Rhind.mia}
+
+\bPseudoUeberschrift{Minisprache}
+
+\bMinispracheDatei{Aufgabe_04-Abitur-2015-IV-Papyrus-Rhind.mis}
+
+\bPseudoUeberschrift{Java (iterativ)}
+
+\bJavaDatei[firstline=6,lastline=16]{aufgaben/tech_info/assembler/ein_adress/AegyptischeMultiplikation}
+
+\bPseudoUeberschrift{Java (rekursiv)}
+
+\bJavaDatei[firstline=18,lastline=31]{aufgaben/tech_info/assembler/ein_adress/AegyptischeMultiplikation}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

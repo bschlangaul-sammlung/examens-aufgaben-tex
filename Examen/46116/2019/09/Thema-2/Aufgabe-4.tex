@@ -1,0 +1,77 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{relationale-algebra}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Harry Potter},
+  Referenz = 46116-2019-H.T2-A4,
+  RelativerPfad = Staatsexamen/46116/2019/09/Thema-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46116:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Relationale Algebra, Tupelkalkül},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 4,
+}
+
+Gegeben ist das Datenbankenschema aus Aufgabe 3.
+\index{Relationale Algebra}
+\footcite{examen:46116:2019:09}
+
+\bigskip
+
+\noindent
+Übertragen Sie die folgenden Ausdrücke in die relationale Algebra.
+Beschreiben Sie diese Ausdrücke umgangssprachlich, bevor Sie die
+Ausdrücke umformen.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item $\{ s | s \in \text{Schüler} \land \neg \exists t \in \text{teil\_von} (t.\text{Id} = s.\text{Id}) \}$
+\index{Tupelkalkül}
+
+\begin{bAntwort}
+$\text{Schüler} - (\text{Schüler} \bowtie (\pi_{Id}(\text{teil\_von})))$
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item $\{ s |
+s \in \text{Schüler} \land
+\exists t \in \text{teil\_von} (r.\text{Id} = s.\text{Id}) \land
+\exists h \in \text{Haus} (f.\text{Name} = h.\text{Name}) \land
+\exists q \in \text{Quidditch} (h.\text{Name} = q.\text{Haus} \land q.\text{Captain} = \text{'Harry Potter'}) \}$
+
+\begin{bAntwort}
+\begin{multline*}
+\sigma_{\text{Id}, \text{SName}, \text{Patronus}, \text{Haarfarbe}, \text{Aktiv}, \text{Gesamtnote}} \biggl(\\
+  \Bigl(
+  \rho_{\text{Sname} \leftarrow \text{Name}}(\text{Schüler})
+  \bowtie
+  \text{teil\_von}
+  \Bigr)\\
+  \bowtie\\
+  \Bigl(
+    \text{Haus}
+    \bowtie_{\text{Haus.Name} = \text{Quidditch.Haus}}
+    \bigl(
+      \sigma_{\text{Captain} = \text{'Harry Potter'}} (\text{Quidditch})
+    \bigr)
+  \Bigr)\\
+\biggr)
+\end{multline*}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

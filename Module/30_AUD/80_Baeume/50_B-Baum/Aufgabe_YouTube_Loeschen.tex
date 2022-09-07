@@ -1,0 +1,351 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe},
+  Thematik = {Löschen in B-Bäumen},
+  Referenz = AUD.Baeume.B-Baum.YouTube_Loeschen,
+  RelativerPfad = Module/30_AUD/80_Baeume/50_B-Baum/Aufgabe_YouTube_Loeschen.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {B-Baum},
+}
+
+Löschen in B-Bäumen
+\index{B-Baum}
+\bFussnoteUrl{https://www.youtube.com/watch?v=in_JgH-XUhY}
+
+\begin{tikzpicture}[
+  b bbaum,
+  scale=0.6,
+  transform shape,
+  level 1/.style={level distance=20mm,sibling distance=80mm},
+  level 2/.style={level distance=25mm,sibling distance=18mm},
+]
+\node {17 \nodepart{two} 75} [->]
+  child {
+    node {3 \nodepart{two} 7 \nodepart{three} 10 \nodepart{four} 13}
+    child {
+      node {1 \nodepart{two} 2}
+    }
+    child {
+      node {5 \nodepart{two} 6}
+    }
+    child {
+      node {8 \nodepart{two} 9}
+    }
+    child {
+      node {11 \nodepart{two} 12}
+    }
+    child {
+      node {15 \nodepart{two} 16}
+    }
+  }
+  child {
+    node {27 \nodepart{two} 35 \nodepart{three} 43}
+    child {
+      node {19 \nodepart{two} 21}
+    }
+    child {
+      node {28 \nodepart{two} 31 \nodepart{three} 33}
+    }
+    child {
+      node {37 \nodepart{two} 41}
+    }
+    child {
+      node {59 \nodepart{two} 72 \nodepart{three} 73}
+    }
+  }
+  child {
+    node {82 \nodepart{two} 89 \nodepart{three} 101}
+    child {
+      node {78 \nodepart{two} 79}
+    }
+    child {
+      node {85 \nodepart{two} 88}
+    }
+    child {
+      node {92 \nodepart{two} 95}
+    }
+    child {
+      node {102 \nodepart{two} 105}
+    }
+  };
+\end{tikzpicture}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Löschen 33
+
+\begin{bAntwort}
+Löschen der 33 führt zu keinem Unterlauf.
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  scale=0.4,
+  transform shape,
+  level 1/.style={level distance=20mm,sibling distance=80mm},
+  level 2/.style={level distance=25mm,sibling distance=18mm},
+]
+\node {17 \nodepart{two} 75} [->]
+  child {
+    node {3 \nodepart{two} 7 \nodepart{three} 10 \nodepart{four} 13}
+    child {
+      node {1 \nodepart{two} 2}
+    }
+    child {
+      node {5 \nodepart{two} 6}
+    }
+    child {
+      node {8 \nodepart{two} 9}
+    }
+    child {
+      node {11 \nodepart{two} 12}
+    }
+    child {
+      node {15 \nodepart{two} 16}
+    }
+  }
+  child {
+    node {27 \nodepart{two} 35 \nodepart{three} 43}
+    child {
+      node {19 \nodepart{two} 21}
+    }
+    child {
+      node {28 \nodepart{two} 31}
+    }
+    child {
+      node {37 \nodepart{two} 41}
+    }
+    child {
+      node {59 \nodepart{two} 72 \nodepart{three} 73}
+    }
+  }
+  child {
+    node {82 \nodepart{two} 89 \nodepart{three} 101}
+    child {
+      node {78 \nodepart{two} 79}
+    }
+    child {
+      node {85 \nodepart{two} 88}
+    }
+    child {
+      node {92 \nodepart{two} 95}
+    }
+    child {
+      node {102 \nodepart{two} 105}
+    }
+  };
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Löschen 41 % 1min41
+
+\begin{bAntwort}
+Ausgleichen Rotieren nach links
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  scale=0.4,
+  transform shape,
+  level 1/.style={level distance=20mm,sibling distance=80mm},
+  level 2/.style={level distance=25mm,sibling distance=18mm},
+]
+\node {17 \nodepart{two} 75} [->]
+  child {
+    node {3 \nodepart{two} 7 \nodepart{three} 10 \nodepart{four} 13}
+    child {
+      node {1 \nodepart{two} 2}
+    }
+    child {
+      node {5 \nodepart{two} 6}
+    }
+    child {
+      node {8 \nodepart{two} 9}
+    }
+    child {
+      node {11 \nodepart{two} 12}
+    }
+    child {
+      node {15 \nodepart{two} 16}
+    }
+  }
+  child {
+    node {27 \nodepart{two} 35 \nodepart{three} \textbf{59}}
+    child {
+      node {19 \nodepart{two} 21}
+    }
+    child {
+      node {28 \nodepart{two} 31}
+    }
+    child {
+      node {37 \nodepart{two} \textbf{43}}
+    }
+    child {
+      node {72 \nodepart{two} 73}
+    }
+  }
+  child {
+    node {82 \nodepart{two} 89 \nodepart{three} 101}
+    child {
+      node {78 \nodepart{two} 79}
+    }
+    child {
+      node {85 \nodepart{two} 88}
+    }
+    child {
+      node {92 \nodepart{two} 95}
+    }
+    child {
+      node {102 \nodepart{two} 105}
+    }
+  };
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Löschen 78 % 2min28
+
+\begin{bAntwort}
+Mischen der Zahlen 79 82 85 88
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  scale=0.4,
+  transform shape,
+  level 1/.style={level distance=20mm,sibling distance=80mm},
+  level 2/.style={level distance=25mm,sibling distance=20mm},
+]
+\node {17 \nodepart{two} 75} [->]
+  child {
+    node {3 \nodepart{two} 7 \nodepart{three} 10 \nodepart{four} 13}
+    child {
+      node {1 \nodepart{two} 2}
+    }
+    child {
+      node {5 \nodepart{two} 6}
+    }
+    child {
+      node {8 \nodepart{two} 9}
+    }
+    child {
+      node {11 \nodepart{two} 12}
+    }
+    child {
+      node {15 \nodepart{two} 16}
+    }
+  }
+  child {
+    node {27 \nodepart{two} 35 \nodepart{three} 59}
+    child {
+      node {19 \nodepart{two} 21}
+    }
+    child {
+      node {28 \nodepart{two} 31}
+    }
+    child {
+      node {37 \nodepart{two} 43}
+    }
+    child {
+      node {72 \nodepart{two} 73}
+    }
+  }
+  child {
+    node {89 \nodepart{two} 101}
+    child {
+      node {\textbf{79} \nodepart{two} \textbf{82} \nodepart{three} \textbf{85} \nodepart{four} \textbf{88}}
+    }
+    child {
+      node {92 \nodepart{two} 95}
+    }
+    child {
+      node {102 \nodepart{two} 105}
+    }
+  };
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Löschen 105 % 5min20
+
+\begin{bAntwort}
+Mischen der Zahlen 92 95 101 102
+
+Rotieren 59 75
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  scale=0.4,
+  transform shape,
+  level 1/.style={level distance=20mm,sibling distance=120 mm},
+  level 2/.style={level distance=25mm,sibling distance=30mm},
+]
+\node {17 \nodepart{two} 59} [->]
+  child {
+    node {3 \nodepart{two} 7 \nodepart{three} 10 \nodepart{four} 13}
+    child {
+      node {1 \nodepart{two} 2}
+    }
+    child {
+      node {5 \nodepart{two} 6}
+    }
+    child {
+      node {8 \nodepart{two} 9}
+    }
+    child {
+      node {11 \nodepart{two} 12}
+    }
+    child {
+      node {15 \nodepart{two} 16}
+    }
+  }
+  child {
+    node {27 \nodepart{two} 35}
+    child {
+      node {19 \nodepart{two} 21}
+    }
+    child {
+      node {28 \nodepart{two} 31}
+    }
+    child {
+      node {37 \nodepart{two} 43}
+    }
+    child {
+      node {72 \nodepart{two} 73}
+    }
+  }
+  child {
+    node {75 \nodepart{two} 89}
+    child {
+      node {79 \nodepart{two} 82 \nodepart{three} 85 \nodepart{four} 88}
+    }
+    child {
+      node {92 \nodepart{two} 95 \nodepart{three} 101 \nodepart{four} 102}
+    }
+  };
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,130 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Kontextfrei aber nicht regulär},
+  Referenz = 66115-2012-F.T1-A3,
+  RelativerPfad = Staatsexamen/66115/2012/03/Thema-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2012:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2012,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 3,
+}
+
+% Info_2021-04-23-2021-04-23_13.17.40.mp4 3min
+
+Beweisen Sie, dass folgende Sprache kontextfrei, aber nicht regulär ist.
+\index{Kontextfreie Sprache}
+\footcite{examen:66115:2012:03}
+
+\begin{center}
+\bAusdruck[C]{a^n b^m}{ n \geq m \geq 1 }
+\end{center}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Nachweis Kontextfrei über Grammatik}
+
+\noindent
+\bGrammatik{variablen={S}, alphabet={a, b}}
+
+\begin{bProduktionsRegeln}
+S -> a S b | a S | a b
+\end{bProduktionsRegeln}
+
+\begin{itemize}
+\item Regel 1: $a S b$
+\item Regel 2: $a S$
+\item Regel 3: $a b$
+\end{itemize}
+
+\begin{description}
+\item[$ab$:]
+$S \xrightarrow{3} ab$
+
+\item[$a^n b$:]
+$S \xrightarrow[n-1]{2} a^{n-1} S \xrightarrow{3} a^{n-1}ab$
+
+\item[$a^n b^m$:]
+$S \xrightarrow[m-1]{1}
+a^{m-1} S b^{m-1} \xrightarrow[n-(m-1)]{2}
+a^{n-1}Sb^{m-1}\xrightarrow{3}
+a^n b^m$
+
+$\Rightarrow L(G) = C$
+\end{description}
+
+\bPseudoUeberschrift{Nachweis Kontextfrei über Kellerautomat}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (2.71cm,-2.57cm) {$z_0$};
+  \node[state] (z1) at (5cm,-2.57cm) {$z_1$};
+  \node[state,accepting] (z2) at (7.43cm,-2.57cm) {$z_2$};
+
+  \bKellerKante[above,loop above]{z0}{z0}{
+    a, KELLERBODEN, A KELLERBODEN;
+    a, A, A A;
+  }
+
+  \bKellerKante[above]{z0}{z1}{
+    b, A, EPSILON;
+  }
+
+  \bKellerKante[above]{z1}{z2}{
+    EPSILON, KELLERBODEN, EPSILON;
+    EPSILON, A, EPSILON;
+  }
+
+  \bKellerKante[above,loop above]{z1}{z1}{
+    b, A, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Aji151myg}
+
+\bPseudoUeberschrift{Nachweis: C nicht regulär}
+
+C sei regulär
+
+$\Rightarrow$ Pumping-Lemma für C erfüllt
+
+$j$ sei die Pumping-Zahl ($j \in \mathbb{N}$)
+
+$\omega \in C$: $\omega = a^j b^j$
+
+$\omega = u v w$
+
+Dann gilt:
+
+\begin{itemize}
+\item $|v| \geq 1$
+\item $|uv| \leq j$
+\item $u v^i w \in C$ für alle $i \in \mathbb{N}_0$
+\end{itemize}
+
+In $uv$ können nur $a$’s vorkommen
+
+$\Rightarrow$
+In $v$ muss mindestens ein $a$ vorkommen
+
+$\Rightarrow$
+$u v^0 w = a^l (a^{j-l})^0 b^j$ ($(a^{j-l})^0 = \varepsilon$)
+
+$\Rightarrow$
+In $\omega'$ sind nur $l$ viele $a$’s, Da $l < j$, $\omega' \notin C$,
+
+$\Rightarrow$
+Widerspruch zur Annahme
+
+$\Rightarrow$
+C nicht regulär
+\end{bAntwort}
+
+\end{document}

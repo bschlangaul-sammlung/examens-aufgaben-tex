@@ -1,0 +1,104 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1: Grundwissen},
+  Thematik = {Grundwissen},
+  Referenz = SOSY.Testen.Black_White-Box-Test.Grundwissen,
+  RelativerPfad = Module/40_SOSY/05_Testen/20_Black_White-Box-Test/Aufgabe_Grundwissen.tex,
+  ZitatSchluessel = sosy:ab:7,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {White-Box-Testing, Black-Box-Testing, Funktionalorienteres Testen, V-Modell},
+}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Nennen Sie die wesentlichen Unterschiede zwischen
+\emph{White-Box-Testen} und \emph{Black-Box-Testen} und geben Sie
+jeweils zwei Beispiele an.
+\index{White-Box-Testing}
+\index{Black-Box-Testing}
+\footcite{sosy:ab:7}
+
+\begin{bAntwort}
+\begin{description}
+\item[White-Box-Tests]
+
+sind \emph{strukturorientiert}, \zB
+Kontrollflussorientiertes Testen oder Datenflussorientiertes Testen.
+
+\item[Black-Box-Test]
+
+sind \emph{spe\-zifi\-kations- und funktionsorientiert} (nur Ein- und
+Ausgabe relevant), \zB Äquivalenzklassenbildung oder Grenzwertanalyse.
+\end{description}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie drei nicht-funktionalorientierte Testarten an.
+\index{Funktionalorienteres Testen}
+
+\begin{bAntwort}
+\begin{enumerate}
+\item Performanztest
+\item Lasttest
+\item Stresstest
+\end{enumerate}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Nennen Sie die vier verschiedenen Teststufen aus dem
+V-Modell\index{V-Modell} und erläutern Sie deren Ziele.
+
+\begin{bAntwort}
+\begin{description}
+\item[Komponenten-Test:]
+Fehlerzustände in Modulen finden.
+
+\item[Integrations-Test:]
+Fehlerzustände in Schnittstellen und Interaktionen finden.
+
+\item[System-Test:]
+Abgleich mit Spezifikation.
+
+\item[Abnahme-Test:]
+Vertrauen in System und nicht-funktionale Eigenschaften gewinnen.
+\footcite[Seite 50, Abbildung 3.2]{schatten}
+\end{description}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Nennen Sie fünf Aktivitäten des Testprozesses.
+
+\begin{bAntwort}
+\begin{enumerate}
+\item Testplanung und Steuerung,
+
+\item Testanalyse und Testentwurf,
+
+\item Testrealisierung und Testdurchführung,
+
+\item Bewertung von Endekriterien und Bericht,
+
+\item Abschluss der Testaktivitäten\footcite[Kapitel „5.6.2 Der
+traditionelle Testprozess“ Seite 135-138]{schatten}
+\end{enumerate}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,211 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {6. Relationale Anfragen in SQL},
+  Thematik = {Fluginformationssystem},
+  Referenz = 66116-2017-H.T1-TA1-A6,
+  RelativerPfad = Staatsexamen/66116/2017/09/Thema-1/Teilaufgabe-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66116:2017:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL, SQL mit Übungsdatenbank, Top-N-Query},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2017,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 6,
+}
+
+Folgende Tabellen veranschaulichen eine Ausprägung eines Fluginformationssystems:
+\index{SQL}
+\footcite{examen:66116:2017:09}
+
+\bPseudoUeberschrift{Flughäfen}
+
+\begin{tabular}{lll}
+Code &
+Stadt &
+Transferzeit (min)\\
+
+LHR &
+London &
+30\\
+
+LGW &
+London &
+20\\
+
+JFK &
+New York City &
+60\\
+
+EWR &
+New York City &
+35\\
+
+MUC &
+München &
+30\\
+
+FRA &
+Frankfurt &
+45\\
+\end{tabular}
+
+\bPseudoUeberschrift{Verbindungen}
+
+\begin{tabular}{llllll}
+ID &
+Von &
+Nach &
+Linie &
+Abflug (MEZ) &
+Ankunft (MEZ)\\
+
+410 &
+MUC &
+FRA &
+LH &
+2016-02-24 07:00:00 &
+2016-02-24 08:10:00\\
+
+411 &
+MUC &
+FRA &
+LH &
+2016-02-24 08:00:00 &
+2016-02-24 09:10:00\\
+
+412 &
+FRA &
+JFK &
+LH &
+2016-02-24 10:50:00 &
+2016-02-24 19:50:00 \\
+\end{tabular}
+
+\bPseudoUeberschrift{Hinweise}
+
+\begin{itemize}
+\item Formulieren Sie alle Abfragen in SQL-92 (insbesondere sind
+LIMIT, TOP, FETCH FIRST, ROWNUM und dergleichen nicht erlaubt).
+
+\item Alle Datum/Zeit-Angaben erlauben arithmetische Operationen,
+beispielsweise wird bei der Operation \texttt{ankunf} +
+\texttt{transferzeit} die \texttt{transferzeit} auf den Zeitstempel
+\texttt{ankunft} addiert.
+
+\item Es müssen keine Zeitverschiebungen berücksichtigt werden. Alle
+Zeitstempel sind in MEZ.
+\end{itemize}
+
+% Datenbankname: fluginformationssystem
+\begin{minted}{sql}
+CREATE TABLE Flughaefen (
+  Code VARCHAR(3) PRIMARY KEY,
+  Stadt VARCHAR(20),
+  Transferzeit integer
+);
+
+CREATE TABLE Verbindungen (
+  ID integer PRIMARY KEY,
+  Von VARCHAR(3) REFERENCES Flughaefen(Code),
+  Nach VARCHAR(3) REFERENCES Flughaefen(Code),
+  Linie VARCHAR(20),
+  Abflug timestamp,
+  Ankunft timestamp
+);
+
+INSERT INTO Flughaefen VALUES
+  ('LHR', 'London', 30),
+  ('LGW', 'London', 20),
+  ('JFK', 'New York City', 60),
+  ('EWR', 'New York City', 35),
+  ('MUC', 'München', 30),
+  ('FRA', 'Frankfurt', 45);
+
+INSERT INTO Verbindungen VALUES
+  (410, 'MUC', 'FRA', 'LH', '2016-02-24 07:00:00', '2016-02-24 08:10:00'),
+  (411, 'MUC', 'FRA', 'LH', '2016-02-24 08:00:00', '2016-02-24 09:10:00'),
+  (412, 'FRA', 'JFK', 'LH', '2016-02-24 10:50:00', '2016-02-24 19:50:00'),
+  (413, 'MUC', 'LHR', 'LH', '2016-02-24 10:00:00', '2016-02-24 12:10:00'),
+  (414, 'MUC', 'LGW', 'LH', '2016-02-24 11:00:00', '2016-02-24 13:20:00'),
+  (415, 'MUC', 'LHR', 'LH', '2016-02-24 12:00:00', '2016-02-24 14:00:00');
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item Ermitteln Sie die Städte, in denen es mehr als einen Flughafen
+gibt.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT Stadt FROM Flughaefen
+GROUP BY Stadt
+HAVING count(Stadt) > 1;
+\end{minted}
+\end{bAntwort}
+
+%%
+% 2.
+%%
+
+\item Ermitteln Sie die Städte, in denen man mit der Linie „LH“ an
+mindestens zwei verschiedenen Flughäfen landen kann.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT Stadt FROM Flughaefen
+WHERE Stadt IN (
+  SELECT Stadt FROM Flughaefen, Verbindungen
+  WHERE
+    Code = Nach AND
+    Linie = 'LH'
+  GROUP BY Stadt
+)
+GROUP BY Stadt
+HAVING COUNT(Stadt) > 1;
+\end{minted}
+\end{bAntwort}
+
+%%
+% 3.
+%%
+
+\item Ermitteln Sie die Flugzeit des kürzesten Direktflugs von München
+nach London.\index{Top-N-Query}
+
+\begin{bAntwort}
+\begin{minted}{sql}
+CREATE VIEW Flugdauer AS
+  SELECT ID, Ankunft - Abflug AS Dauer FROM Flughaefen v, Flughaefen n, Verbindungen
+  WHERE
+    n.Code = Nach AND
+    v.Code = Von AND
+    v.Stadt = 'München' AND
+    n.Stadt = 'London';
+
+SELECT a.Dauer FROM Flugdauer a, Flugdauer b
+WHERE a.Dauer >= b.Dauer
+GROUP BY a.Dauer
+HAVING COUNT(*) <= 1;
+\end{minted}
+\end{bAntwort}
+
+%%
+% 4.
+%%
+
+\item Ermitteln Sie die kürzeste Roundtrip-Zeit (nur Direktflüge)
+zwischen den Flughäfen FRA und JFK (Transferzeit am Flughafen JFK
+beachten).
+\end{enumerate}
+\end{document}

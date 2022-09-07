@@ -1,0 +1,36 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Euklidscher Algorithmus},
+  Thematik = {Euklidscher Algorithmus},
+  Referenz = TECH.Mehr-Adress.08-Euklid,
+  RelativerPfad = Module/50_TECH/20_Mehr-Adress/Aufgabe_08-Euklid.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Mehr-Adress-Befehl-Assembler},
+}
+
+Nach Euklid lässt sich der größte gemeinsamer Teiler zweier Zahlen a$ und
+$b$ bestimmen mit:
+$
+\begin{quote}
+\itshape
+Wenn CD aber AB nicht misst, und man nimmt bei AB, CD abwechselnd immer
+das kleinere vom größeren weg, dann muss (schließlich) eine Zahl übrig
+bleiben, die die vorangehende misst.
+\end{quote}
+
+\noindent
+Erstelle ein Assemblerprogramm, das seine beiden Parameter über zwei
+Variablen $a$ und $b$ aus dem Speicher übernimmt und
+den $\text{ggt}(a, b)$ berechnet. Das Ergebnis soll in $R0$ liegen.
+\index{Mehr-Adress-Befehl-Assembler}
+
+\begin{bAntwort}
+\bAssemblerDatei{Aufgabe_08-Euklid.mi}
+
+\bJavaDatei[firstline=3]{aufgaben/tech_info/assembler/mehr_adress/Euklid}
+\end{bAntwort}
+\end{document}

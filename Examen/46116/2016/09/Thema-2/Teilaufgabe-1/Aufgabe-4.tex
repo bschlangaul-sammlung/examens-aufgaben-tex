@@ -1,0 +1,240 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,vollstaendige-induktion}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4:},
+  Thematik = {Catalan-Zahl},
+  Referenz = 46116-2016-H.T2-TA1-A4,
+  RelativerPfad = Staatsexamen/46116/2016/09/Thema-2/Teilaufgabe-1/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46116:2016:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt und überprüft,
+  Ueberprueft = {Durch Feedback von Dozent},
+  Stichwoerter = {Vollständige Induktion},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2016,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 4,
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Gegeben sei folgende rekursive Methodendeklaration in der Sprache Java.
+Es wird als Vorbedingung vorausgesetzt, dass die Methode \bJavaCode{cn}
+nur für Werte $n \geq 0$ aufgerufen wird.
+\index{Vollständige Induktion}
+\footcite{examen:46116:2016:09}
+
+\begin{minted}{java}
+int cn(int n) {
+  if (n == 0)
+    return 1;
+  else
+    return (4 * (n - 1) + 2) * cn(n - 1) / (n + 1);
+}
+\end{minted}
+
+\noindent
+Sie können im Folgenden vereinfachend annehmen, dass es keinen Überlauf
+in der Berechnung gibt, \dh dass der Datentyp \bJavaCode{int} für die
+Berechnung des Ergebnisses stets ausreicht.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Beweisen Sie mittels vollständiger Induktion, dass der
+Methodenaufruf \bJavaCode{cn(n)} für jedes $n \geq 0$ die $n$-te
+Catalan-Zahl $C_n$ berechnet, wobei
+
+\begin{displaymath}
+C_n =
+\frac{(2n)!}
+{(n + 1)! \cdot n!}
+\end{displaymath}
+
+\begin{bExkurs}[Fakultät]
+
+Für alle natürlichen Zahlen  $n$ ist
+
+\begin{displaymath}
+n!=1\cdot 2\cdot 3\dotsm n=\prod _{k=1}^{n}k
+\end{displaymath}
+
+als das Produkt der natürlichen Zahlen von 1 bis $n$ definiert. Da das
+leere Produkt stets 1 ist, gilt
+
+\begin{displaymath}
+0! = 1
+\end{displaymath}
+
+Die Fakultät lässt sich auch rekursiv definieren:
+
+\begin{displaymath}
+n!={
+\begin{cases}1, & n = 0\\
+n \cdot (n - 1)!, & n > 0
+\end{cases}
+}
+\end{displaymath}
+
+Fakultäten für negative oder nicht ganze Zahlen sind nicht definiert. Es
+gibt aber eine Erweiterung der Fakultät auf solche Argumente
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Fakultät_(Mathematik)}
+\end{bExkurs}
+
+\begin{bExkurs}[Catalan-Zahl]
+Die Catalan-Zahlen bilden eine Folge natürlicher Zahlen, die in vielen
+Problemen der Kombinatorik auftritt. Sie sind nach dem belgischen
+Mathematiker Eugène Charles Catalan benannt.
+
+Die Folge der Catalan-Zahlen $C_{0},C_{1},C_{2},C_{3},\dotsc$ beginnt
+mit $1, 1, 2, 5, 14, 42, 132,\dotsc$
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Catalan-Zahl}
+\end{bExkurs}
+
+Beim Induktionsschritt können Sie die beiden folgenden Gleichungen
+verwenden:
+
+\begin{enumerate}
+
+\item $(2(n + 1))! = (4n + 2) \cdot (n + 1) \cdot (2n)!$
+
+\item $(a + 2)! \cdot (n+1)! = (n + 2) \cdot (n + 1) \cdot (n + 1)! \cdot n!$
+\end{enumerate}
+
+\begin{bAntwort}
+%%
+%
+%%
+
+\bInduktionAnfang
+
+\begin{align*}
+C_0
+& = \frac{(2 \cdot 0)!}{(0 + 1)! \cdot 0!}\\
+& = \frac{0!}{1! \cdot 0!}\\
+& = \frac{1}{1 \cdot 1}\\
+& = \frac{1}{1}\\
+& = 1\\
+\end{align*}
+
+%%
+%
+%%
+
+\bInduktionVoraussetzung
+
+\begin{align*}
+C_n
+& = \frac{(2n)!}{(n + 1)! \cdot n!}
+\end{align*}
+
+\newpage
+
+%%
+%
+%%
+
+\bInduktionSchritt
+
+\bPseudoUeberschrift{Vom Code ausgehend}
+
+\begin{align*}
+C_{n+1}
+& = \frac
+    {(4 \cdot (\m{n + 1} - 1) + 2) \cdot \text{cn}(\m{n + 1} - 1)}
+    {\m{n + 1} + 1}
+& \e{Java nach Mathe}\\
+%
+& = \frac
+    {(4\m{n} + 2) \cdot \text{cn}(\m{n})}
+    {\m{n + 2}}
+& \e{addiert, subtrahiert}\\
+%
+& = \frac
+    {(4n + 2) \cdot \m{(2n)!}}
+    {(n + 2) \cdot \m{(n + 1)! \cdot n!}}
+& \e{für cn(n) Formel eingesetzt}\\
+%
+& = \frac
+    {(4n + 2) \cdot (2n)! \m{\cdot (n + 1)}}
+    {(n + 2) \cdot (n + 1)! \cdot n! \m{\cdot (n + 1)}}
+& \e{$(n + 1)$ multipliziert} \\
+%
+& = \frac
+    {(4n + 2) \cdot \m{(n + 1) \cdot (2n)!}}
+    {(n + 2) \cdot (n + 1)! \cdot \m{(n + 1) \cdot n!}}
+& \e{umsortiert} \\
+%
+& = \frac
+    {\m{(2(n + 1))!}}
+    {\m{(n + 2)! \cdot (n + 1)!}}
+& \e{Hilfsgleichungen verwendet}\\
+%
+& = \frac
+    {(2(\m{n + 1}))!}
+    {((\m{n + 1}) + 1)! \cdot (\m{n + 1})!}
+& \e{$(n + 1)$ verdeutlicht}\\
+\end{align*}
+
+\bPseudoUeberschrift{Mathematische Herangehensweise}
+
+\begin{align*}
+C_{n+1}
+& = \frac
+    {(2(\m{n + 1}))!}
+    {((\m{n + 1}) + 1)! \cdot (\m{n + 1})!}
+& \e{$n + 1$ in $C_n$ eingesetzt}\\
+%
+& = \frac
+    {(2(n + 1))!}
+    {(\m{n + 2})! \cdot (n + 1)!}
+& \e{addiert}\\
+%
+& = \frac
+    {(4n + 2) \cdot \m{(n + 1)} \cdot (2n)!}
+    {(n + 2) \cdot \m{(n + 1)} \cdot (n + 1)! \cdot n!}
+& \e{Hilfsgleichungen verwendet}\\
+%
+& = \frac
+    {(4n + 2) \cdot (2n)!}
+    {(n + 2) \cdot (n + 1)! \cdot n!}
+& \e{$(n + 1)$ gekürzt} \\
+%
+& = \frac
+    {4n + 2}
+    {n + 2} \cdot \m{C_n}
+& \e{Catalan-Formel ersetzt}\\
+%
+& = \frac
+    {4((\m{n + 1}) - 1) + 2}
+    {(\m{n + 1}) + 1} \cdot C_{(\m{n + 1}) - 1}
+& \e{$(n + 1)$ verdeutlicht}\\
+\end{align*}
+
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\newpage
+
+\item Geben Sie eine geeignete Terminierungsfunktion an und begründen
+Sie, warum der Methodenaufruf \bJavaCode{cn(n)} für jedes $n \geq 0$
+terminiert.
+
+\begin{bAntwort}
+$T(n) = n$. Diese Funktion verringert sich bei jedem Rekursionsschritt
+um eins. Sie ist monoton fallend und für $T(0) = 0$ definiert. Damit
+ist sie eine Terminierungsfunktion für \bJavaCode{cn(n)}.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

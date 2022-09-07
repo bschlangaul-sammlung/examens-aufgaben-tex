@@ -1,0 +1,46 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe zur Komplexität},
+  Thematik = {Klasse-QueueElement},
+  Referenz = AUD.Algorithmische-Komplexitaet.Klasse-QueueElement,
+  RelativerPfad = Module/30_AUD/50_Algorithmische-Komplexitaet/Aufgabe_Klasse-QueueElement.tex,
+  ZitatSchluessel = aud:pu:2,
+  ZitatBeschreibung = {Seite 3, Aufgabe 3},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmische Komplexität (O-Notation)},
+}
+
+\noindent
+Der Konstruktor \bJavaCode{QueueElement(...)} und die Methode
+\bJavaCode{setNext(...)} sowie \bJavaCode{getNext(...)} haben
+$\mathcal{O}(1)$. Geben Sie die Zeitkomplexität der Methode
+\bJavaCode{append(int content)} an, die einer Schlange ein neues
+Element anhängt.\index{Algorithmische Komplexität (O-Notation)}
+\footcite[Seite 3, Aufgabe 3]{aud:pu:2}
+
+\begin{minted}{java}
+public void append(int contents) {
+QueueElement newElement = new QueueElement(contents) ;
+  if (first == 0) {
+    first = newElement;
+    last = newElement;
+  } else {
+    // Ein neues Element hinten anhängen.
+    last.setNext(newElement);
+    // Das angehängte Element als Letztes setzen.
+    last = last.getNext();
+  }
+}
+\end{minted}
+
+\begin{bAntwort}
+Das Anhängen eines neuen Elements in die gegebene Warteschlange hat
+die konstanten Rechenzeitbedarf von $\mathcal{O}(1)$, egal wie lange die
+Schlange ist, da wir das letzte Element direkt ansprechen können.
+\end{bAntwort}
+
+\end{document}

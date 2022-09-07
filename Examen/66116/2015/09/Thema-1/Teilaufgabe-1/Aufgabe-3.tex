@@ -1,0 +1,224 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,rmodell}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Vater und Mutter},
+  Referenz = 66116-2015-H.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2015/09/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2015:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL, SQL mit Übungsdatenbank},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2015,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\a=\bAttribut
+\let\f=\bFremd
+\let\p=\bPrimaer
+\let\r=\bRelationMenge
+
+\noindent
+Gegeben seien folgende Relationen:
+\index{SQL}
+\footcite{examen:66116:2015:09}
+
+\begin{liRelationenSchemaFormat}
+Mensch(ID*, MutterID, VaterID)
+Mann(ID*)
+Frau(ID*)
+\end{liRelationenSchemaFormat}
+
+\begin{bRelationenModell}
+\r{Mensch}{\p{ID}, MutterID, VaterID}
+\r{Mann}{\p{ID}}
+\r{Frau}{\p{ID}}
+\end{bRelationenModell}
+
+\begin{bAdditum}[Übungsdatenbank]
+% Datenbankname: vater_mutter
+\begin{minted}{sql}
+CREATE TABLE Mensch (
+  ID INTEGER PRIMARY KEY,
+  MutterID INTEGER,
+  VaterID INTEGER
+);
+
+CREATE TABLE Mann (
+  ID INTEGER PRIMARY KEY
+);
+
+CREATE TABLE Frau (
+  ID INTEGER PRIMARY KEY
+);
+
+INSERT INTO Mensch VALUES
+  (1, 42, 41),
+  (2, 42, 41),
+  (3, 42, 41),
+  (4, 42, 41),
+  (42, NULL, 1),
+  (41, NULL, NULL);
+
+INSERT INTO Mann VALUES
+  (1),
+  (3),
+  (41);
+
+INSERT INTO Frau VALUES
+  (2),
+  (4),
+  (42);
+
+CREATE VIEW VaterKind AS
+SELECT Mensch.VaterID, Mensch.ID as KindID
+FROM Mensch
+WHERE
+  Mensch.VaterID IS NOT NULL;
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+\end{bAdditum}
+
+\noindent
+Das zugehörige ER-Modell für dieses relationale Datenbankschema sieht
+folgendermaßen aus:
+
+\bigskip
+
+\noindent
+Bearbeiten Sie folgende Teilaufgaben:
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Finden Sie die Töchter der Frau mit ID 42.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT Mensch.ID
+FROM Mensch, Frau
+WHERE
+  Mensch.MutterID = Frau.id AND
+  Frau.ID = 42;
+\end{minted}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Gibt es Männer, die ihre eigenen Großväter sind? Formulieren Sie
+eine geeignete SQL-Anfrage.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT Mensch.ID
+FROM Mann, Mensch
+WHERE
+  Mensch.ID = Mann.id AND (
+    Mensch.VaterID IN (SELECT v.ID FROM Mensch v WHERE v.VaterID = Mensch.ID)
+    OR
+    Mensch.MutterID IN (SELECT v.ID FROM Mensch v WHERE v.VaterID = Mensch.ID)
+  );
+\end{minted}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Definieren Sie eine View VaterKind (VaterID; KindID), die allen
+Vätern (VaterID) ihre Kinder (KinderID) zuordnet. Diese View darf keine
+NULL-Werte enthalten.
+
+\begin{bAntwort}
+
+\begin{minted}{sql}
+-- Wir erzeuge bereits beim Erstellen der Datenbank diese View, damit
+-- sie für spätere Aufgaben zur Verfügung steht.
+DROP VIEW IF EXISTS VaterKind;
+CREATE VIEW VaterKind AS
+SELECT Mensch.VaterID, Mensch.ID as KindID
+FROM Mensch
+WHERE
+  Mensch.VaterID IS NOT NULL;
+SELECT * FROM VaterKind;
+\end{minted}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Verwenden Sie die View aus c), um alle Väter zurückzugeben,
+absteigend geordnet nach der Anzahl ihrer Kinder.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT VaterID, COUNT(VaterID) as Anzahl
+FROM VaterKind
+GROUP BY VaterID
+ORDER BY Anzahl DESC;
+\end{minted}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Hugo möchte mit folgender Anfrage auf Basis der View aus c) alle
+kinderlosen Männer erhalten:
+
+\begin{minted}{sql}
+SELECT VaterID
+FROM VaterKind
+GROUP BY VaterID
+HAVING COUNT(KindID) = 0
+\end{minted}
+
+\begin{enumerate}
+
+%%
+% i.
+%%
+
+\item Was ist das Ergebnis von Hugos Anfrage und warum?
+
+\begin{bAntwort}
+Die Anfrage liefert kein Ergebnis. Da die View laut Angabe keine
+Null-Werte enthalten darf, sind in der View nur Männer verzeichnet, die
+wirklich Väter sind.
+\end{bAntwort}
+
+%%
+% ii.
+%%
+
+\item Formulieren Sie eine Anfrage, die tatsächlich alle kinderlosen
+Männer zurückliefert.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT * FROM Mann
+EXCEPT
+SELECT VaterID
+FROM VaterKind
+GROUP BY VaterID;
+\end{minted}
+\end{bAntwort}
+
+\end{enumerate}
+\end{enumerate}
+
+Hinweis: Denken Sie daran, dass SQL auch Mengenoperationen kennt.
+
+\end{document}

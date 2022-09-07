@@ -1,0 +1,237 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{wasserfall}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2: Vorgehensmodelle},
+  Thematik = {Vorgehensmodelle},
+  Referenz = 46116-2014-H.T2-TA1-A2,
+  RelativerPfad = Staatsexamen/46116/2014/09/Thema-2/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:46116:2014:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Prozessmodelle, Wasserfallmodell, V-Modell, Iterative Prozessmodelle},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+Software wird oft in definierten Prozessen entwickelt. Diese nennt man
+Vorgehensmodelle.\footcite{examen:46116:2014:09}
+
+\bigskip
+
+\noindent
+Allgemein
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Was sind die Aufgaben eines Vorgehensmodells im Allgemeinen?
+
+\begin{bAntwort}
+\begin{itemize}
+\item liefert Erfahrungen und bewährte Methoden
+\item beschreibt die am Projekt beteiligten Rollen
+\item legt Aufgaben und Aktivitäten fest
+\item definiert einheitliche Begriffe
+\item gibt Techniken, Werkzeuge, Richtlinien / Standards an
+\end{itemize}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Was sind die wesentlichen Bestandteile eines
+Vorgehensmodells\index{Prozessmodelle} und in welcher Beziehung stehen
+diese zueinander?
+
+\begin{bAntwort}
+Bestandteile: Anforderungsanalyse, Modellierung, Implementierung, Test,
+Auslieferung, Wartung
+
+Die einzelnen Phasen bauen immer aufeinander aus. Je nach Vorgehensmodell
+können sich Phasen auch wiederholen (Prototyping, Scrum...).
+\end{bAntwort}
+
+\end{enumerate}
+
+\noindent
+Ein frühes Vorgehensmodell ist das von Dr. Winston Royce 1970
+formalisierte Wasserfallmodell.
+
+\begin{enumerate}
+
+%%
+% c)
+%%
+
+\item Geben Sie eine schematische Darstellung des
+Wasserfallmodells\index{Wasserfallmodell} an.
+
+\begin{bAntwort}
+\begin{tikzpicture}[b wasserfall]
+\node {Systemanforderung}; % A-1
+\node {Softwareanforderung};
+\node {Analyse};
+\node {Entwurf};
+\node {Implementierung};
+\node {Test};
+\node {Betrieb};
+
+%
+\foreach \i [count=\j] in {2,...,7}
+{
+  \draw[->, thick] (A-\i) -| (A-\j);
+  \draw[->, thick] (A-\j) -| (A-\i);
+}
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Nennen Sie zwei Probleme des Modells und erläutern Sie diese kurz.
+
+\begin{bAntwort}
+Fehler werden ggf. erst am Ende des Entwicklungsprozesses erkannt, da
+erst dort das Testen stattfindet. Dadurch kann die Behebung eines
+Fehlers sehr aufwändig und somit teuer werden.
+
+Der Kunde / Endanwender wird erst nach der Implementierung wieder
+eingebunden. Das bedeutet, dass er nach der Stellung der Anforderungen
+keinen Einblick mehr in den Prozess hat und somit auch nicht
+gegensteuern kann, falls ihm etwas nicht gefällt oder er etwas nicht
+bedacht hat.
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item In welchen Situationen lässt sich das Wasserfallmodell gut
+einsetzen?
+
+\begin{bAntwort}
+Das Wasserfallmodell ist geeignet, wenn es sich um ein von Anfang an
+klar definiertes Projekt ohne große Komplexität handelt, bei dem alle
+Anforderungen, Aufwand und Kosten schon zu Beginn des Projekts
+feststehen bzw. abgeschätzt werden können.
+\end{bAntwort}
+
+\end{enumerate}
+
+\noindent
+Barry Boehm erweiterte das Wasserfallmodell 1979 zum so genannten
+V-Modell.
+
+\begin{enumerate}
+
+%%
+% f)
+%%
+
+\item Geben Sie eine schematische Darstellung des
+V-Modells\index{V-Modell} an.
+
+%%
+% g)
+%%
+
+\item Nennen Sie zwei Probleme des Modells und erläutern Sie diese kurz.
+
+\begin{bAntwort}
+\begin{itemize}
+\item Die Nachteile des Wasserfallmodells bestehen weiterhin!
+
+\item Nicht für kleine Projekte geeignet, da aufwändige Tests vorgesehen
+sind, die im Kleinen detailliert meist nicht stattfinden (können).
+\end{itemize}
+\end{bAntwort}
+
+%%
+% h)
+%%
+
+\item Welchen Vorteil hat das V-Modell gegenüber dem Wasserfallmodell?
+
+\begin{bAntwort}
+Für jedes Dokument besteht ein entsprechender Test (Validierung /
+Verifikation). Dabei kann die Planung der Tests schon vor der
+eigentlichen Durchführung geschehen, so dass Aktivitäten im Projektteam
+parallelisiert werden können. So kann zum Beispiel der Tester die
+Testfälle für den Akzeptanztest (=Test des Systementwurfs) entwicklen,
+auch wenn noch keine Implementierung existiert.
+\end{bAntwort}
+
+\end{enumerate}
+
+\noindent
+In neuerer Zeit finden immer häufiger iterative und inkrementelle
+Vorgehensweisen Anwendung.
+
+\begin{enumerate}
+
+%%
+% i)
+%%
+
+\item Erklären Sie den Begriff iterative
+Softwareentwicklung\index{Iterative Prozessmodelle}.
+
+\begin{bAntwort}
+Iterativ heißt, dass der Entwikclungsprozess mehrfach wiederholt wird:
+statt den „Wasserfall“ einmal zu durchlaufen, werden
+„kleine Wasserfälle“ hintereinander gesetzt.
+\end{bAntwort}
+
+%%
+% j)
+%%
+
+\item Erklären Sie den Begriff inkrementelle Softwareentwicklung und
+grenzen Sie ihn von iterativer Softwareentwicklung ab.
+
+\begin{bAntwort}
+Bei der inkrementellen Entwicklung wird das System Schritt für Schritt
+fertig gestellt. D.\,h., dass ein Prototyp immer etwas mehr kann als der
+Prototyp davor. Dies wird durch die iterative Entwicklung unterstützt,
+da bei jeder Wiederholung des Entwicklungsprozesses ein neues
+Inkrement entsteht, d. h. ein neuer Prototyp, der mehr Funktionalitäten
+benutzt als der vorangegangene.
+\end{bAntwort}
+
+%%
+% k)
+%%
+
+\item Nennen Sie jeweils zwei Vor- und Nachteile eines iterativen und
+inkrementellen Vorgehens im Vergleich zum Wasserfallmodell.
+
+\begin{bAntwort}
+Vorteile:
+
+\begin{itemize}
+\item Risiken können früher erkannt werden.
+\item volatile Anforderungen können besser berücksichtigt werden.
+\item inkrementelle Auslieferung wird erleichtert.
+\end{itemize}
+
+Nachteile:
+
+\begin{itemize}
+\item komplexeres Projektmanagement
+\item schwerer messbar
+\item (Mehrarbeit)\footnote{Quelle: https://www.pst.ifi.lmu.de/Lehre/WS0607/pm/vorlesung/PM-02-Prozess.pdf}
+\end{itemize}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

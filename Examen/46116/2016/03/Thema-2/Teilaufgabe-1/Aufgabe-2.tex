@@ -1,0 +1,138 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{petri}
+\begin{document}
+
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Petri-Netz},
+  Referenz = 46116-2016-F.T2-TA1-A2,
+  RelativerPfad = Staatsexamen/46116/2016/03/Thema-2/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:46116:2016:03,
+  ZitatBeschreibung = {Seite 9},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Petri-Netz, Erreichbarkeitsgraph},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+\let\t=\bPetriTransitionsName
+\let\tp=\bPetriTransPfeile
+\let\k=\bPetriErreichKnotenDrei
+
+\index{Petri-Netz}
+
+Gegeben sei das folgende Petri-Netz:\footcite[Seite 9]{examen:46116:2016:03}
+
+\begin{center}
+\begin{tikzpicture}[li petri,x=2cm,y=2cm]
+  \node[place,label=A,label=south east:1,tokens=1] at (1,2) (A) {};
+  \node[place,label=south:B] at (0,0) (B) {};
+  \node[place,label=south:C,tokens=1] at (2,0) (C) {};
+
+  \node[transition] at (1,0) {\t1}
+    edge[pre] node[auto]{2} (B)
+    edge[post] (C);
+
+  \node[transition] at (0,2) {\t2}
+    edge[pre] (A)
+    edge[post] node[auto]{2} (B);
+
+  \node[transition] at (2,2) {\t3}
+    edge[pre] (C)
+    edge[post] (A)
+    edge[inhibitor,bend right=50] (A);
+
+  \node[transition] at (1,1) {\t4}
+    edge[pre] (A)
+    edge[pre] node[auto]{2} (B)
+    edge[post] (C);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erstellen Sie den zum Petri-Netz gehörenden
+Erreichbarkeitsgraphen\index{Erreichbarkeitsgraph}. Die Belegungen sind
+jeweils in der Form [A, B, C] anzugeben. Beschriften Sie auch jede Kante
+mit der zugehörigen Transition. Beachten Sie die auf 1 beschränkte
+Kapazität von Stelle A oder alternativ die Inhibitor-Kante von A zu
+\t3 (beides ist hier semantisch äquivalent).
+
+\begin{bAntwort}
+\begin{center}
+\begin{tabular}{lll}
+\k001 & \tp3 & \k100 \\
+\k002 & \tp3 & \k101 \\
+\k020 & \tp1 & \k001 \\
+\k021 & \tp1 & \k002 \\
+\k021 & \tp3 & \k120 \\
+\k100 & \tp2 & \k020 \\
+\k101 & \tp2 & \k021 \\
+\k120 & \tp1 & \k101 \\
+\k120 & \tp2 & \k040 \\
+\k120 & \tp4 & \k001 \\
+\k040 & \tp2 & \k040 \\
+\end{tabular}
+\end{center}
+
+\def\K #1#2#3 (#4,#5){\node at (#4,#5) (#1#2#3) {\k#1#2#3};}
+\def\T#1 > #2 > #3{\path[draw,->] (#1) -- node[auto]{\t#2} (#3) ;}
+\def\L#1 > #2{\path[draw,->] (#1) edge[loop] node[auto]{\t#2} (#1) ;}
+
+\begin{tikzpicture}[li petri]
+\K 001 (0,0)
+\K 002 (3,7)
+\K 020 (4,-3)
+\K 021 (0,4)
+\K 100 (5,0)
+\K 101 (-3,7)
+\K 120 (0,2)
+\K 040 (5,2)
+
+\T {001} > 3 > {100}
+\T {002} > 3 > {101}
+\T {020} > 1 > {001}
+\T {021} > 1 > {002}
+\T {021} > 3 > {120}
+\T {100} > 2 > {020}
+\T {101} > 2 > {021}
+\T {120} > 1 > {101}
+\T {120} > 2 > {040}
+\T {120} > 4 > {001}
+\L {040} > 2
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Wie kann man mit Hilfe des Erreichbarkeitsgraphen feststellen, ob
+ein Petri-Netz lebendig ist?
+
+%%
+% c)
+%%
+
+\item Aufgrund von Transition \t4 ist das gegebene Petri-Netz nicht
+stark lebendig. Wie müssten die Pfeilgewichte der Transition \t4
+verändert werden, damit das Petri-Netz mit der gegebenen Startmarkierung
+beschränkt bleibt und lebendig wird?
+
+\begin{bAntwort}
+\t4 nach C mit Gewicht 2 versehen
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

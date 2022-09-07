@@ -1,0 +1,81 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Wortproblem - CYK-Algorithmus},
+  Thematik = {CYK-Algorithmus},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.CYK-Algorithmus.CYK-Algorithmus,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/CYK-Algorithmus/Aufgabe_CYK-Algorithmus.tex,
+  ZitatSchluessel = theo:ab:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {CYK-Algorithmus},
+}
+
+\let\l=\bKurzeTabellenLinie
+
+Teste jeweils mit dem CYK-Algorithmus, ob das angegebene Wort zur
+Sprache der Grammatik gehört.
+\index{CYK-Algorithmus}
+\footcite{theo:ab:2}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Grammatik $G_1$:
+
+\begin{bProduktionsRegeln}
+S -> S S | R_a A | R_b B | R_c C,
+A -> R_b R_c | R_c R_b,
+B -> R_a R_c | R_c R_a,
+C -> R_a R_b | R_b R_a,
+R_a -> a,
+R_b -> b,
+R_c -> c
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+\item $w_1 = abccab$
+\item $w_2 = abcba$
+\end{enumerate}
+
+%%
+% (b)
+%%
+
+\item Grammatik $G_2$:
+
+\begin{bProduktionsRegeln}
+Z -> X D | X A | EPSILON,
+S -> X D | X A,
+A -> V_a D | V_a A | A B | c,
+B -> B B | C C | c | a,
+C -> C C | c,
+D -> A B,
+X -> V_a D | V_a A | A B | b | c,
+V_a -> a
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+\item $w_3 = bacac$
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|}
+b   & a   & c   & a   & c \\\hline\hline
+
+X   & B,$V_a$ & A,B,C,X     & B,$V_a$ & A,B,C,X \l5
+-   & B,A,X   & A,D,X,B     & B,A,X \l4
+Z,S & A,B,D,X & B,A,X,D,S,Z \l3
+Z,S & A,B,D,S,X,Z \l2
+Z,S \l1
+\end{tabular}
+\end{bAntwort}
+
+\item $w_4 = baca$
+\end{enumerate}
+\end{enumerate}
+\end{document}

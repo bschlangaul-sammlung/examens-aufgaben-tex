@@ -1,0 +1,152 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{cpm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {3. Projektmanagement},
+  Thematik = {Gantt und CPM},
+  Referenz = 46116-2015-F.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/46116/2015/03/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46116:2015:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {CPM-Netzplantechnik, Gantt-Diagramm},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\f=\footnotesize
+\let\FZ=\bCpmFruehI
+\let\SZ=\bCpmSpaetI
+\let\v=\bCpmVon
+\let\vz=\bCpmVonZu
+\let\z=\bCpmZu
+
+Betrachten\index{CPM-Netzplantechnik}
+\footcite{examen:46116:2015:03} Sie folgendes CPM-Netzwerk:\footcite{sosy:pu:4}
+
+\begin{center}
+\begin{tikzpicture}
+\bCpmEreignis{A}{0}{4}
+\bCpmEreignis{B}{2}{4}
+\bCpmEreignis{C}{0}{2}
+\bCpmEreignis{D}{2}{2}
+\bCpmEreignis{E}{4}{3}
+\bCpmEreignis{F}{6}{3}
+\bCpmEreignis{G}{8}{3}
+\bCpmEreignis{H}{8}{1}
+\bCpmEreignis{I}{10}{1}
+\bCpmEreignis{J}{10}{3}
+
+\bCpmVorgang{A}{B}{4}
+\bCpmVorgang{C}{D}{1}
+\bCpmVorgang{E}{F}{5}
+\bCpmVorgang{G}{J}{8}
+\bCpmVorgang{H}{I}{9}
+\bCpmVorgang{J}{I}{2}
+
+\bCpmVorgang[schein]{A}{C}{}
+\bCpmVorgang[schein]{B}{E}{}
+\bCpmVorgang[schein]{D}{E}{}
+\bCpmVorgang[schein]{F}{G}{}
+\bCpmVorgang[schein]{G}{H}{}
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Berechnen Sie die früheste Zeit für jedes Ereignis, wobei
+angenommen wird, dass das Projekt zum Zeitpunkt 0 startet.
+
+\begin{bAntwort}
+\begin{tabular}{|l|r|r|}
+\hline
+$i$ & Nebenrechnung & \FZ \\\hline\hline
+A & & 0 \\\hline
+B & & 4 \\\hline
+C & & 0 \\\hline
+D & & 1 \\\hline
+E & $\max(4, 1)$ & 4 \\\hline
+F & & 9 \\\hline
+G & & 9 \\\hline
+H & & 9 \\\hline
+J & & 17 \\\hline
+I & $\max(\v{9}(H) + 9, \v{17}(J) + 2)$ & 19 \\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Setzen Sie anschließend beim letzten Ereignis die späteste Zeit
+gleich der frühesten Zeit und berechnen Sie die spätesten Zeiten.
+
+\begin{bAntwort}
+\begin{tabular}{|l|r|r|}
+\hline
+$i$ & Nebenrechnung & \SZ \\\hline\hline
+A & $\min(3, 0)$  & 0  \\\hline
+B &               & 4  \\\hline
+C &               & 3  \\\hline
+D &               & 4  \\\hline
+E &               & 4  \\\hline
+F &               & 9  \\\hline
+G & $\min(10, 9)$ & 9  \\\hline
+H &               & 10 \\\hline
+J &               & 17 \\\hline
+I &               & 19 \\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Berechnen Sie nun für jedes Ereignis die Pufferzeiten.
+
+\begin{bAntwort}
+\begin{tabular}{|l||l|l|l|l|l|l|l|l|l|l|}
+\hline
+$i$ & A & B & C & D & E & F & G & H  & J  & I  \\\hline\hline
+\FZ & 0 & 4 & 0 & 1 & 4 & 9 & 9 & 9  & 17 & 19 \\\hline
+\SZ & 0 & 4 & 3 & 4 & 4 & 9 & 9 & 10 & 17 & 19 \\\hline
+GP  & 0 & 0 & 3 & 3 & 0 & 0 & 0 & 1  & 0  & 0 \\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Bestimmen Sie den kritischen Pfad.
+
+\begin{bAntwort}
+$A \rightarrow
+B \rightarrow
+E \rightarrow
+F \rightarrow
+G \rightarrow
+J \rightarrow I$
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Was ist ein Gantt-Diagramm\index{Gantt-Diagramm}? Worin
+unterscheidet es sich vom CPM-Netzwerk?
+
+\begin{bAntwort}
+\bMetaNochKeineLoesung
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

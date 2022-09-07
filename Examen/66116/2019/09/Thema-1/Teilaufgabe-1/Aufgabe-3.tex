@@ -1,0 +1,243 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,kontrollflussgraph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {White-Box-Tests},
+  Referenz = 66116-2019-H.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2019/09/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {White-Box-Testing},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\b=\bBedingung
+\let\c=\bKontrollCode
+\let\f=\bBedingungFalsch
+\let\k=\bKontrollTextzeileKnoten
+\let\p=\bKontrollKnotenPfad
+\let\w=\bBedingungWahr
+
+Eine Dezimalzahl hat ein optionales Vorzeichen, dem eine nichtleere
+Sequenz von Dezimalziffern folgt. Der anschließende gebrochene Anteil
+ist optional und besteht aus einem Dezimalpunkt, gefolgt von einer
+nichtleeren Sequenz von Dezimalziffern.
+\index{White-Box-Testing}
+\footcite{examen:66116:2019:09}
+
+Die folgende Java-Methode erkennt, ob eine Zeichenfolge eine Dezimalzahl
+ist:
+
+% \bJavaExamen{66116}{2019}{09}{Dezimalzahl}
+
+\begin{bJavaAngabe}
+  public static boolean istDezimalzahl(char[] zeichen) { // 1
+    boolean resultat; int laenge = zeichen.length; // 2
+    if (laenge == 0) // 3
+      resultat = false; // 4
+    else { // 5
+      int i = 0; // 6
+      if (zeichen[i] == '+' || zeichen[i] == '-') // 7
+        i++; // 8
+      int j = i; // 9
+      while (i < laenge && '0' <= zeichen[i] && zeichen[i] <= '9') // 10
+        i++; // 11
+      if (i == j) // 12
+        resultat = false; // 13
+      else { // 14
+        if (i < laenge && zeichen[i] == '.') // 15
+          do // 16
+            i++; // 17
+          while (i < laenge && '0' <= zeichen[i] && zeichen[i] <= '9'); // 18
+        resultat = i == laenge && '0' <= zeichen[i - 1] && zeichen[i - 1] <= '9'; // 19
+      } // 20
+    } // 21
+    return resultat; // 22
+  }
+\end{bJavaAngabe}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Konstruieren Sie zu dieser Methode einen Kontrollflußgraphen.
+Markieren Sie dessen Knoten mit Zeilennummern des Quelltexts.
+
+\begin{bAntwort}
+\begin{bKontrollflussgraph}[xscale=1,yscale=-0.8]
+% 1
+\node[knoten] at
+  (0,2) (1) {1};
+
+% 2
+\node[pin=\c{boolean resultat; int laenge = zeichen.length;}] at
+  (0,3) (2) {2};
+
+% 3
+\node[pin=\c{if (laenge == 0)}] at
+  (0,4) (3) {3};
+
+% 4
+\node[pin=180:\c{resultat = false;}] at
+  (-1,5) (4) {4};
+
+% 5
+
+% 6
+\node[pin=\c{int i = 0;}] at
+  (0,6) (6) {6};
+
+% 7
+\node[pin=\c{if (zeichen[i] == '+' || zeichen[i] == '-')}] at
+  (0,7) (7) {7};
+
+% 8
+\node[pin=\c{i++; }] at
+  (1,8) (8) {8};
+
+% 9
+\node[pin=\c{int j = i;}] at
+  (0,8.8) (9) {9};
+
+% 10
+\node[pin=\c{while (i < laenge \&\& '0' <= ...}] at
+  (0,10) (10) {10};
+
+% 11
+\node[pin=\c{i++;}] at
+  (1,11) (11) {11};
+
+% 12
+\node[pin=\c{if (i == j)}] at
+  (0,12) (12) {12};
+
+% 13
+\node[pin=\c{resultat = false;}] at
+  (2,13) (13) {13};
+
+% 14
+
+% 15
+\node[pin={[pin distance=2cm]\c{if (i < laenge \&\& zeichen[i] == '.')}}] at
+  (0,14) (15) {15};
+
+% 16
+\node[pin={[pin distance=1cm]\c{i++;}}] at
+  (1,15) (17) {17};
+
+% 17
+
+% 18
+\node[pin={[pin distance=1cm]\c{while (i < laenge \&\& '0' <= ...}}] at
+  (1,17) (18) {18};
+
+% 19
+\node[pin={[pin distance=2cm]\c{resultat = i == laenge \&\& '0' <= ...}}] at
+  (0,18) (19) {19};
+
+% 20
+
+% 21
+
+% 22
+\node[pin=180:\c{return resultat;}] at (0,20) (22) {22};
+
+\path (1) -- (2);
+\path (2) -- (3);
+\path (3) -- (4);
+\path (3) edge[falsch] (6);
+\path (4) -- (-1,19) -- (22);
+\path (7) -- (8);
+\path (7) edge[falsch] (9);
+\path (6) -- (7);
+\path (9) -- (10);
+\path (8) -- (9);
+\path (10) edge[bend left] (11);
+\path (11) edge[bend left] (10);
+\path (10) edge[falsch] (12);
+\path (12) -- (13);
+\path (13) -- (2,19) -- (22);
+\path (12) edge[falsch] (15);
+\path (15) -- (17);
+\path (15) edge[falsch] (19);
+\path (17) -- (18);
+\path (18) edge[bend left] (17);
+\path (18) edge[falsch] (19);
+\path (19) -- (22);
+\end{bKontrollflussgraph}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Geben Sie eine minimale Testmenge an, die das Kriterium der
+Knotenüberdeckung erfüllt. Geben Sie für jeden Testfall den
+durchlaufenen Pfad in der Notation 1 $\rightarrow$ 2 $\rightarrow$
+$\dots$ an.
+
+\begin{bAntwort}
+\begin{itemize}
+%  1-2-3-4-6-7-8-9-10-11-12-13-15-17-18-19-22
+\item „“: \\
+%  1-2-3-4-6-7-8-9-10-11-12-13-15-17-18-19-22
+\p{1-2-3-4-                                22}
+
+\item „1“:\\
+%  1-2-3-4-6-7-8-9-10-11-   12-13-15-17-18-19-22
+\p{1-2-3-  6-7-  9-10-11-10-12-   15-      19-22}
+
+\item „+1.0“:\\
+%  1-2-3-4-6-7-8-9-10-11-   12-13-15-17-18-19-22
+\p{1-2-3-  6-7-8-9-10-11-10-12-   15-17-18-19-22}
+
+\item „x“:\\
+%  1-2-3-4-6-7-8-9-10-11-12-13-15-17-18-19-22
+\p{1-2-3-  6-7-  9-10-   12-13-            22}
+\end{itemize}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Verfahren Sie wie in b) für das Kriterium der Kantenüberdeckung.
+
+\begin{bAntwort}
+\bMetaNochKeineLoesung
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Wie stehen die Kriterien der Knoten- und Kantenüberdeckung
+zueinander in Beziehung? Begründen Sie Ihre Anwort.
+
+Hinweis: Eine Testmenge ist minimal, wenn es keine andere Testmenge mit
+einer kleineren Zahl von Testfällen gibt. Die Minimalität braucht nicht
+bewiesen zu werden.
+
+\begin{bAntwort}
+Die Kantenüberdeckung fordert, dass jede \emph{Kante} des
+Kontrollflussgraphen von mindestens einem Testfall durchlaufen werden
+muss. Um das Kriterium zu erfüllen, müssen die Testfälle so gewählt
+werden, dass jede Verzweigungsbedingung mindestens \emph{einmal wahr}
+und mindestens \emph{einmal falsch} wird. Da hierdurch alle Knoten
+ebenfalls mindestens einmal besucht werden müssen, ist die
+\emph{Anweisungsüberdeckung} in der Zweigüberdeckung \emph{vollständig
+enthalten}.\footcite[Seite 209]{hoffmann:software}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

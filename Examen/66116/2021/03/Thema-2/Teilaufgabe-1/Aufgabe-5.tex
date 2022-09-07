@@ -1,0 +1,175 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,uml,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Webshop},
+  Referenz = 66116-2021-F.T2-TA1-A5,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-2/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = TeX-Fehler,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java, Sequenzdiagramm},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Nennen Sie vier Programmierparadigmen.
+\index{Implementierung in Java}
+\footcite{examen:66116:2021:03}
+
+\begin{bAntwort}
+\begin{itemize}
+\item Imperative Programmierung
+\item Prozedurale Programmierung
+\item Funktionale Programmierung
+\item Objektorientiere Programmierung
+\end{itemize}
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Programmierparadigma\#Strukturierte\_Programmierung}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Erläutern Sie die Begriffe \emph{Overloading} und
+\emph{Overriding}, sowie deren
+Unterschiede.
+
+\begin{bAntwort}
+\begin{itemize}
+\item Beim Überladen muss die Methode eine andere Signatur haben, beim
+Überschreiben dieselbe Signatur.
+
+\item Die Intention beim Überladen ist, Methode zu erweitern, beim
+Überschreiben die Methode vollständig zu ersetzen.
+
+\item Überladen der Methode wird verwendet, um den Polymorphismus der
+Kompilierzeit zu erreichen. Das Überschreiben der Methode wird
+verwendet, um einen Laufzeit-Polymorphismus zu erreichen.
+
+Bei der Methodenüberladung weiß der Compiler, welches Objekt
+welcher Klasse zum Zeitpunkt der Kompilierung zugewiesen wurde. In
+der Methodenüberschreibung sind diese Informationen jedoch erst zur
+Laufzeit bekannt.
+
+\item Das Überladen von Methoden findet in derselben Klasse statt,
+während das Überschreiben in einer von einer Basisklasse abgeleiteten
+Klasse stattfindet.\footcite[Seite 27-28]{oomup:fs:3}
+
+\end{itemize}
+\bFussnoteUrl{https://gadget-info.com/difference-between-method-overloading}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Erläutern Sie, wie sich zentrale und dezentrale Versionsverwaltung
+unterscheiden.
+
+\begin{bAntwort}
+Beim der dezentralen Versionsverwaltung hat jede/r EntwicklerIn das
+komplette Repository mit seiner kompletten History lokal gespeichert und
+kann diese dann mit anderen Repositories abgleichen.
+
+Bei der zentralen Versionsverwaltung gibt es einen zentralen Server, der
+die komplette History vorhält.
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Erstellen Sie ein Sequenzdiagramm zur Methode \bJavaCode{main}
+der Klasse Webshop.
+\index{Sequenzdiagramm}
+
+Hinweise:
+\begin{itemize}
+\item Arithmetische Operationen müssen nicht weiter aufgelöst werden.
+
+\item Listenoperationen müssen nicht explizit dargestellt werden.
+
+\item Auf das Zeichnen einer passiven Lebenslinie muss nicht geachtet
+werden.
+
+\item Übertragen Sie das untenstehende Diagramm als Ausgangspunkt in
+Ihren Bearbeitungsbogen.
+\end{itemize}
+
+\end{enumerate}
+
+\bJavaExamen{66116}{2021}{03}{webshop/Webshop}
+\bJavaExamen{66116}{2021}{03}{webshop/Artikel}
+\bJavaExamen{66116}{2021}{03}{webshop/Bestellung}
+
+\newpage
+
+\begin{bAntwort}
+\begin{tikzpicture}[scale=0.5,transform shape]
+\begin{umlseqdiag}
+\umlobject[class=Webshop]{w}
+\umlcreatecall[class=Bestellung]{w}{b1}
+\umlcreatecall[class=Artikel]{w}{a1}
+
+\begin{umlcall}[op=setName("Taschenrechner")]{w}{a1}
+\end{umlcall}
+
+\begin{umlcall}[op=setPrice(10)]{w}{a1}
+\end{umlcall}
+
+\begin{umlcall}[op=addArticle(a1)]{w}{b1}
+\begin{umlcall}[op=getPrice(),return=10]{b1}{a1}
+\end{umlcall}
+\end{umlcall}
+
+\umlcreatecall[class=Bestellung]{w}{b2}
+
+\umlcreatecall[class=Artikel]{w}{a2}
+
+\begin{umlcall}[op=setName("Lineal")]{w}{a2}
+\end{umlcall}
+
+\begin{umlcall}[op=setPrice(2.5)]{w}{a2}
+\end{umlcall}
+
+\umlcreatecall[class=Artikel]{w}{a3}
+
+\begin{umlcall}[op=setName("Bleistift")]{w}{a3}
+\end{umlcall}
+
+\begin{umlcall}[op=setPrice(0.7)]{w}{a3}
+\end{umlcall}
+
+\begin{umlcall}[op=addArticle(a3)]{w}{b2}
+\begin{umlcall}[op=getPrice(),return=0.7]{b2}{a3}
+\end{umlcall}
+\end{umlcall}
+
+\begin{umlcall}[op=addArticle(a2)]{w}{b1}
+\begin{umlcall}[op=getPrice(),return=2.5]{b1}{a2}
+\end{umlcall}
+\end{umlcall}
+
+\begin{umlcall}[op=getSize(),return=2]{w}{b1}
+\end{umlcall}
+
+\begin{umlcall}[op=getPrice(),return=0.7]{w}{b2}
+\end{umlcall}
+
+\end{umlseqdiag}
+\end{tikzpicture}
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,124 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe zu Abstrakten Klassen und Interfaces},
+  Thematik = {Parkhaus},
+  Referenz = 66116-2014-F.T2-TA2-A1,
+  RelativerPfad = Staatsexamen/66116/2014/03/Thema-2/Teilaufgabe-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2014:03,
+  ZitatBeschreibung = {Thema 2 Teilaufgabe 2 Aufgabe 1 Seite 11},
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Abstrakte Klasse, Interface, Implementierung in Java},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 1,
+}
+
+In dieser Aufgabe werden Sie Datentypen für die Verwaltung eines
+Parkhauses mit Hilfe objektorientierter Methoden
+definieren.\index{Abstrakte Klasse}
+\index{Interface}
+\footcite[Thema 2 Teilaufgabe 2 Aufgabe 1 Seite 11]{examen:66116:2014:03} Bearbeiten
+Sie die folgenden Teilaufgaben in einer objektorientierten
+Programmiersprache Ihrer Wahl (geben Sie diese an)! Solange nicht anders
+definiert, sollen Eigenschaften und Methoden \emph{uneingeschränkt
+sichtbar} sein.
+\footcite[Aufgabenblatt 1: Abstrakte Klassen, Interface, Rekursion, Seite 2, Aufgabe 1]{aud:ab:1}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Erzeugen\index{Implementierung in Java} Sie eine \emph{Klasse}
+\bJavaCode{Fahrzeug}, deren Instanzen folgende Eigenschaften besitzen
+(wählen Sie geeignete Typen):
+
+\begin{compactitem}
+\item Ein amtliches Kennzeichen (Buchstaben- und Zahlenkombination).
+
+\item Die Dimensionen des Fahrzeugs (Länge, Breite, Höhe) in Metern.
+
+\item Das Datum der Erstzulassung. Definieren Sie hierfür entweder einen
+eigenen Datentyp oder machen Sie Gebrauch von der Standardbibliothek
+Ihrer gewählten Programmiersprache.
+\end{compactitem}
+
+Die Eigenschaften sollen für \emph{Unterklassen nicht sichtbar} sein.
+Schreiben Sie außerdem einen Konstruktor, der eine Instanz erzeugt und
+die Eigenschaften setzt!
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2014}{03}{parkhaus/Fahrzeug}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Schreiben Sie eine \emph{Klasse} \emph{Parkplatz}, in der
+ebenfalls Eigenschaften für die Dimension (Länge, Breite, Höhe) in
+Metern vorgesehen sind! Die Eigenschaften sollen ebenfalls im
+\emph{Konstruktor} initialisiert werden können. Außerdem soll eine
+Objektmethode hinzugefügt werden, die prüft, ob ein gegebenes Fahrzeug
+in den Parkplatz passt.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2014}{03}{parkhaus/Parkplatz}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Ein \emph{Interface} \bJavaCode{Parkhaus} soll Objektmethoden für
+folgende Anwendungsfälle deklarieren:
+
+\begin{enumerate}
+
+%%
+% (i)
+%%
+
+\item Alle freien Parkplätze sollen (\zB als \emph{Array} oder als
+Instanz einer in der Standardbibliothek Ihrer verwendeten Sprache
+definierten Kollektionsklasse) zurückgegeben werden.
+
+%%
+% (ii)
+%%
+
+\item Der erste freie Parkplatz, der zu einem gegebenen Fahrzeug passt,
+soll zurückgegeben werden.
+
+%%
+% (iii)
+%%
+
+\item Ein gegebener Parkplatz soll für ein gegebenes Fahrzeug reserviert
+werden. Deklarieren Sie das Interface und geben Sie geeignete Signaturen
+die \emph{Objektmethoden} an!
+\end{enumerate}
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2014}{03}{parkhaus/Parkhaus}
+\end{bAntwort}
+
+\item Schreiben Sie eine \emph{abstrakte Klasse}, die das Interface
+\bJavaCode{Parkhaus} partiell implementiert! Geben Sie außerdem eine
+geeignete \emph{Implementierung} für die Objektmethode (c.ii) unter
+Verwendung der existierenden Objektmethoden aus (b) und (c.i) an!
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2014}{03}{parkhaus/MeinParkhaus}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

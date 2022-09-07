@@ -1,0 +1,138 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Wegberechnung im Gitter},
+  Thematik = {Wegberechnung im Gitter},
+  Referenz = AUD.Algorithmenmuster.Dynamisches-Programmieren.Wegberechnung,
+  RelativerPfad = Module/30_AUD/60_Algorithmenmuster/40_Dynamisches-Programmieren/Aufgabe_Wegberechnung.tex,
+  ZitatSchluessel = aud:ab:3,
+  ZitatBeschreibung = {Seite 1, Dynamische Programmierung, Aufgabe 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Dynamische Programmierung},
+}
+
+Betrachten Sie das folgende Gitter mit $m + 1$ Zeilen und $n + 1$
+Spalten ($m \geq 1$ und $n \geq 1$):
+\footnote{Quelle möglicherweise von \url{https://www.yumpu.com/de/document/read/17936760/ubungen-zum-prasenzmodul-algorithmen-und-datenstrukturen}}
+geeksforgeeks
+\footnote{\url{https://www.geeksforgeeks.org/count-possible-paths-top-left-bottom-right-nxm-matrix/}}
+
+Angenommen, Sie befinden sich zu Beginn am Punkt $(0, 0)$ und wollen zum
+Punkt $(m, n)$.\index{Dynamische Programmierung}
+\footcite[Seite 1, Dynamische Programmierung, Aufgabe 2]{aud:ab:3}
+
+Für die Anzahl $A(i, j)$ aller verschiedenen Wege vom Punkt $(0, 0)$ zum
+Punkt $(i, j)$ lassen sich folgende drei Fälle unterscheiden (es geht
+jeweils um die kürzesten Wege
+ohne Umweg!):
+
+\begin{itemize}
+\item $1 \leq i \leq m$ und $j = 0$:\\\\
+Es gibt genau einen Weg von $(0, 0)$ nach $(i, 0)$ für
+$1 \leq i \leq m$.
+
+\item $i = 0$ und $1 \leq j \leq n$:\\\\
+Es gibt genau einen Weg von $(0, 0)$ nach $(0, j)$ für
+$1 \leq j \leq n$.
+
+\item $1 \leq i \leq m$ und $1 \leq j \leq n$:\\\\
+auf dem Weg zu $(i, j)$
+muss als vorletzter Punkt entweder $(i-1, j)$ oder $(i, j-1)$ besucht
+worden sein.
+\end{itemize}
+
+\noindent
+Daraus ergibt sich folgende Rekursionsgleichung:
+
+\begin{equation*}
+A(i, j) =
+\begin{cases}
+1 &
+\text{falls }
+(1 \leq i \leq m \text{ und } j = 0) \text{ oder }
+(i = 0 \text{ und } 1 \leq j \leq n) \\
+
+A(i - 1, j) + A(i, j - 1) &
+\text{falls }
+1 \leq i \leq m \text{ und }
+1 \leq j \leq n \\
+\end{cases}
+\end{equation*}
+
+\noindent
+Implementieren Sie die Java-Klasse \bJavaCode{Gitter} mit der Methode
+
+\begin{center}
+\bJavaCode{public int berechneAnzahlWege()},
+\end{center}
+
+\noindent
+die ausgehend von der Rekursionsgleichung durch dynamische
+Programmierung die Anzahl aller Wege vom Punkt $(0, 0)$ zum Punkt $(m,
+n)$ berechnet.
+Die Überprüfung, ob $m \leq 1$ und $n \leq 1$ gilt, können Sie der
+Einfachheit halber weglassen.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=43,lastline=57]{aufgaben/aud/muster/dp/Gitter}
+\end{bAntwort}
+
+\begin{bAdditum}
+\bPseudoUeberschrift{Die komplette Java-Klasse}
+\bJavaDatei{aufgaben/aud/muster/dp/Gitter}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Text-Ausgabe}
+
+\begin{minted}{md}
+Anzahl der Wege von 2x2: 6
+Gitter:
+ x 0 1 2
+ 0 0 1 1
+ 1 1 2 3
+ 2 1 3 6
+
+Anzahl der Wege von 3x3: 20
+Gitter:
+  x  0  1  2  3
+  0  0  1  1  1
+  1  1  2  3  4
+  2  1  3  6 10
+  3  1  4 10 20
+
+Anzahl der Wege von 4x4: 70
+Gitter:
+  x  0  1  2  3  4
+  0  0  1  1  1  1
+  1  1  2  3  4  5
+  2  1  3  6 10 15
+  3  1  4 10 20 35
+  4  1  5 15 35 70
+
+Anzahl der Wege von 5x5: 252
+Gitter:
+   x   0   1   2   3   4   5
+   0   0   1   1   1   1   1
+   1   1   2   3   4   5   6
+   2   1   3   6  10  15  21
+   3   1   4  10  20  35  56
+   4   1   5  15  35  70 126
+   5   1   6  21  56 126 252
+\end{minted}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Test-Datei}
+
+\bJavaTestDatei{aufgaben/aud/muster/dp/GitterTest}
+\end{bAdditum}
+
+\end{document}

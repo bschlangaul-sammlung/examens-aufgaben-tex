@@ -1,0 +1,93 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten,minimierung,formale-sprachen}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Minimierungsalgorithmus},
+  Thematik = {Studiflix-Minimierung},
+  Referenz = THEO.Formale-Sprachen.Typ-3_Regulaer.Minimierungsalgorithmus.Studiflix-Minimierung,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/10_Typ-3_Regulaer/Minimierungsalgorithmus/Aufgabe_Studiflix-Minimierung.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Minimierungsalgorithmus},
+}
+
+\let\z=\bZustandsnameTiefgestellt
+\let\f=\bFussnote
+\let\l=\bLeereZelle
+\let\Z=\bZustandsPaar
+
+\begin{center}
+\begin{tikzpicture}[->,node distance=1.5cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,above=of 0] (1) {$z_1$};
+\node[state,right=of 0,accepting] (2) {$z_2$};
+\node[state,right=of 1,accepting] (3) {$z_3$};
+\node[state,right=of 2,accepting] (4) {$z_4$};
+\node[state,right=of 3] (5) {$z_5$};
+
+\path (0) edge[above] node{1} (2);
+\path (0) edge[left,bend left] node{0} (1);
+\path (1) edge[above] node{1} (3);
+\path (1) edge[right,bend left] node{0} (0);
+\path (2) edge[above] node{0} (4);
+\path (2) edge[above,pos=0.2] node{1} (5);
+\path (3) edge[above,pos=0.2] node{0} (4);
+\path (3) edge[above] node{1} (5);
+\path (4) edge[right] node{1} (5);
+\path (5) edge[right,loop right] node{0,1} (5);
+\path (4) edge[right,loop right] node{0} (4);
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|}
+\hline
+\z0 & \l  & \l  & \l  & \l  & \l  & \l  \\ \hline
+\z1 &     & \l  & \l  & \l  & \l  & \l  \\ \hline
+\z2 & \f1 & \f1 & \l  & \l  & \l  & \l  \\ \hline
+\z3 & \f1 & \f1 &     & \l  & \l  & \l  \\ \hline
+\z4 & \f1 & \f1 &     &     & \l  & \l  \\ \hline
+\z5 & \f2 & \f2 & \f1 & \f1 & \f1 & \l  \\ \hline\hline
+    & \z0 & \z1 & \z2 & \z3 & \z4 & \z5 \\ \hline
+\end{tabular}
+\end{center}
+\index{Minimierungsalgorithmus}
+
+\bFussnoten
+
+\begin{liUebergangsTabelle}{0}{1}
+\Z01 & \Z10 & \Z23     \\
+\Z05 & \Z15 & \Z25 \f2 \\
+\Z15 & \Z05 & \Z35 \f2 \\
+\Z23 & \Z44 & \Z55     \\
+\Z24 & \Z44 & \Z55     \\
+\Z34 & \Z44 & \Z55     \\
+\end{liUebergangsTabelle}
+
+\noindent
+\Z23, \Z24 und \Z34 können zu einem Zustand verschmolzen werden, weil
+sie alle drei bei der Eingabe von 0 zu \Z44 und bei 1 zu \Z55 werden.
+%
+\z5 kann nicht verschmolzen werden, weil er in der Tabelle markiert ist.
+
+\begin{center}
+\begin{tikzpicture}[->,node distance=1.5cm]
+\node[state,initial] (01) {$z_{01}$};
+\node[state,right=of 01] (234) {$z_{234}$};
+\node[state,right=of 234,accepting] (5) {$z_5$};
+
+\path (01) edge[above] node{1} (234);
+\path (234) edge[above] node{1} (5);
+\path (01) edge[above,loop] node{0} (01);
+\path (234) edge[above,loop] node{0} (234);
+\path (5) edge[above,loop] node{0,1} (5);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\bFussnoteUrl{https://studyflix.de/informatik/dea-minimieren-1212}
+
+\end{document}

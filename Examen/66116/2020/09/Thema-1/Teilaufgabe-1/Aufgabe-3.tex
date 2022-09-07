@@ -1,0 +1,183 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,uml,entwurfsmuster}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Ticket-Handel},
+  Referenz = 66116-2020-H.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2020/09/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entwurfsmuster, Einzelstück (Singleton), Fabrikmethode (Factory Method)},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\j=\bJavaCode
+
+\begin{tikzpicture}
+\umlclass{TicketHandel}{
+  \umlstatic{- system: TicketHandel} \\
+  - verkaufte Tickets : int
+}{
+  - TicketHandel() \\
+  \umlstatic{+ gibInstanz(): TicketHandel} \\
+  +ticketKaufen(kategorie: Kategorie) : Ticket \\
+  + gibVerkaufteTickets() : int
+}
+
+\umlclass[y=-4]{TicketDruckerei}{}{
+  + erstelleTicket(kategorie: Kategorie): Ticket
+}
+
+\umlclass[x=8,y=1,type=enumeration]{Kategorie}{
+  ERWACHSEN\\
+  KIND
+}{}
+
+\umlclass[x=8,y=-1.5,type=interface]{Ticket}{}{
+  gibPreis(): double
+}
+
+\umlclass[x=6,y=-4]{ErwachsenenTicket}{
+  \umlstatic{- preis: double = 15.0}
+}{}
+\umlclass[x=10,y=-4]{KinderTicket}{
+  \umlstatic{- preis: double = 10.0}
+}{}
+
+\umlVHVinherit{ErwachsenenTicket}{Ticket}
+\umlVHVinherit{KinderTicket}{Ticket}
+
+\umlHVHdep[stereo=use,pos stereo=1.8,anchor2=-150]{TicketDruckerei}{Ticket}
+\umldep[stereo=use,anchor1=-25]{TicketHandel}{Ticket}
+
+\umlVHVdep[arm1=-1cm,stereo=use,anchor1=-30, pos stereo=1.5]{TicketDruckerei}{ErwachsenenTicket}
+\umlVHVdep[arm1=-1.5cm,stereo=use,anchor1=-150, pos stereo=1.5]{TicketDruckerei}{KinderTicket}
+
+\umluniassoc[arg1=,mult2=1,arg2=- druckerei,name=benutzt]{TicketHandel}{TicketDruckerei}
+\bUmlLeserichtung[pos=below left,dir=down,distance=0cm]{benutzt}
+\end{tikzpicture}
+
+\noindent
+Ihnen sei ein UML-Klassendiagramm zu folgendem Szenario gegeben. Ein
+Benutzer (nicht im Diagramm enthalten) kann über einen \j{TicketHandel}
+Tickets erwerben. Dabei muss der Benutzer eine der zwei Ticketkategorien
+angeben. Das Handelsystem benutzt eine \j{TicketDruckerei}, um ein
+passendes \j{Ticket} für den Benutzer zu erzeugen.
+\index{Entwurfsmuster}
+\footcite{examen:66116:2020:09}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Im angegebenen Klassendiagramm wurden zwei unterschiedliche
+Entwurfsmuster verwendet. Um welche Muster handelt es sich? Geben Sie
+jeweils den Namen des Musters sowie die Elemente des Klassendiagramms
+an, mit denen diese Muster im Zusammenhang stehen. ACHTUNG: Es handelt
+sich dabei \emph{nicht} um das \emph{Interface}- oder das
+\emph{Vererbungs}muster.
+\index{Einzelstück (Singleton)}
+\index{Fabrikmethode (Factory Method)}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Einzelstück (Singleton)}
+
+\bEntwurfsEinzelstueckUml
+\bEntwurfsEinzelstueckAkteure
+
+\begin{tabular}{l|l}
+\textbf{Klasse}       & \textbf{Akteur} \\\hline\hline
+\j{TicketHandel}      & Einzelstück\\
+\end{tabular}
+
+\bPseudoUeberschrift{Fabrikmethode (Factory Method)}
+
+\bEntwurfsFabrikmethodeUml
+\bEntwurfsFabrikmethodeAkteure
+
+\begin{tabular}{l|l}
+\textbf{Klasse}       & \textbf{Akteur} \\\hline\hline
+\j{ErwachsenenTicket} & KonkretesProdukt\\
+\j{KinderTicket}      & KonkretesProdukt\\
+\j{TicketDruckerei}   & KonkreterErzeuger\\
+\j{Ticket}            & Produkt\\
+-                     & Erzeuger\\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Nennen Sie zwei generelle Vorteile von Entwurfsmustern.
+
+\begin{bAntwort}
+\begin{itemize}
+\item Wiederverwendung einer bewährten Lösung für eine bestimmte
+Problemstellungen
+
+\item Verbesserung der Kommunikation unter EntwicklerInnen
+\end{itemize}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Geben Sie eine Implementierung der Klasse \j{TicketHandel} an. Bei
+der Methode \j{ticketKaufen()} wird die Anzahl der verkauften Tickets um
+1 erhöht und ein entsprechendes Ticket erstellt und zurückgegeben.
+Beachten Sie den Hinweis auf der nächsten Seite.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{09}{ticket/TicketHandel}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Geben Sie eine Implementierung der Klasse \j{TicketDruckerei} an.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{09}{ticket/TicketDruckerei}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Geben Sie eine Implementierung der Klasse \j{KinderTicket} an.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{09}{ticket/KinderTicket}
+\end{bAntwort}
+
+\emph{Hinweis:} Die Implementierungen \emph{müssen} sowohl dem
+Klassendiagramm, als auch den Konzepten der verwendeten Muster
+entsprechen. Verwenden Sie eine objektorientierte Programmiersprache,
+vorzugsweie \emph{Java}. Sie müssen sich an der nachfolgenden
+Testmethode und ihrer Ausgabe orientieren. Die Testmethode muss mit
+Ihrer Implementierung ausführbar sein und sich semantisch korrekt
+verhalten.
+
+Quelltext der Testmethode:
+
+\bJavaExamen[firstline=4,lastline=8]{66116}{2020}{09}{ticket/Test}
+
+Konsolenausgabe:
+
+Anzahl verkaufter Tickets: 2
+
+\end{enumerate}
+\end{document}

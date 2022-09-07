@@ -1,0 +1,112 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Wissensfragen wahr / falsch},
+  Referenz = 66115-2019-F.T1-A1,
+  RelativerPfad = Staatsexamen/66115/2019/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2019:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Formale Sprachen},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\m=\bMenge
+
+Antworten Sie auf die folgenden Behauptungen mit Wahr/Falsch und geben
+Sie eine kurze Begründung an.
+\index{Formale Sprachen}
+\footcite{examen:66115:2019:03}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Wenn $L_2$ regulär ist und $L_1 \subseteq L_2$ gilt, dann ist
+$L_1$ auch regulär.
+
+\begin{bAntwort}
+Falsch
+
+Nein. Wähle $L = \Sigma^*$. Wähle eine beliebige nicht-reguläre Sprache
+$L'$. $L'$ ist Teilmenge von $L$.
+\bFussnoteUrl{https://www.c-plusplus.net/forum/topic/287036/theoretische-informatik-teilmenge-einer-regulären-sprache}
+
+%%
+%
+%%
+
+$L_2 = \m{a^* b^*}$ ...Regulär
+
+$L_1 = \m{a^n
+b^n}$ ...nicht regulär,
+
+da man sich das $n$ merken muss, das bedeutet,
+dass man beispielsweise einen Automaten bräuchte, der unendlich viele
+Zustände besitzt. Das wiederum ist aber bei DEA’s nicht möglich. (Da sie
+nur endlich viele Zustände haben können.) Für beide Sprachen gilt somit:
+$L_1 \subseteq L_2$, aber nicht beide sind regulär.
+\bFussnoteUrl{https://vowi.fsinf.at/images/3/3a/TU_Wien-Theoretische_Informatik_und_Logik_VU_(Fermüller,_Freund)-Übungen_SS13_-_Uebungsblatt_1.pdf}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item \bAusdruck{a^q}{\exists i \in \mathbb{N}. \, q = i^2} ist
+bekanntlich nicht regulär. Behauptung: $Q^*$ ist ebenfalls nicht
+regulär.
+
+\begin{bAntwort}
+Wahr.
+
+Siehe Abschlusseigenschaften der Formalen Sprachen unter dem Kleene-Stern.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Wenn $L \subseteq \Sigma^*$ entscheidbar ist, dann ist auch das
+Komplement $\bar L = \Sigma^* \setminus L$ entscheidbar.
+
+\begin{bAntwort}
+Wahr
+
+Zu jeder entscheidbaren Menge ist auch ihr Komplement
+entscheidbar.\footcite{wiki:entscheidbar}
+
+$L$ entscheidbar, dann auch $\overline{L}$ entscheidbar. Wir benutzen
+eine DTM $\tau'$, die die DTM $\tau$ simuliert. Diese vertauscht die
+beiden Ausgaben „JA“ und „NEIN“.
+\bFussnoteUrl{http://www.informatikseite.de/theorie/node14.php\#SECTION00044100000000000000}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Jedes $\mathcal{NP}$-vollständige Problem ist entscheidbar.
+
+\begin{bAntwort}
+Wahr
+
+Definition von $\mathcal{NP}$-Vollständigkeit:
+
+vollständig für die Klasse der Probleme, die sich nichtdeterministisch
+in Polynomialzeit lösen lassen, wenn es zu den schwierigsten Problemen
+in der Klasse NP gehört, also sowohl in NP liegt als auch NP-schwer
+ist.\footcite{wiki:np-vollstaendig}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

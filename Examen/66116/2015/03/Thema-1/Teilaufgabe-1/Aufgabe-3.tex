@@ -1,0 +1,67 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Relation A-F},
+  Referenz = 66116-2015-F.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2015/03/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2015:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Normalformen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\FA=\bFunktionaleAbhaengigkeiten
+
+Gegeben sei das Relationenschema R=(U, F) mit der Attributmenge
+\index{Normalformen}
+\footcite{examen:66116:2015:03}
+
+\begin{center}
+\bAttributMenge{U}{A, B, C, D, E}
+\end{center}
+
+und der folgenden Menge F von funktionalen Abhängigkeiten:
+
+\begin{center}
+
+\FA{
+  A -> B;
+  A, B, C -> D;
+  D -> B, C;
+}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben Sie alle Schlüssel für das Relationenschema R (jeweils mit
+Begründung) sowie die Nichtschlüsselattribute an.
+
+%%
+% b)
+%%
+
+\item Ist R in 3NF bzw. in BCNF? Geben Sie jeweils eine Begründung an.
+
+%%
+% c)
+%%
+
+\item Geben Sie eine Basis G von F an. Zerlegen Sie R mittels des
+Synthesealgorithmus in ein 3NF-Datenbankschema. Es genügt, die
+resultierenden Attributmengen anzugeben.
+\end{enumerate}
+
+\end{document}

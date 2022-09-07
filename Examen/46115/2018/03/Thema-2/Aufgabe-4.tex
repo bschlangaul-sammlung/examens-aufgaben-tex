@@ -1,0 +1,227 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Graph a-f},
+  Referenz = 46115-2018-F.T2-A4,
+  RelativerPfad = Staatsexamen/46115/2018/03/Thema-2/Aufgabe-4.tex,
+  ZitatSchluessel = aud:pu:7,
+  ZitatBeschreibung = {(entnommen aus Algorithmen und Datenstrukturen, Übungsblatt 7, Universität Würzburg), Aufgabe 12: Graphen III Aufgabe 12},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Minimaler Spannbaum, Algorithmus von Prim},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2018,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 4,
+}
+
+Sei\index{Minimaler Spannbaum}
+\index{Algorithmus von Prim}
+\footcite[(entnommen aus Algorithmen und Datenstrukturen, Übungsblatt 7, Universität Würzburg), Aufgabe 12: Graphen III Aufgabe 12]{aud:pu:7} $G$ der folgende Graph.
+\footcite[Thema 2 Aufgabe 4 (gekürzt)]{examen:46115:2018:03}
+
+\begin{bGraphenFormat}
+a: 0 4
+b: 2 4
+c: 0 2
+d: 2 2
+e: 0 0
+f: 2 0
+a -- b: 10
+a -- c: 8
+b -- c: 4
+b -- d: 2
+c -- d: 12
+c -- e: 3
+c -- f: 5
+d -- f: 2
+e -- f: 8
+\end{bGraphenFormat}
+
+\begin{tikzpicture}[li graph]
+\node (a) at (0,4) {a};
+\node (b) at (2,4) {b};
+\node (c) at (0,2) {c};
+\node (d) at (2,2) {d};
+\node (e) at (0,0) {e};
+\node (f) at (2,0) {f};
+
+\path (a) edge node {10} (b);
+\path (a) edge node {8} (c);
+\path (b) edge node {4} (c);
+\path (b) edge node {2} (d);
+\path (c) edge node {12} (d);
+\path (c) edge node {3} (e);
+\path (c) edge node {5} (f);
+\path (d) edge node {2} (f);
+\path (e) edge node {8} (f);
+\end{tikzpicture}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Der Algorithmus von Prim ist ein Algorithmus zur Bestimmung des
+minimalen Spannbaums in einem Graphen. Geben Sie einen anderen
+Algorithmus zur Bestimmung des minimalen Spannbaums an.
+
+\begin{bAntwort}
+Zum Beispiel der Algorithmus von Kruskal
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Führen Sie den Algorithmus von Prim schrittweise auf $G$ aus.
+Ausgangsknoten soll der Knoten $a$ sein. Ihre Tabelle sollte wie folgt
+beginnen:
+
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+a &
+b &
+c &
+d &
+e &
+f &
+Warteschlange\\\hline
+\end{tabular}
+
+Die Einträge der Tabelle geben an, wie weit der angegebene Knoten
+vom aktuellen Baum entfernt ist.
+
+\begin{bAntwort}
+\begin{bGraphenFormat}
+a: 0 4
+b: 2 4
+c: 0 2
+d: 2 2
+e: 0 0
+f: 2 0
+a -- b: 10
+a -- c*: 8
+b -- c*: 4
+b -- d*: 2
+c -- d: 12
+c -- e*: 3
+c -- f: 5
+d -- f*: 2
+e -- f: 8
+\end{bGraphenFormat}
+
+\begin{tikzpicture}[li graph]
+\node (a) at (0,4) {a};
+\node (b) at (2,4) {b};
+\node (c) at (0,2) {c};
+\node (d) at (2,2) {d};
+\node (e) at (0,0) {e};
+\node (f) at (2,0) {f};
+
+\path (a) edge node {10} (b);
+\path[li markierung] (a) edge node {8} (c);
+\path[li markierung] (b) edge node {4} (c);
+\path[li markierung] (b) edge node {2} (d);
+\path (c) edge node {12} (d);
+\path[li markierung] (c) edge node {3} (e);
+\path (c) edge node {5} (f);
+\path[li markierung] (d) edge node {2} (f);
+\path (e) edge node {8} (f);
+\end{tikzpicture}
+
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+a &
+b &
+c &
+d &
+e &
+f &
+Warteschlange\\\hline\hline
+
+0 & % a
+$\infty$ & % b
+$\infty$ & % c
+$\infty$ & % d
+$\infty$ & % e
+$\infty$ & % f
+a \\\hline % Warteschlange
+
+0 & % a
+10 & % b
+8 & % c
+$\infty$ & % d
+$\infty$ & % e
+$\infty$ & % f
+c, b\\\hline % Warteschlange
+
+0 & % a
+4 & % b
+0 & % c
+12 & % d
+3 & % e
+5 & % f
+e, b, f, d\\\hline % Warteschlange
+
+0 & % a
+4 & % b
+0 & % c
+12 & % d
+0 & % e
+5 & % f
+b, f, d \\\hline % Warteschlange
+
+0 & % a
+0 & % b
+0 & % c
+2 & % d
+0 & % e
+5 & % f
+d, f \\\hline % Warteschlange
+
+0 & % a
+0 & % b
+0 & % c
+0 & % d
+0 & % e
+2 & % f
+f \\\hline % Warteschlange
+
+0 & % a
+0 & % b
+0 & % c
+0 & % d
+0 & % e
+0 & % f
+\\\hline % Warteschlange
+\end{tabular}
+
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Erklären Sie, warum der Kürzeste-Wege-Baum (also das gezeichnete
+Ergebnis des Dijkstra-Algorithmus) und der minimale Spannbaum nicht
+notwendigerweise identisch sind.
+
+\begin{bAntwort}
+Die Wahl der nächsten Kante erfolgt nach völlig verschiedenen Kriterien:
+
+\begin{itemize}
+\item Beim Kürzeste-Wege-Baum orientiert sie sich an der Entfernung der
+einzelnen Knoten vom Startknoten.
+
+\item Beim Spannbaum orientiert sie sich an der Entfernung der einzelnen
+Knoten vom bereits erschlossenen Teil des Spannbaums.
+\end{itemize}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

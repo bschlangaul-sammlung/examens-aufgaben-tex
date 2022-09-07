@@ -1,0 +1,298 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Vermischte Fragen},
+  Referenz = 66116-2021-F.T1-TA2-A1,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-1/Teilaufgabe-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Datenbank},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 1,
+}
+
+Beantworten Sie die folgenden Fragen und begründen oder erläutern Sie
+Ihre Antwort.
+\index{Datenbank}
+\footcite{examen:66116:2021:03}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erläutern Sie die Begriffe Kardinalität und Partizipität. Welche
+Arten von Partizipität gibt es in der ER-Modellierung? Nennen und
+erklären Sie diese kurz.
+
+\begin{bAntwort}
+\begin{description}
+\item[Kardinalitäten]
+
+Für die noch genauere Darstellung der Beziehungen im ER-Modell verwendet
+man Kardinalitäten (auch Grad der Beziehungen genannt). Diese geben an
+wie viele Entitätsinstanzen mit wie vielen Entitätsinstanzen einer
+anderen Entitätsinstanz in Beziehung stehen.
+\bFussnoteUrl{https://usehardware.de/datenbanksysteme-iv-entity-relationship-modell-er-modell-datenbankdarstellungen-i/}
+
+\item[Partizipation]
+
+Die Partizipation eines Beziehungstyps (in einem
+Entity-Relationship-Modell) bestimmt, ob alle Entities eines beteiligten
+Entitätstyps an einer bestimmten Beziehung teilnehmen müssen.
+\bFussnoteUrl{https://lehrbuch-wirtschaftsinformatik.org/glossar/kapitel03/Partizipation}
+
+\begin{description}
+\item[totale Partizipation:]
+
+Wenn eine Beziehung Entität A und Entität B in Beziehung setzt, dann
+muss ein Eintrag in Entität A existieren, damit ein Eintrag in Entität B
+existiert und umgekehrt. Beide Entitäten müssen also an der Relation
+teilnehmen. Eine Entitätsinstanz aus A kann also nicht ohne eine
+in-Beziehung-stehende Entitätsinstanz aus B existieren und umgekehrt.
+
+\item[partielle Partizipation:]
+
+Wenn eine Beziehung Entität A mit Entität B in Beziehung setzt, dann
+muss kein Eintrag in Entität A existieren, damit ein Eintrag in  Entität
+B existieren kann und umgekehrt. Die beiden Entitäten müssen also nicht
+an der Relation teilnehmen (enthalten sein).
+\bFussnoteUrl{https://usehardware.de/datenbanksysteme-iv-entity-relationship-modell-er-modell-datenbankdarstellungen-i/}
+\end{description}
+\end{description}
+
+Die Kardinalität definiert, wie viele Entities eines Typs mit wie vielen
+Entities eines anderen Typs in Beziehung stehen können (siehe Schneider
+et al., S. 446)\footcite[446]{schneider}
+
+Partizipität – ein anderer Begriff dafür ist Totalität – beschreibt den
+Grad der Teilnahmeverpflichtung zweier Entitäten an einer Beziehung. Sie
+kann partiell, total oder einseitig total sein.
+
+a. Totale P.: Jede Entity A und Entity B besteht nur dann, wenn sie an
+dieser Beziehung teilnehmen.
+
+b. Einseitige totale P.: Eine Entity A besteht nur dann, wenn sie an der
+Beziehung zu Entity B teilnimmt. Entitäten von B dagegen können, müssen
+aber nicht teilnehmen.
+
+c. Partielle P.: Die Existenz der Entitäten ist unabhängig von der
+Teilnahme an dieser Beziehung. Die Teilnahme ist nicht verpflichtend.
+
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Mit welchen beiden Befehlen kann eine Transaktion beendet werden?
+Nennen Sie diese und erklären Sie den Unterschied.
+
+\begin{bAntwort}
+Für den Abschluss einer Transaktion gibt es 2 Möglichkeiten:
+
+\begin{itemize}
+\item Den erfolgreichen Abschluss mit \texttt{commit}.
+\item Den erfolglosen Abschluss mit \texttt{abort}
+\end{itemize}\footcite[Kapitel 9.3, Seite 302-302]{kemper}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Erläutern Sie den Unterschied zwischen einer kurzen und einer
+langen Sperre.
+
+\begin{bAntwort}
+\begin{description}
+\item[lange Sperren:]
+
+LOCKs werden erst nach dem commit zurückgegeben ($\rightarrow$ striktes 2PL)
+
+\item[kurze Sperren:]
+
+LOCKs werden direkt nach dem schreiben/lesen zurückzugeben
+\end{description}
+\bFussnoteUrl{https://www.dbs.ifi.lmu.de/Lehre/DBSII/SS2015/vorlesung/DBS2-03-Synchronisation.pdf}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Stellen Sie außerdem die Kompatibilitätsmatrix zur Umsetzung des
+ACID-Prinzips mit den richtigen Werten dar. S stehe dabei für eine Lese-
+und X für eine Schreibsperre.
+
+\begin{bAntwort}
+Kompatibilitätsmatrix zur Umsetzung des ACID-Prinzips (Atomicity,
+Consistency, Isolation, Durability)
+
+\begin{tabular}{llll}
+                  & NL (no lock) & S (Lesesperre) & X (Schreibsperre) \\
+S (Lesesperre)    & ja           & ja             & nein \\
+X (Schreibsperre) & ja           & nein           & nein \\
+\end{tabular}
+\footcite[SX-Kompatibilitätsmatrix]{wiki:sperrverfahren}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Nennen und erklären Sie kurz die Armstrong-Axiome. Sind diese
+vollständig und korrekt?
+
+\begin{bAntwort}
+
+\begin{description}
+\item[Reflexivität:]
+%
+Eine Menge von Attributen bestimmt eindeutig die Werte einer Teilmenge
+dieser Attribute (triviale Abhängigkeit), das heißt,
+$\beta \subseteq \alpha \Rightarrow \alpha \rightarrow \beta$ .
+
+\item[Verstärkung:]
+%
+Gilt
+$\alpha \rightarrow \beta$, so gilt auch
+$\alpha \gamma \rightarrow \beta \gamma$
+für jede Menge von Attributen
+$\gamma$ der
+Relation.
+
+\item[Transitivität:]
+%
+Gilt
+$\alpha \rightarrow \beta$
+und
+$\beta \rightarrow \gamma$,
+so gilt auch
+$\alpha \rightarrow \gamma$.
+\end{description}
+
+Die Armstrong-Axiome sind korrekt und vollständig: Diese
+Regeln sind gültig (korrekt) und alle anderen gültigen Regeln können von
+diesen Regeln abgeleitet werden (vollständig).
+\bFussnoteUrl{https://dbresearch.uni-salzburg.at/teaching/2019ss/db1/db1_06-handout-1x1.pdf}
+\end{bAntwort}
+
+%%
+% f)
+%%
+
+\item Was versteht man unter einem (Daten-)Katalog (Data Dictionary)
+und was enthält dieser (es genügt eine Auswahl zu nennen)?
+
+\begin{bAntwort}
+Bei einer relationalen Datenbank ist ein Datenkatalog eine Menge von
+Tabellen und Ansichten, die bei Abfragen  nur
+gelesen werden. Das Data-Dictionary ist wie eine Datenbank
+aufgebaut, enthält aber nicht Anwendungsdaten, sondern Metadaten, das
+heißt Daten, welche die Struktur der Anwendungsdaten beschreiben (und
+nicht den Inhalt selbst).
+
+Zu einem Data-Dictionary zur physischen Datenmodellierung gehören genaue Angaben zu:
+
+\begin{itemize}
+\item Tabellen und Datenfeldern
+\item Primär- und Fremdschlüsselbeziehungen
+\item Integritätsbedingungen, \zB Prüfinformationen
+\end{itemize}
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Data-Dictionary}
+\end{bAntwort}
+
+%%
+% g)
+%%
+
+\item Erklären Sie das konservative und das strikte
+Zwei-Phasen-Sperrprotokoll.
+
+\begin{bAntwort}
+\begin{description}
+
+\item[Konservatives 2-Phasen-Sperrprotokoll]
+
+Das konservative 2-Phasen-Sperrprotokoll (Preclaiming), bei welchem zu
+Beginn der Transaktion alle benötigten Sperren auf einmal gesetzt
+werden. Dies verhindert in jedem Fall Deadlocks, führt aber auch zu
+einem hohen Verlust an Parallelität, da eine Transaktion ihre erste
+Operation erst dann ausführen kann, wenn sie alle Sperren erhalten hat.
+
+\item[Striktes 2-Phasen-Sperrprotokoll]
+
+Das strikte 2-Phasen-Sperrprotokoll, bei welchem alle gesetzten
+Write-Locks erst am Ende der Transaktion (nach der letzten Operation)
+freigegeben werden. Dieses Vorgehen verhindert den Schneeballeffekt,
+also das kaskadierende Zurücksetzen von sich gegenseitig beeinflussenden
+Transaktionen. Der Nachteil ist, dass Sperren häufig viel länger
+gehalten werden als nötig und sich somit die Wartezeit von blockierten
+Transaktionen verlängert. Die Read-Locks werden entsprechend dem
+Standard-2PL-Verfahren entfernt.
+\footcite{wiki:sperrverfahren}
+\end{description}
+\end{bAntwort}
+
+%%
+% h)
+%%
+
+\item Erklären Sie die Begriffe „Steal/NoSteal“ und „Force/NoForce“ im
+Kontext der Systempufferverwaltung eines DBS.
+
+\begin{bAntwort}
+\begin{description}
+\item[No-Steal]
+
+Schmutzige Seiten dürfen nicht aus dem Puffer entfernt und in die
+Datenbank übertragen werden, solange die Transaktion noch aktiv ist. Die
+Datenbank enthält keine Änderungen nicht-erfolgreicher Transaktionen.
+Eine UNDO-Recovery ist nicht erforderlich. langen
+Änderungs-Transaktionen können zu Problemen führen, da große Teile des
+Puffers blockiert werden
+
+\item[Steal]
+
+Schmutzige Seiten dürfen jederzeit ersetzt und in die Datenbank
+eingebracht werden. Die Datenbank kann unbestätigte Änderungen
+enthalten. Eine UNDO-Recovery ist erforderlich. Es handelt sich um eine
+effektivere Puffernutzung bei langen Transaktionen mit vielen
+Änderungen.\footcite[Kapitel 10.2.1 Ersetzung von
+Puffer-Seiten Seite 311-312]{kemper}
+
+\item [Force]
+
+Alle geänderten Seiten werden spätestens bei EOT (vor COMMIT) in die
+Datenbank geschrieben. Bei einem Systemfehler ist keine REDO-Recovery
+erforderlich. Die Force-Strategie benötigt einen hohen I/O-Aufwand, da
+Änderungen jeder Transaktion einzeln geschrieben werden. Die Vielzahl an
+Schreibvorgängen führt zu schlechteren Antwortzeiten, länger gehaltenen
+Sperren und damit zu mehr Sperrkonflikten. Große Datenbank-Puffer werden
+schlecht genutzt.\footcite[Kapitel
+10.2.2 Einbringen von Änderungen einer Transaktion Seite
+312-313]{kemper}
+
+\item[No-Force]
+
+Änderungen können auch erst nach dem COMMIT in die Datenbank geschrieben
+werden. Die Änderungen durch mehrere Transaktionen werden „gesammelt“.
+Beim COMMIT werden lediglich REDO-Informationen in die Log-Datei
+geschrieben. Bei einem Systemfehler ist eine REDO-Recovery erforderlich.
+Die Änderungen auf einer Seite über mehrere Transaktionen hinweg können
+gesammelt werden.\footcite[Seite 25]{db:fs:5}
+\end{description}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

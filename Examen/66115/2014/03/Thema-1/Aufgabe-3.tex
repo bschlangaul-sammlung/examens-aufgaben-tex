@@ -1,0 +1,476 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum,spalten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Einfügen und dreimal einen Knoten löschen},
+  Referenz = 66115-2014-F.T1-A3,
+  RelativerPfad = Staatsexamen/66115/2014/03/Thema-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2014:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt und überprüft,
+  Ueberprueft = {Mit dem Online-Tool Visualgo auf \url{https://visualgo.net/en/bst}},
+  Stichwoerter = {AVL-Baum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 3,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Fügen Sie die Zahlen (7, 6, 2, 1, 5, 3, 8, 4) in dieser
+Reihenfolge in einen anfangs leeren AVL Baum ein. Stellen Sie die AVL
+Eigenschaft ggf. nach jedem Einfügen mit geeigneten Rotationen wieder
+her. Zeichnen Sie den AVL Baum einmal vor und einmal nach jeder
+einzelnen Rotation.\index{AVL-Baum}
+\footcite{examen:66115:2014:03}
+
+\begin{bProjektSprache}{Baum}
+baum avl (
+  setze: 7 6 2 1 5 3 8 4;
+  drucke;
+)
+\end{bProjektSprache}
+
+% https://visualgo.net/en/bst
+% 7, 6, 2, 1, 5, 3, 8, 4
+
+\begin{bAntwort}
+\begin{multicols}{2}
+
+\begin{bBaum}{Nach dem Einfügen von „7“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{7}; ]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „6“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{7};
+  [.\node[label=0]{6}; ]
+  \edge[blank]; \node[blank]{};
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „2“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{7};
+  [.\node[label=-1]{6};
+    [.\node[label=0]{2}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  \edge[blank]; \node[blank]{};
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{6};
+  [.\node[label=0]{2}; ]
+  [.\node[label=0]{7}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „1“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{6};
+  [.\node[label=-1]{2};
+    [.\node[label=0]{1}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{7}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{multicols}
+
+\bLinie
+
+\begin{multicols}{2}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{6};
+  [.\node[label=0]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{5}; ]
+  ]
+  [.\node[label=0]{7}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „3“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{6};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=-1]{5};
+      [.\node[label=0]{3}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+  ]
+  [.\node[label=0]{7}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{6};
+  [.\node[label=-2]{5};
+    [.\node[label=0]{2};
+      [.\node[label=0]{1}; ]
+      [.\node[label=0]{3}; ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{7}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{5};
+  [.\node[label=0]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{3}; ]
+  ]
+  [.\node[label=+1]{6};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{7}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{multicols}
+
+\bLinie
+
+\begin{bBaum}{Nach dem Einfügen von „8“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{5};
+  [.\node[label=0]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{3}; ]
+  ]
+  [.\node[label=+2]{6};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=+1]{7};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{8}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{5};
+  [.\node[label=0]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{3}; ]
+  ]
+  [.\node[label=0]{7};
+    [.\node[label=0]{6}; ]
+    [.\node[label=0]{8}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „4“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{5};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=+1]{3};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{4}; ]
+    ]
+  ]
+  [.\node[label=0]{7};
+    [.\node[label=0]{6}; ]
+    [.\node[label=0]{8}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Entfernen Sie den jeweils markierten Knoten aus den folgenden
+AVL-Bäumen. Stellen Sie die AVL-Eigenschaft ggf. durch geeignete
+Rotationen wieder her. Zeichnen Sie nur den resultierenden Baum.
+
+\begin{enumerate}
+
+%%
+% i)
+%%
+
+\item Baum 1:
+
+\begin{bProjektSprache}{Baum}
+baum avl (
+  setze: 5 2 10 1 3 8 12 4 6 9 11 13 7 14;
+  drucke;
+)
+\end{bProjektSprache}
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{5};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=+1]{3};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0,very thick]{4}; ]
+    ]
+  ]
+  [.\node[label=0]{10};
+    [.\node[label=-1]{8};
+      [.\node[label=+1]{6};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{7}; ]
+      ]
+      [.\node[label=0]{9}; ]
+    ]
+    [.\node[label=+1]{12};
+      [.\node[label=0]{11}; ]
+      [.\node[label=+1]{13};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{14}; ]
+      ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+% liefert falsches Ergebnis: bschlangaul-werkzeug.java baum --avl 5 2 10 1 3 8 12 4 6 9 11 13 7 14 lösche 4 -v
+
+% https://visualgo.net/en/bst
+% 5, 2, 10, 1, 3, 8, 12, 4, 6, 9, 11, 13, 7, 14
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Löschen von „4“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{10};
+  [.\node[label=+1]{5};
+    [.\node[label=0]{2};
+      [.\node[label=0]{1}; ]
+      [.\node[label=0]{3}; ]
+    ]
+    [.\node[label=-1]{8};
+      [.\node[label=+1]{6};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{7}; ]
+      ]
+      [.\node[label=0]{9}; ]
+    ]
+  ]
+  [.\node[label=+1]{12};
+    [.\node[label=0]{11}; ]
+    [.\node[label=+1]{13};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{14}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% ii)
+%%
+
+\item Baum 2:
+
+\begin{bProjektSprache}{Baum}
+baum avl (
+  setze: 6 2 8 1 4 7 3 5;
+  drucke;
+)
+\end{bProjektSprache}
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{6};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{4};
+      [.\node[label=0]{3}; ]
+      [.\node[label=0]{5}; ]
+    ]
+  ]
+  [.\node[label=-1]{8};
+    [.\node[label=0,very thick]{7}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+% https://visualgo.net/en/bst
+% 6, 2, 8, 1, 4, 7, 3, 5
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Löschen von „7“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{6};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{4};
+      [.\node[label=0]{3}; ]
+      [.\node[label=0]{5}; ]
+    ]
+  ]
+  [.\node[label=0]{8}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{6};
+  [.\node[label=-1]{4};
+    [.\node[label=0]{2};
+      [.\node[label=0]{1}; ]
+      [.\node[label=0]{3}; ]
+    ]
+    [.\node[label=0]{5}; ]
+  ]
+  [.\node[label=0]{8}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{4};
+  [.\node[label=0]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{3}; ]
+  ]
+  [.\node[label=0]{6};
+    [.\node[label=0]{5}; ]
+    [.\node[label=0]{8}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% ii)
+%%
+
+\item Baum 3:
+
+\begin{bProjektSprache}{Baum}[bii]
+baum avl (
+  setze: 10 5 12 2 8 11 13 1 4 6 9 14 3 7;
+  drucke;
+)
+\end{bProjektSprache}
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{10};
+  [.\node[label=0,very thick]{5};
+    [.\node[label=+1]{2};
+      [.\node[label=0]{1}; ]
+      [.\node[label=-1]{4};
+        [.\node[label=0]{3}; ]
+        \edge[blank]; \node[blank]{};
+      ]
+    ]
+    [.\node[label=-1]{8};
+      [.\node[label=+1]{6};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{7}; ]
+      ]
+      [.\node[label=0]{9}; ]
+    ]
+  ]
+  [.\node[label=+1]{12};
+    [.\node[label=0]{11}; ]
+    [.\node[label=+1]{13};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{14}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+% https://visualgo.net/en/bst
+% 10, 5, 12, 2, 8, 11, 13, 1, 4, 6, 9, 14, 3, 7
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Löschen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{10};
+  [.\node[label=-1]{6};
+    [.\node[label=+1]{2};
+      [.\node[label=0]{1}; ]
+      [.\node[label=-1]{4};
+        [.\node[label=0]{3}; ]
+        \edge[blank]; \node[blank]{};
+      ]
+    ]
+    [.\node[label=0]{8};
+      [.\node[label=0]{7}; ]
+      [.\node[label=0]{9}; ]
+    ]
+  ]
+  [.\node[label=+1]{12};
+    [.\node[label=0]{11}; ]
+    [.\node[label=+1]{13};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{14}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+\end{enumerate}
+\end{enumerate}
+\end{document}

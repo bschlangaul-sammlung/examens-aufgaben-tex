@@ -1,0 +1,44 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Komplexität},
+  Thematik = {Methode „magicStaff()“},
+  Referenz = AUD.Algorithmische-Komplexitaet.Methode-magicStaff,
+  RelativerPfad = Module/30_AUD/50_Algorithmische-Komplexitaet/Aufgabe_Methode-magicStaff.tex,
+  ZitatSchluessel = aud:e-klausur,
+  ZitatBeschreibung = {Aufgabe 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmische Komplexität (O-Notation)},
+}
+
+Welche Komplexität hat das Programmfragment?\index{Algorithmische Komplexität (O-Notation)}
+\footcite[Aufgabe 5]{aud:e-klausur}
+
+\bJavaDatei[firstline=5,lastline=17]{aufgaben/aud/komplexitaet/Komplexitaet}
+
+\noindent
+Bestimmen Sie in Abhängigkeit von $n$ die Komplexität des
+Programmabschnitts im
+
+\begin{enumerate}
+\item Best-Case.
+
+\begin{bAntwort}
+$\mathcal{O}(1)$: Wenn die erste Zahl im Feld \bJavaCode{array} ohne Rest
+durch 3 teilbar ist, wird sofort aus der for-Schleife ausgestiegen
+(wegen der \bJavaCode{break} Anweisung).
+\end{bAntwort}
+
+\item Worst-Case.
+\begin{bAntwort}
+$\mathcal{O}(n^2)$: Wenn keine Zahl aus \bJavaCode{array} ohne Rest
+durch 3 teilbar ist, werden zwei Schleifen (\bJavaCode{for} und
+\bJavaCode{do while}) über die Anzahl \bJavaCode{n} der Elemente des
+Felds durchlaufen.
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

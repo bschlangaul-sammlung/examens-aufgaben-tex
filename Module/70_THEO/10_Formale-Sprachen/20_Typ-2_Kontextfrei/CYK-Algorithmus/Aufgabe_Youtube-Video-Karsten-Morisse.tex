@@ -1,0 +1,42 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {CYK-Algorithmus},
+  Thematik = {Youtube-Video Karsten-Morisse},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.CYK-Algorithmus.Youtube-Video-Karsten-Morisse,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/CYK-Algorithmus/Aufgabe_Youtube-Video-Karsten-Morisse.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {CYK-Algorithmus},
+}
+
+\let\l=\bKurzeTabellenLinie
+
+\bGrammatik{variablen={S, A, B, C}, alphabet={a, b}}
+\index{CYK-Algorithmus}
+\bFussnoteUrl{https://www.youtube.com/watch?v=Q5TvCyu4RUo}
+
+\begin{bProduktionsRegeln}
+S -> A B | B C,
+A -> B A | a,
+B -> C C | b,
+C -> A B | a
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|}
+a   & b   & a   & a   & b \\\hline\hline
+
+A,C & B   & A,C & A,C & B \l5
+S,C & A,S & B   & S,C \l4
+B   & -   & B \l3
+S,A & - \l2
+S,S,C \l1
+\end{tabular}
+
+\bWortInSprache{abaab}
+\end{bAntwort}
+
+\end{document}

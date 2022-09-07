@@ -1,0 +1,66 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{rmodell}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Autoverleih},
+  Referenz = 66116-2021-F.T2-TA2-A3,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-2/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Relationenmodell},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\let\a=\bAttribut
+\let\f=\bFremd
+\let\p=\bPrimaer
+\let\r=\bRelationMenge
+
+Entwerfen Sie zum untenstehenden ER-Diagramm ein Relationenschema (in
+dritter Normalform, 3. NF) mit möglichst wenigen Relationen.
+\index{Relationenmodell}
+\footcite{examen:66116:2021:03}
+
+Verwenden Sie dabei folgende Notation: Primärschlüssel werden durch
+Unterstreichen gekennzeichnet, Fremdschlüssel durch die Nennung der
+Relation, auf die sie verweisen, in eckigen Klammern hinter dem
+Fremdschlüsselattribut. Attribute zusammengesetzter Fremdschlüssel
+werden durch runde Klammern als zusammengehörig markiert. Wenn ein
+Attribut zur korrekten Abbildung des ER-Diagramms als UNIQUE oder NOT
+NULL ausgezeichnet werden muss, geben Sie dies an.
+
+Beispiel:
+
+\begin{bRelationenModell}
+Relation1 (Primärschlüssel, Attributl, Attribut2,
+Fremdschlüsselattributl[Relationl],
+(Fremdschlüssel2 Attributl, Fremdschlüsssel2 Attribut2) [Relation2]);
+Attribut1 UNIQUE
+Attribut2 NOT NULL
+\end{bRelationenModell}
+
+\begin{bExkurs}[Enhanced entity-relationship model]
+\url{https://en.wikipedia.org/wiki/Enhanced_entity–relationship_model}
+\url{https://www.tutorialride.com/dbms/enhanced-entity-relationship-model-eer-model.htm}
+\end{bExkurs}
+
+\begin{bAntwort}
+\begin{bRelationenModell}
+\r{Automarke}{\p{AName, Name[Firma]}}
+\r{Fahrzeug}{\p{Kennzeichen}, Mieter-Nr[Mieter], Name[Firma], Modell, Farbe}
+\r{Firma}{\p{Name}, Umsatz, Mieter-Nr}
+\r{Hersteller}{\p{Name[Firma]}}
+\r{Mieter}{\p{Mieter-Nr}}
+\r{Person}{\p{Handynummer}, Vorname, Nachname, Mieter-Nr[Mieter]}
+\end{bRelationenModell}
+\end{bAntwort}
+
+\end{document}

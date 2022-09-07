@@ -1,0 +1,179 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Vermischte Datenbank-Fragen},
+  Referenz = 66116-2019-H.T2-TA2-A6,
+  RelativerPfad = Staatsexamen/66116/2019/09/Thema-2/Teilaufgabe-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66116:2019:09,
+  ZitatBeschreibung = {Thema 2 Teilaufgabe 2 Aufgabe 6},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Datenbank-Übersicht, Natural-Join, Equi-Join, Theta-Join, UNION, INTERSECT, EXCEPT},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 6,
+}
+
+Begründen oder erläutern Sie Ihre Antworten.
+\index{Datenbank-Übersicht}
+\footcite[Thema 2 Teilaufgabe 2 Aufgabe 6]{examen:66116:2019:09}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Erklären Sie kurz den Unterschied zwischen einem
+Natural-Join\index{Natural-Join} und einem Equi-Join\index{Equi-Join}.
+
+\begin{bAntwort}
+Ein Natural Join ist eine Kombination von zwei Tabellen, in denen
+Spalten gleichen Namens existieren. Die Werte in diesen Spalten werden
+sodann auf Übereinstimmungen geprüft (analog Equi-Join). Einige
+Datenbanksysteme erkennen das Schlüsselwort NATURAL und eliminieren
+entsprechend automatisch doppelte Spalten.
+
+Während beim Kreuzprodukt keinerlei Anforderungen an die Kombination der
+Datensätze gestellt werden, führt der Equi-Join eine solche ein: Die
+Gleichheit von zwei Spalten.
+
+\bFussnoteLink{wiki.selfhtml.org}{https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Erläutern Sie kurz was man unter einem
+Theta-Join\index{Theta-Join} versteht.
+
+\begin{bAntwort}
+Ein Theta-Join ist eine Verbindung von Relationen bezüglich beliebiger
+Attribute und mit einem Selektionsprädikat.
+\bFussnoteUrl{https://www.datenbank-grundlagen.de/theta-join.html}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Was versteht man unter Unionkompatibilität? Nennen Sie drei
+SQL-Operatoren welche Unionkompatibilität voraussetzen.
+
+\begin{bAntwort}
+Bestimmte Operationen der relationalen Algebra wie Vereinigung,
+Schnitt und Differenz verlangen Unionkompatibilität.
+Unionkompatibilität ist eine Eigenschaft des Schemas einer Relation.
+Zwei Relationen $R$ und $S$ sind genau dann union-kompatibel, wenn
+folgende Bedingungen erfüllt sind:
+
+\begin{enumerate}
+\item Die Relationen R und S besitzen dieselbe Stelligkeit n, \dh sie
+haben die selbe Anzahl von Spalten.
+
+\item Für alle Spalten der Relationen gilt, dass die Domäne der $i$-ten
+Spalte der Relation $R$ mit dem Typ der $i$-ten Spalte der Relation $S$
+übereinstimmt ($0 < i < n$).
+\end{enumerate}
+
+Die Namen der Attribute spielen dabei keine Rolle.
+\bFussnoteUrl{https://studylibde.com/doc/1441274/übungstool-für-relationale-algebra}
+
+\bPseudoUeberschrift{SQL-Operatoren mit Unionkompatibilität}
+
+\begin{itemize}
+\item UNION\index{UNION}
+\item INTERSECT\index{INTERSECT}
+\item EXCEPT\index{EXCEPT}
+\end{itemize}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Erläutern Sie Backward und Forward Recovery und grenzen Sie diese
+voneinander ab.
+
+%%
+%
+%%
+
+\item Erklären Sie das Zwei-Phasen-Freigabe-Protokoll.
+
+%%
+%
+%%
+
+\item Erläutern Sie Partial Undo / Redo und Global Undo / Redo und deren
+Bedeutung für die Umsetzung des ACID-Prinzips. Geben Sie zu jeder dieser
+Konzepte an, ob System-, Programm- oder Gerätefehler damit korrigiert
+werden können.
+
+%%
+%
+%%
+
+\item Erklären Sie das WAL-Prinzip (Write ahead logging)!
+
+\begin{bAntwort}
+Das sogenannte write ahead logging (WAL) ist ein Verfahren der
+Datenbanktechnologie, das zur Gewährleistung der Atomarität und
+Dauerhaftigkeit von Transaktionen beiträgt. Es besagt, dass
+Modifikationen vor dem eigentlichen Schreiben (dem Einbringen in die
+Datenbank) protokolliert werden müssen.
+
+Durch das WAL-Prinzip wird ein sogenanntes „update-in-place“ ermöglicht,
+\dh die alte Version eines Datensatzes wird durch die neue Version an
+gleicher Stelle überschrieben. Das hat vor allem den Vorteil, dass
+Indexstrukturen bei Änderungsoperationen nicht mit aktualisiert werden
+müssen, weil die geänderten Datensätze immer noch an der gleichen Stelle
+zu finden sind. Die vorherige Protokollierung einer Änderung ist
+erforderlich, um im Fehlerfall die Wiederholbarkeit der Änderung
+sicherstellen zu können.
+\footcite{wiki:wal-prinzip}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Erklären Sie den Begriff „Datenbankindex“ und nennen Sie zwei
+häufige Arten.
+
+\begin{bAntwort}
+Ein Datenbankindex ist eine von der Datenstruktur getrennte
+Index\-struktur in einer Datenbank, die die Suche und das Sortieren nach
+bestimmten Feldern beschleunigt.
+\footcite{wiki:datenbankindex}
+
+\bPseudoUeberschrift{Gruppierte Indizes (Clustered Index)}
+
+Bei der Verwendung eines gruppierten Index werden die Daten\-sätze
+entsprechend der Sortierreihenfolge ihres Index-Schlüssels gespeich\-ert.
+Wird für eine Tabelle beispielsweise eine Primärschlüssel-Spalte „NR“
+angelegt, so stellt diese den Index-Schlüssel dar. Pro Tabelle kann nur
+ein gruppierter Index erstellt werden. Dieser kann jedoch aus mehreren
+Spalten zusammengesetzt sein.
+
+\bPseudoUeberschrift{Nicht-gruppierte Indizes (Nonclustered Index)}
+
+Besitzt eine Tabelle einen gruppierten Index, so können weitere
+nicht-gruppierte Indizes angelegt werden. Dabei zeigen die Einträge des
+Index auf den Speicherbereich des gesamten Datensatzes. Die Verwendung
+eines nicht-gruppierten Index bietet sich an, wenn regel\-mäßig nach
+bestimmten Werten in einer Spalte gesucht wird z.\-B. dem Namen eines
+Kunden.
+\bFussnoteUrl{https://www.datenbanken-verstehen.de/datenmodellierung/datenbank-index}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

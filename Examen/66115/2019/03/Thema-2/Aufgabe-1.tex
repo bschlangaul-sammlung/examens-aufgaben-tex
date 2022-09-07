@@ -1,0 +1,68 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {k-kleinste Elemente},
+  Referenz = 66115-2019-F.T2-A1,
+  RelativerPfad = Staatsexamen/66115/2019/03/Thema-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2019:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Halde (Heap)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 1,
+}
+
+Gegeben sei eine unsortierte Liste von $n$ verschiedenen natürlichen
+Zahlen. Das $k$-kleinste Element ist das Element, das größer als genau
+$k - 1$ Elemente der Liste ist.
+\index{Halde (Heap)}
+\footcite{examen:66115:2019:03}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie einen Algorithmus mit Laufzeit $\mathcal{O}(n \cdot \log
+n)$ an, um das $k$-kleinste Element zu berechnen.
+
+\begin{bAntwort}
+\bFussnoteUrl{https://en.wikipedia.org/wiki/Quickselect}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Gegeben sei nun ein Algorithmus $A$, der den Median einer
+unsortierten Liste von $n$ Zahlen in $\mathcal{O}(n)$ Schritten
+berechnet. Nutzen Sie Algorithmus $A$ um einen Algorithmus $B$
+anzugeben, welcher das $k$-kleinste Element in $\mathcal{O}(n)$
+Schritten berechnet.
+
+Argumentieren Sie auch, dass der Algorithmus die gewünschte Laufzeit
+besitzt.
+
+\begin{bAntwort}
+\bFussnoteUrl{https://en.wikipedia.org/wiki/Median_of_medians}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item  Geben Sie einen Algorithmus an, der für alle $i = 1 \dots,
+\lfloor n/k \rfloor$ das $i \cdot k$-kleinste Element berechnet. Die
+Laufzeit Ihres Algorithmus sollte $\mathcal{O}(n \cdot log(n/k))$ sein.
+Sie dürfen weiterhin Algorithmus $A$, wie in Teilaufgabe (b)
+beschrieben, nutzen.
+
+\end{enumerate}
+\end{document}

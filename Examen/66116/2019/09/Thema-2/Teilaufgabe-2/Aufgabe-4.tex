@@ -1,0 +1,177 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen,synthese-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {R (A,B,C,D,E,F)},
+  Referenz = 66116-2019-H.T2-TA2-A4,
+  RelativerPfad = Staatsexamen/66116/2019/09/Thema-2/Teilaufgabe-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66116:2019:09,
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Normalformen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 4,
+}
+
+\let\ah=\bAttributHuelle
+\let\ahl=\bLinksReduktionInline
+\let\ahr=\bRechtsReduktionInline
+\let\b=\textbf
+\let\fa=\bFunktionaleAbhaengigkeit
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\m=\bAttributMenge
+\let\r=\bRelation
+\let\schrittE=\bSyntheseUeberErklaerung
+\let\u=\underline
+
+Gegeben sei das Relationenschema R (A, B, C, D, E, F) sowie die Menge
+der zugehörigen funktionalen Abhängigkeiten F:
+\index{Normalformen}
+\footcite{examen:66116:2019:09}
+
+\FA[F]{
+  A, B -> C;
+  A -> D;
+  F -> B;
+  D, E -> B;
+  B -> A;
+}
+
+% https://normalizer.db.in.tum.de/index.py
+
+% ABCDEF
+
+% AB -> C
+% A -> D
+% F -> B
+% DE -> B
+% B -> A
+
+\begin{enumerate}
+%%
+% a)
+%%
+
+\item Bestimmen Sie sämtliche Schlüsselkandidaten der Relation R und
+begründen Sie, warum es keine weiteren Schlüsselkandidaten geben kann.
+
+\begin{bAntwort}
+Die Attribute E, F kommen auf keiner rechten Seite vor.
+
+$\ah{F, \m{E, F}} = \m{A, B, C, D, E, F} = R$
+
+Der Superschlüssel kann nicht weiter minimiert werden:
+
+$\ah{F, \m{E}} = \m{E} \neq R$\\
+$\ah{F, \m{F}} = \m{A, B, C, D, F} \neq R$
+
+Der Schlüsselkandidat ist \m{E, F}
+
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Ist die gegebene Menge an funktionalen Abhängigkeiten minimal?
+Fall sie minimal ist begründen Sie diese Eigenschaft ausführlich,
+anderenfalls minimieren Sie FD schrittweise. Vergessen Sie nicht die
+einzelnen Schritte entsprechend zu begründen.
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1-1}
+
+\bPseudoUeberschrift{\fa{A, B -> C}}
+
+$C \in$ \ahl{A, B}{A}{A, B, \b{C}, D}
+
+\FA[F]{
+  B -> C;
+  A -> D;
+  F -> B;
+  D, E -> B;
+  B -> A;
+}
+
+\bPseudoUeberschrift{\fa{D, E -> B}}
+
+$B \notin$ \ahl{D, E}{D}{E}\\
+$B \notin$ \ahl{D, E}{E}{D}
+
+\item \schrittE{1-2}
+
+\bPseudoUeberschrift{B}
+
+$B \notin$ \ahr{F -> B}{}{F}{F}\\
+$B \notin$ \ahr{D, E -> B}{}{D, E}{D, E}
+
+\FA[F]{
+  B -> C;
+  A -> D;
+  F -> B;
+  D, E -> B;
+  B -> A;
+}
+
+\item \schrittE{1-3}
+
+\bNichtsZuTun
+
+\item \schrittE{1-4}
+
+\FA[F]{
+  A -> D;
+  F -> B;
+  D, E -> B;
+  B -> A, C;
+}
+\end{enumerate}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Überführen Sie falls nötig das Schema in dritte Normalform. Ist
+die dritte Normalform bereits erfüllt, begründen Sie dies ausführlich.
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1}
+
+\FA[F]{
+  A -> D;
+  F -> B;
+  D, E -> B;
+  B -> A, C;
+}
+
+\item \schrittE{2}
+
+\r[R1]{\u{A}, D}\\
+\r[R2]{\u{F}, B}\\
+\r[R3]{\u{D, E}, B}\\
+\r[R3]{\u{B}, A, C}
+
+\item \schrittE{3}
+
+\r[R1]{\u{A}, D}\\
+\r[R2]{\u{F}, B}\\
+\r[R3]{\u{D, E}, B}\\
+\r[R4]{\u{B}, A, C}\\
+\r[R5]{\u{E, F}}
+\item \schrittE{4}
+
+\bNichtsZuTun
+
+\end{enumerate}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,formale-sprachen,pumping-lemma}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Übung zum Pumping-Lemma},
+  Thematik = {a n b m},
+  Referenz = THEO.Formale-Sprachen.Typ-3_Regulaer.Pumping-Lemma.Vorlesungsaufgaben-Pumping-Lemma,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/10_Typ-3_Regulaer/Pumping-Lemma/Aufgabe_Vorlesungsaufgaben-Pumping-Lemma.tex,
+  ZitatSchluessel = theo:fs:1,
+  ZitatBeschreibung = {Seite 65},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Pumping-Lemma (Reguläre Sprache)},
+}
+
+\begin{bExkurs}[Pumping-Lemma für Reguläre Sprachen]
+\bPumpingRegulaer
+\end{bExkurs}
+\footcite[Seite 65]{theo:fs:1}
+\index{Pumping-Lemma (Reguläre Sprache)}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Zeigen Sie, dass die Sprache \bAusdruck{a^n b^m}{n \geq m \geq 1}
+nicht regulär ist.
+
+\begin{bAntwort}
+$|a^j b^j| \geq j$
+
+$a^j b^j = uvw$
+mit $|uv| \leq j$
+und $|v| \geq 1$
+
+$\Rightarrow$ in $v$ nur $a$’s
+
+$\Rightarrow$ $uv^0w \notin L$
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Zeige, dass die Sprache \bAusdruck{a^n b^m}{n > m \geq 1} nicht
+regulär ist.
+
+\begin{bAntwort}
+$|a^{j+1} b^j| \geq j $
+
+$a^{j+1} b^j = uvw$
+mit $|uv| \leq j$
+und $|v| \geq 1$
+
+$\Rightarrow$ in $v$ nur $a$’s
+
+$\Rightarrow$ $uv^0w \notin L$
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

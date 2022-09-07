@@ -1,0 +1,124 @@
+\documentclass{bschlangaul-aufgabe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Test-getriebene Entwicklung},
+  Referenz = 66116-2019-F.T2-TA2-A1,
+  RelativerPfad = Staatsexamen/66116/2019/03/Thema-2/Teilaufgabe-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2019:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Testen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 1,
+}
+
+Bewerten Sie die folgenden Aussagen und nehmen Sie jeweils Stellung.
+\index{Testen}
+\footcite{examen:66116:2019:03}
+
+\begin{enumerate}
+%%
+% a)
+%%
+
+\item Tests zuerst
+
+In test-getriebener Softwareentwicklung wird der Test vor der zu
+testenden Funktion programmiert.
+
+\begin{bAntwort}
+Bei der testgetriebenen Entwicklung erstellt der/die ProgrammiererIn
+Softwaretests konsequent vor den zu testenden Komponenten.
+\footcite{wiki:testgetriebene-entwicklung}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Komponententests
+
+Komponententests sind immer White-Box-Tests und nie Black-Box-Tests.
+
+\begin{bAntwort}
+Falsch: Komponententests (anderes Wort für Unit- oder Modul-Tests) können beides sein.
+\bFussnoteUrl{https://qastack.com.de/software/362746/what-is-black-box-unit-testing}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Akzeptanztests
+
+Akzeptanz - resp. Funktionstests sind immer Black-Box-Tests und nie
+White-Box-Tests.
+
+\begin{bAntwort}
+In systems engineering, it may involve black-box testing performed on a system
+
+Acceptance testing in extreme programming:  Acceptance tests are black-box system tests.
+
+\bFussnoteUrl{https://en.wikipedia.org/wiki/Acceptance_testing}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Fehler
+
+Ein fehlgeschlagener Test und ein Testausführungsfehler bezeichnen
+denselben Sachverhalt.
+
+\begin{bAntwort}
+Falsch:
+
+Fehler (Error)
+
+Der Software-Test konnte durchgeführt werden, das ermittelte
+Ist-Ergebnis und das vorgegebene Soll-Ergebnis weichen jedoch
+voneinander ab. Ein derartiger Fehler liegt z. B. dann vor, wenn ein
+Funktionsaufruf einen abweichenden Wert berechnet.
+
+Fehlschlag (Failure)
+
+Während der Testdurchführung wurde ein Systemversagen festgestellt. Ein
+Fehlschlag liegt z. B. dann vor, wenn das zu testende System einen
+Programmabsturz verursacht und hierdurch erst gar kein Ist-Ergebnis
+ermittelt werden konnte.\footcite{hoffmann:software}
+
+Das Misslingen kann als Ursache einen Fehler (Error) oder ein falsches
+Ergebnis (Failure) haben, die beide per Exception signalisiert werden.
+Der Unterschied zwischen den beiden Begriffen liegt darin, dass Failures
+erwartet werden, während Errors eher unerwartet auftreten.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/JUnit}
+
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Test Suiten
+
+Tests können hierarchisch strukturiert werden, so dass mit einem Befehl
+das gesamte zu testende System getestet werden kann.
+
+\begin{bAntwort}
+Richtig:
+
+test suite (englisch „Testsammlung“, aus französisch suite Folge,
+Verkettung) bezeichnet eine organisierte Sammlung von Werkzeugen zum
+Testen technischer Apparate und Vorgänge.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Testsuite}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

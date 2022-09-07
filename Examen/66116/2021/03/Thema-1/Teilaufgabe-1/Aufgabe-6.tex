@@ -1,0 +1,82 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{entwurfsmuster}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Wissen Erbauer},
+  Referenz = 66116-2021-F.T1-TA1-A6,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-1/Teilaufgabe-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Erbauer (Builder)},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 6,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erläutern Sie den Zweck (Intent) des Erzeugungsmusters Erbauer in
+max. drei Sätzen, ohne dabei auf die technische Umsetzung einzugehen.
+\index{Erbauer (Builder)}
+\footcite{examen:66116:2021:03}
+
+\begin{bAntwort}
+Die Erzeugung komplexer Objekte wird vereinfacht, indem der
+Konstruktionsprozess in eine spezielle Klasse verlagert wird. Er wird so
+von der Repräsentation getrennt und kann sehr unterschiedliche
+Repräsentationen zurückliefern.
+\footcite[Seite 29]{eilebrecht}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Erklären Sie, wie das Erzeugungsmuster Erbauer umgesetzt werden
+kann (Implementierung). Die Angabe von Code ist hierbei NICHT notwendig!
+
+\begin{bAntwort}
+\bMetaNochKeineLoesung
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Nennen Sie jeweils einen Vor- und einen Nachteil des
+Erzeugungsmusters Erbauer im Vergleich zu einer Implementierung ohne
+dieses Muster.
+
+\begin{bAntwort}
+\begin{description}
+\item[Vorteil]
+
+Die Implementierungen der Konstruktion und der Repräsentationen werden
+isoliert. Die Erbauer verstecken ihre interne Repräsentation vor dem
+Direktor.
+
+\item[Nachteil]
+
+Es besteht eine enge Kopplung zwischen Produkt, konkretem Erbauer und
+den am Konstruktionsprozess beteiligten Klassen.\footcite{wiki:erbauer}
+\end{description}
+\end{bAntwort}
+
+\end{enumerate}
+
+\begin{bExkurs}[Erbauer (Builder)]
+\bEntwurfsErbauerUml
+
+\bEntwurfsErbauerAkteure
+\end{bExkurs}
+\end{document}

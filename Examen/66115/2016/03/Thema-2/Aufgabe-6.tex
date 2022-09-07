@@ -1,0 +1,145 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Dijkstra Algorithmus},
+  Thematik = {Karlsruhe nach Kassel},
+  Referenz = 66115-2016-F.T2-A6,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66115:2016:03,
+  ZitatBeschreibung = {Thema 2 Aufgabe 6 Seite 9},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Dijkstra},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 6,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Berechnen Sie für folgenden Graphen den kürzesten Weg von
+Karlsruhe nach Kassel und dokumentieren Sie den Berechnungsweg:
+\index{Algorithmus von Dijkstra}
+\footcite[Thema 2 Aufgabe 6 Seite 9]{examen:66115:2016:03}
+
+\begin{bGraphenFormat}
+A: 3 1
+E: 2 3
+F: 4 7
+KA: 0 2
+KS: 9 6
+M: 6 1
+MA: 0 6
+N: 6 3
+S: 7 5
+W: 4 5
+A -- KA: 250
+A -- M: 84
+E -- W: 186
+F -- KS: 173
+F -- MA: 85
+F -- W: 217
+M -- KS: 502
+M -- N: 167
+MA -- KA: 80
+N -- S: 183
+N -- W: 103
+\end{bGraphenFormat}
+
+\bPseudoUeberschrift{Verwendete Abkürzungen:}
+
+\begin{description}
+\item[A] Augsburg
+\item[EF] Erfurt
+\item[F] Frankfurt
+\item[KA] Karlsruhe
+\item[KS] Kassel
+\item[M] München
+\item[MA] Mannheim
+\item[N] Nürnberg
+\item[S] Stuttgart
+\item[WÜ] Würzburg
+\end{description}
+
+Zahl = Zahl in Kilometern
+
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (A) at (3,1) {A};
+\node (E) at (2,3) {E};
+\node (F) at (4,7) {F};
+\node (KA) at (0,2) {KA};
+\node (KS) at (9,6) {KS};
+\node (M) at (6,1) {M};
+\node (MA) at (0,6) {MA};
+\node (N) at (6,3) {N};
+\node (S) at (7,5) {S};
+\node (W) at (4,5) {W};
+
+\path (A) edge node {250} (KA);
+\path (A) edge node {84} (M);
+\path (E) edge node {186} (W);
+\path (F) edge node {173} (KS);
+\path (F) edge node {85} (MA);
+\path (F) edge node {217} (W);
+\path (M) edge node {502} (KS);
+\path (M) edge node {167} (N);
+\path (MA) edge node {80} (KA);
+\path (N) edge node {183} (S);
+\path (N) edge node {103} (W);
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{tabular}{llllllllllll}
+\bf{Nr.}     & \bf{besucht} & \bf{A}       & \bf{E}       & \bf{F}       & \bf{KA}      & \bf{KS}      & \bf{M}       & \bf{MA}      & \bf{N}       & \bf{S}       & \bf{W}       \\
+\hline
+0            &              & $\infty$     & $\infty$     & $\infty$     & 0            & $\infty$     & $\infty$     & $\infty$     & $\infty$     & $\infty$     & $\infty$     \\
+1            & KA           & \bf{250}     & $\infty$     & $\infty$     & \bf{0}       & $\infty$     & $\infty$     & 80           & $\infty$     & $\infty$     & $\infty$     \\
+2            & MA           & |            & $\infty$     & 165          & |            & $\infty$     & $\infty$     & \bf{80}      & $\infty$     & $\infty$     & $\infty$     \\
+3            & F            & |            & $\infty$     & \bf{165}     & |            & 338          & $\infty$     & |            & $\infty$     & $\infty$     & 382          \\
+4            & A            & |            & $\infty$     & |            & |            & 338          & 334          & |            & $\infty$     & $\infty$     & 382          \\
+5            & M            & |            & $\infty$     & |            & |            & 338          & \bf{334}     & |            & 501          & $\infty$     & 382          \\
+6            & KS           & |            & $\infty$     & |            & |            & \bf{338}     & |            & |            & 501          & $\infty$     & 382          \\
+7            & W            & |            & 568          & |            & |            & |            & |            & |            & 485          & $\infty$     & \bf{382}     \\
+8            & N            & |            & 568          & |            & |            & |            & |            & |            & \bf{485}     & 668          & |            \\
+9            & E            & |            & \bf{568}     & |            & |            & |            & |            & |            & |            & 668          & |            \\
+10           & S            & |            & |            & |            & |            & |            & |            & |            & |            & \bf{668}     & |            \\
+\end{tabular}
+
+\noindent
+\begin{tabular}{llll}
+\bf{nach}                                                                           & \bf{Entfernung}                                                                     & \bf{Reihenfolge}                                                                    & \bf{Pfad}                                                                           \\
+\hline
+KA  $\rightarrow$  A                                                                & 250                                                                                 & 0                                                                                   & KA $\rightarrow$ A                                                                  \\
+KA  $\rightarrow$  E                                                                & 568                                                                                 & 9                                                                                   & KA $\rightarrow$ MA $\rightarrow$ F $\rightarrow$ W $\rightarrow$ E                 \\
+KA  $\rightarrow$  F                                                                & 165                                                                                 & 3                                                                                   & KA $\rightarrow$ MA $\rightarrow$ F                                                 \\
+KA  $\rightarrow$  KA                                                               & 0                                                                                   & 1                                                                                   &                                                                                     \\
+KA  $\rightarrow$  KS                                                               & 338                                                                                 & 6                                                                                   & KA $\rightarrow$ MA $\rightarrow$ F $\rightarrow$ KS                                \\
+KA  $\rightarrow$  M                                                                & 334                                                                                 & 5                                                                                   & KA $\rightarrow$ A $\rightarrow$ M                                                  \\
+KA  $\rightarrow$  MA                                                               & 80                                                                                  & 2                                                                                   & KA $\rightarrow$ MA                                                                 \\
+KA  $\rightarrow$  N                                                                & 485                                                                                 & 8                                                                                   & KA $\rightarrow$ MA $\rightarrow$ F $\rightarrow$ W $\rightarrow$ N                 \\
+KA  $\rightarrow$  S                                                                & 668                                                                                 & 10                                                                                  & KA $\rightarrow$ MA $\rightarrow$ F $\rightarrow$ W $\rightarrow$ N $\rightarrow$ S \\
+KA  $\rightarrow$  W                                                                & 382                                                                                 & 7                                                                                   & KA $\rightarrow$ MA $\rightarrow$ F $\rightarrow$ W                                 \\
+\end{tabular}
+
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Könnte man den Dijkstra Algorithmus auch benutzen, um das
+Travelling-Salesman Problem zu lösen?
+
+\end{enumerate}
+
+\end{document}

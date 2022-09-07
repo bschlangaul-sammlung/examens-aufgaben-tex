@@ -1,0 +1,87 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,mathe,automaten,syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Komplement der Binärzahl},
+  Thematik = {Vorlesungsaufgaben Komplement der Binärzahl},
+  Referenz = THEO.Formale-Sprachen.Typ-1_Kontextsensitiv.Turing-Maschine.Vorlesungsaufgaben-Komplement-Binaerzahl,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/30_Typ-1_Kontextsensitiv/Turing-Maschine/Aufgabe_Vorlesungsaufgaben-Komplement-Binaerzahl.tex,
+  ZitatSchluessel = theo:fs:3,
+  ZitatBeschreibung = {Seite 22},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextsensitive Sprache},
+}
+
+% Info_2021-04-23-2021-04-23_09.35.52 2h25min
+
+Gegeben ist eine Binärzahl auf dem Band einer Turingmaschine.
+\index{Kontextsensitive Sprache}
+\footcite[Seite 22]{theo:fs:3}
+
+\begin{enumerate}
+\item Definieren Sie vollständig eine TM, die das Komplement der
+Binärzahl ($0110 \rightarrow 1001$) berechnet. Die Überführungsfunktion
+kann als Tabelle oder als Graph angegeben werden.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li turingmaschine]
+  \node[state,initial,accepting] (z0) at (4.43cm,-5.71cm) {$z_0$};
+
+  \bTuringKante[above,loop above]{z0}{z0}{
+    0, 1, R;
+    1, 0, R;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ap9qtjgg7}
+
+\begin{minted}{md}
+name: Komplement Binärzahl
+init: z0
+accept: z0
+
+z0,0
+z0,1,>
+
+z0,1
+z0,0,>
+\end{minted}
+\bFussnoteUrl{http://turingmachinesimulator.com/shared/lqpsawxdeh}
+\end{bAntwort}
+
+\item Erweiteren Sie Ihre Maschine aus Aufgabe a) so, dass der
+Schreib-/Lesekopf auf dem ersten Zeichen der Eingabe terminiert.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li turingmaschine]
+  \node[state,initial] (z0) at (4.29cm,-6.14cm) {$z_0$};
+  \node[state] (z1) at (6.86cm,-6.14cm) {$z_1$};
+  \node[state,accepting] (z2) at (9.43cm,-6.14cm) {$z_2$};
+
+  \bTuringKante[above,loop above]{z0}{z0}{
+    0, 1, R;
+    1, 0, R;
+  }
+
+  \bTuringKante[above]{z0}{z1}{
+    LEER, LEER, L;
+  }
+
+  \bTuringKante[above]{z1}{z2}{
+    LEER, LEER, R;
+  }
+
+  \bTuringKante[above,loop above]{z1}{z1}{
+    1, 1, L;
+    0, 0, L;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{A5o7tug5r}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

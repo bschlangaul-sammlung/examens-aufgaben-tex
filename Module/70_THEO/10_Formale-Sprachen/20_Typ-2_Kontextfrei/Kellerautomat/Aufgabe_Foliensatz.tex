@@ -1,0 +1,91 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Kellerautomat},
+  Thematik = {an bn},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.Foliensatz,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_Foliensatz.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 23},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kellerautomat},
+}
+
+\let\m=\bMengeOhneMathe
+\def\z#1{z_#1}
+\def\Z#1{$z_#1$}
+
+Erstellen Sie einen Kellerautomaten, der folgende Sprache
+\index{Kellerautomat}
+\footcite[Seite 23]{theo:fs:2}
+
+\begin{center}
+\bAusdruck{a^n b^n}{n \in \mathbb{N}}
+\end{center}
+
+\noindent
+mit folgender Grammatik
+
+\begin{center}
+\bGrammatik{
+  variablen=S,
+  alphabet={a,b},
+  produktionen={S -> aSb | ab}
+}
+\end{center}
+
+\noindent
+erkennt.
+
+\begin{bAntwort}
+\begin{center}
+\bKellerAutomat{
+  zustaende={\z1, \z2},
+  alphabet={a, b},
+  kelleralphabet={\#, A},
+  start=\z1,
+  ende={\z2},
+}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z1) at (2cm,-2.14cm) {$z_1$};
+  \node[state,accepting] (z2) at (5.57cm,-2.14cm) {$z_2$};
+
+  \bKellerKante[above]{z1}{z2}{
+    b, A, EPSILON;
+    EPSILON, KELLERBODEN, EPSILON
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    a, A, AA;
+    a, KELLERBODEN, AKELLERBODEN
+  }
+
+  \bKellerKante[above,loop]{z2}{z2}{
+    b, A, EPSILON;
+    EPSILON, KELLERBODEN, EPSILON
+  }
+
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ah5v17t52}
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|}
+Aktueller Zustand &  Eingabe   & Keller & Folgezustand & Keller \\\hline
+\Z1               & a          & \#     & \Z1          & A\# \\
+\Z1               & a          & A      & \Z1          & AA \\
+\Z1               & b          & A      & \Z2          & $\varepsilon$ \\
+\Z2               & b          & A      & \Z2          & $\varepsilon$ \\
+\Z2               & $\varepsilon$ & \#     & \Z2          & \# \\
+\end{tabular}
+
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,365 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe,kontrollflussgraph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Methode „binToInt()“ und Kontrollflussgraph},
+  Referenz = 66116-2017-F.T2-TA2-A1,
+  RelativerPfad = Staatsexamen/66116/2017/03/Thema-2/Teilaufgabe-2/Aufgabe-1.tex,
+  ZitatSchluessel = sosy:ab:7,
+  ZitatBeschreibung = {Aufgabe 5 (Check-Up)},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontrollflussgraph, Zyklomatische Komplexität nach Mc-Cabe, Datenfluss-annotierter Kontrollflussgraph},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2017,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 1,
+}
+
+\let\c=\bKontrollCode
+
+Gegeben\footcite[Aufgabe 5 (Check-Up)]{sosy:ab:7} Sei folgende Methode und ihr Kontrollflussgraph:
+\footcite[Thema 2 Teilaufgabe 2 Aufgabe 1]{examen:66116:2017:03}
+\index{Kontrollflussgraph}
+
+\begin{minipage}{6cm}
+\bJavaDatei[firstline=4,lastline=21]{aufgaben/sosy/ab_7/Aufgabe5}
+%
+\end{minipage}
+%
+\begin{minipage}{4cm}
+\begin{bKontrollflussgraph}[xscale=1,yscale=-1.2]
+\node[knoten] at (0,0) (S) {S};
+\node[knoten] at (0,1) (1) {1};
+\node[knoten] at (0,2) (2) {2};
+\node[knoten] at (0,3) (3) {3};
+\node[knoten] at (-1.5,3) (4) {4};
+\node[knoten] at (0,4) (5) {5};
+\node[knoten] at (-1,5) (6) {6};
+\node[knoten] at (1,5) (7) {7};
+\node[knoten] at (0,6) (8) {8};
+\node[knoten] at (-2,6) (E) {E};
+
+\path (S) -- (1);
+\path[falsch] (1) -- (2) \bBedingungFalsch{right};
+\path (2) -- (3);
+\path[falsch] (3) -- (4) \bBedingungFalsch{below};
+\path (3) -- (5) \bBedingungWahr{right};
+\path[falsch] (5) -- (6) \bBedingungFalsch{right};
+\path (5) -- (7) \bBedingungWahr{right};
+\path (6) -- (8) \bBedingungWahr{right};
+\path (7) -- (8);
+\path[falsch] (6) -- (E) \bBedingungFalsch{right};
+\path (4) -- (E);
+\path (1) -- (-2,1) -- (E) \bBedingungWahr{left};
+\path (8) -- (2,6) -- (2,3) -- (3);
+\end{bKontrollflussgraph}
+\end{minipage}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie je einen Repräsentanten aller Pfadklassen im
+Kontrollflussgraphen an, die zum Erzielen einer vollständigen
+
+\begin{bAntwort}
+\begin{bKontrollflussgraph}[xscale=1,yscale=-1.2]
+\node[knoten] at (0,0) (S) {S};
+
+\node[knoten,pin={
+  \bJavaCode{if (bin.isEmpty())}
+}] at (0,1) (1) {1};
+
+\node[knoten,pin={
+  \bJavaCode{int place; int length}
+}] at (0,2) (2) {2};
+
+\node[knoten,pin={
+  [pin distance=2cm]
+  for-Bedingung \bJavaCode{i >= 0}}
+] at (0,3) (3) {3};
+
+\node[knoten,pin={
+  180:\bJavaCode{return value;}
+}] at (-1.5,3) (4) {4};
+
+\node[knoten,pin={
+  \bJavaCode{if (ch = '1')}
+}] at (0,4) (5) {5};
+
+\node[knoten,pin={
+  180:\bJavaCode{else if (ch = '0')}
+}] at (-1,5) (6) {6};
+
+\node[knoten,pin={
+  \bJavaCode{value += place;}
+}] at (1,5) (7) {7};
+
+\node[knoten,pin={
+  270:\bJavaCode{place *= 2; i--;}}
+] at (0,6) (8) {8};
+
+\node[knoten] at (-2,6) (E) {E};
+
+\path (S) -- (1);
+\path[falsch] (1) -- (2) \bBedingungFalsch{right};
+\path (2) -- (3);
+\path[falsch] (3) -- (4) \bBedingungFalsch{below};
+\path (3) -- (5) \bBedingungWahr{right};
+\path[falsch] (5) -- (6) \bBedingungFalsch{right};
+\path (5) -- (7) \bBedingungWahr{right};
+\path (6) -- (8) \bBedingungWahr{right};
+\path (7) -- (8);
+\path[falsch] (6) -- (E) \bBedingungFalsch{right};
+\path (4) -- (E);
+\path (1) -- (-2,1) -- (E) \bBedingungWahr{left};
+\path (8) -- (2,6) -- (2,3) -- (3);
+\end{bKontrollflussgraph}
+\end{bAntwort}
+
+\def\r#1{\textcolor{red}{#1}}
+\def\g#1{\textcolor{green}{#1}}
+
+\begin{enumerate}
+
+%%
+% (i)
+%%
+
+\item Verzweigungsüberdeckung
+
+\begin{bAntwort}
+\begin{description}
+\item[p1 (Pfad 1)] S 1 E
+\item[p2] S 1 2 3 4 E
+\item[p3] S 1 2 3 5 \r{7} 8 3 5 \g{6} 8 3 5 \g{6} E
+\end{description}
+\end{bAntwort}
+
+%%
+% (ii)
+%%
+
+\item Schleife-Inneres-Überdeckung
+
+\begin{bAntwort}
+\begin{description}
+\item[Äußere Pfade (äußere Pfade):]
+
+(ohne Ausführung der Wiederholung)
+
+\begin{description}
+\item[p1] S 1 E
+\item[p2] S 1 2 3 4 E
+\end{description}
+
+\item[Grenzpfade (boundary test)]
+
+(alle Pfade, die die Wiederholung betreten, aber nicht wiederholen;
+innerhalb des Schleifenrumpfes alle Pfade!)
+
+\begin{description}
+\item[p4] S 1 2 3 5 \g{6} E
+\end{description}
+
+\item[Innere Pfade (interior test)]
+
+(alle Pfade mit \emph{einer Wiederholung des Schleifenrumpfes};
+innerhalb des Schleifenrumpfes wieder alle Pfade!)
+
+\begin{description}
+\item[p5] S 1 2 3 5 \r{7} 8 3 5 \r{7} 8 3 4 E
+\item[p6] S 1 2 3 5 \r{7} 8 3 5 \g{6} 8 3 4 E
+\item[p7] S 1 2 3 5 \g{6} 8 3 5 \g{6} 8 3 4 E
+\item[p8] S 1 2 3 5 \g{6} 8 3 5 \r{7} 8 3 4 E
+\item[p9] S 1 2 3 5 \r{7} 8 3 5 \r{7} 8 3 5 \g{6} E
+\item[p10 = p3] S 1 2 3 5 \r{7} 8 3 5 \g{6} 8 3 5 \g{6} E
+\item[p11] S 1 2 3 5 \g{6} 8 3 5 \g{6} 8 3 5 \g{6} E
+\item[p12] S 1 2 3 5 \g{6} 8 3 5 \r{7} 8 3 5 \g{6} E
+\end{description}
+\end{description}
+\end{bAntwort}
+\end{enumerate}
+
+mit minimaler Testfallanzahl genügen würden.
+
+%%
+% (b)
+%%
+
+\item Welche der vorangehend ermittelten Pfade sind mittels Testfälle
+tatsächlich überdeckbar („feasible“)? Falls der Pfad ausführbar ist,
+geben Sie bitte den Testfall an, andernfalls begründen Sie kurz,
+weshalb der Pfad nicht überdeckbar ist.
+
+\begin{bAntwort}
+Erweitere Methode, die die Knotennamen ausgibt:
+
+\bJavaDatei[firstline=23]{aufgaben/sosy/ab_7/Aufgabe5}
+
+Alle mit Ausnahme von p2.
+
+\textbf{p2} ist nicht überdeckbar. Passiert ein Wert der Variable
+\bJavaCode{bin} die erste if-Verzweigung, dann hat der Wert eine Länge größer
+0 und betritt deshalb die Wiederholung mit fester Anzahl.
+
+\begin{tabular}{lll}
+p1 &
+S 1 E &
+\bJavaCode{binToInt("");} \\
+
+p2 &
+S 1 2 3 4 E &
+not feasible \\
+
+p3 &
+S 1 2 3 5 \r{7} 8 3 5 \g{6} 8 3 5 \g{6} E &
+\bJavaCode{binToInt("x01");} \\
+
+p4 &
+S 1 2 3 5 \g{6} E  &
+\bJavaCode{binToInt("x");} \\
+
+p5 &
+S 1 2 3 5 \r{7} 8 3 5 \r{7} 8 3 4 E &
+\bJavaCode{binToInt("11");} \\
+
+p6 &
+S 1 2 3 5 \r{7} 8 3 5 \g{6} 8 3 4 E &
+\bJavaCode{binToInt("01");} \\
+
+p7 &
+S 1 2 3 5 \g{6} 8 3 5 \g{6} 8 3 4 E &
+\bJavaCode{binToInt("00");} \\
+
+p8 &
+S 1 2 3 5 \g{6} 8 3 5 \r{7} 8 3 4 E &
+\bJavaCode{binToInt("10");} \\
+
+p9 &
+S 1 2 3 5 \r{7} 8 3 5 \r{7} 8 3 5 \g{6} E &
+\bJavaCode{binToInt("x11");} \\
+
+p10 = p3 &
+S 1 2 3 5 \r{7} 8 3 5 \g{6} 8 3 5 \g{6} E &
+\bJavaCode{binToInt("x01");} \\
+
+p11 &
+S 1 2 3 5 \g{6} 8 3 5 \g{6} 8 3 5 \g{6} E &
+\bJavaCode{binToInt("x00");} \\
+
+p12 &
+S 1 2 3 5 \g{6} 8 3 5 \r{7} 8 3 5 \g{6} E &
+\bJavaCode{binToInt("x10");} \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Bestimmen Sie anhand des Kontrollflussgraphen die maximale Anzahl
+linear unabhängiger Programmpfade, also die zyklomatische Komplexität
+nach Mc-Cabe.\index{Zyklomatische Komplexität nach Mc-Cabe}
+
+\begin{bAntwort}
+\begin{description}
+\item[Binärverzweigungen] 4
+\item[Knoten] 10
+\item[Kanten] 13
+\end{description}
+
+\noindent
+Anhand der Binärverzweigungen:
+
+\begin{align*}
+M
+&= b + p \\
+&= 4 + 1 \\
+&= 5
+\end{align*}
+
+\noindent
+oder durch Anzahl Kanten $e$ und Knoten $n$
+
+\begin{align*}
+M
+&= e - n + 2p \\
+&= 13 - 10 + 2 \cdot 1 \\
+&= 5
+\end{align*}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Kann für dieses Modul eine 100\%-ige Pfadüberdeckung erzielt
+werden? Begründen Sie kurz Ihre Antwort.
+
+\begin{bAntwort}
+Nein, da \textbf{p2} nicht überdeckbar ist.
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Geben Sie zu jedem Knoten die jeweilige
+Datenfluss-Annotation\index{Datenfluss-annotierter Kontrollflussgraph}
+(\texttt{defs} bzw. \texttt{uses}) für jede betroffene Variable in der
+zeitlichen Reihenfolge ihres AuftreteS zur Laufzeit an.
+
+\begin{bAntwort}
+\begin{bKontrollflussgraph}[xscale=1,yscale=-1.2]
+\node[knoten] at (0,0) (S) {S};
+\node[knoten] at (0,1) (1) {1};
+\node[knoten] at (0,2) (2) {2};
+\node[knoten] at (0,3) (3) {3};
+\node[knoten] at (-1.5,3) (4) {4};
+\node[knoten] at (0,4) (5) {5};
+\node[knoten] at (-1,5) (6) {6};
+\node[knoten] at (1,5) (7) {7};
+\node[knoten] at (0,6) (8) {8};
+\node[knoten] at (-2,6) (E) {E};
+
+\path (S) -- (1);
+\path[falsch] (1) -- node[draw=none,name=12]{} (2);
+\path (2) -- (3);
+\path[falsch] (3) -- node[draw=none,name=34]{} (4);
+\path (3) -- node[draw=none,name=35]{} (5);
+\path[falsch] (5) -- node[draw=none,name=56]{} (6);
+\path (5) -- node[draw=none,name=57]{} (7);
+\path (6) -- node[draw=none,name=68]{} (8);
+\path (7) -- (8);
+\path[falsch] (6) -- node[draw=none,name=6E]{} (E);
+\path (4) -- (E);
+\path (1) -- node[draw=none,name=1E]{} (-2,1) -- (E);
+\path (8) -- (1.5,6) -- (1.5,3) -- (3);
+
+\node[usebox] at (2,0) {def(bin)} edge[dashed] (S);
+\node[usebox] at (2,2) {def(place), def(value)\\def(length), c-use(bin)} edge[dashed] (2);
+\node[usebox] at (2,3) {def(i), c-use(length)} edge[dashed] (3);
+\node[usebox,anchor=east] at (-2.5,3) {c-use(value)} edge[dashed] (4);
+\node[usebox] at (2,4) {def(ch), c-use(bin)} edge[dashed] (5);
+\node[usebox] at (2,6) {def(value), c-use(place)} edge[dashed] (7);
+\node[usebox,anchor=north] at (0,7) {def(place), c-use(place)} edge[dashed] (8);
+\node[usebox,anchor=north] at (-3.5,7) {c-use(value)} edge[dashed] (E);
+
+\node[usebox] at (-3,0) {p-use(bin)} edge[dashed] (12.center) edge[dashed] (1E.center);
+\node[usebox,anchor=west] at (-4,1) {p-use(length)} edge[dashed] (34.center) edge[dashed] (35.center);
+\node[usebox,anchor=west] at (2,4.8) {p-use(ch)} edge[dashed] (56.center) edge[dashed] (57.center);
+\node[usebox] at (-4.5,4.5) {p-use(ch)} edge[dashed] (68.center) edge[dashed] (6E.center);
+
+\end{bKontrollflussgraph}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

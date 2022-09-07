@@ -1,0 +1,169 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,kontrollflussgraph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Sort-Methode und datenflussorientierte Überdeckungskritierien},
+  Referenz = 66116-2016-H.T1-TA2-A3,
+  RelativerPfad = Staatsexamen/66116/2016/09/Thema-1/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = sosy:ab:7,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Datenflussorientiertes Testen, Bubblesort, Datenfluss-annotierter Kontrollflussgraph, Zyklomatische Komplexität nach Mc-Cabe, C1-Test Zweigüberdeckung (Branch Coverage), all uses},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2016,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\let\c=\bKontrollCode
+\let\w=\bBedingungWahr
+\let\f=\bBedingungFalsch
+
+Gegeben\index{Datenflussorientiertes Testen}
+\footcite{sosy:ab:7} Sei folgende Java-Methode \bJavaCode{sort} zum Sortieren eines Feldes
+ganzer Zahlen:
+\footcite[Thema 1 Teilaufgabe 2 Aufgabe 3]{examen:66116:2016:09}
+
+\bJavaExamen[firstline=4]{66116}{2016}{09}{BubbleSort}
+\index{Bubblesort}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Konstruieren Sie den
+Kontrollflussgraphen\index{Datenfluss-annotierter Kontrollflussgraph}
+des obigen Code-Fragments und annotieren Sie an den Knoten und Kanten
+die zugehörigen Datenflussinformationen (Definitionen bzw. berechnende
+oder prädikative Verwendung von Variablen).
+
+\begin{bAntwort}
+\begin{bKontrollflussgraph}[xscale=1.5,yscale=-1.2]
+\node[
+  pin={\c{boolean swapped; int swapTmp; int[] = (int[]) array.clone()}}
+] at (0,1) (1) {1};
+
+\node[
+  pin={180:\c{do; swapped = false; int index = 0;}}
+] at (0,2) (2) {2};
+
+\node[
+  pin={[pin distance=1.5cm]\c{for}}
+] at (1,3) (3) {3};
+
+\node[
+  pin={\c{if (newArray[index] > newArray[index + 1])}}
+] at (2,4) (4) {4};
+
+\node[
+  pin={\c{swapTmp = newArray[]; ... swapped = true;)}}
+] at (2,5) (5) {5};
+
+\node[
+  pin={\c{i++}}
+] at (1,6) (6) {6};
+
+\node[
+  pin={\c{while (swapped))}}
+] at (0,7) (7) {7};
+
+\node[
+  pin={\c{return newArray;)}}
+] at (0,8) (8) {8};
+
+\path (1) -- (2);
+\path (2) -- (3);
+\path[wahr] (3) -- node[draw=none,name=34]{} (4);
+\path[falsch] (3) -- node[draw=none,name=37]{} (7);
+\path[wahr] (4) -- node[draw=none,name=45]{} (5);
+\path[falsch] (4) -- node[draw=none,name=46]{} (6);
+\path (5) -- (6);
+\path (6) -- (3);
+\path (6) -- (7);
+\path[wahr] (7) -- node[draw=none,name=72]{} (2);
+\path[falsch] (7) -- node[draw=none,name=78]{} (8);
+
+\node[usebox] at (0,0) {
+  def(array, swapped, swapTmp)\\
+  c-use(array)\\
+  def(newArray)
+} edge[dashed] (1);
+
+\node[usebox] at (-3,1) {
+  def(swapped, index)
+} edge[dashed] (2);
+
+\node[usebox] at (1,2) {p-use(index, newArray)} edge[dashed] (34) edge[dashed] (37);
+
+\node[usebox] at (3,4.5) {p-use(newArray, index)} edge[dashed] (45) edge[dashed] (46);
+
+\node[usebox] at (2,7) {
+  c-use(index,newArray)\\
+  def(swapTmp)\\
+  c-use(index,newArray)\\
+  def(newArray)\\
+  c-use(swapTmp,index)\\
+  def(newArray,swapped)\\
+  c-use(index)\\
+  def(index)
+} edge[dashed] (5);
+
+\node[usebox] at (-2,6) {p-use(swapped)} edge[dashed] (72) edge[dashed] (78);
+
+\node[usebox] at (0,9) {c-use(newArray)} edge[dashed] (8);
+
+\end{bKontrollflussgraph}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Nennen Sie die maximale Anzahl linear unabhängiger Programmpfade,
+also die zyklomatische Komplexität nach McCabe.\index{Zyklomatische
+Komplexität nach Mc-Cabe}
+
+\begin{bAntwort}
+Der Graph hat 8 Knoten und 10 Kanten. Daher ist die zyklomatische
+Komplexität nach McCabe gegeben durch 10 - 8 + 2 = 4.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Geben Sie einen möglichst kleinen Testdatensatz an, der eine
+100\%-ige Verzweigungsüberdeckung dieses Moduls erzielt.\index{C1-Test
+Zweigüberdeckung (Branch Coverage)}
+
+\begin{bAntwort}
+Die Eingabe muss mindestens ein Feld der Länge 3 sein. Ansonsten wäre
+das Feld schon sortiert bzw. bräuchte nur eine Vertauschung und die
+innere if-Bedingung wäre nicht zu 100\% überdeckt. Daher wählt man
+beispielsweise array = [1,3,2].
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Beschreiben Sie kurz, welche Eigenschaften eine Testfallmenge
+allgemein haben muss, damit das datenflussorientierte
+Überdeckungskriterium „all-uses“\index{all uses} erfüllt.
+
+\begin{bAntwort}
+Das Kriterium all-uses ist das Hauptkriterium des datenﬂussorientierten
+Testens, denn es testet den kompletten prädikativen und berechnenden
+Datenﬂuss. Konkret: von jedem Knoten mit einem globalen def(x) einer
+Variable x existiert ein deﬁnitions-freier Pfad bzgl. x (def-clear(x))
+zu jedem erreichbaren Knoten mit einem c-use(x) oder p-use(x)).
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

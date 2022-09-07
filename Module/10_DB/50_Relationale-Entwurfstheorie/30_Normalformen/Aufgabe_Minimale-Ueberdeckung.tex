@@ -1,0 +1,59 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Minimale Überdeckung},
+  Thematik = {Minimale Überdeckung},
+  Referenz = DB.Relationale-Entwurfstheorie.Normalformen.Minimale-Ueberdeckung,
+  RelativerPfad = Module/10_DB/50_Relationale-Entwurfstheorie/30_Normalformen/Aufgabe_Minimale-Ueberdeckung.tex,
+  ZitatSchluessel = db:ab:5,
+  ZitatBeschreibung = {Seite 1, Aufgabe 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kanonische Überdeckung},
+}
+
+\let\fa=\bFunktionaleAbhaengigkeit
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\ah=\bAttributHuelle
+\let\m=\bAttributMenge
+
+Gegeben ist die Menge \FA[$F$]{
+  A -> B, C;
+  C -> D, A;
+  E -> A, C;
+  C, D -> B, E;
+}. Bestimmen Sie eine minimale Überdeckung von $F$.
+\index{Kanonische Überdeckung}
+\footcite[Seite 1, Aufgabe 2]{db:ab:5}
+
+\begin{bAntwort}
+
+\begin{enumerate}
+\item Linksreduktion
+
+$\ah{F, \m{D}} = \m{D}$ \\
+$\ah{F, \m{C}} = \m{C, D, A, B, E}$ \\
+
+\FA[$F'$]{
+  A -> B, C;
+  C -> D, A;
+  E -> A, C;
+  C -> B, E;
+}
+
+\item Rechtsreduktion
+
+$\ah{F - \fa{A -> B, C}, \m{A}} = \m{A}$ \\
+$\ah{F - \m{C \rightarrow DA}, \m{C}} = \m{C, B, E, A}$ \\
+$\ah{F - \m{E \rightarrow AC}, \m{E}} = \m{E}$ \\
+$\ah{F - \m{C \rightarrow BE}, \m{C}} = \m{C, D, A, B}$ \\
+Keine Rechtsreduktion möglich
+
+schon minimal
+
+\end{enumerate}
+
+\end{bAntwort}
+\end{document}

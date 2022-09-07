@@ -1,0 +1,201 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Spannbaum},
+  Thematik = {Minimaler Spannbaum A-H},
+  Referenz = AUD.Graphen.Spannbaume.Minimaler-Spannbaum-A-H,
+  RelativerPfad = Module/30_AUD/90_Graphen/20_Spannbaume/Aufgabe_Minimaler-Spannbaum-A-H.tex,
+  ZitatSchluessel = aud:e-klausur,
+  ZitatBeschreibung = {Aufgabe 6},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Minimaler Spannbaum, Algorithmus von Prim},
+}
+
+Ermitteln Sie einen minimalen Spannbaum des vorliegenden Graphen. Nutzen
+Sie den \emph{Knoten A als Startknoten} in ihrem Algorithmus.
+\index{Minimaler Spannbaum}
+\footcite[Aufgabe 6]{aud:e-klausur}
+
+\begin{bGraphenFormat}
+A: 0 5
+B: 8 5
+C: 4 4
+D: 2 3
+E: 6 3
+F: 4 1
+G: 0 0
+H: 8 0
+A -- B: 5
+A -- C: 8
+A -- D: 7
+A -- G
+B -- C: 2
+B -- E: 7
+B -- H: 2
+C -- D
+C -- E: 3
+C -- F: 6
+D -- F: 2
+D -- G: 8
+E -- H: 6
+F -- E: 5
+F -- H: 3
+G -- F: 5
+G -- H: 4
+\end{bGraphenFormat}
+
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (A) at (0,5) {A};
+\node (B) at (8,5) {B};
+\node (C) at (4,4) {C};
+\node (D) at (2,3) {D};
+\node (E) at (6,3) {E};
+\node (F) at (4,1) {F};
+\node (G) at (0,0) {G};
+\node (H) at (8,0) {H};
+
+\path (A) edge node {5} (B);
+\path (A) edge node {8} (C);
+\path (A) edge node {7} (D);
+\path (A) edge node {1} (G);
+\path (B) edge node {2} (C);
+\path (B) edge node {7} (E);
+\path (B) edge node {2} (H);
+\path (C) edge node {1} (D);
+\path (C) edge node {3} (E);
+\path (C) edge node {6} (F);
+\path (D) edge node {2} (F);
+\path (D) edge node {8} (G);
+\path (E) edge node {6} (H);
+\path (F) edge node {5} (E);
+\path (F) edge node {3} (H);
+\path (G) edge node {5} (F);
+\path (G) edge node {4} (H);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+\item Welches Gewicht hat der Spannbaum insgesamt?
+
+\begin{bAntwort}
+Das Kantengewicht des minimalen Spannbaums beträgt $15$.
+
+Wir setzen den Algorithmus von Prim ein. Der Algorithmus läuft folgendermaßen ab:
+
+\begin{verbatim}
+Besuche Knoten „A“
+Füge Kante (A, B, 5) hinzu
+Füge Kante (A, C, 8) hinzu
+Füge Kante (A, D, 7) hinzu
+Füge Kante (A, G, 1) hinzu
+
+Besuche Knoten „G“
+Füge Kante (G, F, 5) hinzu
+Füge Kante (G, H, 4) hinzu
+
+Besuche Knoten „H“
+Aktualisiere Kante (H, B, 2)
+Füge Kante (H, E, 6) hinzu
+Aktualisiere Kante (H, F, 3)
+
+Besuche Knoten „B“
+Aktualisiere Kante (B, C, 2)
+
+Besuche Knoten „C“
+Aktualisiere Kante (C, D, 1)
+Aktualisiere Kante (C, E, 3)
+
+Besuche Knoten „D“
+Aktualisiere Kante (D, F, 2)
+
+Besuche Knoten „F“
+
+Besuche Knoten „E“
+\end{verbatim}
+
+\begin{tabular}{ll}
+\bf{schwarze} & \bf{graue} \\
+\hline
+(A, null, 0) & (B, A, 5); (C, A, 8); (D, A, 7); (G, A, 1);  \\
+(G, A, 1) & (B, A, 5); (C, A, 8); (D, A, 7); (F, G, 5); (H, G, 4);  \\
+(H, G, 4) & (B, H, 2); (C, A, 8); (D, A, 7); (E, H, 6); (F, H, 3);  \\
+(B, H, 2) & (C, B, 2); (D, A, 7); (E, H, 6); (F, H, 3);  \\
+(C, B, 2) & (D, C, 1); (E, C, 3); (F, H, 3);  \\
+(D, C, 1) & (E, C, 3); (F, D, 2);  \\
+(F, D, 2) & (E, C, 3);  \\
+(E, C, 3) &   \\
+\end{tabular}
+
+\begin{bGraphenFormat}
+A: 0 5
+B: 8 5
+C: 4 4
+D: 2 3
+E: 6 3
+F: 4 1
+G: 0 0
+H: 8 0
+A -- B: 5
+A -- C: 8
+A -- D: 7
+A -- G*
+B -- C*: 2
+B -- E: 7
+B -- H*: 2
+C -- D*
+C -- E*: 3
+C -- F: 6
+D -- F*: 2
+D -- G: 8
+E -- H: 6
+F -- E: 5
+F -- H: 3
+G -- F: 5
+G -- H*: 4
+\end{bGraphenFormat}
+
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (A) at (0,5) {A};
+\node (B) at (8,5) {B};
+\node (C) at (4,4) {C};
+\node (D) at (2,3) {D};
+\node (E) at (6,3) {E};
+\node (F) at (4,1) {F};
+\node (G) at (0,0) {G};
+\node (H) at (8,0) {H};
+
+\path (A) edge node {5} (B);
+\path (A) edge node {8} (C);
+\path (A) edge node {7} (D);
+\path[li markierung] (A) edge node {1} (G);
+\path[li markierung] (B) edge node {2} (C);
+\path (B) edge node {7} (E);
+\path[li markierung] (B) edge node {2} (H);
+\path[li markierung] (C) edge node {1} (D);
+\path[li markierung] (C) edge node {3} (E);
+\path (C) edge node {6} (F);
+\path[li markierung] (D) edge node {2} (F);
+\path (D) edge node {8} (G);
+\path (E) edge node {6} (H);
+\path (F) edge node {5} (E);
+\path (F) edge node {3} (H);
+\path (G) edge node {5} (F);
+\path[li markierung] (G) edge node {4} (H);
+\end{tikzpicture}
+\end{center}
+
+\end{bAntwort}
+
+\item Welchen Algorithmus haben Sie zur Ermittlung eingesetzt?
+\index{Algorithmus von Prim}
+\begin{bAntwort}
+Algorithmus von Prim. Dieser Algorithmus benötigt einen Startknoten.
+
+\end{bAntwort}
+\end{enumerate}
+\end{document}

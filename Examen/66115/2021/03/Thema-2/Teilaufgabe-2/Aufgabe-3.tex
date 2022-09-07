@@ -1,0 +1,128 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Binärbäume},
+  Referenz = 66115-2021-F.T2-TA2-A3,
+  RelativerPfad = Staatsexamen/66115/2021/03/Thema-2/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\begin{enumerate}
+\item Betrachten Sie folgenden Binärbaum T.
+\index{Binärbaum}
+\footcite{examen:66115:2021:03}
+
+Geben Sie die Schlüssel der Knoten in der Reihenfolge an, wie sie von
+einem Preorder-Durchlauf (= TreeWalk) von T ausgegeben werden.
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.14
+  [.15
+    [.98
+      [.3
+        \edge[blank]; \node[blank]{};
+        [.4 ]
+      ]
+      \edge[blank]; \node[blank]{};
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.25
+    [.33
+      \edge[blank]; \node[blank]{};
+      [.19 ]
+    ]
+    [.18
+      [.26 ]
+      [.17 ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bExkurs}[Preorder-Traversierung eines Baum]
+
+besuche die Wurzel, dann den linken Unterbaum, dann den rechten
+Unterbaum; auch: WLR
+
+\bJavaDatei[firstline=62,lastline=68]{baum/BinaerBaum}
+\end{bExkurs}
+
+\begin{bAntwort}
+14, 15, 98, 3, 4, 25, 33, 19, 18, 26, 17
+\end{bAntwort}
+
+\item Betrachten Sie folgende Sequenz als Ergebnis eines
+Preorder-Durchlaufs eines binären Suchbaumes $T$. Zeichnen Sie $T$ und
+erklären Sie, wie Sie zu Ihrer Schlussfolgerung gelangen.
+
+\begin{center}
+[8,7,4,2,1,3,5,6,10,9,11]
+\end{center}
+
+\textbf{Hinweis:} Welcher Schlüssel ist die Wurzel von $T$? Welche
+Knoten sind in seinem linken/rechten Teilbaum gespeichert? Welche
+Schlüssel sind die Wurzeln der jeweiligen Teilbäume?
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.8
+  [.7
+    [.4
+      [.2
+        [.1 ]
+        [.3 ]
+      ]
+      [.5
+        \edge[blank]; \node[blank]{};
+        [.6 ]
+      ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.10
+    [.9 ]
+    [.11 ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\item Anstelle von sortierten Zahlen soll ein Baum nun verwendet werden,
+um relative Positionsangaben zu speichern. Jeder Baumknoten enthält eine
+Beschriftung und einen Wert (vgl. Abb. 1), der die ganzzahlige relative
+Verschiebung in horizontaler Richtung gegenüber seinem Elternknoten
+angibt. Die zu berechnenden Koordinaten für einen Knoten ergeben sich
+aus seiner Tiefe im Baum als $y$-Wert und aus der Summe aller
+Verschiebungen auf dem Pfad zur Wurzel als $x$-Wert. Das Ergebnis der
+Berechnung ist in Abb. 2 visualisiert. Geben Sie einen Algorithmus mit
+linearer Laufzeit in Pseudo-Code oder einer objektorientierten
+Programmiersprache Ihrer Wahl an. Der Algorithmus erhält den Zeiger auf
+die Wurzel eines Baumes als Eingabe und soll Tupel mit den berechneten
+Koordination aller Knoten des Baums in der Form (Beschriftung, $x$, $y$)
+zurück- oder ausgeben.
+
+\begin{bAntwort}
+\bJavaExamen{66115}{2021}{03}{Knoten}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

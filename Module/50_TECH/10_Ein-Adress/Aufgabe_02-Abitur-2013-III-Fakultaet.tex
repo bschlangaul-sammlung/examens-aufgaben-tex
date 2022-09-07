@@ -1,0 +1,85 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,spalten,struktogramm}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Abitur 2013 III},
+  Thematik = {Abitur 2013 III},
+  Referenz = TECH.Ein-Adress.02-Abitur-2013-III-Fakultaet,
+  RelativerPfad = Module/50_TECH/10_Ein-Adress/Aufgabe_02-Abitur-2013-III-Fakultaet.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Ein-Adress-Befehl-Assembler},
+}
+
+% zurückbekommen und korrigiert 5.2.2021
+
+\begin{enumerate}
+
+%%
+% 2a)
+%%
+
+\item Vollziehen Sie das nachfolgende Assembler-Programm schrittweise
+nach, indem Sie angeben, welche Werte nach jedem Befehl in den
+Speicherzellen $101$, $102$ und im Akkumulator stehen, wenn zu Beginn
+$101$ mit $5$ und $102$ mit $18$ vorbelegt ist.
+\index{Ein-Adress-Befehl-Assembler}
+
+\bAssemblerDatei{Aufgabe_02-Abitur-2013-III-Fakultaet-a.mia}
+
+\begin{bAntwort}
+\begin{tabular}{|l|l|l|l|}
+                                &      & \multicolumn{2}{l|}{Speicherzellen} \\\hline
+Befehl                          & Akk. & 101 & 102 \\\hline\hline
+                                &    & 5 & 18 \\
+\bAssemblerCode{LOAD 102}      & 18 & 5 & 18 \\
+\bAssemblerCode{DIV 101}       & 3  & 5 & 18 \\
+\bAssemblerCode{MUL 101 }      & 15 & 5 & 18 \\
+\bAssemblerCode{SUB 102}       & -3 & 5 & 18 \\
+\bAssemblerCode{JMPZ acht}     & -3 & 5 & 18 \\
+\bAssemblerCode{LOADI 0}       & 0  & 5 & 18 \\
+\bAssemblerCode{JMP neun}      & 0  & 5 & 18 \\
+\bAssemblerCode{acht: LOADI 1} & 0  & 5 & 18 \\
+\bAssemblerCode{neun: END}     & 0  & 5 & 18 \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% 2b)
+%%
+
+\newpage
+
+\item Übersetzen Sie das nachfolgende Struktogramm zur Berechnung der
+Fakultät von $n$ in ein Assemblerprogramm. Verwenden Sie die Variable
+$erg$ die Speicherzelle $201$ und für die Variable $n$ die Speicherzelle
+$202$.
+
+\begin{center}
+\begin{struktogramm}(90,30)
+\assign{$erg = 1$}
+\while{wiederhole solange $n > 0$}
+\assign{$erg = erg \cdot n$}
+\assign{$n = n - 1$}
+\whileend
+\end{struktogramm}
+\end{center}
+
+\begin{bAntwort}
+\begin{multicols}{2}
+\bPseudoUeberschrift{Assembler}
+
+\bAssemblerDatei{Aufgabe_02-Abitur-2013-III-Fakultaet-b.mia}
+
+\columnbreak
+
+\bPseudoUeberschrift{Minisprache}
+
+\bMinispracheDatei{Aufgabe_02-Abitur-2013-III-Fakultaet-b.mis}
+\end{multicols}
+\bigskip
+\end{bAntwort}
+\end{enumerate}
+\end{document}

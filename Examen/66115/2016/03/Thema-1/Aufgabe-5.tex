@@ -1,0 +1,76 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{komplexitaetstheorie}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Komplexität},
+  Thematik = {k-COL},
+  Referenz = 66115-2016-F.T1-A5,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66115:2016:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Polynomialzeitreduktion},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 5,
+}
+
+\let\n=\bProblemName
+\let\r=\bPolynomiellReduzierbar
+
+% Info_2021-06-11-2021-06-11_09.38.05.mp4
+% 45min
+
+Das Problem k-COL ist wie folgt definiert:
+\index{Polynomialzeitreduktion}
+\footcite{examen:66115:2016:03}
+
+\bProblemBeschreibung
+{k-Col}
+{Ein ungerichteter Graph $G = (V, E)$.}
+{Kann man jedem Knoten $v$ in $V$ eine Zahl $z(v) \in \{1, \dots ,k\}$
+zuordnen, so dass für alle Kanten $(u_1,u_2) \in E$ gilt: $z(u_1) \neq
+z(u_2)?$}
+
+\noindent
+Zeigen Sie, dass man \n{3-Col} in polynomieller Zeit auf \n{4-Col}
+reduzieren kann. Beschreiben Sie dazu die Reduktion und zeigen Sie
+anschließend ihre Korrektheit.
+
+\begin{bAntwort}
+Zu Zeigen: \bPolynomiellReduzierbar{3-COL}{4-Col}
+
+\noindent
+also \n{4-Col} ist mindestens so schwer wie \n{3-COL} Eingabeinstanz von
+\n{3-COL} durch eine Funktion in eine Eingabeinstanz von \n{4-Col}
+umbauen so, dass jede JA- bzw. NEIN-Instanz von \n{3-COL} eine JA- bzw.
+NEIN-Instanz von \n{4-Col} ist.
+\footcite[Seite 67]{theo:fs:4}
+
+Funktion ergänzt einen beliebigen gegebenen Graphen um einen
+weiteren Knoten, der mit allen Knoten des ursprünglichen Graphen
+durch eine Kante verbunden ist.
+
+\begin{description}
+\item[total]
+
+ja
+
+\item[in Polynomialzeit berechenbar]
+
+ja
+(Begründung: \zB Adjazenzmatrix $\rightarrow$ neue Spalte)
+
+\item[Korrektheit:]
+
+ja
+
+Färbe den „neuen“ Knoten mit einer Farbe. Da er mit allen anderen Knoten
+verbunden ist, bleiben für die übrigen Knoten nur drei Farben.
+\footcite[Seite 69]{theo:fs:4}
+\end{description}
+\end{bAntwort}
+\end{document}

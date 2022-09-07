@@ -1,0 +1,435 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {Binärbaum, Halde, AVL},
+  Referenz = 66115-2017-H.T2-A8,
+  RelativerPfad = Staatsexamen/66115/2017/09/Thema-2/Aufgabe-8.tex,
+  ZitatSchluessel = examen:66115:2017:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt und überprüft,
+  Ueberprueft = {mit einer Dozentenlösung abgeglichen},
+  Stichwoerter = {AVL-Baum, Halde (Heap), Binärbaum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2017,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 8,
+}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Fügen\index{AVL-Baum}
+\index{Halde (Heap)}
+\footcite{examen:66115:2017:09} Sie die Zahlen $13$, $12$, $42$, $3$,
+$11$ in der gegebenen Reihenfolge in einen zunächst leeren binären
+Suchbaum mit aufsteigender Sortierung ein. Stellen Sie nur das
+Endergebnis dar.\index{Binärbaum}
+\footcite[Aufgabe 2]{aud:ab:5}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.13
+  [.12
+    [.3
+      \edge[blank]; \node[blank]{};
+      [.11 ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.42 ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Löschen Sie den Wurzelknoten mit Wert $42$ aus dem folgenden
+\emph{binären} Suchbaum mit aufsteigender Sortierung und ersetzen Sie
+ihn dabei durch einen geeigneten Wert aus dem \emph{rechten} Teilbaum.
+Lassen Sie möglichst viele Teilbäume unverändert und erhalten Sie die
+Suchbaumeigenschaft.
+\footcite[Seite 12]{examen:66115:2017:09}
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.42
+  [.13
+    \edge[blank]; \node[blank]{};
+    [.28 ]
+  ]
+  [.66
+    [.50
+      \edge[blank]; \node[blank]{};
+      [.61
+        [.55 ]
+        \edge[blank]; \node[blank]{};
+      ]
+    ]
+    [.99 ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+% 42 13 66 28 50 99 61 55 lösche 50
+
+\begin{bAntwort}
+\begin{minipage}{0.5\linewidth}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node(root){\textbf{42}};
+  [.13
+    \edge[blank]; \node[blank]{};
+    [.28 ]
+  ]
+  [.\node(66){66};
+    [.\node(replacement){\textbf{50}};
+      \edge[blank]; \node[blank]{};
+      [.\node(61){61};
+        [.55 ]
+        \edge[blank]; \node[blank]{};
+      ]
+    ]
+    [.99 ]
+  ]
+]
+\draw[dotted,->] (replacement) -- (root);
+\draw[dotted,<-] (66) -- (61);
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\textbf{50}
+  [.13
+    \edge[blank]; \node[blank]{};
+    [.28 ]
+  ]
+  [.66
+    [.61
+      [.55 ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.99 ]
+  ]
+]
+\end{tikzpicture}
+\end{minipage}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Fügen Sie einen neuen Knoten mit dem Wert $13$ in die folgende
+Min-Halde ein und stellen Sie anschließend die Halden-Eigenschaft vom
+neuen Blatt aus beginnend wieder her, wobei möglichst viele Knoten der
+Halde unverändert bleiben und die Halde zu jedem Zeitpunkt
+links-vollständig sein soll. Geben Sie nur das Endergebnis an.
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.3
+  [.19
+    [.28
+      [.42 ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.24 ]
+  ]
+  [.7
+    [.11 ]
+    [.12 ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+\begin{bAntwort}
+
+\begin{bBaum}{Nach dem Einfügen von „13“}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.3
+  [.19
+    [.28
+      [.42 ]
+      [.13 ]
+    ]
+    [.24 ]
+  ]
+  [.7
+    [.11 ]
+    [.12 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „13“ und „28“}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.3
+  [.19
+    [.13
+      [.42 ]
+      [.28 ]
+    ]
+    [.24 ]
+  ]
+  [.7
+    [.11 ]
+    [.12 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „13“ und „19“}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.3
+  [.13
+    [.19
+      [.42 ]
+      [.28 ]
+    ]
+    [.24 ]
+  ]
+  [.7
+    [.11 ]
+    [.12 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Geben Sie für die ursprüngliche Min-Halde aus Teilaufgabe c)(\dh
+ohne den neu eingefügten Knoten mit dem Wert $13$) die Feld-Einbettung
+(Array-Darstellung) an.
+
+\begin{bAntwort}
+\begin{tabular}{llllllll}
+\bf{0} & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} & \bf{7} \\
+\hline
+3      & 19     & 7      & 28     & 24     & 11     & 12     & 42     \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Löschen Sie den Wurzelknoten mit Wert 42 aus der folgenden
+Max-Halde und stellen Sie anschließend die Halden-Eigenschaft ausgehend
+von einer neuen Wurzel wieder her, wobei möglichst viele Knoten der
+Halde unverändert bleiben und die Halde zu jedem Zeitpunkt
+links-vollständig sein soll. Geben Sie nur das Endergebnis an.
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.42
+  [.24
+    [.21
+      [.13 ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.19 ]
+  ]
+  [.28
+    [.3 ]
+    [.7 ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Ersetzen von „42“ mit „13“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.13
+  [.24
+    [.21 ]
+    [.19 ]
+  ]
+  [.28
+    [.3 ]
+    [.7 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „13“ und „28“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.28
+  [.24
+    [.21 ]
+    [.19 ]
+  ]
+  [.13
+    [.3 ]
+    [.7 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% (f)
+%%
+
+\item Fügen Sie in jeden der folgenden AVL-Bäume mit aufsteigender
+Sortierung jeweils einen neuen Knoten mit dem Wert 13 ein und führen Sie
+anschließend bei Bedarf die erforderliche(n) Rotation(en) durch.
+Zeichnen Sie den Baum vor und nach den Rotationen.
+
+\begin{enumerate}
+
+%%
+% i)
+%%
+
+\item AVL-Baum A
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{24};
+  [.\node[label=0]{11};
+    [.\node[label=0]{3}; ]
+    [.\node[label=0]{12}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\begin{bAntwort}
+
+\begin{bBaum}{Nach dem Einfügen von „13“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{24};
+  [.\node[label=+1]{11};
+    [.\node[label=0]{3}; ]
+    [.\node[label=+1]{12};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{13}; ]
+    ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{24};
+  [.\node[label=-1]{12};
+    [.\node[label=-1]{11};
+      [.\node[label=0]{3}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.\node[label=0]{13}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-1]{11};
+    [.\node[label=0]{3}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{24};
+    [.\node[label=0]{13}; ]
+    [.\node[label=0]{28}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% ii)
+%%
+
+\item AVL-Baum B
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{24};
+  [.\node[label=0]{19};
+    [.\node[label=0]{12}; ]
+    [.\node[label=0]{21}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „13“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{24};
+  [.\node[label=-1]{19};
+    [.\node[label=+1]{12};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{13}; ]
+    ]
+    [.\node[label=0]{21}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{19};
+  [.\node[label=+1]{12};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{13}; ]
+  ]
+  [.\node[label=0]{24};
+    [.\node[label=0]{21}; ]
+    [.\node[label=0]{28}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}

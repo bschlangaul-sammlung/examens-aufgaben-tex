@@ -1,0 +1,32 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Fakultät},
+  Thematik = {Fakultät},
+  Referenz = TECH.Mehr-Adress.10-Fakultaet,
+  RelativerPfad = Module/50_TECH/20_Mehr-Adress/Aufgabe_10-Fakultaet.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Mehr-Adress-Befehl-Assembler},
+}
+
+Erstelle ein Assemblerprogramm, dass als Eingabe über eine Speicherzelle
+die Fakultät dieser Zahl berechnet. Dabei soll das Programm die
+Rekursionsvorschrift:\index{Mehr-Adress-Befehl-Assembler}
+
+\begin{displaymath}
+\text{fak}(n) = n \cdot \text{fak}(n - 1)
+\end{displaymath}
+
+benutzen.
+
+Das Ergebnis der Berechnung soll am Ende in $R5$ liegen.
+
+\begin{bAntwort}
+\bAssemblerDatei{Aufgabe_10-Fakultaet.mi}
+
+\bJavaDatei[firstline=3]{aufgaben/tech_info/assembler/mehr_adress/Fakultaet}
+\end{bAntwort}
+\end{document}

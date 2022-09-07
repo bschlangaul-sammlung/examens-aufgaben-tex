@@ -1,0 +1,155 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {AVL-Baum},
+  Thematik = {AVL-Baum 2, 8, 10, 1, 4, 5, 11},
+  Referenz = AUD.Baeume.AVL-Baum.AVL-Baum-2-8-10-1-4-5-11,
+  RelativerPfad = Module/30_AUD/80_Baeume/30_AVL-Baum/Aufgabe_AVL-Baum-2-8-10-1-4-5-11.tex,
+  ZitatSchluessel = aud:e-klausur,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {AVL-Baum},
+}
+
+Fügen Sie die Zahlen 2, 8, 10, 1, 4, 5, 11 in der vorgegebenen
+Reihenfolge in einen AVL-Baum ein. Wie sieht der finale AVL-Baum aus?\index{AVL-Baum}
+\footcite{aud:e-klausur}
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „2“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{2}; ]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „8“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{2};
+  \edge[blank]; \node[blank]{};
+  [.\node[label=0]{8}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „10“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+2]{2};
+  \edge[blank]; \node[blank]{};
+  [.\node[label=+1]{8};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{10}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{8};
+  [.\node[label=0]{2}; ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „1“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{8};
+  [.\node[label=-1]{2};
+    [.\node[label=0]{1}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „4“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{8};
+  [.\node[label=0]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=0]{4}; ]
+  ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{8};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=+1]{4};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{5}; ]
+    ]
+  ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{8};
+  [.\node[label=-1]{4};
+    [.\node[label=-1]{2};
+      [.\node[label=0]{1}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.\node[label=0]{5}; ]
+  ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{4};
+  [.\node[label=-1]{2};
+    [.\node[label=0]{1}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{8};
+    [.\node[label=0]{5}; ]
+    [.\node[label=0]{10}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „11“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{4};
+  [.\node[label=-1]{2};
+    [.\node[label=0]{1}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=+1]{8};
+    [.\node[label=0]{5}; ]
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{11}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+\end{document}

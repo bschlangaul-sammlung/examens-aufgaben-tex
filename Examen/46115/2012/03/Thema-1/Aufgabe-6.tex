@@ -1,0 +1,190 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Graph A-F},
+  Referenz = 46115-2012-F.T1-A6,
+  RelativerPfad = Staatsexamen/46115/2012/03/Thema-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:46115:2012:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Dijkstra, Adjazenzliste, Adjazenzmatrix, Halde (Heap)},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2012,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 6,
+}
+
+\section{Aufgabe 6
+\index{Algorithmus von Dijkstra}
+\footcite{examen:46115:2012:03}}
+
+Gegeben sei der folgende gerichtete Graph $G = (V, E, d)$ mit den
+angegebenen Kantengewichten.
+
+\begin{bGraphenFormat}
+A: 0 1
+B: 1 2
+C: 2 2
+D: 3 1
+E: 1 0
+F: 2 0
+A -> B: 1
+A -> E: 7
+B -> C: 3
+C -> D: 6
+C -> E: 3
+C -> F: 5
+E -> F: 1
+F -> C: 1
+F -> D: 2
+\end{bGraphenFormat}
+
+\begin{center}
+\begin{tikzpicture}[li graph,x=2cm,y=1.5cm]
+\node (A) at (0,1) {A};
+\node (B) at (1,2) {B};
+\node (C) at (2,2) {C};
+\node (D) at (3,1) {D};
+\node (E) at (1,0) {E};
+\node (F) at (2,0) {F};
+
+\path[->] (A) edge node {} (B);
+\path[->] (A) edge node {7} (E);
+\path[->] (B) edge node {3} (C);
+\path[->] (C) edge node {3} (E);
+\path[->] (C) edge[bend left] node {5} (F);
+\path[->] (C) edge node {6} (D);
+\path[->] (E) edge node {} (F);
+\path[->] (F) edge[bend left] node {} (C);
+\path[->] (F) edge node {2} (D);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben Sie eine formale Beschreibung des abgebildeten Graphen $G$
+durch Auflistung von $V$, $E$ und $d$ an.
+\index{Adjazenzliste}
+
+\begin{bAntwort}
+$G = (V, E, d)$
+
+mit
+
+$V =
+\{
+  A, B, C, D, E F
+\}$
+
+und
+
+$E =
+\{
+  (A, B),
+  (A, E),
+  (B, C),
+  (C, D),
+  (C, E),
+  (C, F),
+  (E, F),
+  (F, C),
+  (F, D),
+\}$
+
+und
+
+$d =
+\{
+  1,
+  7,
+  3,
+  6,
+  3,
+  5,
+  1,
+  1,
+  2
+\}$
+
+\bPseudoUeberschrift{Als Adjazenzliste}
+
+\begin{tabular}{llll}
+A: & $\rightarrow$ B & $\xrightarrow{~7~}$ E \\
+B: & $\xrightarrow{~3~}$ C \\
+C: & $\xrightarrow{~6~}$ D & $\xrightarrow{~3~}$ E & $\xrightarrow{~5~}$ F \\
+D: \\
+E: & $\rightarrow$ F \\
+F: & $\rightarrow$ C & $\xrightarrow{~2~}$ D \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Erstellen Sie die Adjazenzmatrix $A$ zum Graphen $G$.
+\index{Adjazenzmatrix}
+
+\begin{bAntwort}
+\[
+\begin{blockarray}{ccccccc}
+   & A & B & C & D & E & F \\
+\begin{block}{c(cccccc)}
+ A & * & 1 & - & - & 7 & - \\
+ B & - & * & 3 & - & - & - \\
+ C & - & - & * & 6 & 3 & 5 \\
+ D & - & - & - & * & - & - \\
+ E & - & - & - & - & * & 1 \\
+ F & - & - & 1 & 2 & - & * \\
+\end{block}
+\end{blockarray}
+\]
+
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Berechnen Sie unter Verwendung des Algorithmus nach Dijkstra -
+vom Knoten $A$ beginnend - den kürzesten Weg, um alle Knoten zu besuchen.
+Die Restknoten werden in einer Halde (engl. Heap) gespeichert. Geben Sie
+zu jedem Arbeitsschritt den Inhalt dieser Halde an.
+\index{Halde (Heap)}
+
+\begin{bAntwort}
+
+\begin{tabular}{llllllll}
+\bf{Nr.}     & \bf{besucht} & \bf{A}       & \bf{B}       & \bf{C}       & \bf{D}       & \bf{E}       & \bf{F}       \\
+\hline
+0            &              & 0            & $\infty$     & $\infty$     & $\infty$     & $\infty$     & $\infty$     \\
+1            & A            & \bf{0}       & 1            & $\infty$     & $\infty$     & 7            & $\infty$     \\
+2            & B            & |            & \bf{1}       & 4            & $\infty$     & 7            & $\infty$     \\
+3            & C            & |            & |            & \bf{4}       & 10           & 7            & 9            \\
+4            & E            & |            & |            & |            & 10           & \bf{7}       & 8            \\
+5            & F            & |            & |            & |            & 10           & |            & \bf{8}       \\
+6            & D            & |            & |            & |            & \bf{10}      & |            & |            \\
+\end{tabular}
+
+\begin{tabular}{llll}
+\bf{nach}                                         & \bf{Entfernung}                                   & \bf{Reihenfolge}                                  & \bf{Pfad}                                         \\
+\hline
+A  $\rightarrow$  A                               & 0                                                 & 1                                                 &                                                   \\
+A  $\rightarrow$  B                               & 1                                                 & 2                                                 & A $\rightarrow$ B                                 \\
+A  $\rightarrow$  C                               & 4                                                 & 3                                                 & A $\rightarrow$ B $\rightarrow$ C                 \\
+A  $\rightarrow$  D                               & 10                                                & 6                                                 & A $\rightarrow$ B $\rightarrow$ C $\rightarrow$ D \\
+A  $\rightarrow$  E                               & 7                                                 & 4                                                 & A $\rightarrow$ E                                 \\
+A  $\rightarrow$  F                               & 8                                                 & 5                                                 & A $\rightarrow$ E $\rightarrow$ F                 \\
+\end{tabular}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

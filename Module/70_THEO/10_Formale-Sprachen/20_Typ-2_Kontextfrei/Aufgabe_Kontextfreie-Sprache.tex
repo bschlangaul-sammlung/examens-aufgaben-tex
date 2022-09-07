@@ -1,0 +1,169 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Kontextfreie Sprache},
+  Thematik = {(an bn)m},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kontextfreie-Sprache,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Aufgabe_Kontextfreie-Sprache.tex,
+  ZitatSchluessel = theo:ab:2,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, Kellerautomat},
+}
+
+\let\m=\bMengeOhneMathe
+\let\z=\bZustandsnameTiefgestellt
+
+Gegeben ist die Grammatik \bGrammatik{variablen={S, A, B}, alphabet={a,
+b}} und den Produktionen\index{Kontextfreie Sprache}
+\footcite{theo:ab:2}
+
+\bigskip
+\noindent
+\begin{bProduktionsRegeln}
+S -> S A B | EPSILON,
+B A -> A B,
+A A -> a a,
+B B -> b b
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie einen Ausdruck an, der die Wörter der Sprache
+beschreibt.
+
+\begin{bAntwort}
+
+$L = \m{(a^n b^n)^m \, | \, m \in \mathbb{N}_0 \text{ und } n \in \text{ gerade Zahlen}}$
+
+\let\u=\bPseudoUeberschrift
+
+Einige Testableitungen um die Grammatik in Erfahrung zu bringen:
+
+„.“ nur als optische Stütze nach 4 Zeichen eingefügt.
+
+\u{Mit 4 Buchstaben}
+
+\bAbleitung{S -> SAB -> SABAB -> ABAB -> AABB -> aabb}
+
+\u{Mit 6 Buchstaben}
+
+\bAbleitung{S -> ... -> ABAB.AB -> AABB.AB -> AABA.BB -> AAAB.BB -> nichts}
+
+\u{Mit 8 Buchstaben}
+
+\bAbleitung{S -> ... -> ABAB.ABAB -> ... -> aabb.aabb}
+
+\bAbleitung{S -> ... -> ABAB.ABAB -> ... -> AABB.AABB -> AABA.BABB -> AABA.ABBB -> AAAB.ABBB -> AAAA.BBBB -> aaaa.bbbb}
+
+\u{Mit 12 Buchstaben}
+
+\bAbleitung{S -> ... -> ABAB.ABAB.ABAB -> ... -> aabb.aabb.aabb}
+
+\bAbleitung{S -> ... -> ABAB.ABAB.ABAB -> AAAA.BBBB.AABB  -> aaaa.bbbb.aabb}
+
+\bAbleitung{S -> ... -> ABAB.ABAB.ABAB -> AABB.ABAB.ABAB -> AABA.BBAB.ABAB -> AAAB.BBAB.ABAB ... -> aaaa.aabb.bbbb}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie eine kontextfreie Grammatik $G'$ an, für die gilt:
+$L(G') = L(G)$
+
+\begin{bAntwort}
+
+\begin{bProduktionsRegeln}
+S -> a a S b b | S S | epsilon,
+\end{bProduktionsRegeln}
+
+\bFlaci{Grn19rt8w}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\newpage
+
+\item Geben Sie einen Kellerautomaten an, der die Sprache akzeptiert.
+\index{Kellerautomat}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{1. Kellerautomat (aus der Grammtik abgeleitet)}
+
+\bKellerAutomat{
+  zustaende={\z0},
+  alphabet={a, b},
+  kelleralphabet={\#, S, A, B},
+  ende={\z0},
+}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial,accepting] (z0) at (4.29cm,-4.57cm) {$z_0$};
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    a, A, EPSILON;
+    b, B, EPSILON;
+    EPSILON, S, A A S B B;
+    EPSILON, S, S S;
+    EPSILON, S, EPSILON;
+    EPSILON, KELLERBODEN, S KELLERBODEN;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Araj960s2}
+
+\bPseudoUeberschrift{2. Kellerautomat}
+
+\bKellerAutomat{
+  zustaende={\z0, \z1},
+  alphabet={a, b},
+  kelleralphabet={\#, 1, 2},
+  ende={\z0},
+}
+
+Bemerkung zum Kelleralphabet: $1$ steht für $1A$, also ein $a$ befindet
+sich im Keller, und $2$ steht für $2A$, also zwei $a$ befinden sich im
+Keller.
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial,accepting] (z0) at (2.43cm,-5.86cm) {$z_0$};
+  \node[state] (z1) at (8.29cm,-5.86cm) {$z_1$};
+
+  \bKellerKante[above,bend left]{z0}{z1}{
+    EPSILON, 2, 2;
+  }
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    a, KELLERBODEN, 1 KELLERBODEN;
+    a, 1, 2 1;
+    a, 2, 1 2;
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    b, 2, EPSILON;
+    b, 1, EPSILON;
+  }
+
+  \bKellerKante[above,bend left]{z1}{z0}{
+    EPSILON, KELLERBODEN, KELLERBODEN;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ahfqseouz}
+
+\end{bAntwort}
+\end{enumerate}
+\end{document}

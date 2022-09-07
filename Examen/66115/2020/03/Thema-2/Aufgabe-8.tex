@@ -1,0 +1,142 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java,pseudo,grafik}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {Nächstes rot-blaues Paar auf der x-Achse},
+  Referenz = 66115-2020-F.T2-A8,
+  RelativerPfad = Staatsexamen/66115/2020/03/Thema-2/Aufgabe-8.tex,
+  IdentischeAufgabe = Staatsexamen/46115/2020/03/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66115:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmische Komplexität (O-Notation)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 8,
+}
+
+\def\blauesZeichen{\bullet}
+\def\rotesZeichen{x}
+\def\b#1{\node at (#1,0){\blauesZeichen};}
+\def\r#1{\node at (#1,0){\rotesZeichen};}
+
+Gegeben seien zwei nichtleere Mengen $R$ und $B$ von roten bzw. blauen
+Punkten auf der x-Achse. Gesucht ist der minimale euklidische Abstand
+$d(r, b)$ über alle Punktepaare $(r,b)$ mit $r \in R$ und $b \in B$.
+Hier ist eine Beispielinstanz:\index{Algorithmische Komplexität (O-Notation)}
+\footcite{examen:66115:2020:03}
+
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) -- (8,0);
+\node at (-1,0){x-Achse};
+\r{0.1}
+\r{0.5}
+\b{2}
+\node[label=r] at (3,0) (rot) {\rotesZeichen};
+\node[label=b] at (3.7,0) {\blauesZeichen} edge[bend left,swap] (rot);
+\r{8}
+\b{5}
+\b{5.2}
+\b{5.4}
+\b{6}
+
+\node[label=blau] at (9,0.5) {\blauesZeichen};
+\node[label=rot] at (9,-0.5) {\rotesZeichen};
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Die Eingabe wird in einem Feld $A$ übergeben. Jeder Punkt $A[i]$ mit $1
+\leq i \leq n$ hat eine x-Koordinate $A[i].x$ und eine Farbe $A[i].color
+\in \{ \text{rot}, \text{blau} \}$. Das Feld $A$ ist nach x-Koordinate
+sortiert, \dh es gilt $A[1].x < A[2].x < \dots < A[n].x$, wobei $n = |R|
++ |B|$.
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie in Worten einen Algorithmus an, der den gesuchten
+Abstand in $\mathcal{O}(n)$ Zeit berechnet.
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Pseudo-Code}
+
+\begin{algorithm}[H]
+\newcommand{\meinkommentar}[1]{\texttt{\scriptsize #1}}
+\SetCommentSty{meinkommentar}
+$d_{min} := \max$ \tcp*{Setze $d_{min}$ zuerst auf einen maximalen Wert.}
+
+\For(\tcp*{Iteriere über die Indizes des Punkte-Arrays $P$ bis zum vorletzten
+Index $P[n-1]$}){$i$ in $0 \dots$ vorletzter Index}{
+
+  \If(\tcp*{Berechne den Abstand nur, wenn die Punkte unterschiedliche Farben haben}){$P[n].color \neq P[n + 1].color$}{
+    $d = P[n + 1].x - P[n].x$\\
+    \If{$d < d_{min}$}{$d_{min} = d$}
+  }
+}
+\caption{Minimaler Euklidischer Abstand}
+\end{algorithm}
+
+\bPseudoUeberschrift{Java}
+
+\bJavaExamen[firstline=30,lastline=41]{66115}{2020}{03}{RedBluePairCollection}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Begründen Sie kurz die Laufzeit Ihres Algorithmus.
+
+\begin{bAntwort}
+Da das Array der Länge $n$ nur einmal durchlaufen wird, ist die Laufzeit
+$\mathcal{O}(n)$ sichergestellt.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Begründen Sie die Korrektheit Ihres Algorithmus.
+
+\begin{bAntwort}
+In $d_{min}$ steht am Ende der gesuchte Wert (sofern nicht $d_{min} =
+Integer.MAX\_VALUE$ geblieben ist)
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Wir betrachten nun den Spezialfall, dass alle blauen Punkte links
+von allen roten Punkten liegen. Beschreiben Sie in Worten, wie man in
+dieser Situation den gesuchten Abstand in $o(n)$ Zeit berechnen kann.
+(Ihr Algorithmus darf also insbesondere nicht Laufzeit $\Theta(n)$
+haben.)
+
+\begin{bAntwort}
+Zuerst müssen wir den letzten blauen Punkt finden. Das ist mit einer
+binären Suche möglich. Wir beginnen mit dem ganzen Feld als Suchbereich
+und betrachten den mittleren Punkt. Wenn er blau ist, wiederholen wir
+die Suche in der zweiten Hälfte des Suchbereichs, sonst in der ersten,
+bis wir einen blauen Punkt gefolgt von einem roten Punkt gefunden haben.
+
+Der gesuchte minimale Abstand ist dann der Abstand zwischen dem
+gefundenen blauen und dem nachfolgenden roten Punkt. Die Binärsuche hat
+eine Worst-case-Laufzeit von $\mathcal{O}(\log n)$.
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAdditum}[Komplette Java-Klasse]
+\bJavaExamen{66115}{2020}{03}{RedBluePairCollection}
+\end{bAdditum}
+
+\end{document}

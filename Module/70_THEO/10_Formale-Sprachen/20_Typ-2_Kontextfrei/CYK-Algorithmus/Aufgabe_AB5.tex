@@ -1,0 +1,77 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe},
+  Thematik = {AB5},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.CYK-Algorithmus.AB5,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/CYK-Algorithmus/Aufgabe_AB5.tex,
+  ZitatSchluessel = theo:ab:5,
+  ZitatBeschreibung = {Aufgabe 2b},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {CYK-Algorithmus},
+}
+
+\let\l=\bKurzeTabellenLinie
+
+Teste jeweils mit dem CYK-Algorithmus, ob das angegebene Wort zur Sprache
+der Grammatik gehört.\index{CYK-Algorithmus}
+\footcite[Aufgabe 2b]{theo:ab:5}
+
+\begin{bProduktionsRegeln}
+S -> S S | R_a A | R_b B | R_c C,
+A -> R_b R_c | R_c R_b,
+B -> R_a R_c | R_c R_a,
+C -> R_a R_b | R_b R_a,
+R_a -> a,
+R_b -> b,
+R_c -> c,
+\end{bProduktionsRegeln}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item $\omega_1 = acbcab$
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|c|}
+a     & c     & b     & c     & a     & b \\\hline\hline
+
+$R_a$ & $R_c$ & $R_b$ & $R_c$ & $R_a$ & $R_b$ \l6
+B     & A     & A     & B     & C \l5
+S     & -     & S     & S \l4
+-     & -     & - \l3
+-     & - \l2
+S \l1
+\end{tabular}
+
+\bWortInSprache{\omega_1}
+\end{bAntwort}
+
+%%
+% 2.
+%%
+
+\item $\omega_2 = cabb$
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|}
+c     & a     & b     & b    \\\hline\hline
+
+$R_c$ & $R_a$ & $R_b$ & $R_b$  \l4
+B     & C     & - \l3
+S     & - \l2
+- \l1
+\end{tabular}
+
+\bWortNichtInSprache{\omega_2}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

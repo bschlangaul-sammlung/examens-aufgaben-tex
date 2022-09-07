@@ -1,0 +1,79 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,pumping-lemma}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Palindrom über Alphabet „abc“},
+  Referenz = 66115-2020-H.T1-TA1-A3,
+  RelativerPfad = Staatsexamen/66115/2020/09/Thema-1/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, Pumping-Lemma (Reguläre Sprache)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Seien \bAlphabet{a,b,c} und \bAusdruck{wc\hat{w}}{w \in \bMenge{a,b}*}.
+Dabei ist $\hat{w}$ das zu $w$ gespiegelte Wort.
+\index{Kontextfreie Sprache}
+\footcite{examen:66115:2020:09}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Zeigen Sie, dass $L$ nicht regulär ist.
+\index{Pumping-Lemma (Reguläre Sprache)}
+
+\begin{bExkurs}[Pumping-Lemma für Reguläre Sprachen]
+\bPumpingRegulaer
+\end{bExkurs}
+
+\begin{bAntwort}
+$L$ ist regulär.
+Dann gilt für $L$ das Pumping-Lemma.
+Sei $j$ die Zahl aus
+dem Pumping-Lemma.
+Dann muss sich das Wort $a^j b c b a^j \in L$
+aufpumpen lassen (da $|a^j b c b a^j| \geq j$).
+$a^j b c b a^j = uvw$ ist eine passende Zerlegung laut Lemma.
+Da $|uv| < j$, ist
+$u = a^x$, $v = a^y$, $w = a^z b c b a^j$, wobei
+$y > 0$ und
+$x + y + z = j$.
+Aber dann
+$u v^0 w= a^{x+z} b c b a^j \notin L$, da $x + z < j$.
+Widerspruch.
+\bFussnoteUrl{https://userpages.uni-koblenz.de/~sofronie/gti-ss-2015/slides/endliche-automaten6.pdf}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Zeigen Sie, dass $L$ kontextfrei ist, indem Sie eine geeignete
+Grammatik angeben und anschließend begründen, dass diese die Sprache $L$
+erzeugt.
+
+\begin{bAntwort}
+\begin{bProduktionsRegeln}
+S -> a S a | a C a | b S b | b C b,
+C -> c
+\end{bProduktionsRegeln}
+
+\bAbleitung{S -> aSa -> abCba -> abcba}
+
+\bAbleitung{S -> bSb -> bbSbb -> bbaSabb -> bbacabb}
+
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

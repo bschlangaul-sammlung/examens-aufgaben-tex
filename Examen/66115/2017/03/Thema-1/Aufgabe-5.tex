@@ -1,0 +1,92 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Aussagen},
+  Referenz = 66115-2017-F.T1-A5,
+  RelativerPfad = Staatsexamen/66115/2017/03/Thema-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66115:2017:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Formale Sprachen},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2017,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 5,
+}
+
+Zeigen\index{Formale Sprachen}
+\footcite{examen:66115:2017:03} oder widerlegen Sie die folgenden Aussagen (die jeweiligen
+Beweise sind sehr kurz):
+\footcite[Aufgabe 6]{theo:ab:5}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Alle regulären Sprachen liegen in NP.
+
+\begin{bAntwort}
+Stimmt. Alle regulären Sprachen sind in Polynomialzeit entscheidbar (es
+existiert ein Automat dazu), sie liegen als in P und folglich auch in
+NP.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Es gibt Sprachen $A$, $B$ mit $A \subseteq B$, sodass $B$ regulär
+und $A$ kontextfrei ist.
+
+\begin{bAntwort}
+Stimmt. Es existieren Sprachen mit der Eigenschaft wie gefordert. Wir
+wählen: $B = (a|b)^*$ und \bAusdruck[A]{a^n b^n}{n \in \mathbb{N}}. A
+ist bekanntermaßen nicht regulär, wie man mit dem Pumping Lemma beweisen
+kann, kann aber durch eine Grammatik \bGrammatik{alphabet={a,b},
+produktionen={S -> aSb | EPSILON}} erzeugt werden. Für $B$ gibt es einen
+deterministischen endlichen Automaten.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Es gibt unentscheidbare Sprachen $L$ über den Alphabet $\Sigma$,
+so dass sowohl $L$ als auch das Komplement $\overline{L} = \Sigma^*
+\setminus L$ rekursiv aufzählbar (= partiell entscheidbar) sind.
+
+\begin{bAntwort}
+Stimmt nicht. Ist $L$ und sein Komplement rekursiv aufzählbar, so können
+wir $L$ entscheiden, denn wir haben eine Maschine, die auf Eingabe $x$ hält
+und akzeptiert, wenn $x \in L$ ist, sowie eine Maschine die hält, wenn
+$x$ und akzeptiert, wenn $x \notin L$ ist. Daraus lässt sich eine
+Maschine konstruieren, die $L$ entscheidet.
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Sei $L$ eine beliebige kontextfreie Sprache über dem Alphabet
+$\Sigma$. Dann ist das Komplement $\overline{L} = \Sigma^* \setminus L$
+entscheidbar.
+
+\begin{bAntwort}
+Stimmt. Es gibt einen Entscheider für die Sprache $L$. Dieser
+entscheidet für eine Eingabe $x$, ob diese in $L$ ist oder nicht.
+Negiert man diese Entscheidung, so ergibt sich ein Entscheider für
+$\overline{L}$.
+\end{bAntwort}
+
+Schreiben Sie zuerst zur Aussage \emph{„Stimmt“} oder \emph{„Stimmt
+nicht“} und dann
+Ihre Begründung.
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,184 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,formale-sprachen,tabelle}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Multiplikation mit 3},
+  Referenz = 66115-2019-H.T2-A1,
+  RelativerPfad = Staatsexamen/66115/2019/09/Thema-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 1,
+}
+
+Gesucht ist eine Turing-Maschine mit genau einem beidseitig unendlichen
+Band, die die Funktion $f : \mathbb{N} \rightarrow \mathbb{N}$ mit $f(x)
+= 3x$ berechnet. Zu Beginn der Berechnungsteht die Eingabe binär codiert
+auf dem Band, wobei der Kopf auf die linkeste Ziffer (most significant
+bit) zeigt. Am Ende der Berechnung soll der Funktionswert binär codiert
+auf dem Band stehen, wobei der Kopf auf ein beliebiges Feld zeigen darf.
+\index{Turing-Maschine}
+\footcite{examen:66115:2019:09}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Beschreiben Sie zunächst in Worten die Arbeitsweise Ihrer
+Maschine.
+
+\begin{bAntwort}
+$13 \cdot 3 = 0b1101 \cdot 0b11 = 39 = 0b100111$:
+
+\begin{center}
+\begin{tabular}{llllll}
+  & 1 & 1 & 0 & 1 &   \\
+  &   & 1 & 1 & 0 & 1 \\
+{\tiny 1} & {\tiny 1} &   &   &   &   \\\hline
+1 & 0 & 0 & 1 & 1 & 1
+\end{tabular}
+\end{center}
+
+Die entworfene Turningmaschine imitierte der Vorgehensweise beim
+schriftlichen Multiplizieren. Die Maschine geht zunächst an das
+Leerzeichen am rechten Ende des Eingabewortes. Die Maschine bewegt sich
+nun zwei Schritte nach links und liest die Zahlen ein und addiert sie.
+Schließlich bewegt sich die Maschine einen Schritt nach rechts und
+schreibt das Ergebnis der Additium. Dabei wird das Eingabewort
+überschrieben allmählich überschrieben.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie dann das kommentierte Programm der Turing-Maschine an
+und erklären Sie die Bedeutung der verwendeten Zustände.
+
+\begin{bAntwort}
+\begin{tabularx}{\linewidth}{cX}
+$z_0$ & An das rechte Ende des Eingabewortes gehen \\
+$z_1$ & Übertrag 0\\
+$z_2$ & Übertrag 1\\
+$z_3$ & 1. Additionsschritt: $+0$ \\
+$z_4$ & 1. Additionsschritt: $+1$ \\
+$z_5$ & 1. Additionsschritt: $+2$ \\
+$z_6$ & 2. Additionsschritt: $+0$ \\
+$z_7$ & 2. Additionsschritt: $+1$ \\
+$z_8$ & 2. Additionsschritt: $+2$ \\
+$z_9$ & 2. Additionsschritt: $+3$ \\
+$z_{10}$ & Endzustand \\
+\end{tabularx}
+
+Nicht sehr übersichtlich hier: Im Anhang findet sich die JSON-Datei für flaci.com
+
+\begin{center}
+\begin{tikzpicture}[li turingmaschine,scale=0.7,transform shape]
+  \node[state,initial] (z0) at (2.14cm,-1.86cm) {$z_0$};
+  \node[state] (z1) at (5.43cm,-1.86cm) {$z_1$};
+  \node[state] (z8) at (9.29cm,-7.43cm) {$z_8$};
+  \node[state] (z7) at (5.57cm,-7.43cm) {$z_7$};
+  \node[state] (z6) at (2.29cm,-7.29cm) {$z_6$};
+  \node[state] (z3) at (3.43cm,-4.86cm) {$z_3$};
+  \node[state] (z4) at (7.29cm,-4.86cm) {$z_4$};
+  \node[state] (z9) at (12.43cm,-7.57cm) {$z_9$};
+  \node[state] (z5) at (11cm,-4.71cm) {$z_5$};
+  \node[state] (z2) at (9.29cm,-2cm) {$z_2$};
+  \node[state,accepting] (z10) at (4.43cm,-9.14cm) {$z_{10}$};
+
+  \bTuringKante[above,loop above]{z0}{z0}{
+    0, 0, R;
+    1, 1, R;
+  }
+
+  \bTuringKante[above]{z0}{z1}{
+    LEER, LEER, N;
+  }
+
+  \bTuringKante[above]{z1}{z3}{
+    0, 0, L;
+    LEER, LEER, L;
+  }
+
+  \bTuringKante[above]{z1}{z4}{
+    1, 1, L;
+  }
+
+  \bTuringKante[above]{z8}{z2}{
+    0, 0, L;
+    1, 0, L;
+    LEER, 0, L;
+  }
+
+  \bTuringKante{z7}{z1}{
+    0, 1, L;
+    1, 1, L;
+    LEER, 1, L;
+  }
+
+  \bTuringKante[left,bend left]{z6}{z1}{
+    0, 0, L;
+    1, 0, L;
+  }
+
+  \bTuringKante[above]{z6}{z10}{
+    LEER, LEER, N;
+  }
+
+  \bTuringKante[above]{z3}{z6}{
+    0, 0, R;
+    LEER, LEER, R;
+  }
+
+  \bTuringKante[above]{z3}{z7}{
+    1, 1, R;
+  }
+
+  \bTuringKante[above]{z4}{z8}{
+    1, 1, R;
+  }
+
+  \bTuringKante[above]{z4}{z7}{
+    LEER, LEER, R;
+    0, 0, R;
+  }
+
+  \bTuringKante[right,bend right]{z9}{z2}{
+    0, 1, L;
+    1, 1, L;
+    LEER, 1, L;
+  }
+
+  \bTuringKante[above]{z5}{z9}{
+    1, 1, R;
+  }
+
+  \bTuringKante[above]{z5}{z8}{
+    0, 0, R;
+    LEER, LEER, R;
+  }
+
+  \bTuringKante[above]{z2}{z5}{
+    1, 1, L;
+  }
+
+  \bTuringKante[above]{z2}{z4}{
+    0, 0, L;
+    LEER, LEER, L;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ahjkw50kg}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

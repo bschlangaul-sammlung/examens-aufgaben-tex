@@ -1,0 +1,56 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Standardbeispiel TUM},
+  Thematik = {TUM},
+  Referenz = AUD.Graphen.Spannbaume.TUM,
+  RelativerPfad = Module/30_AUD/90_Graphen/20_Spannbaume/Aufgabe_TUM.tex,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Prim},
+}
+
+Standardbeispiel
+\bFussnoteUrl{https://algorithms.discrete.ma.tum.de/graph-algorithms/mst-prim/index_en.html}
+\index{Algorithmus von Prim}
+
+\begin{bGraphenFormat}
+0: 0 3
+1: 2 0
+2: 3 7
+3: 5 0
+4: 5 5
+5: 8 3
+0 -- 1: 10
+0 -- 2: 20
+1 -- 3: 50
+1 -- 4: 10
+2 -- 3: 20
+2 -- 4: 33
+3 -- 4: 20
+3 -- 5: 2
+4 -- 5: 1
+\end{bGraphenFormat}
+
+\begin{tikzpicture}[li graph]
+\node (0) at (0,3) {0};
+\node (1) at (2,0) {1};
+\node (2) at (3,7) {2};
+\node (3) at (5,0) {3};
+\node (4) at (5,5) {4};
+\node (5) at (8,3) {5};
+
+\path (0) edge node {10} (1);
+\path (0) edge node {20} (2);
+\path (1) edge node {50} (3);
+\path (1) edge node {10} (4);
+\path (2) edge node {20} (3);
+\path (2) edge node {33} (4);
+\path (3) edge node {20} (4);
+\path (3) edge node {2} (5);
+\path (4) edge (5);
+\end{tikzpicture}
+
+\end{document}

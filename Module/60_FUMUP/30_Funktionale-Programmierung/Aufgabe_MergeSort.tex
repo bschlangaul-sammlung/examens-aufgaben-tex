@@ -1,0 +1,69 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {MergeSort},
+  Thematik = {MergeSort},
+  Referenz = FUMUP.Funktionale-Programmierung.MergeSort,
+  RelativerPfad = Module/60_FUMUP/30_Funktionale-Programmierung/Aufgabe_MergeSort.tex,
+  ZitatSchluessel = fumup:ab:3,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Funktionale Programmierung mit Haskell},
+}
+
+Implementiere in der Datei Sortierverfahren.hs die nachfolgend genannten
+Funktionen, die den Merge-Sort-Algorithmus umsetzen. Der
+Sortieralgorithmus folgt dem Teile-und-Herrsche-Prinzip (divide and
+conquer). Er erhält eine unsortierte Liste mit Zahlen, sortiert diese in
+aufsteigender Reihenfolge und gibt die sortierte Liste zurück. Die
+Signatur der Sortierfunktion lautet: \bHaskellCode{mergeSort :: [Int]
+-> [Int]}\index{Funktionale Programmierung mit Haskell}
+\footcite{fumup:ab:3}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item \bHaskellCode{divide :: [Int] -> ([Int], [Int])}: Nimmt eine
+Liste entgegen und spaltet diese in der Mitte in zwei Teillisten auf.
+(Tipp: Verwende zur Implementierung die Listen-Funktionen
+\bHaskellCode{div}, \bHaskellCode{length}, \bHaskellCode{take} und
+\bHaskellCode{drop}.)
+
+%%
+% (b)
+%%
+
+\item \bHaskellCode{conquer :: ([Int], [Int]) -> ([Int], [Int])}: Nimmt
+als Parameter ein durch \bHaskellCode{divide} erzeugtes Listenpaar
+entgegen und ruft für jede Teilliste \bHaskellCode{mergeSort}
+(Rekursion!) auf. Das Ergebnis ist ein Listenpaar mit den sortierten
+Teillisten.
+
+%%
+% (c)
+%%
+
+\item \bHaskellCode{merge :: ([Int], [Int]) -> [Int]}: Verschmilzt die
+beiden als Listenpaar übergebenen Listen zu einer Ergebnisliste, die
+alle Elemente beider Teillisten in aufsteigender Reihenfolge sortiert
+enthält.
+
+%%
+% (d)
+%%
+
+\item \bHaskellCode{mergeSort :: [Int] -> [Int]}: Falls die übergebene
+Liste weniger als 2 Elemente enthält wird sie unverändert zurückgegeben.
+In allen anderen Fällen wird die übergebene Liste mittels der Funktion
+\bHaskellCode{divide} zerteilt, deren Ergebnis an die Funktion
+\bHaskellCode{conquer} übergeben und abschließend deren Ergebnis an die
+Funktion \bHaskellCode{merge} übergeben. Das Ergebnis von
+\bHaskellCode{mergeSort} ist dann eine vollständig sortierte Liste.
+
+\end{enumerate}
+\end{document}

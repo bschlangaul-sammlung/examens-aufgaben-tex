@@ -1,0 +1,337 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe,wpkalkuel}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {ASCII},
+  Referenz = 46116-2015-H.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/46116/2015/09/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46116:2015:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Formale Verifikation, wp-Kalkül},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2015,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\wp=\bWpKalkuel
+\let\equivalent=\bWpEquivalent
+\let\erklaerung=\bWpErklaerung
+% markierung
+\def\m#1{\textcolor{blue}{#1}}
+% kommentar
+\def\k#1{\hfill{\scriptsize(#1)}}
+
+Sei \text{wp}(A, Q) die schwächste Vorbedingung (weakest precondition)
+eines Programmfragments $A$ bei gegebener Nachbedingung $Q$ so, dass $A$
+alle Eingaben, die \text{wp}(A,Q) erfüllen, auf gültige Ausgaben
+abbildet, die $Q$ erfüllen.\index{Formale Verifikation}\index{wp-Kalkül}
+\footcite{examen:46116:2015:09}
+
+Bestimmen Sie schrittweise und formal (mittels Floyd-Hoare-Kalkül)
+jeweils \text{wp}(A, Q) für folgende Code-Fragmente $A$ und
+Nachbedingungen $Q$ und vereinfachen Sie dabei den jeweils ermittelten
+Ausdruck so weit wie möglich.
+
+Die Variablen $x$, $y$ und $z$ in folgenden Pseudo-Codes seien
+ganzzahlig (vom Typ int). Zur Vereinfachung nehmen Sie bitte im
+Folgenden an, dass die verwendeten Datentypen unbeschränkt sind und
+daher keine Überläufe auftreten können.
+\footcite{sosy:pu:5:4}
+
+\begin{enumerate}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item Sequenz:
+\begin{minted}{java}
+x = -2 * (x + 2 * y);
+y += 2 * x + y + z;
+z -= x - y - z;
+\end{minted}
+
+$Q :\equiv x = y + z$
+
+\begin{bAntwort}
+Code umformulieren:
+
+\begin{minted}{java}
+x = -2 * (x + 2 * y);
+y = y + 2 * x + y + z;
+z = z - (x - y - z);
+\end{minted}
+
+\wp{x=-2*(x+2*y);y=2*y+2*x+z;z=z-(x-y-z);}{x = y + z}
+
+\erklaerung{$z$ eingesetzen}
+
+\equivalent{\wp{x=-2*(x+2*y);y=2*y+2*x+z;}{x = y + (z - (x - y - z))}}
+
+\erklaerung{Innere Klammer auflösen}
+
+\equivalent{\wp{x=-2*(x+2*y);y=2*y+2*x+z;}{x = y + (- x + y - 2z)}}
+
+\erklaerung{Klammer auflösen}
+
+\equivalent{\wp{x=-2*(x+2*y);y=2*y+2*x+z;}{x = - x + 2y + 2z}}
+
+\erklaerung{$-x$ auf beiden Seiten}
+
+\equivalent{\wp{x=-2*(x+2*y);y=2*y+2*x+z;}{0 = -2x + 2y + 2z}}
+
+\erklaerung{$\div 2$ auf beiden Seiten}
+
+\equivalent{\wp{x=-2*(x+2*y);y=2*y+2*x+z;}{0 = -x + y + z}}
+
+\erklaerung{$y$ einsetzen}
+
+\equivalent{\wp{x=-2*(x+2*y);}{0 = -x + (2y + 2x + z) + z}}
+
+\erklaerung{Term vereinfachen}
+
+\equivalent{\wp{x=-2*(x+2*y);}{0 = x + 2y + 2z}}
+
+\erklaerung{$x$ einsetzen}
+
+\equivalent{\wp{}{0 = (-2(x + 2y)) + 2y + 2z}}
+
+\erklaerung{wp weglassen}
+
+\equivalent{0 = (-2(x + 2y)) + 2y + 2z}
+
+\erklaerung{ausmultiplizieren}
+
+\equivalent{0 = (-2x - 4y) + 2y + 2z}
+
+\erklaerung{Klammer auflösen, vereinfachen}
+
+\equivalent{0 = -2x - 2y + 2z}
+
+\erklaerung{$\div 2$ auf beiden Seiten}
+
+\equivalent{0 = -x - y + z}
+
+\erklaerung{$x$ nach links holen mit $+ x$ auf beiden Seiten}
+
+\equivalent{x = -y + z}
+
+\erklaerung{$y$ ganz nach links schreiben}
+
+\equivalent{x = z - y}
+
+$x = -2 \cdot (x + 2 \cdot y)$
+\end{bAntwort}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item Verzweigung:
+
+\begin{minted}{java}
+if (x < y) {
+  x = y + z;
+} else if (y > 0) {
+  z = y - 1;
+} else {
+  x -= y -= z;
+}
+\end{minted}
+
+$Q :\equiv x > z$
+
+\begin{bAntwort}
+\begin{description}
+\item[1. Fall:] $x < y$
+\item[2. Fall:] $x \geq y \land y > 0$
+\item[3. Fall:] $x \geq y \land y \leq 0$
+\end{description}
+
+Code umformulieren:
+
+\begin{minted}{java}
+if (x < y) {
+  x = y + z;
+} else if (x >= y && y > 0) {
+  z = y - 1;
+} else {
+  y = y - z;
+  x = x - y;
+}
+\end{minted}
+
+\wp{if(x<y)\{x=y+z;\}else if(x>=y\&\&y>0)\{z=y-1;\}else\{y=y-z;x=x-y;\}}
+{x > z}
+
+$\equiv$ \k{In mehrere kleinere wp-Kalküle aufsplitten}
+
+\begin{align*}
+\Bigl( (x < y) & \land \wp{x=y+z;}{x > z} \, \Bigr) \lor \\
+\Bigl( (x \geq y \land y > 0) & \land \wp{z=y-1;}{x > z} \Bigr) \, \lor \\
+\Bigl( (x \geq y \land y \leq 0) & \land \wp{y=y-z;x=x-y;}{x > z} \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{Code einsetzen}
+
+\begin{align*}
+\Bigl( (x < y) & \land \wp{}{\m{y + z} > z} \, \Bigr) \lor \\
+\Bigl( (x \geq y \land y > 0) & \land \wp{}{x > \m{y - 1}} \Bigr) \, \lor \\
+\Bigl( (x \geq y \land y \leq 0) & \land \wp{y=y-z;}{\m{x - y} > z} \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{wp-Kalkül-Schreibweise weg lassen, Code weiter einsetzen}
+
+\begin{align*}
+\Bigl( (x < y) & \land y + z > z \, \Bigr) \lor \\
+\Bigl( (x \geq y \land y > 0) & \land x > y - 1 \Bigr) \, \lor \\
+\Bigl( (x \geq y \land y \leq 0) & \land \wp{}{x - \m{(y - z)} > z} \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{Terme vereinfachen, wp-Kalkül-Schreibweise weg lassen}
+
+\begin{align*}
+\Bigl( x < y & \land \m{y > 0} \, \Bigr) \lor \\
+\Bigl( \m{x \geq y}\footnote{$x > y - 1 \land x \geq y$ ergibt $x \geq y$} &\land y > 0 \Bigr) \, \lor \\
+\Bigl( (x \geq y \land y \leq 0) & \land x - (y - z) > z \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{letzten Term vereinfachen}
+
+\begin{align*}
+\Bigl( x < y & \land y > 0 \, \Bigr) \, \lor \\
+\Bigl( x \geq y & \land y > 0 \Bigr) \, \lor \\
+\Bigl( (x \geq y \land y \leq 0) & \land \m{x - y > 0} \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{ein $\land$ eleminieren}
+
+\begin{align*}
+\Bigl( x < y & \land y > 0 \, \Bigr) \, \lor \\
+\Bigl( x \geq y & \land y > 0 \Bigr) \, \lor \\
+\Bigl( y \leq 0 & \land \m{x > y} \Bigr) \\
+\end{align*}
+
+\end{bAntwort}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item Mehrfachauswahl:
+
+\begin{minted}{java}
+switch (z) {
+  case "x":
+    y = "x";
+  case "y":
+    y = --z;
+    break;
+  default:
+    y = 0x39 + "?";
+}
+\end{minted}
+
+$Q :\equiv \texttt{'x'} = y$
+
+Hinweis zu den ASCII-Codes
+
+\begin{itemize}
+\item $\texttt{'x'} = 120_{(10)}$
+\item $\texttt{'y'} = 121_{(10)}$
+\item $\texttt{0x39} = 57_{(10)}$
+\item $\texttt{'?'} = 63_{(10)}$
+\end{itemize}
+
+\end{enumerate}
+
+\begin{bAntwort}
+Mehrfachauswahl in Bedingte Anweisungen umschreiben. Dabei beachten,
+dass bei fehlendem \bJavaCode{break} die Anweisungen im folgenden Fall
+bzw. ggf. in den folgenden Fällen ausgeführt werden:
+
+\begin{minted}{java}
+if (z == "x") {
+  y = "x";
+  y = z - 1;
+} else if (z == "y") {
+  y = z - 1;
+} else {
+  y = 0x39 + "?";
+}
+\end{minted}
+
+\noindent
+Da kein \bJavaCode{break} im Fall \bJavaCode{z == "x"}.
+\bJavaCode{--z} bedeutet, dass die Variable erst um eins verringert und
+dann zugewiesen wird.
+
+\begin{minted}{java}
+if (z == 120) {
+  y = 120;
+  y = 120 - 1;
+} else if (z == 121) {
+  y = 121 - 1;
+} else {
+  y = 57 + 63;
+}
+\end{minted}
+
+\noindent
+Vereinfachung / Zusammenfassung:
+
+\begin{minted}{java}
+if (z == 120) {
+  y = 120;
+  y = 119;
+} else if (z == 121) {
+  y = 120;
+} else {
+  y = 120;
+}
+\end{minted}
+
+\wp{if(z==120)\{y=120;y=119;\}else if(z==121)\{y=120;\}else\{y=120;\}}
+{120 = y}
+
+\bigskip
+
+$\equiv$ \k{In mehrere kleinere wp-Kalküle aufsplitten}
+
+\begin{align*}
+\Bigl( (z = 120) & \land \wp{y=120;y=119;}{120 = y} \Bigr) \lor \\
+\Bigl( ((z \neq 120) \land (z = 121)) & \land \wp{y=120;}{120 = y} \Bigr) \, \lor \\
+\Bigl( ((z \neq 120) \land (z \neq 121)) & \land \wp{y=120;}{120 = y} \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{Code einsetzen}
+
+\begin{align*}
+\Bigl( (z = 120) & \land \wp{y=120;}{120 = \m{119}} \Bigr) \lor \\
+\Bigl( ((z \neq 120) \land (z = 121)) & \land \wp{}{120 = \m{120}} \Bigr) \, \lor \\
+\Bigl( ((z \neq 120) \land (z \neq 121)) & \land \wp{}{120 = \m{120}} \Bigr) \\
+\end{align*}
+
+$\equiv$ \k{vereinfachen}
+
+\begin{align*}
+& \m{\text{false}} \, \lor\\
+\Bigl( (z = 121) & \land \m{\text{true}} \, \Bigr) \lor \\
+\Bigl( ((z \neq 120) \land (z \neq 121)) & \land  \m{\text{true}} \Bigr) \\
+\end{align*}
+
+$\equiv \text{false} \lor (z = 121) \lor ((z \neq 120) \land (z \neq 121))$
+
+$\equiv (z = 121) \lor (z \neq 121)$
+
+$\equiv z \neq 121$
+
+Alle Zahlen außer 120 sind möglich bzw. alle Zeichen außer ’x’.
+\end{bAntwort}
+\end{document}

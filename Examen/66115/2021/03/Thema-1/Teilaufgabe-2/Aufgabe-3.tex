@@ -1,0 +1,97 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Schwach zusammenhängend gerichteter Graph},
+  Referenz = 66115-2021-F.T1-TA2-A3,
+  RelativerPfad = Staatsexamen/66115/2021/03/Thema-1/Teilaufgabe-2/Aufgabe-3.tex,
+  IdentischeAufgabe = Staatsexamen/46115/2021/03/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Breitensuche},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+Wir betrachten eine Variante der Breitensuche (BFS), bei der die Knoten
+markiert werden, wenn sie das erste Mal besucht werden. Außerdem wird
+die Suche einmal bei jedem unmarkierten Knoten gestartet, bis alle
+Knoten markiert sind. Wir betrachten gerichtete Graphen. Ein gerichteter
+Graph $G$ ist \emph{schwach zusammenhängend}, wenn der ungerichtete
+Graph (der sich daraus ergibt, dass man die Kantenrichtungen von $G$
+ignoriert) zusammenhängend ist.\index{Breitensuche}
+\footcite{examen:66115:2021:03}
+
+\begin{bExkurs}[Schwach zusammenhängend gerichteter Graph]
+Beim gerichteten Graphen musst du auf die Kantenrichtung achten.
+Würde man die Richtungen der Kanten ignorieren wäre aber trotzdem jeder
+Knoten erreichbar. Einen solchen Graphen nennt man schwach
+zusammenhängend.\bFussnoteUrl{https://studyflix.de/informatik/grundbegriffe-der-graphentheorie-1285}
+
+Ein gerichteter Graph heißt (schwach) zusammenhängend, falls der
+zugehörige ungerichtete Graph (also der Graph, der entsteht, wenn man
+jede gerichtete Kante durch eine ungerichtete Kante ersetzt)
+zusammenhängend ist.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Zusammenhang_(Graphentheorie)}
+\end{bExkurs}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Beschreiben Sie für ein allgemeines $n \in \mathbb{N}$ mit $n \geq
+2$ den Aufbau eines schwach zusammenhängenden Graphen $G_n$, mit $n$
+Knoten, bei dem die Breitensuche $\Theta(n)$ mal gestartet werden muss,
+bis alle Knoten markiert sind.
+
+\begin{bAntwort}
+?
+
+Die Breitensuche benötigt einen Startknoten. Die unten aufgeführten
+Graphen finden immer nur einen Knoten nämlich den Startknoten.
+
+\begin{tikzpicture}[li graph]
+\node (A) at (0,0) {A};
+\node (B) at (1,0) {B};
+\node (C) at (2,0) {C};
+\node (D) at (3,0) {D};
+
+\path[<-] (A) edge node {} (B);
+\path[<-] (B) edge node {} (C);
+\path[<-] (C) edge node {} (D);
+\end{tikzpicture}
+
+Oder so:
+
+\begin{tikzpicture}[li graph]
+\node (A) at (0,0) {A};
+\node (B) at (0,1) {B};
+\node (C) at (1,0) {C};
+\node (D) at (-1,0) {D};
+
+\path[<-] (A) edge node {} (B);
+\path[<-] (A) edge node {} (C);
+\path[<-] (A) edge node {} (D);
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Welche asymptotische Laufzeit in Abhängigkeit von der Anzahl der
+Knoten $(n)$ und von der Anzahl der Kanten $(m)$ hat die Breitensuche
+über alle Neustarts zusammen? Beachten Sie, dass die Markierungen nicht
+gelöscht werden. Geben Sie die Laufzeit in $\Theta$-Notation an.
+Begründen Sie Ihre Antwort.
+\end{enumerate}
+\end{document}

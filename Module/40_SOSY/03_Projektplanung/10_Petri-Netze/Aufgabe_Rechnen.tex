@@ -1,0 +1,104 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{petri,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3: Rechnen},
+  Thematik = {Rechnen},
+  Referenz = SOSY.Projektplanung.Petri-Netze.Rechnen,
+  RelativerPfad = Module/40_SOSY/03_Projektplanung/10_Petri-Netze/Aufgabe_Rechnen.tex,
+  ZitatSchluessel = sosy:ab:4,
+  ZitatBeschreibung = {Seite 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Petri-Netz},
+}
+
+Gegeben sei die Darstellungsmatrix $A$ und der Belegungsvektor $v$ eines
+Petri-Netzes:\index{Petri-Netz}
+\footcite[Seite 2]{sosy:ab:4}
+
+\begin{displaymath}
+A =
+\begin{blockarray}{ccccc}
+  & t_1 & t_2 & t_3 & t_4 \\
+  \begin{block}{c(cccc)}
+  p_1 & -1 & 0 & 0 & 1 \\
+  p_2 & 1 & -1 & 1 & 0 \\
+  p_3 & 0 & 1 & 0 & -1 \\
+  p_4 & 0 & -1 & 1 & 0 \\
+  p_5 & 0 & 0 & -1 & 1 \\
+  \end{block}
+\end{blockarray}
+\enspace
+,
+\enspace
+v =
+\left(
+  \begin{array}{c}
+  0 \\
+  0 \\
+  1 \\
+  0 \\
+  1
+  \end{array}
+\right)
+\end{displaymath}
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Skizzieren Sie das zugehörige Petri-Netz.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li petri]
+\node[place,tokens=0,label=south:$p_1$] at (2,4) (p1) {};
+\node[place,tokens=0,label=east:$p_2$] at (6,4) (p2) {};
+\node[place,tokens=1,label=$p_3$] at (10,2) (p3) {};
+\node[place,tokens=0,label=$p_4$] at (6,0) (p4) {};
+\node[place,tokens=1,label=$p_5$] at (2,0) (p5) {};
+
+\node[transition,label=$t_1$] at (4,4) {}
+  edge[pre] (p1)
+  edge[post] (p2);
+\node[transition,label=$t_2$] at (8,2) {}
+  edge[pre] (p2)
+  edge[pre] (p4)
+  edge[post] (p3);
+\node[transition,label=$t_3$] at (4,0) {}
+  edge[pre] (p5)
+  edge[post] (p2)
+  edge[post] (p4);
+\node[transition,label=east:$t_4$] at (0,2) (t4) {}
+  edge[post] (p1)
+  edge[post] (p5);
+
+\draw[pre,bend left=75] (t4) -- (0,-1) -- (10,-1) -- (p3);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Berechnen Sie mithilfe der Darstellungsmatrix $A$ und zum
+Belegungsvektor $v$, die Belegung nach Schaltung von $t_3 \rightarrow t_2
+\rightarrow t_4$.
+
+\begin{bAntwort}
+\begin{displaymath}
+v_\text{neu} =
+v +
+A \cdot \left(\begin{array}{c}0\\0\\1\\0\end{array}\right) +
+A \cdot \left(\begin{array}{c}0\\1\\0\\0\end{array}\right) +
+A \cdot \left(\begin{array}{c}0\\0\\0\\1\end{array}\right) =
+\left(\begin{array}{c}1\\0\\1\\0\\1\end{array}\right)
+\end{displaymath}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

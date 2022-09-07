@@ -1,0 +1,45 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Übungen der TU München},
+  Thematik = {Xenokrates},
+  Referenz = DB.Relationales-Modell.Tupelkalkuel.Xenokrates,
+  RelativerPfad = Module/10_DB/30_Relationales-Modell/30_Tupelkalkuel/Aufgabe_Xenokrates.tex,
+  ZitatSchluessel = net:pdf:tum:db-tutor-uebung,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Tupelkalkül},
+}
+
+Lösen Sie die Aufgaben im Tupel- und Domänenkalkül:
+\index{Tupelkalkül}
+\footcite{net:pdf:tum:db-tutor-uebung}
+
+\begin{enumerate}
+\item Geben Sie alle Vorlesungen an, die der Student
+\emph{Xenokrates} gehört hat.
+
+\begin{bAntwort}
+$\{
+  v |
+  v \in Vorlesungen \land
+  \exists h \in hoeren(
+    v.VorlNr = h.VorlNr \land
+    \exists s \in Studenten(
+      h.MatrNr = s.MatrNr \land s.Name = \mlq Xenokrates \mrq
+    )
+  )
+\}
+$
+\end{bAntwort}
+
+\item Geben Sie die Titel der direkten Voraussetzungen für die
+Vorlesung Wissenschaftstheorie an.
+
+\item Geben Sie Paare von Studenten(-Namen) an, die sich aus
+der Vorlesung Grundzüge kennen.
+
+\end{enumerate}
+\end{document}

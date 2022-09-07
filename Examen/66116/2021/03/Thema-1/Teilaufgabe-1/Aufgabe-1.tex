@@ -1,0 +1,94 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {private, package-private und protected},
+  Referenz = 66116-2021-F.T1-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-1/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Sichtbarkeit},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+% F21-ST-TA1
+
+% Aufgabe 1a, Sichbarkeiten:
+
+%
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Definieren Sie die Bedeutung der Sichtbarkeiten \emph{private},
+\emph{package-private} und \emph{protected} von Feldern in Java-Klassen.
+Erklären Sie diese kurz (je ein Satz).\index{Sichtbarkeit}
+\footcite{examen:66116:2021:03}
+
+\begin{bAntwort}
+\begin{description}
+\item[private]
+Das Feld ist nur innerhalb der eigenen Klasse zugreifbar.
+
+\item[package-private]
+Bei \emph{package private} (kein \emph{modifier}) wird die Sichtbarkeit
+auf das Paket, dem die Klasse angehört, ausgedehnt
+(https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html).
+
+\item[protected]
+Die Sichtbarkeit wird gegenüber \emph{package-private} auf alle
+Subklassen
+(auch Subklassen, die nicht dem Paket angehören) ausgedehnt.
+
+\end{description}
+
+\begin{tabular}{llllll}
+Modifier & Class & Package & Sub (same pkg) & Sub (diff pkg) & World\\\hline
+public & ja & ja & ja & ja & ja \\
+protected & ja & ja & ja & ja & nein\\
+\emph{no modifier} & ja & ja & ja & nein & nein\\
+private & ja & nein & nein & nein & nein\\
+\end{tabular}
+
+https://stackoverflow.com/a/215505
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Benennen Sie jeweils einen Grund für den Einsatz der
+Sichtbarkeiten \emph{private}, \emph{package-private} und
+\emph{protected} von Feldern in Java-Klassen.
+
+\begin{bAntwort}
+\begin{description}
+\item[private]
+
+Datenkapselung, Verbergen der internen Implementation. So kann die
+interne Implementation geändert werden, ohne dass die öffentlichen
+Schnittstellen sich ändern.
+
+\item[package-private]
+
+Um die Felder zwar innerhalb deines Pakets für alle Klassen zugänglich
+zu machen aber nicht außerhalb, \zB in einem größeren Projekt.
+
+\item[protected]
+
+Wenn eine Klasse vererbt werden soll, \zB abstrakte Klassen.
+\end{description}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

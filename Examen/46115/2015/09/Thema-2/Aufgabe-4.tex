@@ -1,0 +1,120 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java,vollstaendige-induktion}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Methode function: Formale Verifikation - Induktionsbeweis},
+  Referenz = 46115-2015-H.T2-A4,
+  RelativerPfad = Staatsexamen/46115/2015/09/Thema-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46115:2015:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vollständige Induktion},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2015,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 4,
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Gegeben\index{Vollständige Induktion}
+\footcite{examen:46115:2015:09} sei die folgende Methode \bJavaCode{function}:
+
+\bJavaExamen[firstline=4,lastline=9]{46115}{2015}{09}{Induktion}
+
+\noindent
+Beweisen Sie folgenden Zusammenhang mittels vollständiger Induktion:
+
+\begin{displaymath}
+\forall n \geq 1 \colon \text{function}(n) = f(n)\text{ mit }
+f(n) := 1 - \frac{1}{n + 1}
+\end{displaymath}
+
+\noindent
+Hinweis: Eventuelle Rechenungenauigkeiten, wie z. B. in Java, bei der
+Behandlung von Fließkommazahlen (z. B. \bJavaCode{double}) sollen beim
+Beweis nicht berücksichtigt werden - Sie dürfen also annehmen,
+Fließkommazahlen würden mathematische Genauigkeit aufweisen.
+
+\begin{bAntwort}
+\bInduktionAnfang
+
+$f(1) := 1 - \frac{1}{1 + 1} = 1 - \frac{1}{2} = \frac{1}{2}$
+
+\bInduktionVoraussetzung
+
+$f(n) := 1 - \frac{1}{n + 1}$
+
+\bInduktionSchritt
+
+\bPseudoUeberschrift{zu zeigen:}
+
+$f(n + 1) := 1 - \frac{1}{(n + 1) + 1} = f(n)$
+
+\bPseudoUeberschrift{Vorarbeiten (Java in Mathe umwandeln):}
+
+$\text{function}(n) = \frac{1}{n \cdot (n + 1)} + f(n - 1)$
+
+\begin{align*}
+f(n + 1)
+& = \frac{1}{\m{(n + 1)} \cdot
+    (\m{(n + 1) }+ 1)} +
+    f(\m{(n + 1)} - 1)
+& \e{$n + 1$ eingesetzt}\\
+%
+& = \frac{1}{(n + 1) \cdot
+    (\m{n + 2})} + f(\text{n})
+& \e{vereinfacht}\\
+%
+& = \frac{1}{(n + 1) \cdot (n + 2)} +
+    \m{1 - \frac{1}{n + 1}}
+& \e{für $f(n)$ Formel eingesetzt}\\
+%
+& = 1 +
+    \m{\frac{1}{(n + 1) \cdot (n + 2)}} -
+    \frac{1}{n + 1}
+& \e{1. Bruch an 2. Stelle geschrieben}\\
+%
+& = 1 +
+    \frac{1}{(n + 1) \cdot (n + 2)} -
+    \frac{1 \cdot \m{(n + 2)}}{(n + 1) \cdot \m{(n + 2)}}
+& \e{2. Bruch mit $(n + 2)$ erweitert}\\
+%
+& = 1 +
+    \frac{1 - (n + 2)}{(n + 1) \cdot (n + 2)}
+& \e{die 2 Brüche subtrahiert}\\
+%
+& = 1 +
+    \frac{1 - n \m{-} 2}{(n + 1) \cdot (n + 2)}
+& \e{$-+2 = -2$}\\
+%
+& = 1 +
+    \frac{\m{-1} - n}{(n + 1) \cdot (n + 2)}
+& \e{$1-2=-1$}\\
+%
+& = 1 +
+    \frac{\m{-1 \cdot (1 + n)}}{(n + 1) \cdot (n + 2)}
+& \e{$(n + 1)$ ausgeklammert}\\
+%
+& = 1 +
+    \left(\m{-1 \cdot} \frac{(1 + n)}{(n + 1) \cdot (n + 2)}\right)
+& \e{minus vor den Bruch bringen}\\
+%
+& = 1 \m{-}
+    \frac{(1 + n)}{(n + 1) \cdot (n + 2)}
+& \e{plus minus ist minus}\\
+%
+& = 1 -
+    \m{\frac{1}{n + 2}}
+& \e{$(n + 1)$ gekürzt}\\
+%
+& = 1 -
+    \frac{1}{\m{(n + 1)} + 1}
+& \e{Umformen zur Verdeutlichung}\\
+\end{align*}
+\end{bAntwort}
+\end{document}

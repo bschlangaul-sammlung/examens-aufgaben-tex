@@ -1,0 +1,156 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,spalten,struktogramm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Abitur 2017 IV},
+  Thematik = {Primzahl},
+  Referenz = TECH.Ein-Adress.05-Abitur-2017-IV-Primzahl,
+  RelativerPfad = Module/50_TECH/10_Ein-Adress/Aufgabe_05-Abitur-2017-IV-Primzahl.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Ein-Adress-Befehl-Assembler},
+}
+
+% zurückbekommen und korrigiert 5.2.2021
+
+In dem folgenden Struktogramm wird ein Algorithmus dargestellt, der
+erkennt, ob eine natürliche Zahl $k$ eine Primzahl ist. In diesem Fall
+wir in die Speicherzelle $erg$ die Zahl $1$ abgelegt, sonst $0$.
+\index{Ein-Adress-Befehl-Assembler}
+
+\begin{center}
+\begin{struktogramm}(80,60)
+\ifthenelse{2}{6}{$k$ gleich $1$}{wahr}{falsch}
+  \assign[7]{$erg = 0$}
+\change
+  \assign{$a = 0$}
+  \assign{$t = 1$}
+
+  \until{solange $a$ gleich $0$}
+    \assign{$t=t+1$}
+
+    \ifthenelse[10]{1}{1}{$t$ ist Teiler von $k$}{wahr}{falsch}
+      \assign{$a=1$}
+    \change
+    \ifend
+  \untilend
+
+  \ifthenelse[10]{1}{1}{$t$ gleich $k$}{wahr}{falsch}
+    \assign{$erg = 1$}
+  \change
+    \assign{$erg = 0$}
+  \ifend
+\ifend
+\end{struktogramm}
+\end{center}
+
+\begin{enumerate}
+
+\newpage
+
+%%
+% (a)
+%%
+
+\item Stellen Sie die Veränderung der Variablenwerte bei Ablauf dieses
+Algorithmus jeweils für die Startwerte $k = 5$ und $k = 15$ durch zwei
+Speicherbelegungstabellen wie nachfolgend gezeigt dar.
+
+\begin{center}
+\begin{tabular}{l|l|l|l|l}
+Anweisung   & k & a & t & erg \\\hline
+            & 5 &   &   & \\\hline
+$a = 0$     &   & 0 &   & \\\hline
+$t = 1$     &   &   & 1 & \\\hline
+$t = t + 1$ & 5 &   & 2 & \\\hline
+\end{tabular}
+\end{center}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{$k = 5$}
+
+\begin{tabular}{l|l|l|l|l}
+Anweisung   & k & a & t & erg \\\hline
+            & 5 &   &   &     \\\hline
+$a = 0$     &   & 0 &   &     \\\hline
+$t = 1$     &   &   & 1 &     \\\hline
+$t = t + 1$ &   &   & 2 &     \\\hline
+$t = t + 1$ &   &   & 3 &     \\\hline
+$t = t + 1$ &   &   & 4 &     \\\hline
+$t = t + 1$ &   &   & 5 &     \\\hline
+$a = 1$     &   & 1 &   &     \\\hline
+$erg = 1$   &   &   &   & 1   \\\hline
+\end{tabular}
+
+\bigskip
+
+\bPseudoUeberschrift{$k = 15$}
+
+\begin{tabular}{l|l|l|l|l}
+Anweisung   & k  & a & t & erg \\\hline
+            & 15 &   &   &     \\\hline
+$a = 0$     &    & 0 &   &     \\\hline
+$t = 1$     &    &   & 1 &     \\\hline
+$t = t + 1$ &    &   & 2 &     \\\hline
+$t = t + 1$ &    &   & 3 &     \\\hline
+$t = t + 1$ &    &   & 4 &     \\\hline
+$t = t + 1$ &    & 1 & 5 &     \\\hline
+$a = 1$     &    & 1 &   &     \\\hline
+$erg = 0$   &    &   &   & 0   \\\hline
+
+\end{tabular}
+\end{bAntwort}
+
+Im Folgenden soll ein Programm für diese Maschine erstellt werden, das
+den dargestellten Algorithmus umsetzt. Der Wert von $k$ soll in
+Speicherzelle $101$, der von $a$ in $102$, der von $t$ in $103$ und der
+von $erg$ in $104$ gespeichert werden.
+
+\newpage
+
+%%
+% (b)
+%%
+
+\item Betrachten Sie die folgende kurze Sequenz; xx steht dabei für ein
+geeignetes Sprungziel.
+
+\begin{minted}{asm}
+LOAD 101
+MOD 103
+JMPP xx
+LOADI 1
+STORE 102
+\end{minted}
+
+Geben Sie an, welcher Teil des Algorithmus damit umgesetzt wird.
+
+\begin{bAntwort}
+Die Bedingung „$t$ ist Teiler von $k$“.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Setzen Sie unter Verwendung der Sequenz aus Teilaufgabe 2b den
+gesamten Algorithmus in eine Programm für die gegebene Registermaschine
+um.
+\end{enumerate}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Assembler}
+
+\bAssemblerDatei{Aufgabe_05-Abitur-2017-IV-Primzahl.mia}
+
+\bPseudoUeberschrift{Minisprache}
+
+\bMinispracheDatei{Aufgabe_05-Abitur-2017-IV-Primzahl.mis}
+
+\bPseudoUeberschrift{Java}
+
+\bJavaDatei[firstline=5,lastline=23]{aufgaben/tech_info/assembler/ein_adress/Primzahl}
+
+\end{bAntwort}
+\end{document}

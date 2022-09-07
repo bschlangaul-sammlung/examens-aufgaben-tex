@@ -1,0 +1,99 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{rmodell,normalformen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Wareneingänge},
+  Referenz = 66116-2012-F.T1-TA1-A2,
+  RelativerPfad = Staatsexamen/66116/2012/03/Thema-1/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66116:2012:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Normalformen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2012,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+\let\FA=\bFunktionaleAbhaengigkeiten
+
+Gegeben sei folgende Datenbank für Wareneingänge eines Warenlagers. Die
+Primärschlüssel-Attribute sind unterstrichen.
+\index{Normalformen}
+\footcite{examen:66116:2012:03}
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+ZulieferungsNr & ArtikelNr & Datum & Artikelname & Menge\\\hline
+1 & 1 & 01.01.2009 & Handschuhe & 5\\\hline
+1 & 2 & 01.01.2009 & Mütze & 10\\\hline
+2 & 3 & 05.01.2009 & Schal & 2\\\hline
+2 & 1 & 05.01.2009 & Handschuhe & 18\\\hline
+3 & 4 & 06.01.2009 & Jacke & 2\\\hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erläutern Sie, inwiefern obiges Schema die 3. Normalform verletzt.
+
+\begin{bAntwort}
+\bMetaNochKeineLoesung
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Geben Sie für obige Datenbank alle vollen funktionalen
+Abhängigkeiten (einschließlich der transitiven) an.
+
+\begin{bAntwort}
+
+\begin{bExkurs}[Voll funktionale Abhängigkeit]
+Eine vollständig funktionale Abhängigkeit liegt dann vor, wenn dass
+Nicht-Schlüsselattribut nicht nur von einem Teil der Attribute eines
+zusammengesetzten Schlüsselkandidaten funktional abhängig ist, sondern
+von allen Teilen eines Relationstyps. Die vollständig funktionale
+Abhängigkeit wird mit der 2. Normalform (2NF) erreicht.
+\bFussnoteLink{datenbank-verstehen.de}{https://www.datenbanken-verstehen.de/datenmodellierung/normalisierung/abhaengigkeiten-normalisierung/}
+\end{bExkurs}
+
+\begin{bExkurs}[Transitive Abhängigkeit]
+Eine transitive Abhängigkeit liegt dann vor, wenn Y von X funktional
+abhängig und Z von Y, so ist Z von X funktional abhängig. Diese
+Abhängigkeit ist transitiv. Die transitive Abhängigkeit wird mit 3.
+Normalform (3NF) erreicht.
+\bFussnoteLink{datenbank-verstehen.de}{https://www.datenbanken-verstehen.de/datenmodellierung/normalisierung/abhaengigkeiten-normalisierung/}
+\end{bExkurs}
+
+\FA{
+  ZulieferungsNr -> Datum;
+  ArtikelNr -> Artikelname;
+  ZulieferungsNr, ArtikelNr -> Menge;
+}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Überführen Sie das obige Relationenschema in die 3. Normalform.
+Erläutern Sie die dazu durchzuführenden Schritte jeweils kurz.
+
+\begin{bAntwort}
+\bMetaNochKeineLoesung
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

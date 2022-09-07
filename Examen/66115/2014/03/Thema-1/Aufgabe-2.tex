@@ -1,0 +1,101 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Binäre Bäume},
+  Referenz = 66115-2014-F.T1-A2,
+  RelativerPfad = Staatsexamen/66115/2014/03/Thema-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66115:2014:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 2,
+}
+
+\let\j=\bJavaCode
+
+Implementieren Sie in einer objekt-orientierten Sprache Ihrer Wahl eine
+Klasse namens \j{BinBaum}, deren Instanzen binäre Bäume mit ganzzahligen
+Datenknoten darstellen, nach folgender Spezifikation:\index{Binärbaum}
+\footcite{examen:66115:2014:03}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Beginnen Sie zunächst mit der Datenstruktur selbst:
+
+\begin{itemize}
+\item Mit Hilfe des Konstruktors soll ein neuer Baum erstellt werden,
+der aus einem einzelnen Knoten besteht, in dem der dem Konstruktor als
+Parameter übergebene Wert (ganzzahlig, in Java z.B. \j{int}) gespeichert
+ist.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=14,lastline=22]{66115}{2014}{03}{BinBaum}
+\end{bAntwort}
+
+\item Die Methoden \j{setLeft(int value)} bzw. \j{setRight(int value)}
+sollen den linken bzw. rechten Teilbaum des aktuellen Knotens durch
+einen jeweils neuen Teilbaum ersetzen, der seinerseits aus einem
+einzelnen Knoten besteht, in dem der übergebene Wert \j{value}
+gespeichert ist. Sie haben keinen Rückgabewert.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=24,lastline=30]{66115}{2014}{03}{BinBaum}
+\end{bAntwort}
+
+\item Die Methoden \j{getLeft()} bzw. \j{getRight()} sollen den linken
+bzw. rechten Teilbaum zurückgeben (bzw. \j{null}, wenn keiner vorhanden
+ist)
+
+\begin{bAntwort}
+\bJavaExamen[firstline=32,lastline=38]{66115}{2014}{03}{BinBaum}
+\end{bAntwort}
+
+\item Die Methode \j{int getValue()} soll den Wert zurückgeben, der im
+aktuellen Wurzelknoten gespeichert ist.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=40,lastline=42]{66115}{2014}{03}{BinBaum}
+\end{bAntwort}
+\end{itemize}
+
+%%
+% b)
+%%
+
+\item Implementieren Sie nun die Methoden \j{preOrder()} bzw.
+\j{postOrder()}. Sie sollen die Knoten des Baumes mit Tiefensuche
+traversieren, die Werte dabei in pre-order bzw. post-order Reihenfolge
+in eine Liste (z.B. \j{List<Integer>}) speichern und diese Ergebnisliste
+zurückgeben. Die Tiefensuche soll dabei zuerst in den linken und dann in
+den rechten Teilbaum absteigen.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=45,lastline=71]{66115}{2014}{03}{BinBaum}
+\end{bAntwort}
+
+\item Ergänzen Sie schließlich die Methode \j{isSearchTree ()}. Sie soll
+überprüfen, ob der Binärbaum die Eigenschaften eines binären Suchbaums
+erfüllt. Beachten Sie, dass die Laufzeit-Komplexität Ihrer
+Implementierung linear zur Anzahl der Knoten im Baum sein muss.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=73,lastline=87]{66115}{2014}{03}{BinBaum}
+\end{bAntwort}
+
+\end{enumerate}
+
+\begin{bAdditum}
+\bJavaExamen{66115}{2014}{03}{BinBaum}
+\end{bAdditum}
+\end{document}

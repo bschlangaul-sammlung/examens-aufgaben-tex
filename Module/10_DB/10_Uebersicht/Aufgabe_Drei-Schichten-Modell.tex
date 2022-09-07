@@ -1,0 +1,97 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Schicht auf Schicht},
+  Thematik = {Drei-Schichten-Modell},
+  Referenz = DB.Uebersicht.Drei-Schichten-Modell,
+  RelativerPfad = Module/10_DB/10_Uebersicht/Aufgabe_Drei-Schichten-Modell.tex,
+  ZitatSchluessel = db:ab:klausurvorbereitung,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Drei-Schichten-Modell},
+}
+
+Das Drei-Schichten-Modell trägt den verschiedenen Sichten auf eine
+Datenbank Rechnung. Geben Sie zu den unten (unter a bis e) genannten
+Vorgängen jeweils an, welche
+der folgenden Aussagen zutreffen:
+\index{Drei-Schichten-Modell}
+\footcite{db:ab:klausurvorbereitung}
+
+\begin{enumerate}
+\item Änderungen in bestehenden Anwendungsprogrammen notwendig
+\item Änderungen im externen Schema notwendig
+\item Änderungen im konzeptionellen Schema notwendig
+\item Änderungen im internen Schema notwendig
+\end{enumerate}
+
+\subsection{Vorgänge}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Ein neues Anwendungsprogramm wird geschrieben, das bestehende
+Daten nutzt.
+
+%%
+% (b)
+%%
+
+\item Der Datentyp eines Attributs wird geändert, \zB wird statt
+VARCHAR(20) VARCHAR(30) verwendet.
+
+%%
+% (c)
+%%
+
+\item Ein neues Anwendungsprogramm wird entwickelt, das neue
+(zusätzliche) Datenstrukturen benötigt.
+
+%%
+% (d)
+%%
+
+\item Es werden neue Daten eingespeichert bzw. bestehende gelöscht.
+
+%%
+% (e)
+%%
+
+\item Der Zugriff auf die Daten wird optimiert.
+\end{enumerate}
+
+\noindent
+Sie könnten dazu folgende Tabelle ausfüllen: Kreuzen Sie das
+entsprechende Feld an, wenn die Aussage diesbezüglich wahr ist, oder
+lassen Sie es andernfalls leer. Ist die Aussage nicht eindeutig und
+situationsbedingt wahr, setzen sie ein eingeklammertes Kreuz (x) ein!
+
+\begin{bAntwort}
+\begin{tabular}{lllll}
+  &  1  &  2  & 3   & 4 \\
+a &     & (x) &     &   \\
+b & (x) & (x) & (x) & x \\
+c & (x) & (x) &  x  & x \\
+d &     &     &     &   \\
+e &     &     &     & x
+\end{tabular}
+
+\subsection{Hinweis}
+
+\begin{itemize}
+\item Zu b) Bei der vorgegebenen Änderung des Datentyps ist sicher das
+interne Schema betroffen, da sich die Speicherstruktur ändert. Wird der
+Datentyp „stark“ geändert, \dh beispielsweise char durch integer
+ersetzt, kann das auch Änderungen bei (1), (2) und (3) nach sich ziehen.
+
+\item Zu d) Schemata beschreiben Strukturen. Das Speichern bzw. Löschen
+von Daten kann damit keinen Einfluss auf ein Schema haben.
+\end{itemize}
+
+\end{bAntwort}
+\end{document}

@@ -1,0 +1,209 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {AVL-Baum 12,5,20,2,9,16,25,3,21},
+  Referenz = 66115-2013-H.T2-A8,
+  RelativerPfad = Staatsexamen/66115/2013/09/Thema-2/Aufgabe-8.tex,
+  ZitatSchluessel = examen:66115:2013:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt und überprüft,
+  Ueberprueft = {mit den Online-Tool VisuAlgo \url{https://visualgo.net/en/bst}},
+  Stichwoerter = {AVL-Baum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2013,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 8,
+}
+
+Gegeben\index{AVL-Baum}\footcite{examen:66115:2013:09} sei der folgende
+AVL-Baum $T$. Führen Sie auf $T$ folgende Operationen durch.
+
+\begin{bProjektSprache}{Baum}
+baum avl (
+  setze: 12 5 20 2 9 16 25 3 21;
+  drucke;
+)
+\end{bProjektSprache}
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-1]{5};
+    [.\node[label=+1]{2};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{3}; ]
+    ]
+    [.\node[label=0]{9}; ]
+  ]
+  [.\node[label=+1]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=-1]{25};
+      [.\node[label=0]{21}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Fügen Sie den Wert $22$ in $T$ ein. Balancieren Sie falls nötig und
+geben Sie den entstandenen Baum (als Zeichnung) an.
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „22“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-1]{5};
+    [.\node[label=+1]{2};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{3}; ]
+    ]
+    [.\node[label=0]{9}; ]
+  ]
+  [.\node[label=+2]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=-2]{25};
+      [.\node[label=+1]{21};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{22}; ]
+      ]
+      \edge[blank]; \node[blank]{};
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-1]{5};
+    [.\node[label=+1]{2};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{3}; ]
+    ]
+    [.\node[label=0]{9}; ]
+  ]
+  [.\node[label=+2]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=-2]{25};
+      [.\node[label=-1]{22};
+        [.\node[label=0]{21}; ]
+        \edge[blank]; \node[blank]{};
+      ]
+      \edge[blank]; \node[blank]{};
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-1]{5};
+    [.\node[label=+1]{2};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{3}; ]
+    ]
+    [.\node[label=0]{9}; ]
+  ]
+  [.\node[label=+1]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=0]{22};
+      [.\node[label=0]{21}; ]
+      [.\node[label=0]{25}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Löschen Sie danach die $5$. Balancieren Sie $T$ falls nötig und
+geben Sie den entstandenen Baum (als Zeichnung) an.
+\end{enumerate}
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Löschen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-2]{9};
+    [.\node[label=+1]{2};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{3}; ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=+1]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=0]{22};
+      [.\node[label=0]{21}; ]
+      [.\node[label=0]{25}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{12};
+  [.\node[label=-2]{9};
+    [.\node[label=-1]{3};
+      [.\node[label=0]{2}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=+1]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=0]{22};
+      [.\node[label=0]{21}; ]
+      [.\node[label=0]{25}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{12};
+  [.\node[label=0]{3};
+    [.\node[label=0]{2}; ]
+    [.\node[label=0]{9}; ]
+  ]
+  [.\node[label=+1]{20};
+    [.\node[label=0]{16}; ]
+    [.\node[label=0]{22};
+      [.\node[label=0]{21}; ]
+      [.\node[label=0]{25}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+\end{document}

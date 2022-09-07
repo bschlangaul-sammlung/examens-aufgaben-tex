@@ -1,0 +1,138 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,vollstaendige-induktion}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Hanoi},
+  Referenz = 46116-2014-F.T2-TA1-A1,
+  RelativerPfad = Staatsexamen/46116/2014/03/Thema-2/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:46116:2014:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt und überprüft,
+  Ueberprueft = {mit Dozentenlösung abgeglichen},
+  Stichwoerter = {Terminierungsfunktion},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Gegeben\footcite{examen:46116:2014:03} sei folgende Methode zur
+Berechnung der Anzahl der notwendigen Züge beim Spiel \emph{„Die Türme
+von Hanoi“}:
+\footcite{sosy:pu:5:1}
+
+\bJavaExamen[firstline=4,lastline=15]{46116}{2014}{03}{Hanoi}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Beweisen Sie formal mittels vollständiger Induktion, dass zum
+Umlegen von $k$ Scheiben (\zB vom Turm A zum Turm C) insgesamt
+$2^k-1$ Schritte notwendig sind, also dass für $k \geq 0$ folgender
+Zusammenhang gilt:
+
+\begin{displaymath}
+\text{hanoi}(k,\text{'A'},\text{'C'}) = 2^k - 1
+\end{displaymath}
+
+\begin{bAntwort}
+Zu zeigen:
+
+\begin{displaymath}
+\text{hanoi}(k,\text{'A'},\text{'C'}) = 2^k - 1
+\end{displaymath}
+
+%%
+%
+%%
+
+\bInduktionAnfang
+
+$k=0$
+
+\begin{displaymath}
+\text{hanoi}(0,\text{'A'},\text{'C'}) = 0
+\end{displaymath}
+
+\begin{displaymath}
+2^0 - 1 = 1 - 1 = 0
+\end{displaymath}
+
+%%
+%
+%%
+
+\bInduktionVoraussetzung
+
+\begin{displaymath}
+\text{hanoi}(k,\text{'A'},\text{'C'}) = 2^k - 1
+\end{displaymath}
+
+%%
+%
+%%
+
+\bInduktionSchritt
+
+\begin{align*}
+\text{hanoi}(k, \text{'A'},\text{'C'})
+& = 1 +
+    \text{hanoi}(k - 1, \text{'A'},\text{'B'}) +
+    \text{hanoi}(k - 1, \text{'B'},\text{'C'})\\
+\end{align*}
+
+$k \rightarrow k + 1$
+
+\begin{align*}
+\text{hanoi}(\m{k + 1}, \text{'A'},\text{'C'})
+& = 1 +
+    \text{hanoi}(\m{(k + 1)} - 1, \text{'A'},\text{'B'}) + \\
+    & \hspace{1cm}
+    \text{hanoi}(\m{(k + 1)} - 1, \text{'B'},\text{'C'})\\
+& = 1 +
+    \text{hanoi}(\m{k}, \text{'A'},\text{'B'}) +\\
+    & \hspace{1cm}
+    \text{hanoi}(\m{k}, \text{'B'},\text{'C'})
+& \e{$k + 1 - 1 = k$}\\
+%
+& = 1 +
+    \m{2^k - 1} + \m{2^k - 1}
+& \e{Formeln eingesetzt}\\
+%
+& = 2^k + 2^k \m{- 1}
+& \e{$1 - 1 - 1 = - 1$}\\
+%
+& = \m{2 \cdot 2^k} - 1
+& \e{$2^k + 2^k = 2 \cdot 2^k$}
+\\
+& = 2^{\m{k+1}} - 1 & \e{$2 \cdot 2^k = 2^{k+1}$} \\
+\end{align*}
+
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Geben Sie eine geeignete
+Terminierungsfunktion\index{Terminierungsfunktion} an und begründen Sie
+kurz Ihre Wahl!
+
+\begin{bAntwort}
+Betrachte die Argumentenfolge $k, k-1, k-2, \dots, 0$. Die
+Terminierungsfunktion ist offenbar $T(k) = k$. $T(k)$ ist bei jedem
+Rekursionsschritt auf der Folge der Argumente streng monoton fallend.
+Bei der impliziten Annahme $k$ ist ganzzahlig und $k \geq 0$ ist $T(k)$
+nach unten durch $0$ beschränkt.
+\end{bAntwort}
+\end{enumerate}
+\end{document}

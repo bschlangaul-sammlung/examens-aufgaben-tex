@@ -1,0 +1,223 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Wissensfragen},
+  Referenz = 66116-2020-H.T2-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2020/09/Thema-2/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Wasserfallmodell, Prozessmodelle, Kontinuierliche Integration (Continuous Integration), EXtreme Programming, Softwaremaße, SCRUM},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Nennen Sie fünf Phasen, die im Wasserfallmodell durchlaufen werden
+sowie deren jeweiliges Ziel bzw.
+Ergebnis(-dokument).\index{Wasserfallmodell}
+\index{Prozessmodelle}
+\footcite{examen:66116:2020:09}
+
+\begin{bAntwort}
+\begin{description}
+\item[Anforderung]
+
+Lasten- und Pflichtenheft
+
+\item[Entwurf]
+
+Softwarearchitektur in Form von Struktogrammen, UML-Diagrammen etc.
+
+\item[Implementierung]
+
+Software
+
+\item[Überprüfung]
+
+überarbeitete Software
+
+\item[Einsatz und Wartung]
+
+erneut überarbeitete Software, verbesserte Wartung
+\end{description}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Nennen Sie drei Arten der Softwarewartung und geben Sie jeweils
+eine kurze Beschreibung an.
+
+\begin{bAntwort}
+\begin{description}
+\item[korrektive Wartung]
+
+Korrektur von Fehlern, die schon beim Kunden in Erscheinung
+getreten sind
+
+\item[präventive Wartung]
+
+Korrektur von Fehlern, die beim Kunden
+noch nicht in Erscheinung getreten sind
+
+\item[adaptive Wartung]
+
+Anpassung der Software an neue Anforderungen
+
+\item[perfektionierende Wartung]
+
+Verbesserung von Performance und Wartbarkeit und Behebung von technical
+depts\bFussnoteUrl{https://de.wikipedia.org/wiki/Softwarewartung}
+\end{description}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Eine grundlegende Komponente des \emph{Extreme Programming} ist
+\emph{„Continuous Integration“}. Erklären Sie diesen Begriff und warum
+man davon einen Vorteil erwartet.
+\index{Kontinuierliche Integration (Continuous Integration)}
+\index{EXtreme Programming}
+
+\begin{bAntwort}
+Die Software wird nach jeder Änderung (push) automatisch kompiliert und
+auch getestet. Man erwartet sich davon einen Vorteil, weil Fehler
+schneller erkannt werden und die aktuelle Version des Systems ständig
+verfügbar ist.
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Nennen Sie zwei Softwaremetriken und geben Sie jeweils einen Vor-
+und Nachteil an, der im Projektmanagement von Bedeutung
+ist.\index{Softwaremaße}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Anzahl der Code-Zeilen}
+
+\begin{description}
+\item[Vorteil:]
+
+Ist sehr einfach zu bestimmen.
+
+\item[Nachteil:]
+
+Entwickler können die Zeilenzahl manipulieren (zusätzliche Leerzeilen,
+Zeilen aufteilen), ohne dass sich die Qualität des Codes verändert.
+\end{description}
+
+\bPseudoUeberschrift{Zyklomatische Komplexität}
+
+\begin{description}
+\item[Vorteil:]
+
+Trifft eine Aussage über die Qualität des Algorithmus.
+
+\item[Nachteil:]
+
+Ist für Menschen nicht intuitiv zu erfassen. Zwei Codes, die dasselbe
+Problem lösen können die gleiche Zyklomatische Komplexität haben, obwohl
+der eine wesentlich schlechter zu verstehen ist (Spaghetticode!).
+\end{description}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Nennen und beschreiben Sie kurz drei wichtige Aktivitäten, welche
+innerhalb einer Sprint-Iteration von Scrum durchlaufen werden.
+\index{SCRUM}
+
+\begin{bAntwort}
+\begin{description}
+\item[Sprint Planning]
+
+Im Sprint Planning werden zwei Fragen beantwortet:
+
+\begin{itemize}
+\item Was kann im kommenden Sprint entwickelt werden?
+\item Wie wird die Arbeit im kommenden Sprint erledigt?
+\end{itemize}
+
+Die Sprint-Planung wird daher häufig in zwei Teile geteilt. Sie dauert
+in Summe maximal 2 Stunden je Sprint-Woche, beispielsweise maximal acht
+Stunden für einen 4-Wochen-Sprint.
+
+\item[Daily Scrum]
+
+Zu Beginn eines jeden Arbeitstages trifft sich das Entwicklerteam zu
+einem max. 15-minütigen Daily Scrum. Zweck des Daily Scrum ist der
+Informationsaustausch.
+
+\item[Sprint Review]
+
+Das Sprint Review steht am Ende des Sprints. Hier überprüft das
+Scrum-Team das Inkrement, um das Product Backlog bei Bedarf anzupassen.
+Das Entwicklungsteam präsentiert seine Ergebnisse und es wird überprüft,
+ob das zu Beginn gesteckte Ziel erreicht wurde.
+\footcite{wiki:scrum}
+\end{description}
+\end{bAntwort}
+
+%%
+% f)
+%%
+
+\item Erläutern Sie den Unterschied zwischen dem Product-Backlog und dem
+Sprint-Backlog.
+
+\begin{bAntwort}
+\begin{description}
+\item[Product Backlog]
+
+Das Product Backlog ist eine geordnete Auflistung der Anforderungen an
+das Produkt.
+
+\item[Sprint Backlog]
+
+Das Sprint Backlog ist der aktuelle Plan der für einen Sprint zu
+erledigenden Aufgaben.
+\footcite{wiki:scrum}
+\end{description}
+\end{bAntwort}
+
+%%
+% g)
+%%
+
+\item Erläutern Sie, warum eine agile Entwicklungsmethode nur für
+kleinere Teams (max. 10 Personen) gut geeignet ist, und zeigen Sie einen
+Lösungsansatz, wie auch größere Firmen agile Methoden sinnvoll einsetzen
+können.
+
+\begin{bAntwort}
+Bei agilen Entwicklungsmethoden finden daily scrums statt, die in der
+intendierten Kürze nur in kleinen Teams umsetzbar sind. Außerdem ist in
+größeren Teams oft eine Hierarchie vorhanden, die eine schnelle
+Entscheidungsfindung verhindert. Man könnte die große Firma in viele
+kleine Teams einteilen, die jeweils an kleinen (Teil-)Projekten
+arbeiten. Eventuell können die product owner der einzelnen Teams nach
+agilen Methoden zusammenarbeiten.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

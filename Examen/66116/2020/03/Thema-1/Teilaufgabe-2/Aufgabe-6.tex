@@ -1,0 +1,72 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Physische Datenstrukturen)},
+  Referenz = 66116-2020-F.T1-TA2-A6,
+  RelativerPfad = Staatsexamen/66116/2020/03/Thema-1/Teilaufgabe-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66116:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {B-Baum},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 6,
+}
+
+Fügen Sie die Zahl $4$ in den folgenden B-Baum ein.
+\index{B-Baum}
+\footcite{examen:66116:2020:03}
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.style={level distance=15mm,sibling distance=28mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm},
+]
+\node {10 \nodepart{two} 20 \nodepart{three} . \nodepart{four} .} [->]
+  child {
+    node {5 \nodepart{two} 6 \nodepart{three} 7 \nodepart{four} 8}
+  }
+  child {
+    node {12 \nodepart{two} 14 \nodepart{three} 16 \nodepart{four} 18}
+  }
+  child {
+    node {25 \nodepart{two} 30 \nodepart{three} . \nodepart{four} .}
+  };
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Zeichnen Sie den vollständigen, resultierenden Baum.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.style={level distance=15mm,sibling distance=28mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm},
+]
+\node {6 \nodepart{two} 10 \nodepart{three}  20 \nodepart{four} .} [->]
+  child {
+    node {4 \nodepart{two} 5 \nodepart{three} . \nodepart{four} .}
+  }
+  child {
+    node {7 \nodepart{two} 8 \nodepart{three} . \nodepart{four} .}
+  }
+  child {
+    node {12 \nodepart{two} 14 \nodepart{three} 16 \nodepart{four} 18}
+  }
+  child {
+    node {25 \nodepart{two} 30 \nodepart{three} . \nodepart{four} .}
+  };
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{document}

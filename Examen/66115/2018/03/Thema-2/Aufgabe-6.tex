@@ -1,0 +1,76 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe,master-theorem}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Methode „m()“},
+  Referenz = 66115-2018-F.T2-A6,
+  RelativerPfad = Staatsexamen/66115/2018/03/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = aud:fs:2,
+  ZitatBeschreibung = {Seite 39},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Master-Theorem},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2018,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 6,
+}
+
+Der Hauptsatz der Laufzeitfunktionen ist bekanntlich folgendermaßen
+definiert:\index{Master-Theorem}
+\footcite[Seite 39]{aud:fs:2}
+\footcite[Thema 2 Aufgabe 6]{examen:66115:2018:03}
+
+\bMasterExkurs
+
+\begin{enumerate}
+
+\item Betrachten Sie die folgende Methode \bJavaCode{m} in Java, die
+initial mit \bJavaCode{m(r, 0, r.length)} für das Array \bJavaCode{r}
+aufgerufen wird. Geben Sie dazu eine Rekursionsgleichung $T(n)$ an,
+welche die Anzahl an Rechenschritten von \bJavaCode{m} in Abhängigkeit
+von der Länge \bJavaCode{n = r.length} berechnet.
+
+\bJavaExamen[firstline=5,lastline=21]{66115}{2018}{03}{MasterTheorem}
+
+\begin{bAntwort}
+\bMasterVariablenDeklaration
+{3} % a
+{3} % b
+{\mathcal{O}(1)} % f(n)
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Ordnen Sie die rekursive Funktion $T(n)$ aus (a) einem der drei
+Fälle des Mastertheorems zu und geben Sie die resultierende
+Zeitkomplexität an. Zeigen Sie dabei, dass die Voraussetzung des Falles
+erfüllt ist.
+
+\begin{bAntwort}
+
+\bMasterFallRechnung
+% 1. Fall
+{$f(n) \in \mathcal{O}\left(n^{\log_{3}3-\varepsilon}\right) =
+\mathcal{O}\left(n^{1-\varepsilon}\right) =
+\mathcal{O}\left(1\right) \text{ für } \varepsilon = 1
+$}
+% 2. Fall
+{$f(n) \notin \Theta \left(n^{{\log_{3}3}}\right) =
+\Theta \left(n^1\right)
+$}
+% 3. Fall
+{$f(n) \notin \Omega \left(n^{\log_{3}3 + \varepsilon}\right) =
+\Omega \left(n^{1 + \varepsilon}\right)$}
+
+Also: $T(n)\in \Theta \left(n^{\log_{b}a}\right)$
+
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,73 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{entwurfsmuster}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Grafik: Kreis, Quadrat, Dreieck},
+  Referenz = 66116-2019-F.T1-TA2-A1,
+  RelativerPfad = Staatsexamen/66116/2019/03/Thema-1/Teilaufgabe-2/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2019:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kompositum (Composite)},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 1,
+}
+
+Gegeben sei folgender Sachverhalt: Eine Grafik ist entweder ein Kreis,
+ein Quadrat oder ein Dreieck. Eine Grafik kann zudem auch eine
+Kombination aus diesen Elementen sein. Des Weiteren können Sie aus
+mehreren Grafiken auch neue Grafiken zusammenbauen. Sie denken sich: Ich
+möchte eine Menge von Grafiken genauso wie eine einzelne Grafik
+behandeln können.\index{Kompositum (Composite)}
+\footcite{examen:66116:2019:03}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Welches Entwurfsmuster sollten Sie zur Modellierung verwenden?
+
+\begin{bAntwort}
+Kompositum
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Zeichnen Sie das entsprechende Klassendiagramm. Es reicht, nur die
+Klassennamen mit ihren Assoziationen und Vererbungsbeziehungen
+anzugeben; \dh ohne Methoden und Attribute.
+
+\begin{bExkurs}[Kompositum]
+\bEntwurfsKompositumUml
+\end{bExkurs}
+
+\begin{bAntwort}
+
+\begin{tikzpicture}
+\umlsimpleclass[x=2.5,y=3,type=abstract]{Grafik}
+\umlsimpleclass[x=-2]{Kreis}
+\umlsimpleclass[x=0]{Quadrat}
+\umlsimpleclass[x=2]{Dreieck}
+\umlsimpleclass[x=5]{ZusammengesetzteGrafik}
+\umlVHVinherit{Kreis}{Grafik}
+\umlVHVinherit{Quadrat}{Grafik}
+\umlVHVinherit{Dreieck}{Grafik}
+\umlVHVinherit{ZusammengesetzteGrafik}{Grafik}
+
+\umlHVHaggreg[arm1=3cm]{ZusammengesetzteGrafik}{Grafik}
+
+\end{tikzpicture}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

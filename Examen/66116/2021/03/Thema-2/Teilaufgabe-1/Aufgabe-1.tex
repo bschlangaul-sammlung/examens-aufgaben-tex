@@ -1,0 +1,351 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{cpm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Projektmanagement},
+  Referenz = 66116-2021-F.T2-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-2/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {CPM-Netzplantechnik},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\f=\footnotesize
+\let\FZ=\bCpmFruehI
+\let\SZ=\bCpmSpaetI
+
+Gegeben seien folgende Tätigkeiten mit ihren Abhängigkeiten und Dauern:
+\index{CPM-Netzplantechnik}
+\footcite{examen:66116:2021:03}
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Task & Dauer (in h) & Abhängigkeiten \\\hline
+T1   & 3            & / \\
+T2   & 6            & / \\
+T3   & 2            & T1 \\
+T4   & 2            & T2 \\
+T5   & 5            & T1 \\
+T6   & 3            & T4, T5 \\
+T7   & 6            & T3 \\
+T8   & 7            & T4 \\
+T9   & 4            & T6, T8 \\
+T10  & 1            & T7, T9 \\\hline
+\end{tabular}
+\end{center}
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Zeichnen Sie ein CPM-Diagramm basierend auf der gegebenen
+Aufgabenliste. Benutzen Sie explizite Start- und Endknoten.
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Abkürzungen}
+
+\begin{description}
+\item[S] Start
+\item[1S] Start von T1
+\item[1E] Ende von T1
+\item[E] Ende
+\end{description}
+
+\begin{center}
+\begin{tikzpicture}[x=1.2cm,y=1.5cm,scale=0.9,transform shape]
+\bCpmEreignis{S}{0}{0}
+
+\bCpmEreignis{1S}{1}{1}
+\bCpmEreignis{1E}{2}{1}
+
+\bCpmEreignis{2S}{1}{-1}
+\bCpmEreignis{2E}{2}{-1}
+
+\bCpmEreignis{3S}{3}{1}
+\bCpmEreignis{3E}{4}{1}
+
+\bCpmEreignis{4S}{3}{-2}
+\bCpmEreignis{4E}{4}{-2}
+
+\bCpmEreignis{5S}{3}{0}
+\bCpmEreignis{5E}{4}{0}
+
+\bCpmEreignis{6S}{4}{-1}
+\bCpmEreignis{6E}{5}{-1}
+
+\bCpmEreignis{7S}{5}{1}
+\bCpmEreignis{7E}{6}{1}
+
+\bCpmEreignis{8S}{5}{-2}
+\bCpmEreignis{8E}{6}{-2}
+
+\bCpmEreignis{9S}{6}{-1}
+\bCpmEreignis{9E}{7}{-1}
+
+\bCpmEreignis{10S}{7}{0}
+\bCpmEreignis{10E}{8}{0}
+
+\bCpmEreignis{E}{9}{0}
+
+\bCpmVorgang{1S}{1E}{3}
+\bCpmVorgang{2S}{2E}{6}
+\bCpmVorgang{3S}{3E}{2}
+\bCpmVorgang{4S}{4E}{2}
+\bCpmVorgang{5S}{5E}{5}
+\bCpmVorgang{6S}{6E}{3}
+\bCpmVorgang{7S}{7E}{6}
+\bCpmVorgang{8S}{8E}{7}
+\bCpmVorgang{9S}{9E}{4}
+\bCpmVorgang{10S}{10E}{1}
+
+\bCpmVorgang[schein]{S}{1S}{}
+\bCpmVorgang[schein]{S}{2S}{}
+
+\bCpmVorgang[schein]{1E}{3S}{}
+
+\bCpmVorgang[schein]{2E}{4S}{}
+
+\bCpmVorgang[schein]{1E}{5S}{}
+
+\bCpmVorgang[schein]{4E}{6S}{}
+\bCpmVorgang[schein]{5E}{6S}{}
+
+\bCpmVorgang[schein]{3E}{7S}{}
+
+\bCpmVorgang[schein]{4E}{8S}{}
+
+\bCpmVorgang[schein]{6E}{9S}{}
+\bCpmVorgang[schein]{8E}{9S}{}
+
+\bCpmVorgang[schein]{7E}{10S}{}
+\bCpmVorgang[schein]{9E}{10S}{}
+
+\bCpmVorgang[schein]{10E}{E}{}
+\end{tikzpicture}
+\end{center}
+
+Teilen wir einen Task in zwei Knoten auf, so wird das Diagramm sehr
+unübersichtlich. Wir verwenden pro Task nur einen Knoten. Es gibt zwei
+Möglichkeiten:
+
+\bPseudoUeberschrift{Knoten sind Anfang der Tasks}
+
+\begin{center}
+\begin{tikzpicture}[x=1.5cm,y=1.5cm,scale=0.9,transform shape]
+\bCpmEreignis{S}{0}{0}
+
+\bCpmEreignis{T1}{1}{1}
+\bCpmEreignis{T2}{1}{-1}
+\bCpmEreignis{T3}{2}{2}
+\bCpmEreignis{T4}{2}{-1}
+\bCpmEreignis{T5}{2}{0.5}
+\bCpmEreignis{T6}{3}{0}
+\bCpmEreignis{T7}{4}{2}
+\bCpmEreignis{T8}{4}{-1}
+\bCpmEreignis{T9}{5}{0}
+\bCpmEreignis{T10}{6}{0}
+\bCpmEreignis{E}{7}{0}
+
+\bCpmVorgang[schein]{S}{T1}{}
+\bCpmVorgang[schein]{S}{T2}{}
+% 3
+\bCpmVorgang{T1}{T3}{3}
+
+% 4
+\bCpmVorgang{T2}{T4}{6}
+
+% 5
+\bCpmVorgang{T1}{T5}{3}
+
+% 6
+\bCpmVorgang{T4}{T6}{2}
+\bCpmVorgang{T5}{T6}{5}
+
+% 7
+\bCpmVorgang{T3}{T7}{2}
+
+% 8
+\bCpmVorgang{T4}{T8}{2}
+
+% 9
+\bCpmVorgang{T6}{T9}{3}
+\bCpmVorgang{T8}{T9}{7}
+
+% 10
+\bCpmVorgang{T7}{T10}{6}
+\bCpmVorgang{T9}{T10}{4}
+\bCpmVorgang{T10}{E}{1}
+\end{tikzpicture}
+\end{center}
+
+\bPseudoUeberschrift{Knoten sind Ende der Tasks}
+
+\begin{center}
+\begin{tikzpicture}[x=1.5cm,y=1.5cm,scale=0.9,transform shape]
+\bCpmEreignis{S}{0}{0}
+
+\bCpmEreignis{T1}{1}{1}
+\bCpmEreignis{T2}{1}{-1}
+\bCpmEreignis{T3}{2}{2}
+\bCpmEreignis{T4}{2}{-1}
+\bCpmEreignis{T5}{2}{0.5}
+\bCpmEreignis{T6}{3}{0}
+\bCpmEreignis{T7}{4}{2}
+\bCpmEreignis{T8}{4}{-1}
+\bCpmEreignis{T9}{5}{0}
+\bCpmEreignis{T10}{6}{0}
+\bCpmEreignis{E}{7}{0}
+
+\bCpmVorgang{S}{T1}{3}
+\bCpmVorgang{S}{T2}{6}
+\bCpmVorgang{T1}{T3}{2}
+\bCpmVorgang{T1}{T5}{5}
+\bCpmVorgang{T2}{T4}{2}
+\bCpmVorgang{T3}{T7}{6}
+\bCpmVorgang{T4}{T6}{3}
+\bCpmVorgang{T4}{T8}{7}
+\bCpmVorgang{T5}{T6}{3}
+\bCpmVorgang{T6}{T9}{4}
+\bCpmVorgang{T7}{T10}{1}
+\bCpmVorgang{T8}{T9}{4}
+\bCpmVorgang{T9}{T10}{1}
+\bCpmVorgang[schein]{T10}{E}{}
+
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Als \emph{Slack} bezeichnet man die Zeit, um die eine Aufgabe
+bezüglich ihres frühesten Startzeitpunktes verzögert werden kann, ohne
+dass es Probleme bei der fristgerechten Fertigstellung des Projektes
+gibt. Berechnen Sie den Slack für alle Aktivitäten und ergänzen Sie ihn
+in Ihrem Diagramm.
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Knoten sind Anfang der Tasks}
+
+\bCpmFruehErklaerung
+
+\begin{tabular}{|l|l|r|}
+\hline
+$i$ & Nebenrechnung            & \FZ \\\hline
+T1  &                          & 0   \\
+T2  &                          & 0   \\
+T3  &                          & 3   \\
+T4  &                          & 6   \\
+T5  &                          & 3   \\
+T6  & $\max(8_{T4}, 8_{T5})$   & 8   \\
+T7  &                          & 5   \\
+T8  &                          & 8   \\
+T9  & $\max(11_{T6}, 15_{T4})$ & 15  \\
+T10 & $\max(19_{T9}, 11_{T7})$ & 19  \\
+E   &                          & 20  \\\hline
+\end{tabular}
+
+\bCpmSpaetErklaerung
+
+\begin{tabular}{|l|l|r|}
+\hline
+$i$ & Nebenrechnung            & \SZ \\\hline
+E   &                          & 20  \\
+T10 &                          & 19  \\
+T9  &                          & 15  \\
+T8  &                          & 8   \\
+T7  &                          & 13  \\
+T6  &                          & 12  \\
+T5  &                          & 7   \\
+T4  & $\min(12_{T6}, 6_{T8})$  & 6   \\
+T3  &                          & 11  \\
+T2  &                          & 0   \\
+T1  & $\min(8_{T3}, 4_{T5})$   & 4   \\\hline
+\end{tabular}
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+$i$ & T1 & T2 & T3  & T4 & T5 & T6 & T7 & T8 & T9 & T10 & E  \\\hline\hline
+\FZ & 0  & 0  & 3   & 6  & 3  & 8  & 5  & 8  & 15 & 19  & 20 \\\hline
+\SZ & 4  & 0  & 11  & 6  & 7  & 12 & 13 & 8  & 15 & 19  & 20  \\\hline
+GP  & 4  & 0  & 8   & 0  & 4  & 4  & 8  & 0  & 0  & 0   & 0  \\\hline
+\end{tabular}
+
+\bPseudoUeberschrift{Knoten sind Ende der Tasks}
+
+\bCpmFruehErklaerung
+
+\begin{tabular}{|l|l|r|}
+\hline
+$i$ & Nebenrechnung            & \FZ \\\hline
+T1  &                          & 3   \\
+T2  &                          & 6   \\
+T3  &                          & 5   \\
+T4  &                          & 8   \\
+T5  &                          & 8   \\
+T6  & $\max(11_{T4}, 11_{T5})$ & 11  \\
+T7  &                          & 11  \\
+T8  &                          & 15  \\
+T9  & $\max(15_{T6}, 19_{T8})$ & 19  \\
+T10 & $\max(20_{T9}, 12_{T7})$ & 20  \\
+E   &                          & 20  \\\hline
+\end{tabular}
+
+\bCpmSpaetErklaerung
+
+\begin{tabular}{|l|l|r|}
+\hline
+$i$ & Nebenrechnung            & \SZ \\\hline
+E   &                          & 20  \\
+T10 &                          & 20  \\
+T9  &                          & 19  \\
+T8  &                          & 15  \\
+T7  &                          & 19  \\
+T6  &                          & 15  \\
+T5  &                          & 12  \\
+T4  & $\min(12_{T6}, 8_{T8})$  & 8   \\
+T3  &                          & 13  \\
+T2  &                          & 6   \\
+T1  & $\min(11_{T3}, 7_{T5})$  & 7   \\\hline
+\end{tabular}
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+$i$ & T1 & T2 & T3 & T4 & T5 & T6 & T7 & T8 & T9 & T10 & E  \\\hline\hline
+\FZ & 3  & 6  & 5  & 8  & 8  & 11 & 11 & 15 & 19 & 20  & 20 \\\hline
+\SZ & 7  & 6  & 13 & 8  & 12 & 15 & 19 & 15 & 19 & 20  & 20  \\\hline
+GP  & 4  & 0  & 8  & 0  & 4  & 4  & 8  & 0  & 0  & 0   & 0  \\\hline
+\end{tabular}
+
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Zeichnen Sie den kritischen Pfad in Ihr Diagramm ein oder geben
+Sie die Tasks des kritischen Pfades in der folgenden Form an:
+\textbf{Start} ! $\dots$ ! \textbf{Ende}. Sollte es mehrere kritische
+Pfade geben, geben Sie auch diese an. Wie lange ist die Dauer des
+kritischen Pfades bzw. der kritischen Pfade?
+
+\begin{bAntwort}
+Kritischer Pfad: \textbf{Start} ! T2 ! T4 ! T8 ! T9 ! T10 ! \textbf{Ende}
+
+Dauer: 20 h
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

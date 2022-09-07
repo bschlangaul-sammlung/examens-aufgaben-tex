@@ -1,0 +1,105 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Sortieren mit Stapel},
+  Referenz = 66115-2015-F.T2-A5,
+  RelativerPfad = Staatsexamen/66115/2015/03/Thema-2/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66115:2015:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Stapel (Stack), Algorithmische Komplexität (O-Notation)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 5,
+}
+
+Gegeben\index{Stapel (Stack)} \footcite{examen:66115:2015:03} seien die
+Standardstrukturen Stapel (Stack) und Schlange (Queue) mit folgenden
+Standardoperationen:
+\footcite[Aufgabe 4]{aud:ab:4}
+
+\begin{center}
+\begin{tabular}{l|l}
+Stapel & Schlange \\\hline
+\bJavaCode{boolean isEmpty()} & \bJavaCode{boolean isEmpty()} \\
+\bJavaCode{void push(int e)} & \bJavaCode{enqueue(int e)} \\
+\bJavaCode{int pop()} & \bJavaCode{int dequeue()} \\
+\bJavaCode{int top()} & \bJavaCode{int head()} \\
+\end{tabular}
+\end{center}
+
+\noindent
+Beim Stapel gibt die Operation \bJavaCode{top()} das gleiche Element
+wie \bJavaCode{pop()} zurück, bei der Schlange gibt \bJavaCode{head()}
+das gleiche Element wie \bJavaCode{dequeue()} zurück. Im Unterschied zu
+\bJavaCode{pop()}, beziehungsweise \bJavaCode{dequeue()}, wird das
+Element bei \bJavaCode{top()} und \bJavaCode{head()} nicht aus der
+Datenstruktur entfernt.
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Geben Sie in Pseudocode einen Algorithmus \bJavaCode{sort(Stapel
+s)} an, der als Eingabe einen Stapel \bJavaCode{s} mit \bJavaCode{n}
+Zahlen erhält und die Zahlen in \bJavaCode{s} sortiert. (Sie dürfen die
+Zahlen wahlweise entweder aufsteigend oder absteigend sortieren.)
+Verwenden Sie als Hilfsdatenstruktur ausschließlich eine Schlange
+\bJavaCode{q}. Sie erhalten volle Punktzahl, wenn Sie außer
+\bJavaCode{s} und \bJavaCode{q} keine weiteren Variablen benutzen. Sie
+dürfen annehmen, dass alle Zahlen in \bJavaCode{s} verschieden sind.
+
+\begin{bAntwort}
+\begin{minted}{md}
+q := neue Schlange
+while s not empty:
+    q.enqueue(S.pop())
+while q not empty:
+    while s not empty and s.top() < q.head():
+        q.enqueue(s.pop())
+    s.push(q.dequeue)
+\end{minted}
+
+\bPseudoUeberschrift{Als Java-Code}
+
+\bJavaExamen[firstline=5,lastline=25]{66115}{2015}{03}{schlange/Sort}
+
+\bPseudoUeberschrift{Klasse Sort}
+
+\bJavaExamen{66115}{2015}{03}{schlange/Sort}
+
+\bPseudoUeberschrift{Klasse Schlange}
+
+\bJavaExamen{66115}{2015}{03}{schlange/Schlange}
+
+\bPseudoUeberschrift{Klasse Element}
+
+\bJavaExamen{66115}{2015}{03}{schlange/Element}
+
+\bPseudoUeberschrift{Test-Klasse}
+
+\bJavaTestDatei{examen/examen_66115/jahr_2015/fruehjahr/schlange/TestCase}
+
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Analysieren Sie die Laufzeit\index{Algorithmische Komplexität
+(O-Notation)} Ihrer Methode in Abhängigkeit von $n$.
+
+\begin{bAntwort}
+Zeitkomplexität: $\mathcal{O}(n^2)$, da es zwei ineinander
+verschachtelte \bJavaCode{while}-Schleifen gibt, die von der Anzahl der
+Elemente im Stapel abhängen.
+\end{bAntwort}
+\end{enumerate}
+\end{document}

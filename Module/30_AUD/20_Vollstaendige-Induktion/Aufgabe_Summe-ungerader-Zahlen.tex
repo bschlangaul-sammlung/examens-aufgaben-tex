@@ -1,0 +1,99 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{vollstaendige-induktion,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Summe ungerader Zahlen (Maurolicus 1575)},
+  Thematik = {Summe ungerader Zahlen (Maurolicus 1575)},
+  Referenz = AUD.Vollstaendige-Induktion.Summe-ungerader-Zahlen,
+  RelativerPfad = Module/30_AUD/20_Vollstaendige-Induktion/Aufgabe_Summe-ungerader-Zahlen.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vollständige Induktion},
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+
+Die schrittweise Berechnung der Summe der ersten $n$ ungeraden Zahlen
+legt die Vermutung nahe: Die Summe aller ungeraden Zahlen von $1$ bis
+$2n-1$ ist gleich dem Quadrat von $n$:
+\index{Vollständige Induktion}
+
+\bigskip
+
+$1 = 1 = 1^2$
+
+$1 + 3 = 4 = 2^2$
+
+$1 + 3 + 5 = 9 = 3^2$
+
+$1 + 3 + 5 + 7 = 16 = 4^2$
+
+\bigskip
+
+\noindent
+Folgende Java-Methode berechnet die Summer aller ungeraden Zahlen:
+
+\bJavaDatei[firstline=8,lastline=13]{aufgaben/aud/induktion/Maurolicus}
+
+\bigskip
+
+\noindent
+Beweisen Sie mittels vollständiger Induktion, dass der
+Methodenaufruf \bJavaCode{oddSum(n)} die Summe aller ungeraden Zahlen von
+$1$ bis nur $n$-ten ungeraden Zahl berechnet, wobei gilt:
+
+\begin{displaymath}
+\sum\limits^n_{i=1} (2i-1) = n^2
+\end{displaymath}.
+
+\begin{bAntwort}
+
+\bInduktionAnfang
+
+\begin{displaymath}
+\sum\limits^1_{i=1} (2i-1) = 2 \cdot 1 - 1 = 1 = 1^2
+\end{displaymath}
+
+\begin{displaymath}
+\texttt{oddSum(1)} = 1 = 1^2
+\end{displaymath}
+
+\bInduktionVoraussetzung
+
+\begin{displaymath}
+\sum\limits^n_{i=1} (2i-1) = n^2
+\end{displaymath}
+
+\begin{displaymath}
+\texttt{oddSum(n)} = 2n - 1 + (n - 1)^2
+\end{displaymath}
+
+\bInduktionSchritt
+
+\begin{align*}
+\texttt{oddSum(n)}
+& = 2(n+1) - 1 + ((n+1) - 1)^2
+& \e{}\\
+%
+& = 2(n+1) - 1 + \m{n^2}
+& \e{}\\
+%
+& = \m{2n + 2} + n^2 - 1
+& \e{ausmultiplizieren}\\
+%
+& = 2n \m{+ 1} + n^2
+& \e{$2-1 = 1$}\\
+%
+& = \m{n^2 + 2n + 1}
+& \e{Kommutativgesetz} \\
+%
+& = (\m{n+1})^2
+& \e{mit erster Binomischer Formel: $(a+b)^{2}=a^{2}+2ab+b^{2}$} \\
+\end{align*}
+\end{bAntwort}
+
+\bJavaTestDatei{aufgaben/aud/induktion/MaurolicusTest}
+
+\end{document}

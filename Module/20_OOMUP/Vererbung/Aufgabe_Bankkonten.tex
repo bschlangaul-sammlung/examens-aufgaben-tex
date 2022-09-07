@@ -1,0 +1,129 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Vererbung: Generalisierung und Spezialisierung},
+  Thematik = {Bankkonten},
+  Referenz = OOMUP.Vererbung.Bankkonten,
+  RelativerPfad = Module/20_OOMUP/Vererbung/Aufgabe_Bankkonten.tex,
+  ZitatSchluessel = oomup:fs:3,
+  ZitatBeschreibung = {Seite 60, Oldenburg, Informatik II, S. 128},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vererbung, Generalisierung, Spezialisierung, Klassendiagramm, Implementierung in Java},
+}
+
+Eine kleine Bank bietet drei Arten von Konten an: Girokonten, Sparkonten
+und Geschäftskonten. Alle drei Kontoarten haben die Methoden
+\bJavaCode{Einzahlen}, \bJavaCode{Abheben} und \bJavaCode{KontostandGeben} sowie die
+Attribute \bJavaCode{kontostand} und \bJavaCode{kontonummer}.
+\index{Vererbung}
+\footcite[Seite 60, Oldenburg, Informatik II, S. 128]{oomup:fs:3}
+
+\begin{itemize}
+\item Sparkonten haben einen Zinssatz und eine Methode \bJavaCode{Verzinsen},
+die den Jahreszins zum Guthaben addiert. Maximalbetrag beim Abheben ist
+der aktuelle Kontostand.
+
+\item Girokonten können um bis 2000 € überzogen werden (Dispokredit).
+
+\item Geschäftskonten haben einen variablen Dispokredit, der über die
+Methode \bJavaCode{DispoKreditSetzen} festgelegt wird; der Startwert für den
+Dispokredit wird mit dem Konstruktor beim Einrichten des Kontos als
+Parameter mitgegeben.
+\end{itemize}
+
+\begin{enumerate}
+
+%%
+% a
+%%
+
+\item Überlege dir, welche Konten
+Generalisierungen\index{Generalisierung} bzw.
+Spezialisierungen\index{Spezialisierung} anderer Konten sind. Warum ist
+es sinnvoll, eine Klasse Konto als oberste Klasse
+Generalisierungshierarchie einzuführen?
+
+\begin{bAntwort}
+Da alle Konten die Methoden \bJavaCode{einzahlen()}, \bJavaCode{abheben()} und
+\bJavaCode{kontostandGeben()} sowie die Attribute \bJavaCode{kontostand} und
+\bJavaCode{kontonummer} besitzen, bietet sich deren Verwaltung in einer
+einzigen Klasse an. Da jede Kontoart aber auch individuelle
+Eigenschaften bzw. Methoden hat, muss es für jede auch eine eigene
+Klasse geben. Daher bietet es sich an, die Gemeinsamkeiten in eine
+Oberklasse \bJavaCode{Konto} auszulagern (Generalisierung).
+\end{bAntwort}
+
+%%
+% b
+%%
+
+\item Entwirf ein Klassendiagramm\index{Klassendiagramm} für die Klassen
+\bJavaCode{Konto}, \bJavaCode{Girokonto}, \bJavaCode{Sparkonto},
+\bJavaCode{Geschaeftskonto}.
+
+\begin{bAntwort}
+Da das Geschäftskonto genauso wie das Girokonto einen Dispokredit
+besitzt, dieser nur anders festgelegt wird, wurde bei der Modellierung
+die Klasse \bJavaCode{Geschaeftskonto} als Unterklasse der Klasse
+\bJavaCode{Girokonto} umgesetzt.
+
+Die Oberklasse \bJavaCode{Konto} wurde abstrakt modelliert, da von ihr direkt
+keine Objekte erzeugt werden können.
+
+Die Attribute \bJavaCode{kontostand} und \bJavaCode{kontonummer} in der Klasse
+\bJavaCode{Konto} haben den Sichtbarkeitsmodifikator \bJavaCode{private}, da die
+Unterklassen nie direkt auf die Attribute zugreifen, sondern die zur
+Verfügung stehenden Methoden dafür verwenden.
+
+\begin{center}
+\begin{tikzpicture}
+\umlclass{Konto}{
+  - kontostand: double\\
+  - kontostand: int
+}{
+  + einzahlen(betrag: double)\\
+  + abheben(betrag: double)\\
+  + kontostandGeben(): double
+}
+
+\umlclass[below left=1.5cm and -1cm of Konto]{Sparkonto}{
+  - zinssatz: double
+}{
+  + verzinsen()
+}
+
+\umlclass[below right=1.5cm and -1cm of Konto]{Girokonto}{
+  \# dispokredit: double
+}{}
+
+\umlclass[below=1cm of Girokonto]{Geschaeftskonto}{}{
+ + Geschaeftskonto(dispokredit: double)\\
+ + dispokreditSetzen(dispokreditNeu: double)
+}
+
+\umlVHVinherit[arm2=-2cm]{Sparkonto}{Konto}
+\umlVHVinherit[arm2=-2cm]{Girokonto}{Konto}
+\umlinherit{Geschaeftskonto}{Girokonto}
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% c
+%%
+
+\item Implementiere\index{Implementierung in Java} die Klassen in einem
+eigenen Projekt und teste die vorhandenen Methoden.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=3]{aufgaben/oomup/pu_3/bankverwaltung/Konto}
+\bJavaDatei[firstline=3]{aufgaben/oomup/pu_3/bankverwaltung/Sparkonto}
+\bJavaDatei[firstline=3]{aufgaben/oomup/pu_3/bankverwaltung/Girokonto}
+\bJavaDatei[firstline=3]{aufgaben/oomup/pu_3/bankverwaltung/Geschaeftskonto}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

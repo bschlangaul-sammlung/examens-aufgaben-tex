@@ -1,0 +1,335 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,baum,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Bäume},
+  Referenz = 66115-2020-H.T1-TA2-A2,
+  RelativerPfad = Staatsexamen/66115/2020/09/Thema-1/Teilaufgabe-2/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66115:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum, AVL-Baum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 2,
+}
+
+\newmintinline[p]{pascal}{}
+
+Wir betrachten ein Feld A von ganzen Zahlen mit \p{n} Elementen, die über
+die Indizes \p{A[O]} bis \p{A[n-1]} angesprochen werden können. In dieses Feld
+ist ein binärer Baum nach den folgenden Regeln eingebettet: Für das
+Feldelement mit Index $i$ befindet sich
+\index{Binärbaum}
+\footcite{examen:66115:2020:09}
+
+\begin{itemize}
+\item der Elternknoten im Feldelement mit Index $\lfloor\frac{i-1}{2}\rfloor$,
+
+\item der linke Kindknoten im Feldelement mit Index $2 \cdot i + 1$, und
+
+\item der rechte Kindknoten im Feldelement mit Index $2 \cdot i + 2$.
+\end{itemize}
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Zeichnen Sie den durch das folgende Feld repräsentierten binären
+Baum.
+
+\begin{center}
+\begin{tabular}{|r|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+i        & 0 & 1 & 2 & 3  & 4  & 5  & 6 & 7  & 8  & 9  & 10\\\hline
+\p{A[i]} & 2 & 4 & 6 & 14 & 12 & 10 & 8 & 22 & 20 & 18 & 16\\\hline
+\end{tabular}
+\end{center}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.2
+  [.4
+    [.14
+      [.22 ]
+      [.20 ]
+    ]
+    [.12
+      [.18 ]
+      [.16 ]
+    ]
+  ]
+  [.6
+    [.10 ]
+    [.8 ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Der folgende rekursive Algorithmus sei gegeben:
+
+\bPseudoUeberschrift{Pseudo-Code / Pascal}
+
+\begin{minted}{pascal}
+procedure magic(i, n : integer) : boolean
+begin
+  if (i > (n - 2) / 2) then
+    return true;
+  endif
+  if (A[i] <= A[2 * i + 1] and A[i] <= A[2 * i + 2] and
+      magic(2 * i + 1, n) and magic(2 * i + 2, n)) then
+    return true;
+  endif
+  return false;
+end
+\end{minted}
+
+\bPseudoUeberschrift{Java-Implementation}
+
+\bJavaExamen[firstline=6,lastline=15]{66115}{2020}{09}{Baum}
+
+Gegeben sei folgendes Feld:
+
+\begin{center}
+\begin{tabular}{|r|c|c|c|c|c|}
+\hline
+i        & 0 & 1 & 2 & 3  \\\hline
+\p{A[i]} & 2 & 4 & 6 & 14 \\\hline
+\end{tabular}
+\end{center}
+
+Führen Sie \p{magic(0,3)} auf dem Feld aus. Welches Resultat liefert der
+Algorithmus zurück?
+
+\begin{bAntwort}
+true
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Wie nennt man die Eigenschaft, die der Algorithmus \p{magic} auf
+dem Feld A prüft? Wie lässt sich diese Eigenschaft formal beschreiben?
+
+\begin{bAntwort}
+Die sogenannte „Haldeneigenschaft“ bzw. „Heap-Eigenschaft“ einer
+Min-Halde. Der Schlüssel eines jeden Knotens ist kleiner (oder gleich)
+als die Schlüssel seiner Kinder.\footcite[Seite 407]{saake}
+
+Ein Baum erfüllt die Heap-Eigenschaft bezüglich einer Vergleichsrelation
+„$>$“ auf den Schlüsselwerten genau dann, wenn für jeden Knoten $u$ des
+Baums gilt, dass $u_\text{wert} > v_\text{wert}$ für alle Knoten $v$ aus
+den Unterbäumen von $u$.\footcite[Seite 259]{weicker}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Welche Ausgaben sind durch den Algorithmus \p{magic} möglich, wenn
+das Eingabefeld aufsteigend sortiert ist? Begründen Sie Ihre Antwort.
+
+\begin{bAntwort}
+\bJavaCode{true}. Eine sortierte aufsteigende Zahlenfolge entspricht den
+Haldeneigenschaften einer Min-Heap.
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Geben Sie zwei dreielementige Zahlenfolgen (bzw. Felder) an, eine
+für die \p{magic(0,2)} den Wert \p{true} liefert und eine, für die
+\p{magic(0,2)} den Wert \p{false} liefert.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=35,lastline=39]{66115}{2020}{09}{Baum}
+\end{bAntwort}
+
+%%
+% f)
+%%
+
+\item Betrachten Sie folgende Variante \p{almostmagic} der oben bereits
+erwähnten Prozedur \p{magic}, bei der die Anweisungen in Zeilen 3 bis 5
+entfernt wurden:
+
+\bPseudoUeberschrift{Pseudo-Code / Pascal}
+
+\begin{minted}{pascal}
+procedure almostmagic(i, n : integer) : boolean
+begin
+  // leer
+  // leer
+  // leer
+  if (A[i] <= A[2 * i + 1] and A[i] <= A[2 * i + 2] and
+      magic(2 * i + 1, n) and magic(2 * i + 2, n)) then
+    return true;
+  endif
+  return false;
+end
+\end{minted}
+
+\bPseudoUeberschrift{Java-Implementation}
+
+\bJavaExamen[firstline=17,lastline=23]{66115}{2020}{09}{Baum}
+
+Beschreiben Sie die Umstände, die auftreten können, wenn \p{almostmagic}
+auf einem Feld der Größe \p{n} aufgerufen wird. Welchen Zweck erfüllt
+die entfernte bedingte Anweisung?
+
+\begin{bAntwort}
+Wird die Prozedur zum Beispiel mit \p{almostmagic(0, n + 1)} aufgerufen,
+kommst es zu einem sogenannten „Array-Index-Ouf-of-Bounds“ Fehler, d. h.
+die Prozedur will auf Index des Feldes zugreifen, der im Feld gar nicht
+existiert. Die drei zusätzlichen Zeilen in der Methode \p{magic} bieten
+dafür einen Schutz, indem sie vor den Index-Zugriffen auf das Feld
+\p{true} zurückgeben.
+
+\bJavaExamen[firstline=41,lastline=42]{66115}{2020}{09}{Baum}
+\end{bAntwort}
+
+%%
+% g)
+%%
+
+\item Fügen Sie jeweils den angegebenen Wert in den jeweils angegebenen
+AVL-Baum mit aufsteigender Sortierung ein und zeichnen Sie den
+resultierenden Baum vor möglicherweise erforderlichen Rotationen. Führen
+Sie danach bei Bedarf die erforderliche(n) Rotation(en) aus und zeichnen
+Sie dann den resultierenden Baum. Sollten keine Rotationen erforderlich
+sein, so geben Sie dies durch einen Text wie „keine Rotationen nötig”
+an.
+\index{AVL-Baum}
+
+\begin{enumerate}
+
+%%
+% i.)
+%%
+
+\item Wert 7 einfügen
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{8};
+  [.\node[label=+1]{4};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{6}; ]
+  ]
+  [.\node[label=+1]{10};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{12}; ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{8};
+  [.\node[label=0]{6};
+    [.\node[label=0]{4}; ]
+    [.\node[label=0]{7}; ]
+  ]
+  [.\node[label=+1]{10};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{12}; ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% ii.)
+%%
+
+\item Wert 11 einfügen
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{8};
+  [.\node[label=0]{4}; ]
+  [.\node[label=0]{12};
+    [.\node[label=0]{10}; ]
+    [.\node[label=0]{14}; ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{10};
+  [.\node[label=-1]{8};
+    [.\node[label=0]{4}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{12};
+    [.\node[label=0]{11}; ]
+    [.\node[label=0]{14}; ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% iii.)
+%%
+
+\item Wert 5 einfügen
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{8};
+  [.\node[label=+1]{4};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{6}; ]
+  ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{8};
+  [.\node[label=0]{5};
+    [.\node[label=0]{4}; ]
+    [.\node[label=0]{6}; ]
+  ]
+  [.\node[label=0]{10}; ]
+]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}

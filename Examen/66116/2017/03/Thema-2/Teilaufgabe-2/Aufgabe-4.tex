@@ -1,0 +1,201 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java,wpkalkuel}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {wp-Kalkül mit Invariante bei Methode „mul()“},
+  Referenz = 66116-2017-F.T2-TA2-A4,
+  RelativerPfad = Staatsexamen/66116/2017/03/Thema-2/Teilaufgabe-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66116:2017:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Invariante, Totale Korrektheit},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2017,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 4,
+}
+
+\let\wp=\bWpKalkuelOhneMathe
+
+Sie dürfen im Folgenden davon ausgehen, dass keinerlei Under- oder
+Overflows auftreten.
+\footcite{examen:66116:2017:03}
+
+\bigskip
+
+\noindent
+Gegeben sei die folgende Methode mit Vorbedingung $P := x \geq 0 \land y
+\geq 0$ und Nachbedingung $Q := x \cdot y = z$.
+
+\begin{bJavaAngabe}
+int mul (int x , int y) {
+  /* P */
+  int z = 0, i = 0;
+  while (i++ != x)
+    z += y;
+  /* Q */
+  return z;
+}
+\end{bJavaAngabe}
+
+Betrachten Sie dazu die folgenden drei Prädikate\index{Invariante}:
+
+\begin{itemize}
+\item $I_1 := z + i \cdot y = x \cdot y$
+\item $I_2 := \text{false}$
+\item $I_3 := z + (x - i) \cdot y = x \cdot y$
+\end{itemize}
+
+\begin{enumerate}
+
+%%
+
+% (a)
+%%
+
+\item Beweisen Sie formal für jedes der drei Prädikate, ob es
+unmittelbar vor Betreten der Schleife in \bJavaCode{mul} gilt oder nicht.
+
+\begin{bAntwort}
+\begin{align*}
+\wp{Code vor der Schleife}{I_1}
+& \equiv \wp{int z = 0, i = 0;}{z + i \cdot y = x \cdot y} \\
+& \equiv \wp{}{0 + 0 \cdot y = x \cdot y} \\
+& \equiv 0 = x \cdot y \\
+& \equiv \text{falsch} \\
+\end{align*}
+
+\begin{align*}
+\wp{Code vor der Schleife}{I_2}
+& \equiv \wp{int z = 0, i = 0;}{\text{false}} \\
+& \equiv \wp{}{\text{false}} \\
+& \equiv \text{false} \\
+& \equiv \text{falsch} \\
+\end{align*}
+
+\begin{align*}
+\wp{Code vor der Schleife}{I_3}
+& \equiv \wp{int z = 0, i = 0;}{z + (x - i) \cdot y = x \cdot y} \\
+& \equiv \wp{}{0 + (x - 0) \cdot y = x \cdot y} \\
+& \equiv x \cdot y = x \cdot y \\
+& \equiv \text{wahr} \\
+\end{align*}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Weisen Sie formal nach, welche der drei Prädikate Invarianten des
+Schleifenrumpfs in \bJavaCode{mul} sind oder welche nicht.
+
+\begin{bAntwort}
+Für den Nachweis muss der Code etwas umformuliert werden:
+
+\begin{bJavaAngabe}
+int mul (int x , int y) {
+  /* P */
+  int z = 0, i = 0;
+  while (i != x) {
+    i = i + 1;
+    z = z + y;
+  }
+  /* Q */
+  return z;
+}
+\end{bJavaAngabe}
+
+\begin{align*}
+\wp{Code Schleife}{I_1 \land i \neq x}
+& \equiv \wp{i = i + 1; z = z + y;}{z + i \cdot y = x \cdot y \land i \neq x} \\
+& \equiv \wp{i = i + 1;}{z + y + i \cdot y = x \cdot y \land i \neq x} \\
+& \equiv \wp{}{z + y + (i + 1) \cdot y = x \cdot y \land i + 1 \neq x} \\
+& \equiv z + y + (i + 1) \cdot y = x \cdot y \land i + 1 \neq x \\
+& \equiv z + i \cdot y + 2 \cdot y = x \cdot y \land i + 1 \neq x \\
+& \equiv \text{falsch} \land i + 1 \neq x \\
+& \equiv \text{falsch} \\
+\end{align*}
+
+\begin{align*}
+\wp{Code Schleife}{I_2 \land i \neq x}
+& \equiv \wp{i = i + 1; z = z + y;}{\text{false} \land i \neq x} \\
+& \equiv \wp{}{\text{false} \land i \neq x} \\
+& \equiv \text{falsch} \land i \neq x \\
+& \equiv \text{falsch} \\
+\end{align*}
+
+\begin{align*}
+\wp{Code Schleife}{I_3 \land i \neq x}
+& \equiv \wp{i = i + 1; z = z + y;}{z + (x - i) \cdot y = x \cdot y \land i \neq x} \\
+& \equiv \wp{i = i + 1;}{z + y + (x - i) \cdot y = x \cdot y \land i \neq x} \\
+& \equiv \wp{}{z + y + (x - i + 1) \cdot y = x \cdot y \land i + 1 \neq x} \\
+& \equiv z + y + x \cdot y - i \cdot y + y = x \cdot y \land i + 1 \neq x \\
+& \equiv z + 2 \cdot y + x \cdot y - i \cdot y = x \cdot y \land i + 1 \neq x \\
+& \equiv \text{wahr} \\
+\end{align*}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Beweisen Sie formal, aus welchen der drei Prädikate die
+Nachbedingung gefolgert werden darf bzw. nicht gefolgert werden kann.
+
+\begin{bAntwort}
+
+$I_1 := z + i \cdot y = x \cdot y$
+$I_2 := \text{false}$
+$I_3 := z + (x - i) \cdot y = x \cdot y$
+
+\begin{align*}
+\wp{Code nach Schleife}{I_1 \land i = x}
+& \equiv \wp{}{z + i \cdot y = x \cdot y \land i = x} \\
+& \equiv z + i \cdot y = x \cdot y \land i = x \\
+& \equiv z + x \cdot y = x \cdot y\\
+& \neq Q
+\end{align*}
+
+\begin{align*}
+\wp{Code nach Schleife}{I_2 \land i = x}
+& \equiv \wp{}{\text{false} \land i = x} \\
+& \equiv \text{false} \land i = x \\
+& \equiv \text{falsch} \\
+& \neq Q
+\end{align*}
+
+\begin{align*}
+\wp{Code nach Schleife}{I_3 \land i = x}
+& \equiv \wp{}{z + (x - i) \cdot y = x \cdot y \land i = x} \\
+& \equiv z + (x - i) \cdot y = x \cdot y \land i = x \\
+& \equiv z + (x - x) \cdot y = x \cdot y\\
+& \equiv z + 0 \cdot y = x \cdot y\\
+& \equiv z + 0 = x \cdot y \\
+& \equiv z = x \cdot y \\
+& \equiv Q \\
+\end{align*}
+
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Skizzieren Sie den Beweis der totalen Korrektheit\index{Totale
+Korrektheit} der Methode \bJavaCode{mul}. Zeigen Sie dazu auch die
+Terminierung der Methode.
+
+\begin{bAntwort}
+Aus den Teilaufgaben folgt der Beweis der partiellen Korrektheit mit
+Hilfe der Invariante $i_3$. $i$ steigt streng monoton von $0$ an so
+lange gilt $i \neq x$. $i = x$ ist die Abbruchbedingung für die bedingte
+Wiederholung. Dann terminiert die Methode. Die Methode \bJavaCode{mul} ist
+also total korrekt.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

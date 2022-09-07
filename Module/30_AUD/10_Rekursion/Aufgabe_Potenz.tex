@@ -1,0 +1,70 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Potenz},
+  Thematik = {Potenz},
+  Referenz = AUD.Rekursion.Potenz,
+  RelativerPfad = Module/30_AUD/10_Rekursion/Aufgabe_Potenz.tex,
+  ZitatSchluessel = aud:ab:1,
+  ZitatBeschreibung = {Aufgabenblatt 1: Abstrakte Klassen, Interface, Rekursion, Seite 2, Aufgabe 2},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Rekursion},
+}
+
+Gegeben ist folgende Methode.\index{Rekursion}
+\footcite[Aufgabenblatt 1: Abstrakte Klassen, Interface, Rekursion, Seite 2, Aufgabe 2]{aud:ab:1}
+
+\bJavaDatei[firstline=5,lastline=12]{aufgaben/aud/ab_1/Rekursion}
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Beschreiben Sie kurz, woran man erkennt, dass es sich bei der
+gegebenen Methode um eine rekursive Methode handelt. Gehen Sie dabei auf
+wichtige Bestandteile der rekursiven Methode ein.
+
+\begin{bAntwort}
+Die Methode mit dem Namen \bJavaCode{function} ruft sich in der letzten
+Code-Zeile selbst auf. Außerdem gibt es eine Abbruchbedingung
+(\bJavaCode{if (e == 1) { return b * 1; }}), womit verhindert wird,
+dass die Rekursion unendlich weiter läuft.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie die Rekursionsvorschrift für die Methode
+\bJavaCode{function} an. Denken Sie dabei an die Angabe der
+Zahlenbereiche!
+
+\begin{bAntwort}
+\begin{equation*}
+\text{int function(int b, int e)} =
+\begin{cases}
+\text{return b*1}, &
+\text{falls e = 1}.\\
+
+\text{return b*function(b,e-1)}, &
+\text{falls e > 1}.\\
+\end{cases}
+\end{equation*}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Erklären Sie kurz, was die Methode \bJavaCode{function}
+berechnet.
+
+\begin{bAntwort}
+Die Methode \bJavaCode{function} berechnet die Potenz $b^e$.
+\end{bAntwort}
+\end{enumerate}
+\end{document}

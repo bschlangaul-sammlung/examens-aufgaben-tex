@@ -1,0 +1,109 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Schedule S},
+  Referenz = 66116-2020-F.T2-TA2-A4,
+  RelativerPfad = Staatsexamen/66116/2020/03/Thema-2/Teilaufgabe-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66116:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Transaktionen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 4,
+}
+
+\def\l#1#2#3{$\text{#1lock}_#2(#3)$}
+
+\begin{enumerate}
+\item Betrachten Sie den folgenden Schedule S:
+\index{Transaktionen}
+\footcite{examen:66116:2020:03}
+
+\begin{center}
+\begin{tabular}{l|l|l}
+$T_1$ & $T_2$ & $T_3$ \\\hline
+         & $r_2(z)$ & \\
+         &          & $w_3(y)$ \\
+         & $r_2(x)$ & \\
+$w_1(x)$ &          & \\
+         & $w_2(x)$ & \\
+         &          & $r_3(z)$ \\
+         &          & $c_3$ \\
+         & $w_2(z)$ & \\
+$w_1(y)$ &          & \\
+$c_1$    &          & \\
+         & $c_2$    & \\
+\end{tabular}
+\end{center}
+
+Geben Sie den Ausgabeschedule (einschließlich der Operationen zur
+Sperranforderung und -freigabe) im rigorosen Zweiphasen-Sperrprotokoll
+für den obigen Eingabeschedule S an.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tabular}{l|l|l}
+$T_1$         & $T_2$         & $T_3$ \\\hline
+              & \l r2z        & \\
+              & $r_2(z)$      & \\
+              &               & \l x3y \\
+              &               & $w_3(y)$ \\
+              & \l r2x        & \\
+              & $r_2(x)$      & \\
+              & \l x2x        & \\
+              & $w_2(x)$      & \\
+              &               & \l r3z \\
+              &               & $r_3(z)$ \\
+              &               & $c_3$ \\
+              &               & \l {un}2{y,z}\\
+              & \l x2z        & \\
+              & $w_2(z)$      & \\
+              & $c_2$         & \\
+              & \l {un}2{x,z} & \\
+\l x1x        &               & \\
+$w_1(x)$      &               & \\
+\l x1y        &               & \\
+$w_1(y)$      &               & \\
+$c_1$         &               & \\
+\l {un}2{x,z} &               & \\
+
+\end{tabular}
+\end{center}
+\end{bAntwort}
+
+\item Beschreiben Sie den Unterschied zwischen dem herkömmlichen
+Zweiphasen-Sperrprotokoll (2PL) und dem rigorosen
+Zweiphasen-Sperrprotokoll. Warum wird in der Praxis häufiger das
+rigorose Zweiphasen-Sperrprotokoll verwendet?
+
+\begin{bAntwort}
+Bei beiden Protokollen fordert die Transaktion erst alle Sperren an
+(Anforderungsphase) und gibt sie später frei (Freigabephase).
+
+\begin{itemize}
+\item Beim strengen oder rigorosen 2PL werden die Sperren dann
+angefordert, wenn sie benötigt werden, beim konservativen 2PL werden
+alle Sperren zu Beginn gemeinsam angefordert.
+
+\item Beim strengen oder rigorosen 2PL werden die Lesesperren bis zum
+Commit, die Schreibsperren sogar bis nach dem Commit gehalten. Beim
+konservativen 2PL werden dagegen die Sperren freigegeben, wenn sie nicht
+mehr benötigt werden.
+
+\end{itemize}
+
+Das rigorose 2PL wird der Praxis häufiger verwendet, weil dabei nicht zu
+Beginn der Transaktion bekannt sein muss, welche Sperren benötigt
+werden, und durch die schrittweise Anforderung der Sperren unter
+Umständen ein höheres Maß an Parallelität erreicht werden kann.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

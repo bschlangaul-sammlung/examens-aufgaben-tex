@@ -1,0 +1,81 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Zustands-},
+  Thematik = {DVD-Automat},
+  Referenz = SOSY.Modellierung.DVD-Automat,
+  RelativerPfad = Module/40_SOSY/02_Modellierung/Aufgabe_DVD-Automat.tex,
+  ZitatSchluessel = sosy:ab:3,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Zustandsdiagramm zeichnen, Aktivitätsdiagramm},
+}
+
+\begin{enumerate}
+\item Beschreiben Sie den Unterschied zwischen einem Zustands- und einem
+Aktivitätsdiagramm.
+\index{Zustandsdiagramm zeichnen}\index{Aktivitätsdiagramm}
+\footcite{sosy:ab:3}
+
+\begin{bAntwort}
+Das Aktivitätsdiagramm zeigt den Fluss von Aktivitäten innerhalb des
+Systems. Das Zustandsdiagramm hingegen beschreibt die Reaktion eines
+Systems auf Ereignisse.
+\end{bAntwort}
+
+\item Der DVD-Automat für die Filmauswahl aus Blatt 2, Aufgabe 1 soll
+als Zustandsdiagramm modelliert werden. Beachten Sie dabei die
+angegebenen Funktionalitäten des Automaten.
+
+\begin{enumerate}
+\item Geben Sie die Ein- und Ausgaben des Automaten für die Filmauswahl
+und für die Aus- und Rückgabe von Filmen an.
+
+\begin{bAntwort}
+\begin{description}
+\item[Eingaben:]
+
+Kundenkarte, Fingerabdruck, DVDs, Suchbegriff
+
+\item[Ausgaben:]
+
+Kundenkarte, DVDs, Bildschirmausgaben (Filmtitel, Regisseur,
+Hauptdarsteller, Kurzbeschreibung, Erscheinungsjahr, Altersfreigabe,
+Verfügbarkeit, Fehlermeldung etc.)
+\end{description}
+\end{bAntwort}
+
+\item Geben Sie alle Zustandsattribute an, die für die Modellierung der
+Automaten notwendig sind und beschreiben Sie deren Verwendungszweck.
+
+\item Identifizieren Sie anhand der Zustandsattribute die Zustände der
+obigen Automaten und geben Sie eine Charakterisierung der Zustände durch
+Angabe der möglichen Wertebereiche der Zustandsattribute an. Welcher der
+Zustände ist der Anfangszustand?
+
+\item Zeichnen Sie die Zustandsübergangsdiagramme. Verwenden Sie hierzu
+die Syntax mit Ein- und Ausgabe, Vor- und Nachbedingungen.
+\end{enumerate}
+
+\item Betrachten wir nun einen gewöhnlichen Video- und DVD-Verleih.
+Beschreiben Sie das Szenario des Ausleihs eines Videos mit Hilfe eines
+Aktivitätsdiagramms. Bei dem Videoverleih gelte:
+
+\begin{itemize}
+\item Der Kunde identifiziert sich beim Ausleihen mit seiner Kundenkarte
+oder seinem Passwort. Hat der Kunde noch keine Karte, so muss der
+Mitarbeiter ihn registrieren und ihm eine Kundenkarte ausstellen.
+
+\item Filme können wie beim Automaten per Internet bis zu zwei Stunden
+im Voraus reserviert werden.
+
+\item Der Kunde hat kein Gehaltskonto, sondern bezahlt seine Gebühren
+bei der Rückgabe des Videos in bar oder per Karte.
+
+\item Ansonsten gelten die gleichen Bedingungen wie beim Automaten.
+\end{itemize}
+\end{enumerate}
+
+\end{document}

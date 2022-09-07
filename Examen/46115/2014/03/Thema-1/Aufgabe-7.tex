@@ -1,0 +1,237 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 7},
+  Thematik = {Zahlenfolge in binärer Suchbaum, Min-Heap und AVL-Baum},
+  Referenz = 46115-2014-F.T1-A7,
+  RelativerPfad = Staatsexamen/46115/2014/03/Thema-1/Aufgabe-7.tex,
+  ZitatSchluessel = examen:46115:2014:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt und überprüft,
+  Ueberprueft = {überprüft mit den Online-Tools \url{https://visualgo.net/en/bst}, \url{https://www.cs.usfca.edu/~galles/visualization/Heap.html}},
+  Stichwoerter = {Halde (Heap), Binärbaum, AVL-Baum, Min-Heap},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 7,
+}
+
+Fügen Sie nacheinander die Zahlen 11, 1, 2, 13, 9, 10, 7, 5
+\index{Halde (Heap)}\index{Binärbaum}\index{AVL-Baum}
+\footcite{examen:46115:2014:03}
+
+\begin{bProjektSprache}{Baum}
+baum binär (
+  setzte: 11 1 2 13 9 10 7 5;
+  drucke;
+)
+\end{bProjektSprache}
+
+\begin{enumerate}
+
+%%
+% (i)
+%%
+
+\item in einen leeren binären Suchbaum und zeichnen Sie den Suchbaum
+jeweils nach dem Einfügen von „9“ und „5“
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „9“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.11
+  [.1
+    \edge[blank]; \node[blank]{};
+    [.2
+      \edge[blank]; \node[blank]{};
+      [.9 ]
+    ]
+  ]
+  [.13 ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.11
+  [.1
+    \edge[blank]; \node[blank]{};
+    [.2
+      \edge[blank]; \node[blank]{};
+      [.9
+        [.7
+          [.5 ]
+          \edge[blank]; \node[blank]{};
+        ]
+        [.10 ]
+      ]
+    ]
+  ]
+  [.13 ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% (ii)
+%%
+
+\item in einen leeren Min-Heap ein, der bzgl. „$\leq$“ angeordnet ist und
+geben Sie den Heap nach „9“ und nach „5“ an
+\index{Min-Heap}
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „9“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.9
+    [.13 ]
+    [.11 ]
+  ]
+  [.2 ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.5
+    [.9
+      [.13 ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.11 ]
+  ]
+  [.2
+    [.10 ]
+    [.7 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\end{bAntwort}
+%%
+% (ii)
+%%
+
+\item in einen leeren AVL-Baum ein! Geben Sie den AVL Baum nach „2“ und
+„5“ an und beschreiben Sie die ggf. notwendigen Rotationen beim Einfügen
+dieser beiden Elemente!
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „2“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{11};
+  [.\node[label=+1]{1};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{2}; ]
+  ]
+  \edge[blank]; \node[blank]{};
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{11};
+  [.\node[label=-1]{2};
+    [.\node[label=0]{1}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  \edge[blank]; \node[blank]{};
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{2};
+  [.\node[label=0]{1}; ]
+  [.\node[label=0]{11}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „10“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+2]{2};
+  [.\node[label=0]{1}; ]
+  [.\node[label=-1]{11};
+    [.\node[label=+1]{9};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{10}; ]
+    ]
+    [.\node[label=0]{13}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+2]{2};
+  [.\node[label=0]{1}; ]
+  [.\node[label=+2]{9};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{11};
+      [.\node[label=0]{10}; ]
+      [.\node[label=0]{13}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach der Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{9};
+  [.\node[label=-1]{2};
+    [.\node[label=0]{1}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{11};
+    [.\node[label=0]{10}; ]
+    [.\node[label=0]{13}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{9};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=-1]{7};
+      [.\node[label=0]{5}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+  ]
+  [.\node[label=0]{11};
+    [.\node[label=0]{10}; ]
+    [.\node[label=0]{13}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

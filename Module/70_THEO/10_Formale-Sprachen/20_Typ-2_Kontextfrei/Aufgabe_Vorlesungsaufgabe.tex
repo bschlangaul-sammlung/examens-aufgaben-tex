@@ -1,0 +1,39 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,syntaxbaum,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Kontextfreie Sprache},
+  Thematik = {Vorlesungsaufgabe},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Vorlesungsaufgabe,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Aufgabe_Vorlesungsaufgabe.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 34},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache},
+}
+
+\let\m=\bMenge
+
+\begin{enumerate}
+\item Erstelle eine (deterministische) Grammatik für Palindrome, für die
+ein DPDA existiert.\index{Kontextfreie Sprache}\footcite[Seite 34]{theo:fs:2}
+
+\bAusdruck[L]{w \$ w^R}{w \in (a|b)^*}
+
+\item Wandle diese Grammatik in einen DPDA um.
+\end{enumerate}
+
+Überführe die folgenden kontextfreien Grammatiken in CNF\footcite[Seite
+37]{theo:fs:2}
+
+\begin{bProduktionsRegeln}
+S -> ABC,
+A -> aCD,
+B -> bCD,
+C -> D | epsilon,
+D -> C
+\end{bProduktionsRegeln}
+
+\end{document}

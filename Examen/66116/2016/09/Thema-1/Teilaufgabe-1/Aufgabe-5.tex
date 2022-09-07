@@ -1,0 +1,162 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Physische Datenorganisation},
+  Referenz = 66116-2016-H.T1-TA1-A5,
+  RelativerPfad = Staatsexamen/66116/2016/09/Thema-1/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2016:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Tupel-Identifikator, B-Baum},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2016,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erläutern Sie die wesentliche Eigenschaft eines
+Tupel-Identifikators (TID) in ein bis zwei Sätzen.
+\index{Tupel-Identifikator}
+\index{B-Baum}
+\footcite{examen:66116:2016:09}
+
+\begin{bAntwort}
+\begin{itemize}
+\item Daten werden in Form von \emph{Sätzen} auf der Festplatte
+abgelegt, um auf Sätze zugreifen zu können, verfügt jeder Satz über eine
+\emph{eindeutige, unveränderliche Satzadresse}
+
+\item TID = Tupel Identifier: dient zur Adressierung von Sätzen in einem
+Segment und besteht aus zwei Komponenten:
+
+\begin{itemize}
+\item Seitennummer (Seiten bzw. Blöcke sind größere Speichereinheiten
+auf der Platte)
+
+\item Relative Indexposition innerhalb der Seite
+\end{itemize}
+
+\item Satzverschiebung innerhalb einer Seite bleibt ohne Auswirkungen
+auf den TID. Wird ein Satz auf eine andere Seite migriert, wird eine
+„Stellvertreter-TID“ zum Verweis auf den neuen Speicherort verwendet.
+Die eigentliche TID-Adresse bleibt stabil.
+\footcite[Seite 219]{kemper}
+\end{itemize}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Fügen Sie in einen anfangs leeren B-Baum mit k = 1 (maximal 2
+Schlüsselwerte pro Knoten) die im Folgenden gegebenen Schlüsselwerte der
+Reihe nach ein. Zeichnen Sie den Endzustand des Baums nach jedem
+Einfügevorgang. Falls Sie Zwischenschritte zeichnen, kennzeichnen Sie
+die sieben Endzustände deutlich.
+
+\centerline{3, 7, 13, 11, 9, 10, 8}
+
+\begin{bAntwort}
+\begin{compactitem}
+\item 3 (einfaches Einfügen)
+\item 7 (einfaches Einfügen)
+\item 13 (Split)
+\end{compactitem}
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.style={level distance=15mm,sibling distance=22mm},
+]
+\node {7}
+  child {node {3}}
+  child {node {13}};
+\end{tikzpicture}
+\end{center}
+
+\begin{compactitem}
+\item 11 (einfaches Einfügen)
+\item 9 (Split)
+\end{compactitem}
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.style={level distance=15mm,sibling distance=22mm},
+]
+\node {7 \nodepart{two} 11}
+  child {node {3}}
+  child {node {9}}
+  child {node {13}};
+\end{tikzpicture}
+\end{center}
+
+\begin{compactitem}
+\item 10 (einfaches Einfügen)
+\item 8 (Doppel-Split)
+\end{compactitem}
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.style={level distance=15mm,sibling distance=22mm},
+]
+\node{9}
+  child {node {7}
+    child {node {3}}
+    child {node {8}}
+  }
+  child {node {11}
+    child {node {10}}
+    child {node {13}}
+  };
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Gegeben ist der folgende B-Baum:
+
+Die folgenden Teilaufgaben sind voneinander unabhängig.
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Löschen Sie aus dem gegebenen B-Baum den Schlüssel 3 und zeichnen
+Sie den Endzustand des Baums nach dem Löschvorgang. Falls Sie
+Zwischenschritte zeichnen, kennzeichnen Sie den Endzustand deutlich.
+
+%%
+%
+%%
+
+\item Löschen Sie aus dem (originalen) gegebenen B-Baum den Schlüssel 17
+und zeichnen Sie den Endzustand des Baums nach dem Löschvorgang. Falls
+Sie Zwischenschritte zeichnen, kennzeichnen Sie den Endzustand deutlich.
+
+%%
+%
+%%
+
+\item Löschen Sie aus dem (originalen) gegebenen B-Baum den Schlüssel 43
+und zeichnen Sie den Endzustand des Baums nach dem Löschvorgang. Falls
+Sie Zwischenschritte zeichnen, kennzeichnen Sie den Endzustand deutlich.
+\end{enumerate}
+\end{enumerate}
+\end{document}

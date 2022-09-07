@@ -1,0 +1,67 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen,synthese-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Kanonische Überdeckung (kleines Beispiel aus Kemper)},
+  Thematik = {Kanonische Überdeckung (Kemper)},
+  Referenz = DB.Relationale-Entwurfstheorie.Normalformen.Kanonische-Ueberdeckung-Kemper,
+  RelativerPfad = Module/10_DB/50_Relationale-Entwurfstheorie/30_Normalformen/Aufgabe_Kanonische-Ueberdeckung-Kemper.tex,
+  ZitatSchluessel = kemper,
+  ZitatBeschreibung = {Seite 186},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kanonische Überdeckung},
+}
+
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\fa=\bFunktionaleAbhaengigkeit
+\let\m=\bAttributMenge
+\let\ah=\bAttributHuelle
+\let\schrittE=\bSyntheseUeberErklaerung
+
+\FA{%
+  A -> B;
+  B -> C;
+  A, B -> C;
+}
+\index{Kanonische Überdeckung}
+\footcite[Seite 186]{kemper}
+
+\begin{bAntwort}
+
+\begin{enumerate}
+\item \schrittE{1-1}
+
+$\ah{F, \m{A, B} - \m{B}} = \m{A, B, C}$
+
+$\ah{F, \m{A, B} - \m{A}} = \m{C}$
+
+\FA{%
+  A -> B;
+  B -> C;
+  A -> C;
+}
+
+\item \schrittE{1-2}
+
+\FA{%
+  A -> B;
+  B -> C;
+  A -> NICHTS;
+}
+
+\item \schrittE{1-3}
+
+\FA{%
+  A -> B;
+  B -> C;
+}
+
+\item \schrittE{1-4}
+
+Nichts zu tun
+\end{enumerate}
+
+\end{bAntwort}
+\end{document}

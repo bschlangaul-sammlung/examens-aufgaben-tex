@@ -1,0 +1,32 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Übungen zur Rekursion},
+  Thematik = {Rekursion},
+  Referenz = FUMUP.Funktionale-Programmierung.Rekursion,
+  RelativerPfad = Module/60_FUMUP/30_Funktionale-Programmierung/Aufgabe_Rekursion.tex,
+  ZitatSchluessel = fumup:ab:3,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Funktionale Programmierung mit Haskell},
+}
+
+Implementiere in der Dateilists.hs eine Funktion
+\bHaskellCode{mylength(liste)}, die die Länge der übergebenen Liste
+berechnet. Die Funktion \bHaskellCode{myconcat(liste1, liste2)} soll
+als Ergebnis die Konkatenation der beiden Listen liefern. Mit
+\bHaskellCode{myappend(liste, elem)} soll das Element an das Ende der
+Liste angehängt werden. Die Funktion \bHaskellCode{listSum(liste)} soll
+die Summe aller Werte in der Liste zurückliefern. Verwenden Sie in
+dieser Aufgabe keine spezialisierten Listenfunktionen (wie \zB den
+\bHaskellCode{++}-Operator) außer dem \bHaskellCode{:}-Operator.
+\index{Funktionale Programmierung mit Haskell}
+\footcite{fumup:ab:3}
+
+\begin{bAntwort}
+\bHaskellDatei{Dateilists.hs}
+\end{bAntwort}
+
+\end{document}

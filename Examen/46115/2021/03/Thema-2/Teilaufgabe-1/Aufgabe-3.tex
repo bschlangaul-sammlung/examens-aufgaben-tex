@@ -1,0 +1,84 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {L1, L2, L3 regulär oder kontextfrei},
+  Referenz = 46115-2021-F.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/46115/2021/03/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46115:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache, Kontextfreie Sprache},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\m=\bMenge
+\def\l#1{$L_#1$}
+
+Sei $\mathbb{N}_0 = \m{0,1,2,\dots}$ die Menge aller natürlichen Zahlen
+mit $0$. Betrachten Sie die folgenden Sprachen.
+\index{Reguläre Sprache}
+\index{Kontextfreie Sprache}
+\footcite{examen:46115:2021:03}
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item \bAusdruck[L_1]{a^{3n} b^{2n} a^n}{n \in \mathbb{N}_0}
+
+\begin{bAntwort}
+nicht kontextfrei
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item \bAusdruck[L_2]{a^{3n} a^{2n} b^n}{n \in \mathbb{N}_0}
+
+\begin{bAntwort}
+kontextfrei.
+
+Der Ausdruck lässt umformen in: \bAusdruck[L_2]{a^{5n} b^{n}}{n \in
+\mathbb{N}_0}
+
+\begin{bProduktionsRegeln}
+S -> aaaaa S b | EPSILON
+\end{bProduktionsRegeln}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item \bAusdruck[L_3]{(ab)^{n} a (ba)^n b (ab)^n}{n \in \mathbb{N}_0}
+
+\begin{bAntwort}
+nicht kontextfrei
+\end{bAntwort}
+
+\end{enumerate}
+
+\noindent
+Geben Sie jeweils an, ob \l1, \l2 und \l3 kontextfrei und ob \l1, \l2
+und \l3 regulär sind. Beweisen Sie Ihre Behauptung und ordnen Sie jede
+Sprache in die kleinstmögliche Klasse (regulär, kontextfrei, nicht
+kontextfrei) ein. Für eine Einordnung in kontextfrei zeigen Sie also,
+dass die Sprache kontextfrei und nicht regulär ist.
+
+Erfolgt ein Beweis durch Angabe eines Automaten, so ist eine klare
+Beschreibung der Funktionsweise des Automaten und der Bedeutung der
+Zustände erforderlich. Erfolgt der Beweis durch Angabe eines regulären
+Ausdruckes, so ist eine intuitive Beschreibung erforderlich. Wird der
+Beweis durch die Angabe einer Grammatik geführt, so ist die Bedeutung
+der Variablen zu erläutern.
+\end{document}

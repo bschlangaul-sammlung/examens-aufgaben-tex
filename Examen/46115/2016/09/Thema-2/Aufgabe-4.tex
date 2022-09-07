@@ -1,0 +1,74 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 7},
+  Thematik = {Methode „a()“},
+  Referenz = 46115-2016-H.T2-A4,
+  RelativerPfad = Staatsexamen/46115/2016/09/Thema-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:46115:2016:09,
+  ZitatBeschreibung = {Thema 2 Aufgabe
+4},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Dynamische Programmierung},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2016,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 4,
+}
+
+Mittels\index{Dynamische Programmierung} \footcite[Thema 2 Aufgabe
+4]{examen:46115:2016:09} Dynamischer Programmierung (auch Memoization
+genannt) kann man insbesondere rekursive Lösungen auf Kosten des
+Speicherbedarf beschleunigen, indem man Zwischenergebnisse „abspeichert
+“ und bei (wiederkehrendem) Bedarf „abruft“, ohne sie erneut berechnen
+zu müssen.
+\footcite[Aufgabe 7]{aud:pu:7}
+
+\bigskip
+
+\noindent
+Gegeben sei folgende geschachtelt-rekursive Funktion für $n, m \geq 0$:
+
+\begin{equation*}
+a(n, m) =
+\begin{cases}
+n + \lfloor \frac{n}{2} \rfloor &
+\text{falls}\ m = 0\\
+
+a(1, m-1), &
+\text{falls}\ n = 0 \land m \neq 0 \\
+
+a(n + \lfloor \sqrt{a(n-1,m)} \rfloor, m - 1), &
+sonst \\
+\end{cases}
+\end{equation*}
+
+\begin{enumerate}
+\item Implementieren Sie die obige Funktion \bJavaCode{a(n,m)} zunächst ohne
+weitere Optimierungen als Prozedur/Methode in einer Programmiersprache
+Ihrer Wahl.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=4,lastline=12]{46115}{2016}{09}{DynamischeProgrammierung}
+\end{bAntwort}
+
+\item Geben Sie nun eine DP-Implementierung der Funktion \bJavaCode{a(n,m)}
+an, die \bJavaCode{a(n,m)} für $0 \geq n \geq 100000$ und $0 \geq m \geq 25$
+höchstens einmal gemäß obiger rekursiver Definition berechnet. Beachten
+Sie, dass Ihre Prozedur trotzdem auch weiterhin mit $n > 100000$ und $m
+> 25$ aufgerufen werden können soll.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=14,lastline=33]{46115}{2016}{09}{DynamischeProgrammierung}
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Kompletter Code}
+\bJavaExamen{46115}{2016}{09}{DynamischeProgrammierung}
+\end{bAntwort}
+\end{document}

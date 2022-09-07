@@ -1,0 +1,127 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Terme über die Rechenarten},
+  Referenz = 66116-2020-H.T2-TA1-A5,
+  RelativerPfad = Staatsexamen/66116/2020/09/Thema-2/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entwurfsmuster},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+% https://student.cs.uwaterloo.ca/~cs446/1171/Arch_Design_Activity/Composite.pdf
+% https://docplayer.org/9839515-Grundkurs-programmieren-in-java.html
+
+Wir betrachten Terme über die Rechenarten $op \in \{ +, -, \cdot, \div \}$, die
+rekursiv definiert sind:
+\index{Entwurfsmuster}
+\footcite{examen:66116:2020:09}
+
+\begin{itemize}
+\item Jedes Literal ist ein Term, \zB „$4$“.
+
+\item Jedes Symbol ist ein Term, \zB „$x$“.
+
+\item Ist $t$ ein Term, so ist „$(t)$“ ein (geklammerter) Term.
+
+\item Sind $t_1$, $t_2$ Terme, so ist „$t_1 \, op \, t_2$“ ebenso ein
+Term.
+
+\end{itemize}
+Beispiele für gültige Terme sind also „$4 + 8$“, „$4 \cdot x$“ oder „$4
++ (8 \cdot x)$“.
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Welches Design-Pattern eignet sich hier am besten zur Modellierung
+dieses Sachverhalts?
+
+\begin{bAntwort}
+Kompositum
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Nennen Sie drei wesentliche Vorteile von Design-Pattern im
+Allgemeinen.
+
+%%
+% c)
+%%
+
+\item Modellieren Sie eine Klassenstruktur in UML, die diese rekursive
+Struktur von \emph{Termen} abbildet. Sehen Sie mindestens einzelne
+Klassen für die \emph{Addition} und \emph{Multiplikation} vor, sowie
+weitere Klassen für \emph{geklammerte Terme} und \emph{Literale}, welche
+ganze Zahlen repräsentieren. Gehen Sie bei der Modellierung der
+Klassenstruktur davon aus, dass eine objektorientierte
+Programmiersprache wie Java zu benutzen ist.
+
+%%
+% d)
+%%
+
+\item Erstellen Sie ein Objektdiagramm, welches den Term $t := 4 + (3
+\cdot 2) + (12 \cdot y / (8 \cdot x))$ entsprechend Ihres
+Klassendiagramms repräsentiert.
+
+%%
+% e)
+%%
+
+\item Überprüfen Sie, ob das Objektdiagramm für den in Teilaufgabe d)
+gegebenen Term eindeutig definiert ist. Begründen Sie Ihre Entscheidung.
+
+%%
+% f)
+%%
+
+\item Die gegebene Klassenstruktur soll mindestens folgende Operationen
+unterstützen:
+
+\begin{itemize}
+\item das Auswerten von Termen,
+\item das Ausgeben in einer leserlichen Form,
+\item das Auflisten aller verwendeten Symbole.
+\end{itemize}
+
+Welches Design-Pattern ist hierfür am besten geeignet?
+
+%%
+% g)
+%%
+
+\item Erweitern Sie Ihre Klassenstruktur um die entsprechenden Methoden,
+Klassen und Assoziationen, um die in Teilaufgabe f) genannten
+zusätzlichen Operationen gemäß dem von Ihnen genannten Design Pattern zu
+unterstützen.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Addition}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Divison}
+\bJavaExamen{66116}{2020}{09}{rechenarten/GeklammerterTerm}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Literal}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Multiplikation}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Rechenart}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Subtraktion}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Symbol}
+\bJavaExamen{66116}{2020}{09}{rechenarten/Term}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

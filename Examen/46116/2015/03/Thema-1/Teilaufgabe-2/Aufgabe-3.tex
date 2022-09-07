@@ -1,0 +1,122 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{er}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Konsulat},
+  Referenz = 46116-2015-F.T1-TA2-A3,
+  RelativerPfad = Staatsexamen/46116/2015/03/Thema-1/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46116:2015:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell, Relationenmodell},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\let\a=\bErMpAttribute
+\let\d=\bErDatenbankName
+\let\e=\bErMpEntity
+\let\r=\bErMpRelationship
+
+Es\index{Entity-Relation-Modell}
+\index{Relationenmodell}
+\footcite{examen:46116:2015:03} sind folgende Informationen zu einer Datenbank für Konsulate
+gegeben:
+\footcite[Aufgabe 5: ER-Modell und Relationenmodell (Check-Up)]{db:ab:2}
+
+\begin{itemize}
+
+\item Jedes Konsulat hat einen Sitz in einer Stadt
+
+\item Zu einem \e{Konsulat} soll ein eindeutiger
+\a{Name} \d{KonsulatName} (\zB Konsulat Bayern), die
+\a{Adresse} und der \a{Vor-} \d{KVorname} bzw.
+\a{Nachname} \d{KNachname} des Konsuls gespeichert werden.
+
+\item Für jede \e{Stadt} sollen der \a{Name}
+\d{StadtName}, die \a{Anzahl der Einwohner}
+\d{EinwohnerAnzahl}, sowie das Land in dem es \r{liegt},
+festgehalten werden. Gehen Sie davon aus, dass eine Stadt nur in
+Zusammenhang mit dem zugehörigen Land identifizierbar ist.
+
+\item Für ein \e{Land} soll der Name in
+\a{Landessprache}, der \a{Name des
+Staatspräsidenten} \d{Staatspräsident} und eine eindeutige
+\a{ID} \d{LandesID} gespeichert werden.
+\end{itemize}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Entwerfen Sie für das obige Szenario ein ER-Diagramm in
+Chen-Notation. Bestimmen Sie hierzu:
+
+\begin{itemize}
+
+\item Die Entity-Typen, die Relationship-Typen und jeweils deren
+Attribute,
+
+\item Die Primärschlüssel der Entity-Typen, welche Sie anschließend in
+das ER-Diagramm eintragen, und
+
+\item Die Funktionalitäten der Relationship-Typen.
+\end{itemize}
+
+Hinweis: Achten Sie darauf, alle Totalitäten einzutragen.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[er2,scale=0.7,transform shape]
+% Land
+\node[entity] (Land) {Land};
+\node[attribute,above=1cm of Land] {Staatspräsident} edge (Land);
+\node[attribute,above left=0.5cm of Land] {Landessprache} edge (Land);
+\node[attribute,left=0.5cm of Land] {\key{LandesID}} edge (Land);
+
+% Stadt
+\node[weak entity,right=3cm of Land] (Stadt) {Stadt};
+\node[attribute,above right=0.5cm of Stadt] {EinwohnerAnzahl} edge (Stadt);
+\node[attribute,right=0.5cm of Stadt] {\discriminator{StadtName}} edge (Stadt);
+
+% liegen
+\node[ident relationship,right=0.4cm of Land]{liegen}
+  edge (Land) edge[weak] (Stadt);
+
+% Konsulat
+\node[entity,below right=1cm of Land] (Konsulat) {Konsulat};
+\node[attribute,left=0.5cm of Konsulat] {Adresse} edge (Konsulat);
+\node[attribute,below left=0.5cm of Konsulat] {KNachname} edge (Konsulat);
+\node[attribute,below=1cm of Konsulat] {KVorname} edge (Konsulat);
+\node[attribute,below right=0.5cm of Konsulat] {\key{KonsulatName}} edge (Konsulat);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Überführen Sie das ER-Modell aus Aufgabe a) in ein verfeinertes
+relationales Modell. Geben Sie hierfür die verallgemeinerten
+Relationenschemata an. Achten Sie dabei insbesondere darauf, dass die
+Relationenschemata keine redundanten Attribute enthalten.
+
+\begin{bAntwort}
+Konsulat(\underline{KonsulatName}, KVorname, KNachname, Adresse, StadtName, LandesID)
+
+Stadt(\underline{LandesID, StadtName}, EinwohnerAnzahl)
+
+Land(\underline{LandesID}, Landessprache, Staatspraesident)
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

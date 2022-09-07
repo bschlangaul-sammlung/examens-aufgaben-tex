@@ -1,0 +1,183 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Relation X und Y},
+  Referenz = 66116-2019-F.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2019/03/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2019:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Relationale Algebra, RelaX - relational algebra calculator},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Gegeben seien folgende Relationen:
+\index{Relationale Algebra}
+\footcite{examen:66116:2019:03}
+
+\bPseudoUeberschrift{X}
+
+\begin{tabular}{|l|l|l|}
+\hline
+A & B & C \\ \hline
+1 & 2 & 3 \\ \hline
+2 & 3 & 4 \\ \hline
+4 & 3 & 3 \\ \hline
+1 & 2 & 2 \\ \hline
+2 & 3 & 2 \\ \hline
+3 & 3 & 2 \\ \hline
+3 & 1 & 2 \\ \hline
+2 & 2 & 1 \\ \hline
+1 & 1 & 1 \\ \hline
+\end{tabular}
+
+\bPseudoUeberschrift{Y}
+
+\begin{tabular}{|l|l|l|}
+\hline
+B & C & D \\ \hline
+2 & 3 & 1 \\ \hline
+1 & 1 & 3 \\ \hline
+2 & 1 & 3 \\ \hline
+3 & 2 & 3 \\ \hline
+2 & 2 & 3 \\ \hline
+1 & 3 & 2 \\ \hline
+\end{tabular}
+
+Geben Sie die Ergebnisrelationen folgender Ausdrücke der relationalen
+Algebra als Tabellen an; machen Sie Ihren Rechenweg kenntlich.
+\index{RelaX - relational algebra calculator}
+% https://dbis-uibk.github.io/relax/calc/local/uibk/local/0
+
+% X = {
+%   A B C
+%   1 2 3
+%   2 3 4
+%   4 3 3
+%   1 2 2
+%   2 3 2
+%   3 3 2
+%   3 1 2
+%   2 2 1
+%   1 1 1
+% }
+
+% Y = {
+%   B C D
+%   2 3 1
+%   1 1 3
+%   2 1 3
+%   3 2 3
+%   2 2 3
+%   1 3 2
+% }
+
+\begin{enumerate}
+\item $\sigma_{A=2}(X) \bowtie Y$
+% sigma A = 2 (X) natural join Y
+
+\begin{bAntwort}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+A & B & C & D & E \\ \hline
+2 & 3 & 2 & 3 & 1 \\ \hline
+2 & 3 & 2 & 1 & 3 \\ \hline
+2 & 3 & 2 & 2 & 3 \\ \hline
+2 & 2 & 1 & 1 & 3 \\ \hline
+2 & 2 & 1 & 3 & 2 \\ \hline
+\end{tabular}
+
+\end{bAntwort}
+
+\item $(\pi_{B,C}(X) - \pi_{B,C}(Y)) \bowtie X$
+
+% pi B,C X
+
+% X = {
+%   B C
+%   2 3
+%   3 4
+%   3 3
+%   2 2
+%   3 2
+%   1 2
+%   2 1
+%   1 1
+% }
+
+% pi B,C Y
+
+% Y = {
+%   B C
+%   2 3
+%   1 1
+%   2 1
+%   3 2
+%   2 2
+%   1 3
+% }
+
+% pi B,C X - pi B,C Y
+
+\item
+
+% pi A X
+
+% X = {
+%   A
+%   1
+%   2
+%   4
+%   3
+% }
+
+% sigma C=1 Y:
+
+% Y = {
+%   B C D
+%   1 1 3
+%   2 1 3
+% }
+
+% (pi A X) ⨝ (sigma C=1 Y)
+
+%   A B C D
+%   1 1 1 3
+%   1 2 1 3
+%   2 1 1 3
+%   2 2 1 3
+%   3 1 1 3
+%   3 2 1 3
+%   4 1 1 3
+%   4 2 1 3
+
+% (pi A X) ⨝ A > D (sigma C=1 Y)
+
+%   A B C D
+%   4 1 1 3
+%   4 2 1 3
+
+\begin{bAntwort}
+\item
+%pi A,C (X) ÷ pi C (Y)
+
+\begin{tabular}{|l|}
+\hline
+A \\ \hline
+1 \\ \hline
+2 \\ \hline
+3 \\ \hline
+\end{tabular}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

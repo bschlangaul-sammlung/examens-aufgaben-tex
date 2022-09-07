@@ -1,0 +1,110 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Prädikat unäre Kodierung von n und m},
+  Thematik = {unäre Kodierung von n und m},
+  Referenz = THEO.Formale-Sprachen.Typ-1_Kontextsensitiv.Turing-Maschine.unaere-Kodierung-n-m,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/30_Typ-1_Kontextsensitiv/Turing-Maschine/Aufgabe_unaere-Kodierung-n-m.tex,
+  ZitatSchluessel = theo:ab:3,
+  ZitatBeschreibung = {Aufgabe 4: TM: Vergleicher},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+}
+
+Konstruieren Sie eine Einband-Turingmaschine, die für eine Eingabe der
+Form $|^n \circ |^m$ mit $n, m \in \mathbb{N}$ (also die unäre Kodierung
+von $n$ und $m$ durch $\circ$ getrennt) das Prädikat $n \leq m$
+berechnet.\index{Turing-Maschine}
+\footcite[Aufgabe 4: TM: Vergleicher]{theo:ab:3}
+
+\begin{equation*}
+f(x) =
+\begin{cases}
+1 \text{ (akzeptiert)} & n \leq m \\
+0 \text{ (nicht akzeptiert)} & \text{sonst}
+\end{cases}
+\end{equation*}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[li turingmaschine]
+  \node[state,initial] (z0) at (2.29cm,-3cm) {$z_0$};
+  \node[state] (z1) at (5.57cm,-2cm) {$z_1$};
+  \node[state] (z2) at (9.29cm,-1.86cm) {$z_2$};
+  \node[state] (z3) at (7.57cm,-3.71cm) {$z_3$};
+  \node[state] (z4) at (4cm,-5.57cm) {$z_4$};
+  \node[state] (z5) at (5.29cm,-8.57cm) {$z_5$};
+  \node[state] (z7) at (12.14cm,-1.57cm) {$z_7$};
+  \node[state] (z6) at (8.86cm,-6.29cm) {$z_6$};
+  \node[state,accepting] (z8) at (12cm,-6.43cm) {$z_8$};
+
+  \bTuringKante[above]{z0}{z1}{
+    |, LEER, R;
+  }
+
+  \bTuringKante[above]{z0}{z4}{
+    °, LEER, R;
+  }
+
+  \bTuringKante[above]{z1}{z2}{
+    LEER, LEER, L;
+  }
+
+  \bTuringKante[above,loop above]{z1}{z1}{
+    |, |, R;
+    °, °, R;
+  }
+
+  \bTuringKante[above]{z2}{z3}{
+    |, LEER, L;
+  }
+
+  \bTuringKante[above]{z2}{z7}{
+    °, LEER, L;
+  }
+
+  \bTuringKante[above]{z3}{z0}{
+    LEER, LEER, R;
+  }
+
+  \bTuringKante[above,loop above]{z3}{z3}{
+    |, |, L;
+    °, °, L;
+  }
+
+  \bTuringKante[above]{z4}{z6}{
+    LEER, LEER, N;
+  }
+
+  \bTuringKante[above]{z4}{z5}{
+    |, LEER, R;
+  }
+
+  \bTuringKante[above,loop above]{z5}{z5}{
+    |, LEER, R;
+  }
+
+  \bTuringKante[above]{z5}{z6}{
+    LEER, LEER, N;
+  }
+
+  \bTuringKante[above,loop above]{z7}{z7}{
+    |, LEER, N;
+  }
+
+  \bTuringKante[above]{z7}{z8}{
+    LEER, 0, R;
+  }
+
+  \bTuringKante[above]{z6}{z8}{
+    LEER, 1, R;
+  }
+\end{tikzpicture}
+\end{center}
+\bFlaci{Ajf6mi7e7}
+\end{bAntwort}
+
+\end{document}

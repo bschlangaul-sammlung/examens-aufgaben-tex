@@ -1,0 +1,317 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,syntax}
+\usepackage{fancyvrb}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Schulverwaltung},
+  Referenz = 66116-2016-H.T2-TA1-A2,
+  RelativerPfad = Staatsexamen/66116/2016/09/Thema-2/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66116:2016:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL mit Übungsdatenbank, SQL, CREATE TABLE, CONSTRAINT, ALTER TABLE, GROUP BY, HAVING},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2016,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+Gegeben\footcite{examen:66116:2016:09} sei der folgende Ausschnitt aus
+dem Schema einer Schulverwaltung:
+\footcite[2. SQL und relationale Algebra]{db:ab:examen-gym-2016-09}
+
+\newcommand{\tmpu}[1]{\underline{\texttt{#1}}}
+
+\begin{Verbatim}[commandchars=+*~]
+Person : {[
+  +tmpu*ID~ : INTEGER,
+  Name : VARCHAR(255),
+  Wohnort : VARCHAR(255),
+  Typ : CHAR(1)
+]}
+
+Unterricht : {[
+  +tmpu*Klassenbezeichnung~ : VARCHAR(20),
+  +tmpu*Schuljahr~ : INTEGER,
+  +tmpu*Lehrer~ : INTEGER,
+  +tmpu*Fach~ : VARCHAR(100)
+]}
+
+Klasse : {[
+  +tmpu*Klassenbezeichnung~ : VARCHAR(20),
+  +tmpu*Schuljahr~ : INTEGER,
+  Klassenlehrer : INTEGER
+]}
+
+Klassenverband : {[
+  +tmpu*Schüler~ : INTEGER,
+  Klassenbezeichnung : VARCHAR(20),
+  +tmpu*Schuljahr~ : INTEGER
+]}
+\end{Verbatim}
+
+% Datenbankname: schulverwaltung
+\begin{minted}{sql}
+CREATE TABLE Person (
+  ID INTEGER PRIMARY KEY,
+  Name VARCHAR(255),
+  Wohnort VARCHAR(255),
+  Typ CHAR(1) CHECK(Typ in ('S', 'L'))
+);
+
+CREATE TABLE Klasse (
+  Klassenbezeichnung VARCHAR(20),
+  Schuljahr INTEGER,
+  Klassenlehrer INTEGER REFERENCES Person(ID),
+  PRIMARY KEY (Klassenbezeichnung, Schuljahr)
+);
+
+CREATE TABLE Klassenverband (
+  Schüler INTEGER REFERENCES Person(ID),
+  Klassenbezeichnung VARCHAR(20),
+  Schuljahr INTEGER,
+  PRIMARY KEY (Schüler, Schuljahr)
+);
+
+CREATE TABLE Unterricht (
+  Klassenbezeichnung VARCHAR(20),
+  Schuljahr INTEGER,
+  Lehrer INTEGER REFERENCES Person(ID),
+  Fach VARCHAR(100),
+  CONSTRAINT Unterricht_PK
+    PRIMARY KEY (Klassenbezeichnung, Schuljahr, Lehrer, Fach)
+);
+
+INSERT INTO Person VALUES
+  (1, 'Lehrer Ludwig', 'München', 'L'),
+  (2, 'Schüler Max', 'München', 'S'),
+  (3, 'Schülerin Maria', 'München', 'S'),
+  (4, 'Schülerin Eva', 'Starnberg', 'S'),
+  (5, 'Lehrerin Walter', 'München', 'L'),
+  (6, 'Schüler Karl', 'München', 'S');
+
+INSERT INTO Klasse VALUES
+  ('1a', 2015, 1),
+  ('1a', 2014, 1),
+  ('1b', 2015, 5);
+
+INSERT INTO Klassenverband VALUES
+  (2, '1a', 2015),
+  (3, '1a', 2015),
+  (4, '1b', 2015),
+  (6, '1a', 2015),
+  (6, '1a', 2014);
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+
+\noindent
+Hierbei enthält die Tabelle \emph{Person} Informationen über Lehrer (Typ
+’L’) und Schüler (Typ ’S’); andere Werte für Typ sind nicht zulässig.
+\emph{Klasse} beschreibt die Klassen, die in jedem Schuljahr gebildet
+wurden, zusammen mit ihrem Klassenlehrer. In \emph{Unterricht} wird
+abgelegt, welcher Lehrer welches Fach in welcher Klasse unterrichtet; es
+ist möglich, dass derselbe Lehrer mehr als ein Fach in einer Klasse
+unterrichtet. \emph{Klassenverband} beschreibt die Zuordnung der Schüler
+zu den Klassen.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung\index{SQL}, die die Tabelle
+\emph{Unterricht} mit allen ihren Constraints (einschließlich
+Fremdschlüsselconstraints) anlegt\index{CREATE TABLE}.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+CREATE TABLE IF NOT EXISTS Person(
+  ID INTEGER PRIMARY KEY,
+  Name VARCHAR(255),
+  Wohnort VARCHAR(255),
+  Typ CHAR(1) CHECK(Typ in ('S', 'L'))
+);
+
+CREATE TABLE IF NOT EXISTS Klasse(
+  Klassenbezeichnung VARCHAR(20),
+  Schuljahr INTEGER,
+  Klassenlehrer INTEGER REFERENCES Person(ID),
+  PRIMARY KEY (Klassenbezeichnung, Schuljahr)
+);
+
+CREATE TABLE IF NOT EXISTS Unterricht (
+  Klassenbezeichnung VARCHAR(20) REFERENCES Klasse(Klassenbezeichnung),
+  Schuljahr INTEGER REFERENCES Klasse(Schuljahr),
+  Lehrer INTEGER REFERENCES Person(ID),
+  Fach VARCHAR(100),
+  CONSTRAINT Unterricht_PK
+    PRIMARY KEY (Klassenbezeichnung, Schuljahr, Lehrer, Fach)
+);
+\end{minted}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Definieren Sie ein geeignetes Constraint, das sicherstellt, dass
+nur zulässige Werte im Attribut Typ der (bereits angelegten) Tabelle
+\emph{Person} eingefügt werden können.\index{CONSTRAINT}\index{ALTER
+TABLE}
+
+\begin{bAntwort}
+Ich habe \verb|REFERENCES| bei Unterricht Schuljahr vergessen, die
+referenzierten Tabellen \verb|Person| und \verb|Klasse| wurden in der
+Musterlösung auch nicht angelegt.
+
+\begin{minted}{sql}
+ALTER TABLE Person
+  ADD CONSTRAINT TypLS
+    CHECK(Typ IN ('S', 'L'));
+\end{minted}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die die Bezeichnung der Klassen
+bestimmt, die im Schuljahr 2015 die meisten Schüler haben.\index{GROUP BY}
+
+\begin{bAntwort}
+Falsch: \verb|ORDER BY Anzahl;|. \verb|DESC| vergessen.
+
+\begin{minted}{sql}
+SELECT k.Klassenbezeichnung, COUNT(*) AS Anzahl
+FROM Klasse k, Klassenverband v
+WHERE
+  k.Schuljahr = 2015 AND
+  k.Klassenbezeichnung = v.Klassenbezeichnung
+GROUP BY k.Klassenbezeichnung
+ORDER BY COUNT(*) DESC;
+\end{minted}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die die Namen aller Lehrer
+bestimmt, die nur Schüler aus ihrem Wohnort unterrichtet haben.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT DISTINCT l.Name
+FROM Person l
+WHERE NOT EXISTS(
+  SELECT DISTINCT *
+  FROM Unterricht u, Klassenverband v, Person s
+  WHERE
+    u.Lehrer = l.ID AND
+    u.Klassenbezeichnung = v.Klassenbezeichnung AND
+    v.Schüler = s.ID AND
+    l.Wohnort != s.Wohnort
+);
+\end{minted}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die die Namen aller Schüler
+bestimmt, die immer den gleichen Klassenlehrer hatten.\index{HAVING}
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT s.Name
+FROM Person s, Klasse k, Klassenverband v
+WHERE
+  v.Klassenbezeichnung = k.Klassenbezeichnung AND
+  k.Schuljahr = v.Schuljahr AND
+  v.Schüler = s.ID
+GROUP BY s.ID, s.Name
+HAVING COUNT(*) = 1
+\end{minted}
+\end{bAntwort}
+
+%%
+% f)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die alle Paare von Schülern
+bestimmt, die mindestens einmal in der gleichen Klasse waren. Es genügt
+dabei, wenn Sie die ID der Schüler bestimmen.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT DISTINCT s1.ID, s2.ID
+FROM Klassenverband s1, Klassenverband s2
+WHERE
+  s1.Schuljahr = s2.Schuljahr AND
+  s1.Schueler <> s2.Schueler AND
+  s1.Klassenbezeichung = s2.Klassenbezeichnung;
+\end{minted}
+\end{bAntwort}
+
+%%
+% g)
+%%
+
+\item Formulieren Sie eine Anfrage in der relationalen Algebra, die die
+ID aller Schüler bestimmt, die mindestens einmal von „Ludwig Lehrer“
+unterrichtet wurden.
+
+\begin{bAntwort}
+\begin{multline*}
+\pi_{\text{Schüler}} (\\
+  \sigma_{\text{Name} = \mlq \text{Ludwig Lehrer} \mrq} (\text{Person})\\
+  \bowtie_{\text{Person.ID} = \text{Unterricht.Lehrer}}\\
+  \text{Unterricht}\\
+  \bowtie_{\text{Unterricht.Klassenbezeichnung} = \text{Klassenverband.Klassenbezeichnung}}\\
+  \text{Klassenverband}\\
+)
+\end{multline*}
+\end{bAntwort}
+
+%%
+% h)
+%%
+
+\item Formulieren Sie eine Anfrage in der relationalen Algebra, die
+Namen und ID der Schüler bestimmt, die von allen Lehrern unterrichtet
+wurden.
+
+\begin{bAntwort}
+\begin{multline*}
+\pi_{\text{Name,ID}}(\\
+  (\\
+    \pi_{\text{Lehrer,Schueler}}(
+      \text{Unterricht}
+      \bowtie
+      \text{Klassenverband}
+    )
+    \div
+    \pi_{\text{ID}}(
+      \sigma_{\text{Typ} = \mlq \text{L} \mrq }(\text{Person})
+    )\\
+  )\\
+  \bowtie\\
+  \text{Person}\\
+)
+\end{multline*}
+\end{bAntwort}
+
+\end{enumerate}
+
+\noindent
+Beachten Sie bei der Formulierung der SQL-Anfragen, dass die
+Ergebnisrelationen keine Duplikate enthalten dürfen. Sie dürfen
+geeignete Views definieren.
+
+\end{document}

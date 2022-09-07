@@ -1,0 +1,348 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum,spalten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 8},
+  Thematik = {AVL-Baum 5,14,28,10,3,12,13},
+  Referenz = 66115-2018-F.T2-A8,
+  RelativerPfad = Staatsexamen/66115/2018/03/Thema-2/Aufgabe-8.tex,
+  ZitatSchluessel = examen:66115:2018:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {AVL-Baum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2018,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 8,
+}
+
+Bearbeiten Sie folgende Aufgaben zu AVL-Suchbäumen. Geben Sie jeweils
+bei jeder einzelnen Operation zum Einfügen, Löschen, sowie jeder
+elementaren Operation zum Wiederherstellen der AVL-Baumeigenschaften den
+entstehenden Baum als Baumzeichnung an. Geben Sie zur Darstellung der
+elementaren Operation auch vorübergehend ungültige AVL-Bäume an und
+stellen Sie Doppelrotationen in zwei Schritten dar. Dabei sollen die
+durchgeführten Operationen klar gekennzeichnet sein und die Baumknoten
+immer mit aktuellen Balancewerten versehen sein.
+\index{AVL-Baum}
+\footcite{examen:66115:2018:03}
+
+\begin{enumerate}
+%%
+% a)
+%%
+
+\item Fügen Sie (manuell) nacheinander die Zahlen 5, 14, 28, 10, 3, 12,
+13 in einen anfangs leeren AVL-Baum ein.
+
+\begin{bAntwort}
+\begin{multicols}{2}
+\begin{bBaum}{Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{5}; ]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Einfügen von „14“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{5};
+  \edge[blank]; \node[blank]{};
+  [.\node[label=0]{14}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Einfügen von „28“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+2]{5};
+  \edge[blank]; \node[blank]{};
+  [.\node[label=+1]{14};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{28}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{14};
+  [.\node[label=0]{5}; ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Einfügen von „10“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{14};
+  [.\node[label=+1]{5};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=0]{10}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Einfügen von „3“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{14};
+  [.\node[label=0]{5};
+    [.\node[label=0]{3}; ]
+    [.\node[label=0]{10}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Einfügen von „12“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{14};
+  [.\node[label=+1]{5};
+    [.\node[label=0]{3}; ]
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{12}; ]
+    ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-2]{14};
+  [.\node[label=-1]{10};
+    [.\node[label=-1]{5};
+      [.\node[label=0]{3}; ]
+      \edge[blank]; \node[blank]{};
+    ]
+    [.\node[label=0]{12}; ]
+  ]
+  [.\node[label=0]{28}; ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Rechtsrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{10};
+  [.\node[label=-1]{5};
+    [.\node[label=0]{3}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=0]{14};
+    [.\node[label=0]{12}; ]
+    [.\node[label=0]{28}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Einfügen von „13“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{10};
+  [.\node[label=-1]{5};
+    [.\node[label=0]{3}; ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.\node[label=-1]{14};
+    [.\node[label=+1]{12};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{13}; ]
+    ]
+    [.\node[label=0]{28}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{multicols}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Gegeben sei folgender AVL-Baum. Löschen Sie nacheinander die
+Knoten 1 und 23. Bei Wahlmöglichkeiten nehmen Sie jeweils den kleineren
+Wert anstatt eines größeren.
+
+\begin{bProjektSprache}{Baum}
+baum avl (
+  setze: 7 2 23 1 4 10 25 6 17 24 26 30;
+  drucke;
+)
+\end{bProjektSprache}
+
+\begin{center}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{7};
+  [.\node[label=+1]{2};
+    [.\node[label=0]{1}; ]
+    [.\node[label=+1]{4};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{6}; ]
+    ]
+  ]
+  [.\node[label=+1]{23};
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{17}; ]
+    ]
+    [.\node[label=+1]{25};
+      [.\node[label=0]{24}; ]
+      [.\node[label=+1]{26};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{30}; ]
+      ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{center}
+
+\begin{bAntwort}
+\begin{bBaum}{Löschen von „1“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+1]{7};
+  [.\node[label=+2]{2};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=+1]{4};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{6}; ]
+    ]
+  ]
+  [.\node[label=+1]{23};
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{17}; ]
+    ]
+    [.\node[label=+1]{25};
+      [.\node[label=0]{24}; ]
+      [.\node[label=+1]{26};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{30}; ]
+      ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=+2]{7};
+  [.\node[label=0]{4};
+    [.\node[label=0]{2}; ]
+    [.\node[label=0]{6}; ]
+  ]
+  [.\node[label=+1]{23};
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{17}; ]
+    ]
+    [.\node[label=+1]{25};
+      [.\node[label=0]{24}; ]
+      [.\node[label=+1]{26};
+        \edge[blank]; \node[blank]{};
+        [.\node[label=0]{30}; ]
+      ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{23};
+  [.\node[label=0]{7};
+    [.\node[label=0]{4};
+      [.\node[label=0]{2}; ]
+      [.\node[label=0]{6}; ]
+    ]
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{17}; ]
+    ]
+  ]
+  [.\node[label=+1]{25};
+    [.\node[label=0]{24}; ]
+    [.\node[label=+1]{26};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{30}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Löschen von „23“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=0]{24};
+  [.\node[label=0]{7};
+    [.\node[label=0]{4};
+      [.\node[label=0]{2}; ]
+      [.\node[label=0]{6}; ]
+    ]
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{17}; ]
+    ]
+  ]
+  [.\node[label=+2]{25};
+    \edge[blank]; \node[blank]{};
+    [.\node[label=+1]{26};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{30}; ]
+    ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Linksrotation}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.\node[label=-1]{24};
+  [.\node[label=0]{7};
+    [.\node[label=0]{4};
+      [.\node[label=0]{2}; ]
+      [.\node[label=0]{6}; ]
+    ]
+    [.\node[label=+1]{10};
+      \edge[blank]; \node[blank]{};
+      [.\node[label=0]{17}; ]
+    ]
+  ]
+  [.\node[label=0]{26};
+    [.\node[label=0]{25}; ]
+    [.\node[label=0]{30}; ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

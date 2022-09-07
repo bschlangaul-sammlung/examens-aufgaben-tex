@@ -1,0 +1,55 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,mathe,syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Wörter umkehren auf der 2-Band-Turingmaschine},
+  Thematik = {Vorlesungsaufgaben ab-Wörter umkehren 2-Band-Turingmaschine},
+  Referenz = THEO.Formale-Sprachen.Typ-1_Kontextsensitiv.Turing-Maschine.Vorlesungsaufgaben-Umkehren-2-Band,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/30_Typ-1_Kontextsensitiv/Turing-Maschine/Aufgabe_Vorlesungsaufgaben-Umkehren-2-Band.tex,
+  ZitatSchluessel = theo:fs:3,
+  ZitatBeschreibung = {Seite 27},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Turing-Maschine},
+}
+
+\def\z#1{\,z_#1\,}
+\def\p{&\rightarrow}
+\def\l{\,\bTuringLeerzeichen\,}
+
+% Info_2021-04-23-2021-04-23_13.17.40.mp4 3h20min
+
+\begin{enumerate}
+\item Geben Sie eine 2-Band-Turingmaschine an, die die Eingabe über dem
+Alphabet \bAlphabet{a, b} umkehrt.\index{Turing-Maschine}
+\footcite[Seite 27]{theo:fs:3}
+
+Beispiele:
+
+\begin{itemize}
+\item $abb \rightarrow bba$
+\item $aaaaba \rightarrow abaaaa$
+\item $aaa \rightarrow aaa$
+\end{itemize}
+
+Tipp:
+Das Ergebniswort muss nicht auf dem 1. Band stehen.
+\end{enumerate}
+
+\begin{bAntwort}
+\begin{minted}{md}
+name: ab-Wörter umkehren 2-Band-Turingmaschine
+init: z0
+accept: z0
+
+z0,a,_
+z0,_,a,>,<
+
+z0,b,_
+z0,_,b,>,<
+\end{minted}
+\bFussnoteUrl{http://turingmachinesimulator.com/shared/iqwxphngwc}
+\end{bAntwort}
+
+\end{document}

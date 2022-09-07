@@ -1,0 +1,314 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 7},
+  Thematik = {Heap und binärer Suchbaum},
+  Referenz = 66115-2013-H.T2-A7,
+  RelativerPfad = Staatsexamen/66115/2013/09/Thema-2/Aufgabe-7.tex,
+  ZitatSchluessel = examen:66115:2013:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Binärbaum, Halde (Heap)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2013,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 7,
+}
+
+\begin{enumerate}
+
+\item \strut
+
+\begin{enumerate}
+
+%%
+% i)
+%%
+
+\item Fügen Sie nacheinander die Zahlen $7$, $1$, $12$, $8$, $10$, $3$,
+$5$ in einen leeren binären Suchbaum ein und zeichnen Sie den Suchbaum
+nach „$8$“ und nach „$3$“.\index{Binärbaum}\index{Halde (Heap)}
+\footcite{examen:66115:2013:09}
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „8“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.7
+  [.1 ]
+  [.12
+    [.8 ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „3“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.7
+  [.1
+    \edge[blank]; \node[blank]{};
+    [.3 ]
+  ]
+  [.12
+    [.8
+      \edge[blank]; \node[blank]{};
+      [.10 ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.7
+  [.1
+    \edge[blank]; \node[blank]{};
+    [.3
+      \edge[blank]; \node[blank]{};
+      [.5 ]
+    ]
+  ]
+  [.12
+    [.8
+      \edge[blank]; \node[blank]{};
+      [.10 ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% ii)
+%%
+
+\item Löschen Sie die „$1$“ aus dem in (i) erstellten Suchbaum und
+zeichnen Sie den Suchbaum.
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Löschen von „1“}
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.7
+  [.3
+    \edge[blank]; \node[blank]{};
+    [.5 ]
+  ]
+  [.12
+    [.8
+      \edge[blank]; \node[blank]{};
+      [.10 ]
+    ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+
+%%
+% iii)
+%%
+
+\item Fügen Sie 7, 1, 12, 8, 10, 3, 5 in einen leeren MIN-Heap ein,
+der bzgl. „$\leq$“ angeordnet ist.
+Geben Sie den Heap nach jedem Element an.
+
+\begin{bAntwort}
+\begin{bBaum}{Nach dem Einfügen von „7“}
+\begin{tabular}{l}
+\bf{0} \\
+\hline
+7      \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.7 ]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „1“}
+\begin{tabular}{ll}
+\bf{0} & \bf{1} \\
+\hline
+7      & 1      \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.7
+  [.1 ]
+  \edge[blank]; \node[blank]{};
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „1“ und „7“}
+\begin{tabular}{ll}
+\bf{0} & \bf{1} \\
+\hline
+1      & 7      \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7 ]
+  \edge[blank]; \node[blank]{};
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „12“}
+\begin{tabular}{lll}
+\bf{0} & \bf{1} & \bf{2} \\
+\hline
+1      & 7      & 12     \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7 ]
+  [.12 ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „8“}
+\begin{tabular}{llll}
+\bf{0} & \bf{1} & \bf{2} & \bf{3} \\
+\hline
+1      & 7      & 12     & 8      \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7
+    [.8 ]
+    \edge[blank]; \node[blank]{};
+  ]
+  [.12 ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „10“}
+\begin{tabular}{lllll}
+\bf{0} & \bf{1} & \bf{2} & \bf{3} & \bf{4} \\
+\hline
+1      & 7      & 12     & 8      & 10     \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7
+    [.8 ]
+    [.10 ]
+  ]
+  [.12 ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „3“}
+\begin{tabular}{llllll}
+\bf{0} & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} \\
+\hline
+1      & 7      & 12     & 8      & 10     & 3      \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7
+    [.8 ]
+    [.10 ]
+  ]
+  [.12
+    [.3 ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Vertauschen von „3“ und „12“}
+\begin{tabular}{llllll}
+\bf{0} & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} \\
+\hline
+1      & 7      & 3      & 8      & 10     & 12     \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7
+    [.8 ]
+    [.10 ]
+  ]
+  [.3
+    [.12 ]
+    \edge[blank]; \node[blank]{};
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+
+\begin{bBaum}{Nach dem Einfügen von „5“}
+\begin{tabular}{lllllll}
+\bf{0} & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} \\
+\hline
+1      & 7      & 3      & 8      & 10     & 12     & 5      \\
+\end{tabular}
+
+\begin{tikzpicture}[b binaer baum]
+\Tree
+[.1
+  [.7
+    [.8 ]
+    [.10 ]
+  ]
+  [.3
+    [.12 ]
+    [.5 ]
+  ]
+]
+\end{tikzpicture}
+\end{bBaum}
+\end{bAntwort}
+\end{enumerate}
+
+%%
+% b)
+%%
+
+\item Was ist die worst-case Laufzeit in O-Notation
+für das Einfügen eines Elements in einen Heap der Größe $n$?
+Begründen Sie ihre Antwort.
+
+\begin{bAntwort}
+Die worst-case Laufzeit berechnet sich aus dem Aufwand für das
+Durchsickern eines eingefügten Elementes. Da das Durchsickern entlang
+eines Pfades im Baum erfolgt, entspricht der Aufwand im ungünstigsten
+Fall der Höhe des Baumes, \dh $\log_2 n$. Insgesamt ergibt sich somit
+eine worst-case Laufzeit von $\mathcal{O}(\log n)$.
+\footcite[Seite 413]{saake}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

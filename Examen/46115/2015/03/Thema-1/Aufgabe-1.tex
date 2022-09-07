@@ -1,0 +1,68 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Sprache abc},
+  Referenz = 46115-2015-F.T1-A1,
+  RelativerPfad = Staatsexamen/46115/2015/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:46115:2015:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Reguläre Sprache},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2015,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+\section{Aufgabe 1
+\index{Reguläre Sprache}
+\footcite{examen:46115:2015:03}}
+
+Gegeben sei die Sprache $L$.
+$L$ besteht aus der Menge aller Worte über dem Alphabet $\{a, b, c\}$,
+die mit $a$ beginnen und mit $b$ enden
+und die nie zwei aufeinander folgende $c$’s enthalten.
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie einen regulären Ausdruck für $L$ an.
+
+\begin{bAntwort}
+\texttt{a(c?[ab]+)*(cb|b)}
+
+\texttt{a(c(a|b)|(a|b))*(cb|b)}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Geben Sie einen vollständigen deterministischen endlichen
+Automaten für $L$ an.
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}[->,node distance=2cm]
+\node[state,initial] (0) {$z_0$};
+\node[state,right of=0] (1) {$z_1$};
+\node[state,above right of=1] (2) {$z_2$};
+\node[state,right of=1,accepting] (3) {$z_3$};
+
+\path (0) edge[above] node{a} (1);
+\path (1) edge[below] node{b} (3);
+\path (1) edge[below,loop below] node{a,b} (1);
+\path (1) edge[below] node{c} (2);
+\path (2) edge[above left,bend right] node{a,b} (1);
+\path (2) edge[right] node{b} (3);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Kontextfreie Sprachen},
+  Referenz = 66115-2020-F.T1-A3,
+  RelativerPfad = Staatsexamen/66115/2020/03/Thema-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2020:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, CYK-Algorithmus, Ableitung (Kontextfreie Sprache)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\m=\bMenge
+\let\l=\bKurzeTabellenLinie
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Entwerfen Sie eine kontextfreie Grammatik für die folgende
+kontextfreie Sprache über dem Alphabet \bAlphabet{a, b, c}:
+\index{Kontextfreie Sprache}
+\footcite{examen:66115:2020:03}
+
+\begin{center}
+\bAusdruck{a^{3n+2}wvc^n}{n \in \mathbb{N}_0, 2 \cdot |w|_b = |v|_a}
+\end{center}
+
+(Hierbei bezeichnet $|u|_x$, die Anzahl des Zeichens $x$ in dem Wort $u$.)
+
+Erklären Sie den Zweck der einzelnen Nichtterminale (Variablen) und der
+Grammatikregeln Ihrer Grammatik.
+
+\begin{bAntwort}
+\begin{bProduktionsRegeln}
+S -> a a a S c | a a a A c,
+A -> a a B,
+B -> b B a a | b a a
+\end{bProduktionsRegeln}
+\bFlaci{Ghhs1xexw}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Betrachten Sie die folgende kontextfreie Grammatik
+
+\begin{displaymath}
+G=(\m{A,B,C,D}, \m{a,b,c}, P, A)
+\end{displaymath}
+
+mit den Produktionen
+
+\begin{bProduktionsRegeln}
+A -> A B | C D | a,
+B -> C C | c,
+C -> D C | C B | b,
+D -> D B | a,
+\end{bProduktionsRegeln}
+\bFlaci{Gf7556jn2}
+
+Benutzen Sie den Algorithmus von Cocke-Younger-Kasami (CYK), um zu
+zeigen, dass das Wort $abcab$ zu der von $G$ erzeugten Sprache $L(G)$
+gehört.
+\index{CYK-Algorithmus}
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|}
+
+a    & b    & c    & a    & b \\\hline\hline
+
+A,D  & C    & B    & A,D  & C \l5
+C    & C    & -    & C    \l4
+C,C  & A    & -    \l3
+A,A  & B    \l2
+A,D,B,B \l1
+\end{tabular}
+
+\bWortInSprache{abcab}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Finden Sie nun ein größtmögliches Teilwort von $abcab$, dass von
+keinem der vier Nichtterminale von $G$ ableitbar ist.
+
+%%
+% (d)
+%%
+
+\item Geben Sie eine Ableitung des Wortes $abcab$ mit $G$ an.
+\index{Ableitung (Kontextfreie Sprache)}
+
+\begin{bAntwort}
+\bAbleitung{
+  A ->
+  AB ->
+  ACC ->
+  ACBC ->
+  ACBDC ->
+  aCBDC ->
+  abBDC ->
+  abcDC ->
+  abcaC ->
+  abcab
+}
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Beweisen Sie, dass die folgende formale Sprache über Z = {a,b} nicht kon-
+textfrei ist: ,
+L={a"b" |neN}.
+
+\end{enumerate}
+\end{document}

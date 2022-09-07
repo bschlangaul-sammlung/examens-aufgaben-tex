@@ -1,0 +1,146 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Verständnis Suchbäume},
+  Thematik = {Vergleich Suchbäume},
+  Referenz = 66115-2016-F.T2-A7,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-2/Aufgabe-7.tex,
+  ZitatSchluessel = examen:66115:2016:03,
+  ZitatBeschreibung = {Seite 9},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Bäume, Rot-Schwarz-Baum, AVL-Baum, Halde (Heap), B-Baum, R-Baum},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 7,
+}
+
+Wofür eignen sich die folgenden Baum-Datenstrukturen im Vergleich zu den
+anderen angeführten Baumstrukturen am besten, und warum. Sprechen Sie
+auch die Komplexität der wesentlichen Operationen und die Art der
+Speicherung an.\index{Bäume}
+\footcite[Seite 9]{examen:66115:2016:03}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Rot-Schwarz-Baum\index{Rot-Schwarz-Baum}
+
+\begin{bAntwort}
+\begin{description}
+\item[Einfügen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+
+\item[Löschen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+
+\item[Suchen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+\bFussnoteLink{tutorialspoint.com}{https://www.tutorialspoint.com/comparison-of-search-trees-in-data-structure}
+\end{description}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item AVL-Baum\index{AVL-Baum}
+
+\begin{bAntwort}
+\begin{description}
+\item[Einfügen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log_2 n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log_2 n)$ (im schlechtesten Fall)
+
+\item[Löschen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log_2 n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log_2 n)$ (im schlechtesten Fall)
+
+\item[Suchen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log_2 n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log_2 n)$ (im schlechtesten Fall)
+\bFussnoteLink{tutorialspoint.com}{https://www.tutorialspoint.com/comparison-of-search-trees-in-data-structure}
+\end{description}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Binärer-Heap\index{Halde (Heap)}
+
+\begin{bAntwort}
+\begin{description}
+\item[Verwendungszweck] zum effizienten Sortieren von Elementen.
+\bFussnoteLink{deut. Wikipedia}{https://de.wikipedia.org/wiki/Binärer_Heap}
+
+\item[Einfügen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(1)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+
+\item[Löschen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+
+\item[Suchen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(n)$ (im Durchschnitt) \\
+$\mathcal{O}(n)$ (im schlechtesten Fall)
+\bFussnoteLink{engl. Wikipedia}{https://en.wikipedia.org/wiki/Binary_heap}
+\end{description}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item B-Baum\index{B-Baum}
+
+\begin{bAntwort}
+\begin{description}
+\item[Einfügen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+
+\item[Löschen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+
+\item[Suchen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log n)$ (im Durchschnitt) \\
+$\mathcal{O}(\log n)$ (im schlechtesten Fall)
+\bFussnoteLink{tutorialspoint.com}{https://www.tutorialspoint.com/comparison-of-search-trees-in-data-structure}
+\end{description}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item R-Baum\index{R-Baum}
+
+\begin{bAntwort}
+\begin{description}
+\item[Verwendungszweck] Ein R-Baum erlaubt die schnelle Suche in
+mehrdimensionalen ausgedehnten Objekten.
+\bFussnoteLink{deut. Wikipedia}{https://de.wikipedia.org/wiki/R-Baum}
+
+\item[Suchen (Zeitkomplexität)] \strut \\
+$\mathcal{O}(\log_M n)$ (im Durchschnitt)
+\bFussnoteLink{eng. Wikipedia}{https://en.wikipedia.org/wiki/R-tree}\\
+$\mathcal{O}(n)$ (im schlechtesten Fall)
+\bFussnoteLink{Simon Fraser University, Burnaby, Kanada}{https://www2.cs.sfu.ca/CourseCentral/454/jpei/slides/R-Tree.pdf}
+\end{description}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

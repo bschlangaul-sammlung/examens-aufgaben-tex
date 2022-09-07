@@ -1,0 +1,169 @@
+\documentclass{bschlangaul-aufgabe}
+\usepackage{tikz}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Transaktionen},
+  Referenz = 46116-2016-F.T1-TA1-A5,
+  RelativerPfad = Staatsexamen/46116/2016/03/Thema-1/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = db:pu:5,
+  ZitatBeschreibung = {Aufgabe 1: Transaktionen,
+Schedules},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Transaktionen, ACID, Serialisierbarkeitsgraph, Zwei-Phasen-Sperrprotokoll},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Nennen\index{Transaktionen} \footcite[Aufgabe 1: Transaktionen,
+Schedules]{db:pu:5} Sie die vier wesentlichen Eigenschaften\index{ACID}
+einer Transaktion und erläutern Sie jede Eigenschaft kurz (ein Satz pro
+Eigenschaft).
+\footcite[Thema 1 Teilaufgabe 1 Aufgabe 5]{examen:46116:2016:03}
+
+\begin{bAntwort}
+\begin{description}
+\item[Atomicity]
+
+Eine Transaktion ist atomar, \dh von den vorgesehenen
+Änderungsoperationen auf die Datenbank haben entweder alle oder keine
+eine Wirkung auf die Datenbank.
+
+\item[Consistency]
+
+Eine Transaktion überführt einen korrekten (konsistenten)
+Datenbankzustand wieder in einen korrekten (konsistenten)
+Datenbankzustand.
+
+\item[Isolation]
+
+Eine Transaktion bemerkt das Vorhandensein anderer (parallel
+ablaufender) Transaktionen nicht und beeinflusst auch andere
+Transaktionen nicht.
+
+\item[Durability]
+
+Die durch eine erfolgreiche Transaktion vorgenommenen Änderungen sind
+dauerhaft (persistent).\footcite[Kapitel 9.5 „Eigenschaften von Transaktionen“, Seite 305]{kemper}
+\end{description}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Gegeben ist die folgende Historie (Schedule) dreier Transaktionen:
+
+\bigskip
+
+$
+r_1 (B) \rightarrow
+w_1 (C) \rightarrow
+r_3 (C) \rightarrow
+r_1 (A) \rightarrow
+c_1 \rightarrow
+r_2 (C) \rightarrow
+r_3 (C) \rightarrow
+r_2 (C) \rightarrow
+w_2 (B) \rightarrow
+c_2 \rightarrow
+c_3
+$
+
+\bigskip
+
+Zeichnen Sie den
+Serialisierbarkeitsgraphen\index{Serialisierbarkeitsgraph} zu dieser
+Historie und begründen Sie, warum die Historie serialisierbar ist oder
+nicht.
+
+\begin{bExkurs}[Historie]
+In Transaktionssystemen existiert ein Ausführungsplan für die parallele
+Ausführung mehrerer Transaktionen. Der Plan wird auch Historie genannt
+und gibt an, in welcher Reihenfolge die einzelnen Operationen der
+Transaktion ausgeführt werden. Als serialisierbar bezeichnet man eine
+Historie, wenn sie zum selben Ergebnis führt wie eine nacheinander
+(seriell) ausgeführte Historie über dieselben Transaktionen.
+\end{bExkurs}
+
+\begin{bAntwort}
+Der Algorithmus geht schrittweise durch den Ablaufplan unten und hebt
+die Abhängigkeiten der aktiven Transaktion zu allen anderen
+Transaktionen hervor. Hierfür werden in allen nachfolgenden Schritten
+solche Operationen gesucht, die einen Konﬂikt mit der aktuellen
+Operation hervorrufen. Konﬂikt-Operationen sind: \,  \texttt{read after
+write}, \, \texttt{write after read} \,  und \,  \texttt{write after
+write} \, auf denselben Datenobjekt.
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+$T_1$     & $T_2$     & $T_3$     \\\hline\hline
+$r_1 (B)$ &           &           \\\hline
+$w_1 (C)$ &           &           \\\hline
+          &           & $r_3 (C)$ \\\hline
+$r_1 (A)$ &           &           \\\hline
+$c_1$     &           &           \\\hline
+          & $r_2 (C)$ &           \\\hline
+          &           & $r_3 (C)$ \\\hline
+          & $r_2 (C)$ &           \\\hline
+          & $w_2 (B)$ &           \\\hline
+          & $c_2$     &           \\\hline
+          &           & $c_3$     \\\hline
+\end{tabular}
+\end{center}
+
+\bPseudoUeberschrift{Konfliktoperation}
+
+\begin{itemize}
+\item $r_1 (B) < w_2 (B)$: Kante von $T_1$ nach $T_2$
+\item $w_1 (C) < r_3 (C)$: Kante von $T_1$ nach $T_3$
+\item $w_1 (C) < r_2 (C)$: Kante von $T_1$ nach $T_2$
+\end{itemize}
+
+\bPseudoUeberschrift{Serialisierbarkeitsgraph}
+
+\begin{center}
+\begin{tikzpicture}
+\node (t1) at (0,0) {$T_1$};
+\node (t2) at (-1,-1) {$T_2$};
+\node (t3) at (1,-1) {$T_3$};
+
+\draw[->] (t1) -- (t2);
+\draw[->] (t1) -- (t3);
+\end{tikzpicture}
+\end{center}
+
+Es gibt keinen Zyklus im Graph. Er ist deshalb serialisierbar. Wenn ein
+Zyklus auftreten würde, dann wäre er nicht serialisierbar.
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Geben Sie an, wodurch die erste und die zweite Phase des
+Zwei-Phasen-Sperrprotokolls\index{Zwei-Phasen-Sperrprotokoll} jeweils
+charakterisiert sind (ein Satz pro Phase).
+
+\begin{bAntwort}
+Die zwei Phasen des Protokolls bestehen aus einer \emph{Sperrphase}, in der
+alle benötigten Objekte für die Transaktion gesperrt werden. In der
+zweiten Phase werden die \emph{Sperren wieder freigegeben}, sodass die
+Objekte von anderen Transaktionen genutzt werden können.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

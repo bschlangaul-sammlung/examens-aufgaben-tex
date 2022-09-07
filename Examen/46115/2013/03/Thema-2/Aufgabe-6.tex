@@ -1,0 +1,129 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Schreibtischlauf Haldensortierung},
+  Referenz = 46115-2013-F.T2-A6,
+  RelativerPfad = Staatsexamen/46115/2013/03/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:46115:2013:03,
+  ZitatBeschreibung = {Thema 2 Aufgabe 6},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Mergesort, Heapsort},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2013,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 6,
+}
+
+\section{Aufgabe 6
+\footcite[Thema 2 Aufgabe 6]{examen:46115:2013:03}}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Vervollständigen Sie die folgende Sortierung mit MergeSort
+(Sortieren durch Mischen) — beginnen Sie dabei Ihren
+„rekursiven Abstieg“ immer im linken Teilfeld:
+\index{Mergesort}
+
+D | 40 5 89 95 85 84 || 14 25 20 52 7 71 |
+
+Notation: Markieren Sie Zeilen mit D(ivide), in denen das Array zerlegt
+wird, und mit M(erge), in denen Teilarrays zusammengeführt werden.
+Beispiel:
+
+D | 82 || 89 44 |
+
+D 82 | 89 || 44 |
+
+M 82 | 44 89 |
+
+M | 44 82 89 |
+
+\begin{bAntwort}
+\begin{minted}[fontsize=\scriptsize]{md}
+D | 40    5     89    95    85    84 || 14    25    20    52    7     71 |
+D | 40    5     89 || 95    85    84 |
+D | 40    5  || 89 |
+D | 40 || 5  |
+M | 5     40 |
+M | 5     40    89 |
+D                  |  95    85    84 |
+D                  |  95    85 || 84 |
+D                  |  95 || 85 |
+M                  |  85    95 |
+M                  |  84    85    95 |
+M | 5     40    84    85    89    95 |
+D                                    |  14    25    20 || 52    7     71 |
+D                                    |  14    25 || 20 |
+D                                    |  14 || 25 |
+M                                    |  14    25 |
+M                                    |  14    20   25  |
+D                                                      |  52    7  || 71 |
+D                                                      |  52 || 7  |
+M                                                      |  7     52 |
+M                                                      |  7     52    71 |
+M                                    |  7     14   20     25    52    71 |
+M                                    |  7     14   20     25    52    71 |
+M | 5     7     14   20     25    40    52    71   84     85    89    95 |
+\end{minted}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Sortieren Sie mittels HeapSort (Haldensortierung) die folgende
+Liste weiter: Notation: Markieren Sie die Zeilen wie
+folgt:\index{Heapsort}
+
+\footcite[Sortieren II entnommen aus Algorithmen und
+Datenstrukturen, Übungsblatt 4, Universität Würzburg, Aufgabe 4]{aud:pu:7}
+
+\begin{description}
+\item[I:] Initiale Heap-Eigenschaft hergestellt (größtes Element am
+Anfang der Liste).
+
+\item[R:] Erstes und letztes Element getauscht und letztes „gedanklich
+entfernt“.
+
+\item[S:] Erstes Element nach unten „versickert“ (Heap-Eigenschaft
+wiederhergestellt).
+\end{description}
+
+\begin{bAntwort}
+\begin{minted}[fontsize=\scriptsize]{md}
+I | 99 63 91 4 36 81 76 |
+
+R | 76 63 91 4 36 81 || 99 |
+S | 91 63 81 4 36 76 || 99 |
+
+R | 76 63 81 4 36 || 91 99 |
+S | 81 76 63 4 36 || 91 99 |
+
+R | 36 76 63 4 || 81 91 99 |
+S | 76 36 63 4 || 81 91 99 |
+
+R | 4 36 63 || 76 81 91 99 |
+S | 63 4 36 || 76 81 91 99 |
+
+R | 4 36 || 63 76 81 91 99 |
+S | 36 4 || 63 76 81 91 99 |
+
+R | 4 || 36 63 76 81 91 99 |
+S | 4 || 36 63 76 81 91 99 |
+
+R | 4 36 63 76 81 91 99 |
+\end{minted}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,90 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Kontextfreie Sprachen},
+  Referenz = 66115-2018-H.T1-A3,
+  RelativerPfad = Staatsexamen/66115/2018/09/Thema-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2018:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, CYK-Algorithmus},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2018,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 3,
+}
+
+\let\m=\bMenge
+\let\l=\bKurzeTabellenLinie
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Entwerfen Sie eine kontextfreie Grammatik für die folgende
+kontextfreie Sprache über dem Alphabet \bAlphabet{a, b, c}:
+\index{Kontextfreie Sprache}
+\footcite{examen:66115:2018:09}
+
+\begin{center}
+\bAusdruck
+  {w b^{3k} c^{2k+1} v}
+  {k \in \mathbb{N}, |w|_c= |u|_a}
+\end{center}
+
+(Hierbei bezeichnet $|u|$, die Anzahl des Zeichens $x$ in dem Wort $u$,
+und es gilt $0 \in \mathbb{N}$.) Erklären Sie den Zweck der einzelnen
+Nichtterminale (Variablen) und der Grammatikregeln Ihrer Grammatik.
+
+%%
+% (b)
+%%
+
+\item Betrachten Sie die folgende kontextfreie Grammatik
+
+\begin{center}
+\bGrammatik{variablen={S, X, Y, Z}, alphabet={z, y}}
+\end{center}
+
+mit den Produktionen
+
+\begin{bProduktionsRegeln}
+S -> Z X | y,
+X -> Z S | S S | x,
+Y -> S X | Y Z,
+Z -> X X | X S
+\end{bProduktionsRegeln}
+
+Benutzen Sie den Algorithmus von Cocke-Younger-Kasami (CYK) um zu
+zeigen, dass das Wort $xxxyx$ zu der von G erzeugten Sprache $L(G)$
+gehört.
+\index{CYK-Algorithmus}
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|}
+x   & x   & x   & y   & x \\\hline\hline
+
+X   & X   & X   & S   & X \l5
+Z   & Z   & Z   & Y \l4
+S   & X   & S \l3
+Z,X & Z   \l2
+X,S,Z \l1
+\end{tabular}
+
+\bWortInSprache{xxxyx}
+\end{bAntwort}
+
+%%
+%  (c)
+%%
+
+\item Geben Sie eine Ableitung des Wortes $xxxyx$ mit $G$ an.
+
+\end{enumerate}
+\end{document}

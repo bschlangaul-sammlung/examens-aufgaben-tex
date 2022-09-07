@@ -1,0 +1,116 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {a n b n},
+  Referenz = 66115-2016-F.T1-A4,
+  RelativerPfad = Staatsexamen/66115/2016/03/Thema-1/Aufgabe-4.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2016,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 4,
+}
+
+\let\l=\bTuringLeerzeichen
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Geben Sie eine deterministische 2-Band Turingmaschine $M$ an, die
+die Funktion
+
+\begin{displaymath}
+f_M(a^n) = a^n b^n
+\end{displaymath}
+
+berechnet. Die Maschine $M$ nimmt somit immer einen String der Form
+$a^n$ (ein String, der aus $n$ $a$’s für beliebiges $n \in \mathbb{N}$
+besteht) als Eingabe und produziert anschließend auf Band 2 als Ausgabe
+den String $a^n b^n$ (ein String aus $n$ $a$’s gefolgt von $n$ $b$’s).
+
+Beschreiben Sie außerdem die Idee hinter Ihrer Konstruktion.
+
+\begin{bAntwort}
+\begin{minted}{md}
+name: 66115 2016 03 1 4
+init: z0
+accept: z2
+
+z0, a,_
+z0, a,a, >,>
+
+z0, _,_
+z1, _,_, <,-
+
+z1, a,_
+z1, a,_, <,-
+
+z1, _,_
+z2, _,_, >,-
+
+z2, a,_
+z2, a,b, >,>
+\end{minted}
+\bFussnoteUrl{http://turingmachinesimulator.com/shared/lyptczerhe}
+
+\begin{tabular}{c|l}
+$z_0$ & $a$’s auf das 2. Band kopieren \\
+$z_1$ & Zu Beginn der Eingabe auf dem 1. Band, 2. Band bleibt\\
+$z_2$ & Für jedes $a$’s auf dem 1. Band ein $b$ auf dem 2. Band erzeugen\\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+\item Geben Sie die Konfigurationsfolge der Turingmaschine aus (a) für
+die Eingabe $aa$ an.
+
+\begin{bAntwort}
+% 0
+z0 a a,
+z0 \l \l
+
+% 1
+a z0 a,
+a z0 \l
+
+% 2
+a a z0 \l,
+a a z0 \l
+
+% 3
+a z1 a,
+a a z1 \l
+
+% 4
+z1 a a \l,
+a a z1 \l
+
+% 5
+z1 \l a a,
+a a z1 \l
+
+% 6
+z2 a a,
+a a z2 \l
+
+% 7
+a z2 a,
+a a b z2 \l
+
+% 8
+a a z2 \l,
+a a b b z2 \l
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

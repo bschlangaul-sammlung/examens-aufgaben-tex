@@ -1,0 +1,120 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,uml}
+\ANTWORTfalse
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {MyList Kompositium},
+  Referenz = 66116-2021-F.T1-TA1-A5,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-1/Teilaufgabe-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Einfach-verkettete Liste},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 5,
+}
+
+\let\j=\bJavaCode
+
+Die folgende Abbildung stellt den Entwurf der Implementierung einer
+verketteten Liste dar, welche Integer-Werte als Elemente enthalten kann.
+\index{Einfach-verkettete Liste}
+\footcite{examen:66116:2021:03}
+
+\begin{center}
+\begin{tikzpicture}
+\umlclass[x=-1,y=0]{MyList}{}{getSum(): Integer}
+
+\umlclass[x=4,y=0,type=interface]{MyElement}{}{calculateSum() : Integer}
+
+\umlclass[x=2,y=-3]{MyEndElement}{}{}
+\umlclass[x=6,y=-3]{MyRegularElement}{value : Integer}{}
+
+\umlVHVreal{MyEndElement}{MyElement}
+\umlVHVreal{MyRegularElement}{MyElement}
+
+\umlHVHuniassoc[arm1=3cm,arg1=next,pos1=0.6,mult2=1,pos2=2.9]{MyRegularElement}{MyElement}
+
+\umluniassoc[arg1=head,mult2=1,pos1=0.3]{MyList}{MyElement}
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Die Klassse \j{MyList} stellt die Methode \j{getSum()} zur Verfügung,
+welche die Summe über alle in einer Liste befindlichen Elemente
+berechnet. Ein Ausschnitt der Implementierung sieht folgendermaßen aus:
+
+\begin{bJavaAngabe}
+public class MyList {
+  private MyElement head;
+
+  public MyList() {
+    this.head = new MyEndElement();
+  }
+
+  public int getSum() {
+    // ..
+  }
+}
+\end{bJavaAngabe}
+
+\noindent
+Gehen Sie im Folgenden davon aus, dass bereits Methoden existieren,
+welche Elemente in die Liste einfügen können.
+
+\begin{enumerate}
+
+%%
+% a
+%%
+
+\item Implementieren Sie in einer objektorientierten Programmiersprache
+Ihrer Wahl, \zB Java, die Methode \j{calculateSum()} der Klassen
+\j{MyEndElement} und \j{MyRegularElement}, so dass rekursiv die Summe
+der Elemente der Liste berechnet wird.
+
+Als Abbruchbedingung darf hierbei nicht das Feld
+\j{MyRegluarElement.next} auf den Wert \j{null} überprüft werden.
+
+Hinweis: Gehen Sie davon aus, die Implementierung von \j{MyList}
+garantiert, dass \j{MyRegluarElement.next} niemals den Wert \j{null}
+annimmt, sondern das letzte hinzugefügte \j{MyRegularElement} auf eine
+Instanz der Klasse \j{MyEndElement} verweist. Es gibt immer nur eine
+Instanz der Klasse \j{MyEndElement} in einer Liste.
+
+Hinweis: Achten Sie auf die Angabe einer korrekten Methodensignatur.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=18,lastline=20]{66116}{2021}{03}{my_list/MyElement}
+\bJavaExamen[firstline=15,lastline=17]{66116}{2021}{03}{my_list/MyEndElement}
+\end{bAntwort}
+
+%%
+% b
+%%
+
+\item Nennen Sie den Namen des Entwurfsmusters, auf welchem das oben
+gegebene Klassendiagramm basiert, und ordnen Sie dieses in eine der
+Kategorien von Entwurfsmustern ein.
+
+Hinweis: Es genügt die Angabe eines Musters, falls Sie mehrere Muster
+identifizieren sollten.
+
+\begin{bAntwort}
+Kompositium (Strukturmuster)
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAdditum}
+\bJavaExamen{66116}{2021}{03}{my_list/MyElement}
+\bJavaExamen{66116}{2021}{03}{my_list/MyEndElement}
+\bJavaExamen{66116}{2021}{03}{my_list/MyList}
+\end{bAdditum}
+
+\end{document}

@@ -1,0 +1,79 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Muffinsorten},
+  Referenz = 66115-2019-F.T1-A6,
+  RelativerPfad = Staatsexamen/66115/2019/03/Thema-1/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66115:2019:03,
+  ZitatBeschreibung = {Seite 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Greedy-Algorithmus},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2019,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 6,
+}
+
+Aus dem Känguru-Wettbewerb 2017 — Klassenstufen 3 und 4.
+\index{Greedy-Algorithmus}
+\footcite[Seite 5]{examen:66115:2019:03}
+
+\bigskip
+
+\begin{quote}
+Luna hat für den Kuchenbasar Muffins mitgebracht: $10$ Apfelmuffins,
+$18$ Nussmuffins, $12$ Schokomuffins und $9$ Blaubeermuffins. Sie nimmt
+immer $3$ verschiedene Muffins und legt sie auf einen Teller. Welches
+ist die kleinste Zahl von Muffins, die dabei übrig bleiben können?
+\end{quote}
+
+\begin{center}
+A: 1, B: 3, C: 4, D: 7, E: 8
+\end{center}
+
+\begin{enumerate}
+\item Geben Sie die richtige Antwort auf die im Känguru-Wettbewerb
+gestellte Frage und begründen Sie sie.
+
+\begin{bAntwort}
+4
+\bFussnoteUrl{https://www.youtube.com/watch?v=ceJW9kAplVY}
+\end{bAntwort}
+
+\item Lunas Freundin empfiehlt den jeweils nächsten Teller immer aus den
+drei aktuell häufigsten Muffinsorten zusammenzustellen. Leiten Sie aus
+dieser Idee einen effizienten GreedyAlgorithmus her, der die
+Fragestellung für beliebige Anzahlen von Muffins löst (nach wie vor soll
+es nur vier Sorten und je drei pro Teller geben). Skizzieren Sie in
+geeigneter Form, wie Ihr Algorithmus die Beispielinstanz von oben
+richtig löst.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=42,lastline=56]{66115}{2019}{03}{Muffin}
+\end{bAntwort}
+
+\item Beschreiben Sie eine mögliche und sinnvolle Verallgemeinerung
+Ihrer Lösung auf $n$ Muffinsorten und $k$ Muffins pro Teller für $n > 4$
+und $k > 3$.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=67,lastline=77]{66115}{2019}{03}{Muffin}
+\end{bAntwort}
+
+\item Diskutieren Sie, wie man die Korrektheit des Greedy-Algorithmus
+zeigen könnte, also dass er tatsächlich immer eine optimale Lösung
+findet. Ein kompletter, rigoroser Beweis ist nicht verlangt.
+\end{enumerate}
+
+\begin{bAdditum}
+
+Der komplette Code:
+
+\bJavaExamen{66115}{2019}{03}{Muffin}
+\end{bAdditum}
+\end{document}

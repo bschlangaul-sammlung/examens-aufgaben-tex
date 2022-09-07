@@ -1,0 +1,199 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1},
+  Thematik = {Dateisystem: Implementierung durch Kompositum},
+  Referenz = 66116-2019-H.T2-TA1-A1,
+  RelativerPfad = Staatsexamen/66116/2019/09/Thema-2/Teilaufgabe-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66116:2019:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entwurfsmuster, Kompositum (Composite), Klassendiagramm, Implementierung in Java, Rekursion},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2019,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 1,
+}
+
+Hierarchische Dateisysteme bestehen aus den FileSystemElements Ordner,
+Dateien und Verweise. Ein Ordner kann seinerseits Ordner, Dateien und
+Verweise beinhalten; jedem Ordner ist bekannt, welche Elemente
+(children) er enthält. Mit Ausnahme des Root-Ordners auf der obersten
+Hierarchieebene ist jeder Ordner, jede Datei und jeder Verweis Element
+eines Elternordners. Jedem Element ist bekannt, was sein Elternordner
+ist (parent). Ein Verweis verweist auf einen Verweis, eine Datei oder
+einen Ordner (link). Wenn ein Ordner gelöscht wird, werden alle seine
+Bestandteile ggf. rekursiv ebenfalls gelöscht. Sie dürfen die Lösungen
+für Aufgabenteil b) und c) in einem gemeinsamen Code kombinieren.
+\index{Entwurfsmuster}\index{Kompositum (Composite)}
+\footcite{examen:66116:2019:09}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Modellieren Sie diesen Sachverhalt mit einem
+UML-Klassendiagramm. Benennen Sie die Rollen von Assoziationen und geben
+Sie alle Kardinalitäten an. Ihre Lösung soll mindestens eine sinnvolle
+Spezialisierungsbeziehung enthalten.\index{Klassendiagramm}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}
+\umlclass[x=0,y=3,type=abstract]{Element}
+{}
+{+ delete()}
+
+\umlclass[x=-3]{Link}
+{}
+{+ delete()}
+
+\umlclass[x=0]{File}
+{}
+{+ delete()}
+
+\umlclass[x=3]{Directory}
+{}
+{+ delete()}
+
+\umlVHVinherit{Directory}{Element}
+\umlVHVinherit{File}{Element}
+\umlVHVinherit{Link}{Element}
+\umlHVHaggreg[%
+  anchor1=east,arm1=1.5cm,arg1=parent,mult1=1,pos1=0.4,
+  arg2=children,mult2=0..*,pos2=2.85,]{Directory}{Element}
+
+\umlHVHuniassoc[%
+  arm1=-1cm,anchor1=west,mult1=1,
+  anchor2=west,arg2=linkedElement,pos2=2.7,mult2=1]{Link}{Element}
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Implementieren Sie das Klassendiagramm als Java- oder
+C++-Programm. Jedes Element des Dateisystems soll mindestens über ein
+Attribut \bJavaCode{name} verfügen. Übergeben Sie den Elternordner
+jedes Elements als Parameter an den Konstruktor; der Elternordner des
+Root-Ordners kann dabei als \bJavaCode{null} implementiert werden.
+Dokumentieren Sie Ihren Code.
+\index{Implementierung in Java}
+
+\begin{bAntwort}
+
+\bFussnoteLink{TU Darmstadt: Dr. Michael Eichberg - Case Study Using
+the Composite and Proxy Design
+Patterns}{https://www.stg.tu-darmstadt.de/media/st/teaching/courses/ws2009/material_eise/20100120c_casestudydesigningtheapiforaccessingafilesystemcompositeandproxypattern.pdf}
+
+\bJavaExamen{66116}{2019}{09}{file_system/Element}
+\bJavaExamen{66116}{2019}{09}{file_system/Directory}
+\bJavaExamen{66116}{2019}{09}{file_system/File}
+\bJavaExamen{66116}{2019}{09}{file_system/Link}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Ordnen Sie eine Methode \bJavaCode{delete}, die Dateien, Ordner
+und Verweise rekursiv löscht, einer oder mehreren geeigneten Klassen zu
+und implementieren Sie sie. Zeigen Sie die Löschung jedes Elements durch
+eine Textausgabe von \bJavaCode{name} an. \bJavaCode{toString()}
+müssen Sie dabei nicht implementieren. Gehen Sie davon aus, dass
+Verweis- und Ordnerstrukturen azyklisch sind und dass jedes Element des
+Dateisystems höchstens einmal existiert. Wenn ein Verweis gelöscht wird,
+wird sowohl der Verweis als auch das verwiesene Element bzw. transitiv
+die Kette der verwiesenen Elemente gelöscht. Bedenken Sie, dass die
+Löschung eines Elements immer auch Konsequenzen für den dieses Element
+beinhaltenden Ordner hat. Es gibt keinen Punktabzug, wenn Sie die
+Löschung des Root-Ordners nicht zulassen.
+\index{Rekursion}
+
+\begin{bAntwort}
+Siehe Antwort zu Aufgabe b)
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Was kann im Fall von \bJavaCode{delete} passieren,
+wenn die Linkstruktur zyklisch ist oder die Ordnerstruktur zyklisch ist?
+Kann es zu diesen Problemen auch dann führen, wenn weder die
+Linkstruktur zyklisch ist, noch die Ordnerstruktur zyklisch ist? Wie
+kann man im Programm das Problem lösen, falls man Zyklizitäten zulassen
+möchte?
+
+\begin{bAntwort}
+Falls die Link- oder Ordnerstruktur zyklisch ist, kann es aufgrund der
+Rekursion zu einer Endlosschleife kommen. Diese Problem tritt bei
+azyklischen Strukturen nicht auf, weil der rekursive Löschvorgang beim
+letzten Element abgebrochen wird (Abbruchbedingung).
+
+Das Problem kann zum Beispiel durch ein neues Attribut
+\bJavaCode{gelöscht} in der Klasse \bJavaCode{Link} oder
+\bJavaCode{Directory} gelöst werden. Dieses Attribut wird auf
+\bJavaCode{true} gesetzt, bevor es in die Rekursion einsteigt. Rufen
+sich die Klassen wegen der Zyklizität selbst wieder auf, kommt es durch
+entsprechende IF-Bedingungen zum Abbruch.
+
+Außerdem ist ein Zähler denkbar, der sich bei jeder Rekursion hochsetzt
+und ab einem gewissen Grenzwert zum Abbruch führt.
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Was ist ein Design Pattern? Nennen Sie drei Beispiele und
+erläutern Sie sie kurz. Welches Design Pattern bietet sich für die
+Behandlung von hierarchischen Teil-Ganzes-Beziehungen an, wie sie im
+Beispiel des Dateisystems vorliegen?
+
+\begin{bAntwort}
+Design Pattern sind wiederkehrende, geprüfte, bewährte Lösungsschablonen
+für typische Probleme.
+
+\bPseudoUeberschrift{Drei Beispiele}
+
+\begin{description}
+\item[Einzelstück (Singleton)]
+Stellt sicher, dass nur \emph{genau eine Instanz einer Klasse} erzeugt
+wird.
+\footcite[Seite 38]{eilebrecht}
+
+\item[Beobachter (Observer)]
+Das Observer-Muster ermöglicht einem oder mehreren Objekten, automatisch
+auf die \emph{Zustandsänderung} eines bestimmten Objekts \emph{zu
+reagieren}, um den eigenen Zustand anzupassen.
+\footcite[Seite 70]{eilebrecht}
+
+\item[Stellvertreter (Proxy)]
+Ein Proxy stellt einen Platzhalter für eine andere Komponente (Objekt)
+dar und kontrolliert den Zugang zum echten Objekt.
+\footcite[Seite 89]{eilebrecht}
+\end{description}
+
+Für hierarchischen Teil-Ganzes-Beziehungen eigent sich das Kompositum
+(Composite). Es ermöglicht die Gleichbehandlung von Einzelelementen und
+Elementgruppierungen in einer verschachtelten Struktur (\zB Baum),
+sodass aus Sicht des Clients keine explizite Unterscheidung notwendig
+ist.
+\end{bAntwort}
+\end{enumerate}
+
+\begin{bAdditum}
+% \bJavaTestDatei[firstline=3]{examen/examen_66116_2019_09/file_system/FileSystemTest}
+
+\end{bAdditum}
+
+\end{document}

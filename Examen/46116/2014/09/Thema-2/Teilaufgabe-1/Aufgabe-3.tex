@@ -1,0 +1,146 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3: UML Diagramme in der Anwendung},
+  Thematik = {Bestellsystem},
+  Referenz = 46116-2014-H.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/46116/2014/09/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:46116:2014:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {UML-Diagramme, Anwendungsfalldiagramm, Klassendiagramm, Objektdiagramm, Zustandsdiagramm zeichnen},
+  EinzelpruefungsNr = 46116,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Gegeben\index{UML-Diagramme} \footcite{examen:46116:2014:09} sei
+folgender Sachverhalt:\footcite{sosy:pu:2}
+
+Für eine Verwaltungssoftware einer Behörde soll ein Bestellsystem
+entwickelt werden. Dabei sollen die Nutzer ihre Raummaße eingeben
+können. Anschließend können die Nutzer über ein Web-Interface das Büro
+gestalten und Möbel (wie zum Beispiel Wandschränke) und andere
+Einrichtungsgegenstände in einem virtuellen Büro platzieren. Aus dem
+Web-Interface kann die Einrichtung dann direkt bestellt werden. Dazu
+müssen die Nutzer ihre Büro-Nummer und den Namen und die Adresse der
+Behörde eingeben und die Bestellung bestätigen.
+
+Weiterhin können Nutzer auch Büromaterialien über das Web-Interface
+bestellen. Dazu ist anstatt der Eingabe der Raummaße nur das Eingeben
+von Büro-Nummer und des Namens und der Adresse der Behörde erforderlich.
+
+Zusätzlich zum Standard-Nutzer können sich auch Administratoren im
+System anmelden und Möbel zur Kollektion hinzufügen und aus der
+Kollektion entfernen. Die Möbel können eindeutig durch ihre
+Inventurnummer identifiziert werden.
+
+Um jegliche Veränderungen im System protokollieren zu können müssen
+Nutzer und Administratoren zur Bestätigung eingeloggt sein.
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erfassen Sie die drei Systemfunktionen \emph{Möbel bestellen},
+\bEmph{Login} und \bEmph{Kollektion verwalten} in einem UML-konformen
+Use Case Diagramm\index{Anwendungsfalldiagramm}.
+
+\begin{bAntwort}
+% Nach Video gezeichnet
+
+%%
+%
+%%
+
+\begin{tikzpicture}
+\begin{umlsystem}{Möbel bestellen}
+\umlusecase[x=1,y=0,name=login]{Login}
+\umlusecase[x=5,y=-1,text width=1.5cm,name=bestellung]{Bestellung bestätigen}
+\umlusecase[x=4,y=-3,text width=1.5cm,name=buero]{Büro gestalten}
+\umlusecase[x=1,y=-5,text width=1.5cm,name=raummass]{Raummaß eingeben}
+\end{umlsystem}
+
+\umlactor[x=-2,y=-2]{Nutzer}
+\umlassoc{Nutzer}{login}
+\umlassoc{Nutzer}{bestellung}
+\umlassoc{Nutzer}{buero}
+\umlassoc{Nutzer}{raummass}
+
+\umlinclude{buero}{raummass}
+\umlinclude{bestellung}{buero}
+\umlinclude{bestellung}{login}
+\end{tikzpicture}
+
+%%
+%
+%%
+
+\begin{tikzpicture}
+\begin{umlsystem}{Login}
+\umlusecase[x=1,y=-1,text width=1.5cm,name=bueronummer]{Büronummer eingeben}
+\umlusecase[x=4,y=-3,name=name]{Name eingeben}
+\umlusecase[x=1,y=-4,text width=1.5cm,name=adresse]{Adresse Behörde eingeben}
+\end{umlsystem}
+
+\umlactor[x=-2,y=-2]{Nutzer}
+\umlassoc{Nutzer}{bueronummer}
+\umlassoc{Nutzer}{name}
+\umlassoc{Nutzer}{adresse}
+\end{tikzpicture}
+
+%%
+%
+%%
+
+\begin{tikzpicture}
+\begin{umlsystem}{Kollektion verwalten}
+\umlusecase[x=1,y=-1,text width=1.5cm,name=hinzufuegen]{Möbel hinzufügen}
+\umlusecase[x=4,y=-3,name=login]{Login}
+\umlusecase[x=1,y=-4,text width=1.5cm,name=entfernen]{Möbel entfernen}
+\end{umlsystem}
+
+\umlactor[x=-2,y=-2]{Administrator}
+\umlassoc{Administrator}{login}
+\umlassoc{Administrator}{hinzufuegen}
+\umlassoc{Administrator}{entfernen}
+
+\umlinclude{hinzufuegen}{login}
+\umlinclude{entfernen}{login}
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Erstellen Sie ein UML-Klassendiagramm,\index{Klassendiagramm}
+welches die Beziehungen und sinnvolle Attribute der Klassen „Nutzer,
+Büro, Möbelstück und Wandschrank“ darstellt.
+
+%%
+% c)
+%%
+
+\item Instanziieren Sie das Klassendiagramm in einem
+Objektdiagramm\index{Objektdiagramm} mit den zwei Nutzern mit Namen
+Ernie und Bernd, einem Büro mit der Nummer CAPITOL2 und zwei Schränken
+mit den Inventurnummern S1.88 und S1.77.
+
+%%
+% d)
+%%
+
+\item Geben Sie für ein Büromöbelstück ein
+Zustandsdiagramm\index{Zustandsdiagramm zeichnen} an. Überlegen Sie dazu, welche
+möglichen Zustände ein Möbelstück während des Bestellvorgangs haben kann
+und finden Sie geeignete Zustandsübergänge.
+\end{enumerate}
+\end{document}

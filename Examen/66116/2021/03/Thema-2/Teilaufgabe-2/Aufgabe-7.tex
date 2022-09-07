@@ -1,0 +1,127 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,relationale-algebra}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 7},
+  Thematik = {Optimierung},
+  Referenz = 66116-2021-F.T2-TA2-A7,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-2/Teilaufgabe-2/Aufgabe-7.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {DB},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 7,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erläutern Sie kurz, was Indizes sind und warum diese in
+Datenbanksystemen verwendet werden.\index{DB}
+\footcite{examen:66116:2021:03}
+
+\begin{bAntwort}
+Ein Datenbankindex ist eine von der Datenstruktur getrennte
+Indexstruktur in einer Datenbank, die die Suche und das Sortieren nach
+bestimmten Feldern beschleunigt.
+
+Ein Index besteht aus einer Ansammlung von Zeigern (Verweisen), die eine
+Ordnungsrelation auf eine oder mehrere Spalten in einer Tabelle
+definieren. Wird bei einer Abfrage eine indizierte Spalte als
+Suchkriterium herangezogen, sucht das Datenbankmanagementsystem (DBMS)
+die gewünschten Datensätze anhand dieser Zeiger. In der Regel finden
+hier B+-Bäume Anwendung. Ohne Index müsste die Spalte sequenziell
+durchsucht werden, während eine Suche mit Hilfe des Baums nur
+logarithmische Komplexität hat.
+\bFussnoteUrl{https://de.wikipedia.org/wiki/Datenbankindex}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Übertragen Sie folgendes SQL-Statement in einen nicht optimierten
+algebraischen Term oder in einen Anfragegraphen.
+
+\begin{minted}{sql}
+SELECT Kunde.Name, Kunde.Geburtsdatum
+FROM Kunde, Rechnung
+WHERE Kunde.ID = Rechnung.Kunde
+AND Rechnung.Summe < 100;
+\end{minted}
+
+\begin{bAntwort}
+\begin{center}
+\begin{tikzpicture}
+\node
+  (pi) {$\pi_{\text{Kunde.Name, Kunde.Geburtsdatum}}$};
+
+\node[below=of pi]
+  (sigma) {$\sigma_{\text{Kunde.ID = Rechnung.Kunde} \land \text{Rechnung.Summe < 100}}$}
+  edge (pi);
+
+\node[below=of sigma]
+  (x) {$\times$}
+  edge (sigma);
+
+\node[below left=of x]
+  {Kunde}
+  edge(x);
+
+\node[below right=of x]
+  {Rechnung}
+  edge(x);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Nennen Sie zwei Möglichkeiten, den algebraischen Term bzw. den
+Anfragegraphen aus der vorhergehenden Teilaufgabe logisch (d. h.
+algebraisch) zu optimieren. Beziehen Sie sich auf konkrete Stellen und
+Operatoren des von Ihnen aufgestellten algebraischen Ausdrucks.
+
+\begin{bAntwort}
+Zuerst Selection und dann Join
+
+Theta-Join
+
+\begin{center}
+\begin{tikzpicture}
+\node
+  (pi) {$\pi_{\text{Kunde.Name, Kunde.Geburtsdatum}}$};
+
+\node[below=of pi]
+  (theta join) {$\bowtie_{\text{Kunde.ID = Rechnung.Kunde}}$}
+  edge (pi);
+
+\node[below left=of theta join]
+  {Kunde}
+  edge(theta join);
+
+\node[below right=of theta join]
+  (sigma rechnung) {$\sigma_{\text{Summe < 100}}$}
+  edge (theta join);
+
+\node[below=of sigma rechnung]
+  {Rechnung}
+  edge(sigma rechnung);
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

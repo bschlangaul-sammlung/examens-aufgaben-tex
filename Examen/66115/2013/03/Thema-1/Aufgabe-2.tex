@@ -1,0 +1,100 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Kontextfreie Grammatiken},
+  Referenz = 66115-2013-F.T1-A2,
+  RelativerPfad = Staatsexamen/66115/2013/03/Thema-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66115:2013:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, CYK-Algorithmus},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2013,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 2,
+}
+
+\let\l=\bKurzeTabellenLinie
+
+Gegeben sei die Grammatik \bGrammatik{variablen={S, A, B, C},
+alphabet={a,b}} und\index{Kontextfreie Sprache}
+\footcite{examen:66115:2013:03}
+
+\begin{bProduktionsRegeln}
+S -> A B,
+S -> C S,
+A -> B C,
+A -> B B,
+A -> a,
+B -> A C,
+B -> b,
+C -> A A,
+C -> B A
+\end{bProduktionsRegeln}
+\bFlaci{Gr46a6j0a}
+
+$L = L(G)$ ist die von G erzeugte Sprache.
+
+\begin{enumerate}
+%%
+% a)
+%%
+
+\item Zeigen Sie, dass $G$ mehrdeutig ist.
+
+\begin{bAntwort}
+Das Wort $baab$ kann in zwei verschiedenen Ableitungen hergeleitet
+werden:
+
+\begin{enumerate}
+\item \bAbleitung{S -> AB -> BCB -> bCB -> bAAB -> baAB -> baaB -> baab}
+
+\item \bAbleitung{S -> CS -> BAS -> bAS -> baS -> baAB -> baaB -> baab}
+\end{enumerate}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Entscheiden Sie mithilfe des Algorithmus von Cocke, Younger und
+Kasami (CYK), ob das Wort $w = babaaa$ zur Sprache L gehört. Begründen
+Sie Ihre Entscheidung.
+\index{CYK-Algorithmus}
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|c|}
+b     & a     & b    & a    & a    & a \\\hline\hline
+
+B     & A     & B    & A    & A    & A \l6
+C     & S     & C    & C    & C \l5
+-     & B     & A    & B \l4
+A     & C     & A,C \l3
+A,C   & B,C,A \l2
+A,C,B \l1
+\end{tabular}
+
+\bWortNichtInSprache{babaaa}
+
+Das Startsymbol $S$ ist nicht in der Zelle $V(1,5) = \bMenge{A, C, B}$
+enthalten.
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Geben Sie eine Ableitung für $w = babaaa$ an.
+
+\begin{bAntwort}
+\bAbleitung{A -> BB -> bB -> bAC -> baC -> baAA -> baBCA -> babCA ->
+babAAA -> babaAA -> babaaA -> babaaa}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

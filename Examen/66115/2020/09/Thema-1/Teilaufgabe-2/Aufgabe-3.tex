@@ -1,0 +1,113 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Graph A-E},
+  Referenz = 66115-2020-H.T1-TA2-A3,
+  RelativerPfad = Staatsexamen/66115/2020/09/Thema-1/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmus von Dijkstra},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\begin{bGraphenFormat}
+A: 0 0
+B: 7 2
+C: 2 -1
+D: 6 -1
+E: 5 0
+A->B: 15
+A->C: 5
+A->E: 12
+C->B: 8
+C->D: 5
+C->E: 3
+D->B: 2
+E->B: 2
+E->D: 1
+\end{bGraphenFormat}
+
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (A) at (0,0) {A};
+\node (B) at (7,2) {B};
+\node (C) at (2,-1) {C};
+\node (D) at (6,-1) {D};
+\node (E) at (5,0) {E};
+
+\path[->] (A) edge node {15} (B);
+\path[->] (A) edge node {5} (C);
+\path[->] (A) edge node {12} (E);
+\path[->] (C) edge node {8} (B);
+\path[->] (C) edge node {5} (D);
+\path[->] (C) edge node {3} (E);
+\path[->] (D) edge node {2} (B);
+\path[->] (E) edge node {2} (B);
+\path[->] (E) edge (D);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Ermitteln Sie mit dem Algorithmus von Dijkstra den kürzesten Weg
+vom Knoten $A$ zu allen erreichbaren Knoten in $G$. Verwenden Sie zur
+Lösung eine Tabelle der folgenden Form. Markieren Sie in jeder Zeile den
+jeweils als nächstes zu betrachtenden Knoten und führen Sie die
+Prioritätswarteschlange der noch zu betrachtenden Knoten (aufsteigend
+sortiert).\index{Algorithmus von Dijkstra}
+\footcite{examen:66115:2020:09}
+
+\begin{tabular}{lllllll}
+\bf{Nr.}     & \bf{besucht} & \bf{A}       & \bf{B}       & \bf{C}       & \bf{D}       & \bf{E}       \\
+\hline
+0            &              & 0            & $\infty$     & $\infty$     & $\infty$     & $\infty$     \\
+\end{tabular}
+
+\begin{bAntwort}
+\begin{tabular}{lllllll}
+\bf{Nr.}     & \bf{besucht} & \bf{A}       & \bf{B}       & \bf{C}       & \bf{D}       & \bf{E}       \\
+\hline
+0            &              & 0            & $\infty$     & $\infty$     & $\infty$     & $\infty$     \\
+1            & A            & \bf{0}       & 15           & 5            & $\infty$     & 12           \\
+2            & C            & |            & 13           & \bf{5}       & 10           & 8            \\
+3            & E            & |            & 10           & |            & 9            & \bf{8}       \\
+4            & D            & |            & 10           & |            & \bf{9}       & |            \\
+5            & B            & |            & \bf{10}      & |            & |            & |            \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Geben Sie den kürzesten Pfad vom Knoten $A$ zum Knoten $B$ an.
+
+\begin{bAntwort}
+A $\rightarrow$ C $\rightarrow$ E $\rightarrow$ B: 10
+
+\begin{tabular}{llll}
+\bf{nach}                                         & \bf{Entfernung}                                   & \bf{Reihenfolge}                                  & \bf{Pfad}                                         \\
+\hline
+A  $\rightarrow$  A                               & 0                                                 & 0                                                 &                                                   \\
+A  $\rightarrow$  B                               & 10                                                & 5                                                 & A $\rightarrow$ C $\rightarrow$ E $\rightarrow$ B \\
+A  $\rightarrow$  C                               & 5                                                 & 2                                                 & A $\rightarrow$ C                                 \\
+A  $\rightarrow$  D                               & 9                                                 & 4                                                 & A $\rightarrow$ C $\rightarrow$ E $\rightarrow$ D \\
+A  $\rightarrow$  E                               & 8                                                 & 3                                                 & A $\rightarrow$ C $\rightarrow$ E                 \\
+\end{tabular}
+
+\end{bAntwort}
+\end{enumerate}
+\end{document}

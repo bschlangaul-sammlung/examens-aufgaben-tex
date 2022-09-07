@@ -1,0 +1,86 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 7},
+  Thematik = {Klassen „QueueElement“ und „Queue“},
+  Referenz = 66115-2007-F.T1-A7,
+  RelativerPfad = Staatsexamen/66115/2007/03/Thema-1/Aufgabe-7.tex,
+  ZitatSchluessel = examen:66115:2007:03,
+  ZitatBeschreibung = {Thema 1
+Aufgabe 7 Seite 3},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java, Warteschlange (Queue)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2007,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 7,
+}
+
+Implementieren Sie die angegebenen Methoden einer Klasse
+\bJavaCode{Queue} für Warteschlangen. Eine Warteschlange soll eine
+unbeschränkte Anzahl von Elementen aufnehmen können. Elemente sollen am
+Ende der Warteschlange angefügt und am Anfang aus ihr entfernt werden.
+Sie können davon ausgehen, dass ein Klasse \bJavaCode{QueueElement} mit
+der folgenden Schnittstelle bereits implementiert ist \footcite[Thema 1
+Aufgabe 7 Seite 3]{examen:66115:2007:03}.
+\index{Implementierung in Java}\index{Warteschlange (Queue)}
+\footcite[Seite 1-2, Aufgabe 2]{aud:pu:4}
+
+\bJavaExamen{66115}{2007}{03}{queue/QueueElement}
+
+\noindent
+Von der Klasse \bJavaCode{Queue} ist folgendes gegeben:
+
+\bJavaExamen[firstline=3,lastline=5]{66115}{2007}{03}{queue/Queue}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Schreiben Sie eine Methode \bJavaCode{void append (Object contents)},
+die ein neues Objekt in der Warteschlange einfügt.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=7,lastline=17]{66115}{2007}{03}{queue/Queue}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Schreiben Sie eine Methode \bJavaCode{Object remove()}, die ein
+Element aus der Warteschlange entfernt und dessen Inhalt zurückliefert.
+Berücksichtigen Sie, dass die Warteschlange leer sein könnte.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=20,lastline=30]{66115}{2007}{03}{queue/Queue}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Schreiben Sie eine Methode \bJavaCode{boolean isEmpty()}, die
+überprüft, ob die Warteschlange leer ist.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=32,lastline=34]{66115}{2007}{03}{queue/Queue}
+\end{bAntwort}
+
+\end{enumerate}
+
+\bPseudoUeberschrift{Klasse Queue}
+
+\bJavaExamen{66115}{2007}{03}{queue/Queue}
+
+\bPseudoUeberschrift{Tests}
+
+\bJavaTestDatei{examen/examen_66115/jahr_2007/fruehjahr/queue/QueueTest.java}
+
+\end{document}

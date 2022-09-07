@@ -1,0 +1,106 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\let\j=\bJavaCode
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Klasse Box},
+  Referenz = 66116-2021-F.T1-TA1-A4,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-1/Teilaufgabe-1/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 4,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Schreiben Sie ein Programm in einer objektorientierten
+Programmiersprache Ihrer Wahl, das den folgenden Anweisungen entspricht.
+\index{Implementierung in Java}
+\footcite{examen:66116:2021:03}
+
+\begin{enumerate}
+
+\item Es gibt eine Klasse mit dem Namen \j{Box}.
+
+\item Alle Zahlen sind Fließkommazahlen.
+
+\item \j{Box} wird mit einem Argument instanziiert, dessen Wert einer
+Variable namens \j{length} zugewiesen wird.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=6,lastline=8]{66116}{2021}{03}{Box}
+\end{bAntwort}
+
+\item \j{Box} hat eine Methode ohne Argumente namens \j{size}, welche
+den Wert von \j{length} zurückgibt.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=10,lastline=12]{66116}{2021}{03}{Box}
+\end{bAntwort}
+
+\item Eine weitere Methode namens \j{size} hat genau ein Argument namens
+\j{width}. Diese zweite Methode namens \j{size} gibt das Produkt aus
+\j{width} und \j{length} zurück. Eine weitere Methode namens \j{size}
+hat genau zwei Argumente, nämlich eine Zahl \j{num} und einen Faktor
+\j{f}. Es wird \j{length} minus das Produkt aus \j{num} und \j{f}
+zurückgegeben.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=14,lastline=20]{66116}{2021}{03}{Box}
+\end{bAntwort}
+
+\item Schreiben Sie eine \j{main}-Methode, die eine Box namens
+\j{example} mit einer Länge von 15 anlegt.
+
+\item Führen Sie die Methode \j{size} in der \j{main}-Methode wie unten
+angegeben drei Mal aus.
+
+\item Speichern Sie hierbei das Ergebnis jeweils in einer Variable
+\j{mysize}. Geben Sie das Ergebnis jeweils in einer eigenen Zeile des
+Ausgabemediums \j{System.out} aus.
+
+\begin{itemize}
+\item Mit keinen Argumenten
+\item Mit dem Argument \j{10}
+\item Mit den beiden Argumenten \j{5} und \j{2}
+\end{itemize}
+
+\begin{bAntwort}
+\bJavaExamen[firstline=22,lastline=33]{66116}{2021}{03}{Box}
+\end{bAntwort}
+
+\end{enumerate}
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2021}{03}{Box}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Notieren Sie die Ausgabe der \j{main}-Methode.
+
+\begin{bAntwort}
+\begin{itemize}
+\item 15
+\item 150
+\item 5
+\end{itemize}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

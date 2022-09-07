@@ -1,0 +1,101 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Listen},
+  Thematik = {Flughafen},
+  Referenz = AUD.Listen.Warteschlange.Flughafen,
+  RelativerPfad = Module/30_AUD/70_Listen/20_Warteschlange/Aufgabe_Flughafen.tex,
+  ZitatSchluessel = aud:e-klausur,
+  ZitatBeschreibung = {Aufgabe 3},
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Warteschlange (Queue)},
+}
+
+Am Nürnberger Flughafen starten und landen täglich viele Flugzeuge. Der
+Flughafen verfügt jedoch nur über eine einzige Start- bzw. Landebahn,
+sodass Starts und Landungen gemeinsam koordiniert werden müssen. Für die
+interne Verwaltung, welcher Flieger als nächstes bearbeitet werden soll,
+wird eine neue Software entwickelt. Sie haben die Aufgabe einen Teil
+dieser Software zu erstellen.
+\index{Warteschlange (Queue)}
+\footcite[Aufgabe 3]{aud:e-klausur}
+
+Das folgende UML-Klassendiagramm gibt einen Überblick über den für Sie
+relevanten Teil der Software:
+
+\begin{center}
+\begin{tikzpicture}
+\umlclass{Warteschlange}{}{
+  + fügeNeuenFlugHinzu(Flug): void\\
+  + fügeNotfallHinzu(Flug): void\\
+}
+\umlclass[right=1.5cm of Warteschlange]{Ticket}{
+  + startetInNürnberg: boolean\\
+  + landetInNürnberg: boolean\\
+}{}
+\umlclass[below=1.5cm of Ticket]{Flug}{
+  - flugnummer: int\\
+  - startFlughafen: String\\
+  - zielFlughafen: String\\
+}{
+  + gibFlugnummer(): int\\
+  + gibStartFlughafen(): int\\
+  + gibZielFlughafen(): int\\
+}
+
+\umluniassoc[arg=~erstes,mult=0..1,pos=0.6]{Warteschlange}{Ticket}
+\umluniassoc[arg=+flug,mult=0..1,pos=0.8]{Ticket}{Flug}
+\umluniassoc[arg=+nächstes,mult=0..1,pos=0.8,loopsize=2cm,angle1=0,angle2=-30]{Ticket}{Ticket}
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Implementieren Sie die beiden Methoden \bJavaCode{fügeNeuenFlugHinzu(Flug)}
+und \bJavaCode{fügeNotfallHinzu(Flug)} der Klasse
+\bJavaCode{Warteschlange}!
+
+\begin{itemize}
+\item In der Methode \bJavaCode{fügeNeuenFlugHinzu()}
+
+\begin{itemize}
+\item soll ein neu übergebener Flug der Warteschlange hinzugefügt
+werden.
+\end{itemize}
+
+\item In der Methode \bJavaCode{fügeNotfallHinzu()}
+
+\begin{itemize}
+\item soll für den übergebenen Flug überprüft werden, ob der Flug
+bereits in der Warteschlange vorkommt oder ob es sich um einen komplett
+neuen Flug handelt.
+
+\item soll der Notfall die erste Priorität in der Warteschlange
+erhalten, \dh zwingend als nächstes abgearbeitet werden.
+
+\item soll die korrekte Funktionalität der Warteschlange weiterhin
+gegeben sein.
+\end{itemize}
+\end{itemize}
+
+\noindent
+Jeder Flug wird in der Warteschlange mit einem eigenen Ticket verwaltet.
+Die Funktionalitäten der Tickets und der Flüge entnehmen Sie dem
+Quelltext.
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Klasse „Flug“}
+
+\bJavaDatei[firstline=3]{aufgaben/aud/listen/flughafen/Flug}
+
+\bPseudoUeberschrift{Klasse „Ticket“}
+
+\bJavaDatei[firstline=3]{aufgaben/aud/listen/flughafen/Ticket}
+
+\bPseudoUeberschrift{Klasse „Warteschlange“}
+
+\bJavaDatei[firstline=3]{aufgaben/aud/listen/flughafen/Warteschlange}
+\end{bAntwort}
+\end{document}

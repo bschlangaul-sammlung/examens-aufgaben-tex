@@ -1,0 +1,71 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe},
+  Thematik = {LOOP-Fakultät},
+  Referenz = THEO.Berechenbarkeit.LOOP-Fakultaet,
+  RelativerPfad = Module/70_THEO/20_Berechenbarkeit/Aufgabe_LOOP-Fakultaet.tex,
+  ZitatSchluessel = theo:ab:4,
+  ZitatBeschreibung = {Aufgabe 1},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {LOOP-berechenbar},
+}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Geben Sie ein LOOP-Programm an, das die Funktion $f(n) = n!$
+berechnet.\index{LOOP-berechenbar}
+\footcite[Aufgabe 1]{theo:ab:4}
+
+\begin{bAntwort}
+\begin{minted}{md}
+x_2 := 1;
+LOOP x1 DO
+  x_3 := x_3 + 1;
+  x_2 := x_2 * x_3;
+END
+x_3 := 0;
+RETURN x_2;
+\end{minted}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item
+
+Beweisen Sie:
+
+Ist $f : N \rightarrow N$ LOOP-berechenbar, so ist auch
+$g : N \rightarrow N$ mit $g(n) = f (i)$
+LOOP-berechenbar.
+
+\begin{bAntwort}
+Bei einem LOOP-Programm der Form LOOP $x_i$ DO P END wird das Programm
+$P$ so oft ausgeführt, wie der Wert der Variablen $x_i$ zu Beginn
+angibt. Beweis:
+
+\begin{minted}{md}
+x_0 := 0;
+i := 0;
+LOOP n DO
+  i := i + 1;
+  y := f(i);
+  x_0 := x_0 + y;
+END
+RETURN x_0;
+\end{minted}
+
+ist LOOP-berechenbar, da $f(n)$ LOOP-berechenbar ist.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

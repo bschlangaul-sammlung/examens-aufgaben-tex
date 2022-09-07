@@ -1,0 +1,90 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Selectionsort},
+  Referenz = 66115-2014-H.T2-A6,
+  RelativerPfad = Staatsexamen/66115/2014/09/Thema-2/Aufgabe-6.tex,
+  ZitatSchluessel = aud:ab:3,
+  ZitatBeschreibung = {Seite 4, Aufgabe 4},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Selectionsort, Implementierung in Java, Algorithmische Komplexität (O-Notation), Halde (Heap)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 6,
+}
+
+Gegeben \index{Selectionsort} \footcite[Seite 4, Aufgabe 4]{aud:ab:3}sei
+ein einfacher Sortieralgorithmus, der ein gegebenes Feld $A$ dadurch
+sortiert, dass er das \emph{Minimum} $m$ von $A$ \emph{findet}, dann das
+Minimum von $A$ ohne das Element $m$ usw.
+\footcite[Thema 2 Aufgabe 6 Seite 5]{examen:66115:2014:09}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie den Algorithmus in Java an.
+Implementieren\index{Implementierung in Java} Sie den Algorithmus
+\emph{in situ}, \dh so, dass er außer dem Eingabefeld nur konstanten
+Extraspeicher benötigt. Es steht eine Testklasse zur Verfügung.
+
+\begin{bAntwort}
+\bJavaExamen{66115}{2014}{09}{SortierungDurchAuswaehlen}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Analysieren Sie die Laufzeit Ihres Algorithmus.\index{Algorithmische Komplexität (O-Notation)}
+
+\begin{bAntwort}
+Beim ersten Durchlauf des \emph{Selectionsort}-Algorithmus muss $n - 1$
+mal das Minimum durch Vergleich ermittel werden, beim zweiten Mal
+$n - 2$.
+Mit Hilfe der \emph{Gaußschen Summenformel} kann die Komplexität
+gerechnet werden:
+
+\begin{displaymath}
+(n-1)+(n-2)+\dotsb+3+2+1 =
+\frac{(n-1)\cdot n}{2} =
+\frac{n^2}{2}-\frac{n}{2} \approx
+\frac{n^2}{2} \approx
+n^2
+\end{displaymath}
+
+Da es bei der Berechnung des Komplexität um die Berechnung der
+asymptotischen oberen Grenze geht, können Konstanten und die Addition,
+Subtraktion, Multiplikation und Division mit Konstanten z. b.
+$\frac{n^2}{2}$ vernachlässigt werden.
+
+Der \emph{Selectionsort}-Algorithmus hat deshalb die Komplexität
+$\mathcal{O}(n^2)$, er ist von der Ordnung
+$\mathcal{O}(n^2)$.
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Geben Sie eine Datenstruktur an, mit der Sie Ihren Algorithmus
+beschleunigen können.\index{Halde (Heap)}
+
+\begin{bAntwort}
+Der \emph{Selectionsort}-Algorithmus kann mit einer Min- (in diesem
+Fall) bzw. einer Max-Heap beschleunigt werden. Mit Hilfe dieser
+Datenstruktur kann sehr schnell das Minimum gefunden werden. So kann auf
+die vielen Vergleiche verzichtet werden. Die Komplexität ist dann
+$\mathcal{O}(n \log n)$.
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

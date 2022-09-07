@@ -1,0 +1,162 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Grammatik in Kellerautomat umwandeln},
+  Thematik = {zu drei Grammatiken},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.Kellerautomat,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_Kellerautomat.tex,
+  ZitatSchluessel = theo:ab:2,
+  ZitatBeschreibung = {Aufgabe 5: Grammatik in Kellerautomat umwandeln},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kellerautomat},
+}
+
+Geben Sie für die folgenden Grammatiken $G_i$ jeweils einen
+Kellerautomaten $P_i$ an, der dieselbe Sprache besitzt wie die
+Grammatik: $L(G_i) = L(P_i)$
+\index{Kellerautomat}
+\footcite[Aufgabe 5: Grammatik in Kellerautomat umwandeln]{theo:ab:2}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item
+
+\begin{bProduktionsRegeln}[$P_1$]
+S -> 0 S 1 | P,
+P -> 1 P 0 | S | EPSILON
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1},
+  alphabet={0, 1},
+  kelleralphabet={\#, S, P, 0, 1},
+  ende={z_1},
+}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (3.14cm,-4.71cm) {$z_0$};
+  \node[state,accepting] (z1) at (5.71cm,-4.71cm) {$z_1$};
+
+  \bKellerKante[above]{z0}{z1}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    EPSILON, KELLERBODEN, S KELLERBODEN;
+    EPSILON, S, 0 S 1;
+    EPSILON, S, P;
+    EPSILON, P, 1 P 0;
+    EPSILON, P, S;
+    EPSILON, P, EPSILON;
+    0, 0, EPSILON;
+    1, 1, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ah5ceyrrz}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item
+
+\begin{bProduktionsRegeln}[$P_2$]
+S -> x T T,
+T -> x S | y S | x
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1},
+  alphabet={x, y},
+  kelleralphabet={\#, T, S, x, y},
+  ende={z_1},
+}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (3.86cm,-3.86cm) {$z_0$};
+  \node[state,accepting] (z1) at (7.14cm,-3.86cm) {$z_1$};
+
+  \bKellerKante[above]{z0}{z1}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    x, x, EPSILON;
+    y, y, EPSILON;
+    EPSILON, S, x T T;
+    EPSILON, T, x S;
+    EPSILON, T, y S;
+    EPSILON, T, x;
+    EPSILON, KELLERBODEN, S KELLERBODEN;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Aiq4r0162}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item
+
+\begin{bProduktionsRegeln}[$P_3$]
+S -> a B | b A | A B c | B,
+A -> S S a,
+B -> c S | b B | b
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1},
+  alphabet={a, b},
+  kelleralphabet={\#, A, B, a, b},
+  ende={z_1},
+}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (5.29cm,-5cm) {$z_0$};
+  \node[state,accepting] (z1) at (8.14cm,-5cm) {$z_1$};
+
+  \bKellerKante[above]{z0}{z1}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z0}{z0}{
+    a, a, EPSILON;
+    b, b, EPSILON;
+    c, c, EPSILON;
+    EPSILON, S, a B;
+    EPSILON, S, b A;
+    EPSILON, S, A B c;
+    EPSILON, S, B;
+    EPSILON, A, S S a;
+    EPSILON, B, c S;
+    EPSILON, B, b B;
+    EPSILON, B, b;
+    EPSILON, KELLERBODEN, S KELLERBODEN;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Ajh5y0s5r}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

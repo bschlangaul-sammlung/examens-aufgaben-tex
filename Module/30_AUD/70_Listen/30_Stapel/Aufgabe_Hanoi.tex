@@ -1,0 +1,292 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{syntax,hanoi}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Kellerspeicher: Türme von Hanoi},
+  Thematik = {Hanoi},
+  Referenz = AUD.Listen.Stapel.Hanoi,
+  RelativerPfad = Module/30_AUD/70_Listen/30_Stapel/Aufgabe_Hanoi.tex,
+  ZitatSchluessel = aud:ab:7,
+  ZitatBeschreibung = {Aufgabe 2},
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Stapel (Stack), Teile-und-Herrsche (Divide-and-Conquer), Rekursion},
+}
+
+Betrachten wir das folgende Spiel (Türme von Hanoi), das aus drei Stäben
+$1$, $2$ und $3$ besteht, die senkrecht im Boden befestigt sind. Weiter
+gibt es $n$ kreisförmige Scheiben mit einem Loch im Mittelpunkt, so dass
+man sie auf die Stäbe stecken kann. Dabei haben die Scheiben
+verschiedene Radien, alle sind unterschiedlich groß. Zu Beginn stecken
+alle Scheiben auf dem Stab $1$, wobei immer eine kleinere auf einer
+größeren liegt. Das Ziel des Spiels ist es nun, die Scheiben so
+umzuordnen, dass sie in der gleichen Reihenfolge auf dem Stab $3$
+liegen. Dabei darf immer nur eine Scheibe bewegt werden und es darf nie
+eine größere auf einer kleineren Scheibe liegen. Stab $2$ darf dabei als
+Hilfsstab verwendet werden.\footcite[Aufgabe 2]{aud:ab:7}
+\index{Stapel (Stack)}
+\index{Teile-und-Herrsche (Divide-and-Conquer)}
+\index{Rekursion}
+
+Ein Beispiel für $4$ Scheiben finden Sie in folgendem Bild:
+
+\begin{center}
+\bHanoi{4}{4/1,3/1,2/1,1/1}
+\end{center}
+
+\begin{center}
+\bHanoi{4}{4/3,3/3,2/3,1/3}
+\end{center}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item Ein \bJavaCode{Element} hat immer einen Wert (Integer) und kennt das
+Nachfolgende \bJavaCode{Element}, wobei immer nur das jeweilige
+\bJavaCode{Element} auf seinen Wert und seinen Nachfolger zugreifen darf.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=6]{aufgaben/aud/listen/hanoi/Element}
+\end{bAntwort}
+
+%%
+% 2.
+%%
+
+\item Ein \bJavaCode{Turm} ist einem Stack (Kellerspeicher)
+nachempfunden und kennt somit nur das erste Element. Hinweis: Beachten
+Sie, dass nur kleinere Elemente auf den bisherigen Stack gelegt werden
+können
+
+\begin{bAntwort}
+\bJavaDatei[firstline=6]{aufgaben/aud/listen/hanoi/Turm}
+\end{bAntwort}
+
+%%
+% 3.
+%%
+
+\item In der Klasse \bJavaCode{Hanoi} müssen Sie nur die Methode
+\bJavaCode{public void hanoi (int n, Turm quelle, Turm ziel, Turm
+hilfe)} implementieren. Die anderen Methoden sind zur Veranschaulichung
+des Spiels! Entwerfen Sie eine rekursive Methode die einen Turm der Höhe
+$n$ vom Stab \bJavaCode{quelle} auf den Stab \bJavaCode{ziel}
+transportiert und den Stab \bJavaCode{hilfe} als Hilfsstab verwendet.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=6]{aufgaben/aud/listen/hanoi/Hanoi}
+\end{bAntwort}
+\end{enumerate}
+
+% 1  0  0
+% 2  0  0
+% 3  0  0
+% 4  0  0
+% 5  0  0
+
+% 0  0  0
+% 2  0  0
+% 3  0  0
+% 4  0  0
+% 5  0  1
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 3  0  0
+% 4  0  0
+% 5  2  1
+
+% 0  0  0
+% 0  0  0
+% 3  0  0
+% 4  1  0
+% 5  2  0
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 4  1  0
+% 5  2  3
+
+% 0  0  0
+% 0  0  0
+% 1  0  0
+% 4  0  0
+% 5  2  3
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 1  0  0
+% 4  0  2
+% 5  0  3
+
+% 0  0  0
+% 0  0  0
+% 0  0  1
+% 4  0  2
+% 5  0  3
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  1
+% 0  0  2
+% 5  4  3
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 0  1  2
+% 5  4  3
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 2  1  0
+% 5  4  3
+
+% 0  0  0
+% 0  0  0
+% 1  0  0
+% 2  0  0
+% 5  4  3
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 1  0  0
+% 2  3  0
+% 5  4  0
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 2  3  0
+% 5  4  1
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  2  0
+% 0  3  0
+% 5  4  1
+
+% 0  0  0
+% 0  1  0
+% 0  2  0
+% 0  3  0
+% 5  4  0
+% Fertig!
+
+% 0  0  0
+% 0  1  0
+% 0  2  0
+% 0  3  0
+% 0  4  5
+
+% 0  0  0
+% 0  0  0
+% 0  2  0
+% 0  3  0
+% 1  4  5
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 0  3  2
+% 1  4  5
+
+% 0  0  0
+% 0  0  0
+% 0  0  1
+% 0  3  2
+% 0  4  5
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  1
+% 0  0  2
+% 3  4  5
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 0  1  2
+% 3  4  5
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 2  1  0
+% 3  4  5
+
+% 0  0  0
+% 0  0  0
+% 1  0  0
+% 2  0  0
+% 3  4  5
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 1  0  0
+% 2  0  4
+% 3  0  5
+
+% 0  0  0
+% 0  0  0
+% 0  0  1
+% 2  0  4
+% 3  0  5
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  1
+% 0  0  4
+% 3  2  5
+
+% 0  0  0
+% 0  0  0
+% 0  0  0
+% 0  1  4
+% 3  2  5
+% Fertig!
+
+% 0  0  0
+% 0  0  0
+% 0  0  3
+% 0  1  4
+% 0  2  5
+
+% 0  0  0
+% 0  0  0
+% 0  0  3
+% 0  0  4
+% 1  2  5
+% Fertig!
+
+% 0  0  0
+% 0  0  2
+% 0  0  3
+% 0  0  4
+% 1  0  5
+
+% 0  0  1
+% 0  0  2
+% 0  0  3
+% 0  0  4
+% 0  0  5
+% Fertig!
+\end{document}

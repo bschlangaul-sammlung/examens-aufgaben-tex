@@ -1,0 +1,56 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Verstoß gegen die Prinzipien guter objektorientierter Programmierung},
+  Referenz = 66116-2021-F.T1-TA1-A2,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-1/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Objektorientierung},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+Lesen Sie die folgenden Beispielcodes gründlich. Identifizieren Sie für
+jeden Beispielcode den jeweiligen wesentlichen Verstoß gegen die
+Prinzipien guter objektorientierter Programmierung. Benennen und
+erklären Sie jeweils den Verstoß (Fehler) in einem Satz und erläutern
+Sie für jeden Beispielcode, welche Probleme aus dem jeweiligen Fehler
+resultieren können, ebenfalls in einem Satz.\index{Objektorientierung}
+\footcite{examen:66116:2021:03}
+
+\begin{enumerate}
+\item \bJavaExamen{66116}{2021}{03}{Rectangle}
+
+\begin{bAntwort}
+Es sollte die Methode computeArea in der Klasse Rectangel implementiert
+werden.
+\end{bAntwort}
+
+\item \bJavaExamen{66116}{2021}{03}{CalculateSpeed}
+
+\begin{bAntwort}
+Klassen sollten nach Objekten modelliert werden und nicht nach
+Tätigkeiten (berechne Geschwindigkeit) Besser wäre der Name
+SpeedCalculator gewesen. Außerdem sind die beiden Attribute kilometer
+und miutes in der Main Methode so nicht ansprechbar, weil sie nicht
+statisch sind.
+\end{bAntwort}
+
+\item \bJavaExamen{66116}{2021}{03}{Stack}
+
+\begin{bAntwort}
+Das Feld stck sollte private sein. So wird die interne Implemetation
+verborgen.
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

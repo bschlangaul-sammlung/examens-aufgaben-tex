@@ -1,0 +1,120 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 11},
+  Thematik = {Graph a-g, Startknoten s},
+  Referenz = 66115-2018-F.T2-A11,
+  RelativerPfad = Staatsexamen/66115/2018/03/Thema-2/Aufgabe-11.tex,
+  ZitatSchluessel = examen:66115:2018:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Graphen, Tiefensuche, Breitensuche},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2018,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 11,
+}
+
+Gegeben sei der folgende gerichtete Graph $G$:
+\index{Graphen}
+\footcite{examen:66115:2018:03}
+
+\begin{bGraphenFormat}
+s: 3 2
+a: 3 1
+b: 2 3
+c: 1 2
+d: 1 1
+e: 0 1
+f: 1 0
+g: 3 0
+
+a -> s
+b -> c
+c -> e
+d -> a
+d -> f
+d -> g
+e -> d
+e -> f
+f -> a
+f -> g
+g -> a
+s -> b
+s -> d
+\end{bGraphenFormat}
+
+\begin{center}
+\begin{tikzpicture}[li graph]
+\node (a) at (3,1) {a};
+\node (b) at (2,3) {b};
+\node (c) at (1,2) {c};
+\node (d) at (1,1) {d};
+\node (e) at (0,1) {e};
+\node (f) at (1,0) {f};
+\node (g) at (3,0) {g};
+\node (s) at (3,2) {s};
+
+\path[->] (a) edge node {} (s);
+\path[->] (b) edge node {} (c);
+\path[->] (c) edge node {} (e);
+\path[->] (d) edge node {} (a);
+\path[->] (d) edge node {} (f);
+\path[->] (d) edge node {} (g);
+\path[->] (e) edge node {} (d);
+\path[->] (e) edge node {} (f);
+\path[->] (f) edge node {} (a);
+\path[->] (f) edge node {} (g);
+\path[->] (g) edge node {} (a);
+\path[->] (s) edge node {} (b);
+\path[->] (s) edge node {} (d);
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Traversieren Sie $G$ ausgehend vom Knoten $s$ mittels
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Tiefensuche (DFS),
+\index{Tiefensuche}
+
+\begin{bAntwort}
+Rekursiv ohne Keller:
+
+\begin{tabular}{llllllll}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\hline
+s & b & c & e & d & a & f & g \\
+\end{tabular}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Breitensuche (BFS)
+\index{Breitensuche}
+
+\begin{bAntwort}
+mit Warteschlange:
+
+\begin{tabular}{llllllll}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\hline
+s & b & d & c & a & f & g & e \\
+\end{tabular}
+\end{bAntwort}
+\end{enumerate}
+
+\noindent
+und geben Sie jeweils die erhaltene Nummerierung der Knoten an. Besuchen
+Sie die Nachbarn eines Knotens bei Wahlmöglichkeiten immer in
+alphabetisch aufsteigender Reihenfolge.
+
+\end{document}

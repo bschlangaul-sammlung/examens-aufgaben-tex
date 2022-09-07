@@ -1,0 +1,93 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6},
+  Thematik = {Relation Prüfung},
+  Referenz = 66116-2021-F.T2-TA2-A6,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-2/Teilaufgabe-2/Aufgabe-6.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Normalformen},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 6,
+}
+
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\t=\texttt
+
+Gegeben ist die Relation Prüfung (Prüfungsnummer, Fakultät,
+Prüfungsname, Dozent, Prüfungstyp, ECTS) mit den beiden
+Schlüsselkandidaten (Prüfungsnummer, Fakultät) und (Fakultät,
+Prüfungsname, Dozent).
+\index{Normalformen}
+\footcite{examen:66116:2021:03}
+
+% N Prüfungsnummer
+% F Fakultät
+% P Prüfungsname
+% D Dozent
+% T Prüfungstyp
+% E ECTS
+
+% NFPDTE
+% NF->PDTE
+% FPD->NTE
+
+Alle Attributwerte sind atomar. Es gelten nur die durch die
+Schlüsselkandidaten implizierten funktionalen Abhängigkeit.
+
+Geben Sie die höchste Normalform an, die die Relation-Prüfung erfüllt.
+Zeigen Sie, dass alle Bedingungen für diese Normalform erfüllt sind
+und dass mindestens eine Bedingung der nächsthöheren Normalform verletzt
+ist. Beziehen Sie sich bei der Begründung auf die gegebene Relation und
+nennen Sie nicht nur die allgemeinen Definitionen der Normalformen.
+
+\begin{bAntwort}
+\FA{
+  Prüfungsnummer, Fakultät -> Prüfungsname, Dozent, Prüfungstyp, ECTS;
+  Fakultät, Prüfungsname, Dozent -> Prüfungsnummer, Prüfungstyp, ECTS;
+}
+
+Höchste Normalform: 4NF
+
+Siehe Taschenbuch Seite 449
+
+\begin{description}
+\item[1NF]
+
+Alle Werte sind atomar.
+
+\item[2NF]
+
+Ist in 1NF und jedes Attribut ist Teil des Schlüsselkandidaten
+(\t{Prüfungsnummer, Fakultät} oder \t{Fakultät, Prüfungsname, Dozent})
+oder das Attribut ist von einem Schlüsselkandidaten voll funktional
+abhängig (\t{Prüfungsname, Dozent, Prüfungstyp, ECTS} oder
+\t{Prüfungsnummer, Prüfungstyp, ECTS}).
+
+\item[3NF]
+
+Ist in 2NF und ein Nichtschlüsselattribut darf nur vom
+Schlüsselkandidaten abhängen (\t{Prüfungsname, Dozent, Prüfungstyp,
+ECTS} hängt von \t{Prüfungsnummer, Fakultät} ab) und (\t{Prüfungsnummer,
+Prüfungstyp, ECTS} hängt von \t{Fakultät, Prüfungsname, Dozent} ab).
+
+\item[BCNF]
+
+Jede Determinate ist Schlüsselkandidat (\t{Prüfungsnummer, Fakultät} und
+\t{Fakultät, Prüfungsname, Dozent}).
+
+\item[4NF]
+
+keine paarweise Unabhängigkeiten mehrwertigen Abhängigkeiten zwischen
+ihren Attributen.
+\end{description}
+\end{bAntwort}
+\end{document}

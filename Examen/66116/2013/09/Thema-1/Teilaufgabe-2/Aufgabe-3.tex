@@ -1,0 +1,242 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 3},
+  Thematik = {Vermischte Softwaresysteme-Fragen},
+  Referenz = 66116-2013-H.T1-TA2-A3,
+  RelativerPfad = Staatsexamen/66116/2013/09/Thema-1/Teilaufgabe-2/Aufgabe-3.tex,
+  ZitatSchluessel = sosy:ab:9,
+  ZitatBeschreibung = {Aufgabe 1},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Testen, Model Checking, Refactoring, EXtreme Programming, White-Box-Testing, Black-Box-Testing, Funktionale Anforderungen, Nicht-funktionale Anforderungen, Kontinuierliche Integration (Continuous Integration), Unit-Test, wp-Kalkül},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2013,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 3,
+}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Nennen\footcite[Aufgabe 1]{sosy:ab:9} Sie jeweils einen Vorteil
+und einen Nachteil für Qualitätssicherung durch
+\emph{„Testing“}\index{Testen} bzw. durch \emph{„Model Checking“}\index{Model
+Checking}.
+\footcite[Thema 1 Teilaufgabe 2 Aufgabe 3]{examen:66116:2013:09}
+
+\begin{bAntwort}
+\bPseudoUeberschrift{Qualitätssicherung durch „Testing“}
+
+\begin{description}
+\item[Vorteil]
+schnell, Massentests
+
+\item[Nachteil]
+keine 100\% Garantie, dass alles getestet ist
+\end{description}
+
+\bPseudoUeberschrift{Qualitätssicherung durch „Model Checking“}
+
+\begin{description}
+\item[Vorteil]
+mathematischer Beweis
+
+\item[Nachteil]
+teilweise langwierig / nicht möglich
+\end{description}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Definieren Sie den Begriff „Refactoring“.\index{Refactoring}
+
+\begin{bAntwort}
+Verbesserung der Code-/Systemstruktur mit dem Ziel einer besseren
+Wartbarkeit
+
+\begin{itemize}
+\item Dokumentation, Namen, Kommentare
+\item keine neuen Funktionalitäten
+\item bessere Struktur, einheitlich, einfacher
+\end{itemize}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Begründen Sie, warum bei der Entwicklung nach der Methode des
+„eXtreme Programming“\index{EXtreme Programming} langfristig gesehen
+Refactorings zwingend notwendig werden.
+
+\begin{bAntwort}
+Im „eXtreme Programming“ wird das Projekt kontinuierlich aufgebaut,
+somit ist ein Refactoring, auch aufgrund des Pair-Programmings, auf
+lange Sicht gesehen notwendig.
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Wie wird in der Praxis während und nach erfolgtem Refactoring
+sichergestellt, dass keine neuen Defekte eingeführt werden bzw. wurden?
+
+\begin{bAntwort}
+Re-testing $\rightarrow$ erneute Verifikation mit Tests nach Refactoring
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Worin besteht der Unterschied zwischen
+„White-Box-Testing“\index{White-Box-Testing} und
+„Black-Box-Testing“\index{Black-Box-Testing}?
+
+\begin{bAntwort}
+\begin{description}
+\item[White-Box-Testing:]
+Struktur-Test $\rightarrow$ Wie funktioniert der Code?
+
+\item[Black-Box-Testing:]
+Funktionstest $\rightarrow$ Das nach außen sichtbare Verhalten wird
+getestet.
+\end{description}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Nennen Sie vier Qualitätsmerkmale von Software.
+
+\begin{bAntwort}
+Änderbarkeit, Wartbarkeit, gute Dokumentation, Effizienz, Funktionalität
+($\rightarrow$ Korrektheit), Zuverlässigkeit, Portabilität
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Worin besteht der Unterschied zwischen
+funktionalen\index{Funktionale Anforderungen} und nicht-funktionalen
+Anforderungen\index{Nicht-funktionale Anforderungen}?
+
+\begin{bAntwort}
+\item[Funktionale Anforderung:]
+Anforderung an die Funktionalität des Systems, also „Was kann es?“
+
+\item[Nicht-funktionale Anforderung:]
+Design, Programmiersprache, Performanz
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Was verbirgt sich hinter dem Begriff „Continuous Integration”
+\index{Kontinuierliche Integration (Continuous Integration)}?
+
+\begin{bAntwort}
+Continuous Integration: Das fertige Modul wird sofort in das bestehende
+Produkt integriert. Die Integration erfolgt also schrittweise und nicht
+erst, wenn alle Module fertig sind. Somit können auch neue
+Funktionalitäten sofort hinzugefügt werden ($\rightarrow$ neue
+Programmversion).
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Nennen Sie sechs Herausstellungsmerkmale des \emph{„eXtreme
+Programming“}\index{EXtreme Programming} Ansatzes.
+
+\begin{bAntwort}
+\begin{itemize}
+\item Werte: Mut, Respekt, Einfachheit, Feedback, Kommunikation
+
+\item geringe Bedeutung von formalisiertem Vorgehen, Lösen der
+Programmieraufgabe im Vordergrund
+
+\item fortlaufende Iterationen
+
+\item Teamarbeit und Kommunikation (auch mit Kunden)
+
+\item Ziel: Software schneller und mit höherer Qualität bereitstellen,
+höhere Kundenzufriedenheit
+
+\item Continuous Integration und Testing, Prototyping
+
+\item Risikoanalysen zur Risikominimierung
+
+\item YAGNI (You ain’t gonna need it) $\rightarrow$ nur die Features,
+die gefordert sind, umsetzen; kein Vielleicht braucht man’s... “
+\end{itemize}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Was versteht man unter einem Unit-Test?\index{Unit-Test} Begründen
+Sie, warum es unzureichend ist, wenn eine Test-Suite ausschließlich
+Unit-Tests enthält.
+
+\begin{bAntwort}
+Unter einem Unit-Test versteht man den Test eines einzelnen
+Software-Moduls oder auch nur einer Methode. Dies ist allein nicht
+ausreichend, da man so nichts über das Zusammenspiel der Module aussagen
+kann.
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Nennen Sie jeweils eine Methodik, mit welcher in der Praxis die
+Prozesse der \emph{„Validierung“} und der \emph{„Verifikation“}
+durchgeführt werden.
+
+\begin{bAntwort}
+\begin{description}
+\item[Methodik der Verifikation:]
+Testen, wp-Kalkül\index{wp-Kalkül}, Model Checking
+
+\item[Methodik der Validierung:]
+Kundentest, Kundengespräch (Spezifiaktion durchsprechen)
+\end{description}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Grenzen Sie die Begriffe \emph{„Fault“} und \emph{„Failure“}
+voneinander ab.
+
+\begin{bAntwort}
+
+\begin{description}
+\item[Fault:]
+interner Fehlerzustand, der nach außen nicht nicht sichtbar werden muss,
+aber kann.
+
+\item[Failure:]
+Systemfehler / Fehlerzustand, der nach außen sichtbar wird.
+\end{description}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,85 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe zum Mergesort},
+  Thematik = {Implementierung der merge-Methode, Komplexität},
+  Referenz = AUD.Sortieralgorithmen.Mergesort.Implementierung-merge-Methode,
+  RelativerPfad = Module/30_AUD/40_Sortieralgorithmen/50_Mergesort/Aufgabe_Implementierung-merge-Methode.tex,
+  ZitatSchluessel = aud:ab:7,
+  ZitatBeschreibung = {Seite 2, Aufgabe 3},
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Mergesort, Master-Theorem},
+}
+
+Das Sortierverfahren \emph{Mergesort}, das nach der Strategie
+\emph{Divide-and-Conquer} arbeitet, sortiert eine Sequenz, indem die
+Sequenz in zwei Teile zerlegt wird, die dann einzeln sortiert und wieder
+zu einer sortierten Sequenz zusammengemischt werden (to merge =
+zusammenmischen, verschmelzen).\index{Mergesort}
+\footcite[Seite 2, Aufgabe 3]{aud:ab:7}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Gegeben seien folgende Methoden:
+
+\bJavaDatei[firstline=13,lastline=31]{aufgaben/aud/sortier/Mergesort}
+
+Schreiben Sie die Methode \bJavaCode{public int[] merge (int[] s, int[] r)},
+die die beiden aufsteigend sortierten Sequenzen \bJavaCode{s} und \bJavaCode{r} zu
+einer aufsteigend sortierten Sequenz zusammenmischt.
+
+\begin{bAntwort}
+\bJavaDatei[firstline=33,lastline=60]{aufgaben/aud/sortier/Mergesort}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Analysieren Sie die Zeitkomplexität von \bJavaCode{mergesort}.
+\index{Master-Theorem}
+
+\begin{bAntwort}
+$\mathcal{O}(n \cdot \log n)$
+
+\bPseudoUeberschrift{Erklärung}
+
+Mergesort ist ein stabiles Sortierverfahren, vorausgesetzt der
+Merge-Schritt ist korrekt implementiert. Seine Komplexität beträgt im
+Worst-, Best- und Average-Case in Landau-Notation ausgedrückt stets $\mathcal{O}(n
+\cdot \log n)$. Für die Laufzeit $T(n)$ von Mergesort bei $n$ zu
+sortierenden Elementen gilt die Rekursionsformel
+
+\begin{align*}
+T(n) & = \\
+     & T\left(\left\lfloor\frac{n}{2}\right\rfloor\right) + && \text{Aufwand, 1. Teil zu sortieren}\\
+     & T\left(\left\lceil\frac{n}{2}\right\rceil\right) + && \text{Aufwand, 2. Teil zu sortieren}\\
+     & \mathcal{O}(n) && \text{Aufwand, beide Teile zu verschmelzen}\\
+\end{align*}
+
+mit dem Rekursionsanfang $T(1) = 1$.
+
+Nach dem Master-Theorem kann die Rekursionsformel durch
+
+\begin{displaymath}
+2T\left(\left\lfloor\frac{n}{2}\right\rfloor\right) + n
+\end{displaymath}
+
+bzw.
+
+\begin{displaymath}
+2T\left(\left\lceil\frac{n}{2}\right\rceil\right) + n
+\end{displaymath}
+
+approximiert werden mit jeweils der Lösung $T(n) = \mathcal{O}(n \cdot \log n)$.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

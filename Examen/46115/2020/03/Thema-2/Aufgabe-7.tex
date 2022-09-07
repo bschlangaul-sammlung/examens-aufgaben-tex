@@ -1,0 +1,58 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 7},
+  Thematik = {Heaps},
+  Referenz = 46115-2020-F.T2-A7,
+  RelativerPfad = Staatsexamen/46115/2020/03/Thema-2/Aufgabe-7.tex,
+  ZitatSchluessel = examen:46115:2020:03,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Halde (Heap)},
+  EinzelpruefungsNr = 46115,
+  Jahr = 2020,
+  Monat = 03,
+  ThemaNr = 2,
+  AufgabeNr = 7,
+}
+
+Sei $H$ ein Max-Heap, der $n$ Elemente speichert. Für ein Element $v$ in
+$H$ sei $h(v)$ die Höhe von $v$, also die Länge eines längsten Pfades
+von $v$ zu einem Blatt im Teilheap mit Wurzel $v$.
+\index{Halde (Heap)}
+\footcite{examen:46115:2020:03}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie eine rekursive Definition von $h(v)$ an, in der Sie sich
+auf die Höhen der Kinder $v.\text{left}$ und $v.\text{right}$ von $v$
+beziehen (falls $v$ Kinder hat).
+
+% siehe Weicker: Algorithmen und Datenstrukturen
+
+%%
+% (b)
+%%
+
+\item Geben Sie eine möglichst niedrige obere asymptotische Schranke für
+die Summe der Höhen aller Elemente in $H$ an, also für $\sum_{v \in H}
+h(v)$ und begründen Sie diese.
+
+Tipp: Denken Sie daran, wie man aus einem beliebigen Feld einen Max-Heap
+macht.
+
+%%
+% (c)
+%%
+
+\item Sei $H'$ ein Feld der Länge $n$. Geben Sie einen Algorithmus an,
+der in Linearzeit testet, ob $H’$ ein Max-Heap ist.
+\end{enumerate}
+
+\end{document}

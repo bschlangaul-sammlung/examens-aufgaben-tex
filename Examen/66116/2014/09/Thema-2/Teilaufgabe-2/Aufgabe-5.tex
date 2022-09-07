@@ -1,0 +1,116 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Regal mit DVDs, CDs und BDs},
+  Referenz = 66116-2014-H.T2-TA2-A5,
+  RelativerPfad = Staatsexamen/66116/2014/09/Thema-2/Teilaufgabe-2/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66116:2014:09,
+  BearbeitungsStand = unbekannt,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Implementierung in Java, Feld (Array), Rekursion},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 5,
+}
+
+Lösen Sie folgende Aufgabe in einer objektorientierten
+Programmiersprache Ihrer Wahl. Ein Regal habe 5 Fächer, in die je 30
+Disks passen. Das Regal beinhaltet DVDs, CDs und BDs der Genres
+\emph{Musik}, \emph{Action}, \emph{Komödie}, \emph{Thriller} und
+\emph{Fantasy}. Jede Disk ist mit 1 bis 10 bewertet, wobei 10 für sehr
+gut steht.
+\index{Implementierung in Java}
+\footcite{examen:66116:2014:09}
+
+\begin{itemize}
+
+%%
+%
+%%
+
+\item Deklarieren Sie einen Aufzählungsdatentyp für den \bJavaCode{Typ}
+der Disk. Deklarieren Sie einen weiteren Aufzählungsdatentyp für das
+\bJavaCode{Genre} der Disk.
+
+\begin{bAntwort}
+\bJavaExamen{66116}{2014}{09}{regal/Typ}
+\bJavaExamen{66116}{2014}{09}{regal/Genre}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Deklarieren Sie eine Klasse \bJavaCode{Disk}, die den Typ, das
+Genre, die Bewertung, sowie den Titel der Disk speichert.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=4,lastline=23]{66116}{2014}{09}{regal/Disk}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Deklarieren Sie ein Array \bJavaCode{Regal}, mit den Abmessungen
+des oben genannten Regals, das Disks enthält. Initialisieren Sie das
+Array als leeres Regal.\index{Feld (Array)}
+
+\begin{bAntwort}
+\bJavaExamen[firstline=3,lastline=15]{66116}{2014}{09}{regal/Regal}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Initialisieren Sie die Bewertung einer Disk. Schreiben sie dazu
+eine rekursive Methode \bJavaCode{erstelleStdBewertung}, der ein Genre
+einer Disk übergeben wird und die die Bewertungen für alle Disks nach
+folgenden Regeln bezüglich des Genres vergibt:
+\index{Rekursion}
+
+\begin{itemize}
+\item Eine Disk mit Genre Musik wird mit einer 3 bewertet.
+
+\item Komödien werden mit 2 bewertet.
+
+\item Thriller werden mit dem zweifachen einer Komödie bewertet
+
+\item Ein Fantasy-Film wird mit dem 1,5 fachen eines Thrillers bewertet.
+
+\item Ein Actionfilm wird wie ein Thriller bewertet.
+\end{itemize}
+
+\begin{bAntwort}
+\bJavaExamen[firstline=41,lastline=55]{66116}{2014}{09}{regal/Disk}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Schreiben Sie eine Methode \bJavaCode{mittlereBewertung}, die die
+mittlere Bewertung der Disks im Regal berechnet.
+
+\begin{bAntwort}
+\bJavaExamen[firstline=22,lastline=39]{66116}{2014}{09}{regal/Regal}
+\end{bAntwort}
+
+\end{itemize}
+
+\begin{bAdditum}
+\bPseudoUeberschrift{Der komplette Code}
+
+\bJavaExamen{66116}{2014}{09}{regal/Typ}
+\bJavaExamen{66116}{2014}{09}{regal/Genre}
+\bJavaExamen{66116}{2014}{09}{regal/Disk}
+\bJavaExamen{66116}{2014}{09}{regal/Regal}
+\end{bAdditum}
+\end{document}

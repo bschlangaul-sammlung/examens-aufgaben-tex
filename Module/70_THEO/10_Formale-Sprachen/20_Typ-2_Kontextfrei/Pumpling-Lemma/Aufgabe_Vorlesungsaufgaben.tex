@@ -1,0 +1,207 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,pumping-lemma}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Pumping-Lemma},
+  Thematik = {„an bn“ „c2n“ und „an bn2“},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Pumpling-Lemma.Vorlesungsaufgaben,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Pumpling-Lemma/Aufgabe_Vorlesungsaufgaben.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 43},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Pumping-Lemma (Kontextfreie Sprache)},
+}
+
+\def\A{$a$’s }
+\def\B{$b$’s }
+
+Zeigen Sie, dass die folgenden Sprachen nicht kontextfrei sind:
+\index{Pumping-Lemma (Kontextfreie Sprache)}
+\footcite[Seite 43]{theo:fs:2}
+
+\begin{bExkurs}[Pumping-Lemma für Kontextfreie Sprachen]
+\bPumpingKontextfrei
+\end{bExkurs}
+
+\begin{itemize}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+% 2h02
+\item \bAusdruck{a^n b^n c^{2n}}{n \in \mathbb{N}}
+
+\begin{bAntwort}
+Annahme: $L$ ist kontextfrei.
+
+$\forall \omega \in L$: $\omega = uvwxy$
+
+$j \in \mathbb{N}$: $|\omega| \geq j$
+
+$\omega = a^j b^j c^{2j}$: $|\omega| = 4j > j$
+
+Damit gilt: $|vwx| \leq j$, $|vx| \geq 1$
+
+Zu zeigen: Keine Möglichkeit der Zerlegung, damit $\omega' \in L$
+
+\begin{description}
+
+%%
+%
+%%
+
+\item[1. Fall]
+
+$vwv$ enthält nur $a$'s
+
+o. E. d. A. (ohne Einschränkung der Allgemeinheit) stecken alle $a$'s in
+der Zerlegung $vwx$, \dh $u$ ist leer
+
+\begin{description}
+\item[$u$]: $\varepsilon$
+\item[$v$]: $a^l$
+\item[$w$]: $a^{j-(l+m)}$
+\item[$x$]: $a^m$
+\item[$y$]: $b\dots b c \dots c$
+\end{description}
+
+$v^2 w x^2 y$
+
+$a^{2l} a^{j-(l+m)} a^{2m} b^j c^{2j} =   $
+
+Nebenrechnung: $2l + j - (l + m) + 2m = j + l + m > j$,
+da $|vx| \geq 1 \rightarrow l + m \geq 1$
+
+$\Rightarrow$ $\omega' = uv^2wx^2y \notin L$
+
+%%
+%
+%%
+
+\item[2. Fall]
+
+$vwv$ enthalten $a$'s und $b$'s
+
+o. E. d. A. $|v|_a = |x|_b$
+
+$u$: $a^p$
+$v$: $a^l$
+$w$: $a^{j-(p+l)} b^{j-(l+r)}$
+$x$: $b^l$
+$y$: $b^r c^{2j}$
+
+$\Rightarrow$ $u v^0 w x^0 v$
+
+Nebenrechnung:
+
+$a$'s: $p + j - (l + p ) = j - l$
+
+$b$'s: $j - (l + r) = j - l$
+
+ist falsch, da $j-l$ echt kleiner ist, da $|vx| \geq 1 \rightarrow l \geq 1$
+
+$\Rightarrow$ $\omega' \notin L$
+
+%%
+%
+%%
+
+\item[3. Fall]
+
+$vwx$ enthält nur $b$'s
+
+analog zu Fall 1
+
+%%
+%
+%%
+
+\item[4. Fall] $vwx$ enthält nur $b$'s und $c$'s
+
+analog zu Fall 2
+
+%%
+%
+%%
+
+\item[5. Fall] $vwx$ enthält nur  $c$'s
+
+analog zu Fall 1
+\end{description}
+
+$\Rightarrow$ Es gibt keine Zerlegung, sodass $\forall i \in \mathbb{N}_0$
+
+$\Rightarrow$ Annahme ist falsch
+
+$\Rightarrow$ $L$ ist nicht kontextfrei
+\end{bAntwort}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item \bAusdruck{a^n b^{n^2}}{n \in \mathbb{N}}
+
+\begin{bAntwort}
+Annahme: $L$ kontextfrei
+
+$\Rightarrow$ Pumping-Lemma: $j \in \mathbb{N}$: $|w| \geq j$
+
+$\omega = a^j b^{j^2}$
+
+$j + j^2 > j$
+
+\begin{description}
+
+%%
+%
+%%
+
+\item[1. Fall] $vwx$ enthält nur $a$'s
+
+$\Rightarrow$ ungleich viele \A wie \B als Quadrat
+
+$\Rightarrow$  $\omega' \notin E$
+
+%%
+%
+%%
+
+\item[2. Fall] $vwx$ enthält nur $b$'s
+
+$\Rightarrow$ analog zu Fall 1
+
+$\Rightarrow$  $\omega' \notin E$
+
+%%
+%
+%%
+
+\item[3. Fall] $vwx$ enthält \A und \B
+
+o. E. d. A.  v nur \A; x nur \B
+
+\begin{description}
+\item[$u$:] $a^{j - (l + m)}$
+\item[$v$:] $a^l$
+\item[$w$:] $a^m b^n$
+\item[$x$:] $b^{l^2}$
+\item[$y$:] $b^{j^2 - (n + l^2)}$
+\end{description}
+
+$\Rightarrow$ $uv^0wx^0y = \omega'$
+
+a: $j-(l+m) + 0 \cdot l + m = j - l$
+
+b: $n- 0 \cdot l^2 + j^2 - (n + l^2) = j^2 - l^2 = (j - l)(j + l) \neq (j - l)(j - l)$
+
+$\Rightarrow \in L$
+
+\end{description}
+\end{bAntwort}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,196 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{automaten,mathe,formale-sprachen}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {PDA},
+  Thematik = {0n 1n, gleich viele ab, kein Präfix mehr Einsen},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Kellerautomat.PDA,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Kellerautomat/Aufgabe_PDA.tex,
+  ZitatSchluessel = theo:ab:2,
+  ZitatBeschreibung = {Aufgabe 7: PDA aufstellen},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kellerautomat},
+}
+
+\let\m=\bMengeOhneMathe
+\def\z#1{$z_#1$}
+
+Erstellen Sie jeweils einen PDA, der die angegebenen Sprachen akzeptiert.
+\index{Kellerautomat}
+\footcite[Aufgabe 7: PDA aufstellen]{theo:ab:2}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item \bAusdruck{0^n 1^n}{n \in \mathbb{N}}
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1, z_2, z_3},
+  alphabet={0, 1},
+  kelleralphabet={\#, N},
+  ende={z_3},
+}
+
+N = Null
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (4.43cm,-4cm) {$z_0$};
+  \node[state] (z1) at (5.86cm,-2.29cm) {$z_1$};
+  \node[state] (z2) at (8.71cm,-2.29cm) {$z_2$};
+  \node[state,accepting] (z3) at (10.29cm,-4.14cm) {$z_3$};
+
+  \bKellerKante[left]{z0}{z1}{
+    0, KELLERBODEN, N KELLERBODEN;
+  }
+
+  \bKellerKante[above]{z1}{z2}{
+    1, N, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    0, N, N N;
+  }
+
+  \bKellerKante[right]{z2}{z3}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z2}{z2}{
+    1, N, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Aji1r8mf7}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Alle Wörter, die gleich viele $a$ wie $b$ enthalten.
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1, z_2, z_3},
+  alphabet={a, b},
+  kelleralphabet={\#, A, B},
+  ende={z_3},
+}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (2.29cm,-4cm) {$z_0$};
+  \node[state] (z1) at (6cm,-1.86cm) {$z_1$};
+  \node[state] (z2) at (7.29cm,-5.71cm) {$z_2$};
+  \node[state,accepting] (z3) at (1cm,-1.43cm) {$z_3$};
+
+  \bKellerKante[left,bend left]{z0}{z1}{
+    a, KELLERBODEN, A KELLERBODEN;
+  }
+
+  \bKellerKante[above right,bend left=10]{z0}{z2}{
+    b, KELLERBODEN, B KELLERBODEN;
+  }
+
+  \bKellerKante[left]{z0}{z3}{
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[right,bend left]{z1}{z0}{
+    b, A, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z1}{z1}{
+    a, A, A A;
+    b, A, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z2}{z2}{
+    b, B, B B;
+    a, B, EPSILON;
+  }
+
+  \bKellerKante[below left,bend left=10]{z2}{z0}{
+    a, B, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Arar6fos7}
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Alle Wörter, bei denen kein Präfix mehr Einsen wie Nullen hat.
+
+\begin{bAntwort}
+\bKellerAutomat{
+  zustaende={z_0, z_1, z_2},
+  alphabet={0, 1},
+  kelleralphabet={\#, N},
+  ende={z_1},
+}
+
+akzeptiert:
+
+\begin{itemize}
+\item 000
+\item 00101
+\item 01
+\end{itemize}
+
+nicht akzeptiert:
+
+\begin{itemize}
+\item 011
+\item 111
+\item 1
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[li kellerautomat]
+  \node[state,initial] (z0) at (2.43cm,-6.43cm) {$z_0$};
+  \node[state] (z2) at (7.43cm,-6.43cm) {$z_2$};
+  \node[state,accepting] (z1) at (5.57cm,-4.14cm) {$z_1$};
+
+  \bKellerKante[above,bend left]{z0}{z2}{
+    0, KELLERBODEN, N KELLERBODEN;
+  }
+
+  \bKellerKante[above left]{z0}{z1}{
+    0, KELLERBODEN, EPSILON;
+    EPSILON, KELLERBODEN, EPSILON;
+  }
+
+  \bKellerKante[above,loop below]{z0}{z0}{
+    EPSILON, N, EPSILON;
+  }
+
+  \bKellerKante[above,loop]{z2}{z2}{
+    1, N, EPSILON;
+    0, N, N N;
+  }
+
+  \bKellerKante[below,bend left]{z2}{z0}{
+    0, N, N;
+    EPSILON, KELLERBODEN, KELLERBODEN;
+    0, KELLERBODEN, EPSILON;
+    EPSILON, N, EPSILON;
+  }
+\end{tikzpicture}
+\end{center}
+
+\bFlaci{Af7rfyqqg}
+\end{bAntwort}
+\end{enumerate}
+\end{document}

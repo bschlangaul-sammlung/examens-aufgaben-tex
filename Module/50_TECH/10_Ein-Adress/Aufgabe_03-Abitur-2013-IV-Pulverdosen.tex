@@ -1,0 +1,83 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,spalten,struktogramm}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Abitur 2013 IV},
+  Thematik = {Pulverdosen},
+  Referenz = TECH.Ein-Adress.03-Abitur-2013-IV-Pulverdosen,
+  RelativerPfad = Module/50_TECH/10_Ein-Adress/Aufgabe_03-Abitur-2013-IV-Pulverdosen.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Ein-Adress-Befehl-Assembler},
+}
+
+In einer Apotheke werden Aminosäureprodukte in Pulverform verkauft, die
+in vollständig gefüllten zylinderförmigen Dosen abgepackt sind. Aufgrund
+der Regalhöhe haben alle ausgestellten Dosen eine Höhe von $12cm$. Der
+Radius der Dosengrundfläche richtet sich nach der jeweiligen
+Verkaufsmenge des Pulvers und wird druch folgenden Algorithmus
+näherungsweise berechnet:
+\index{Ein-Adress-Befehl-Assembler}
+
+\begin{center}
+\begin{struktogramm}(50,40)
+\assign{$y = V$}
+\assign{$z = 1$}
+  \while{wiederholge solange $y > z$}
+    \assign{$y = (y + z) / 2$}
+    \assign{$z = V / y$}
+  \whileend
+\assign{Rückgabe $y / 19$}
+\end{struktogramm}
+\end{center}
+
+\noindent
+Der dabei verwendete Wert von $19$ für den Divisor ergibt sich aus der
+vorgegebenen Dosenhöhe in $mm$ und der Kreiszahl $\pi$.
+
+Schreiben Sie ein Assemblerprogramm zur Berechnung des Dosenradius (in
+$mm$) gemäß dem angegebenen Algorithmus, wobei das Volumen $V$ in $mm^3$
+eingegeben wird.
+
+Ergänzen Sie dabei die begonnen Implementierung. Das Ergebnis soll am
+Ende in Zelle $106$ stehen.
+
+\begin{minted}{asm}
+LOADI 400000 # Beispielwert für V
+STORE 101 # V in Zelle 101
+LOADI 2
+STORE 104 # Konstante 2 in Zelle 104
+LOADI 19
+STORE 105 # Konstante 19 in Zelle 105
+\end{minted}
+
+\begin{bAntwort}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Assembler}
+
+\bAssemblerDatei{Aufgabe_03-Abitur-2013-IV-Pulverdosen.mia}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Minisprache}
+
+\bMinispracheDatei{Aufgabe_03-Abitur-2013-IV-Pulverdosen.mis}
+
+%%
+%
+%%
+
+\bPseudoUeberschrift{Java}
+
+\bJavaDatei[firstline=5,lastline=17]{aufgaben/tech_info/assembler/ein_adress/Pulverdose}
+\end{bAntwort}
+
+\end{document}

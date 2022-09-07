@@ -1,0 +1,154 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{baum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 6: B-Baum},
+  Thematik = {B-Baum der Ordnung 3},
+  Referenz = 66116-2015-H.T2-TA1-A3,
+  RelativerPfad = Staatsexamen/66116/2015/09/Thema-2/Teilaufgabe-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66116:2015:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {B-Baum},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2015,
+  Monat = 09,
+  ThemaNr = 2,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 3,
+}
+
+Gegeben\index{B-Baum}\footcite{examen:66116:2015:09} ist der folgende
+B-Baum der Ordnung 3 (max. drei Kindknoten, max. zwei Schlüssel pro
+Knoten):
+\footcite[Seite 3 und 4, (Einfügen und Löschen-Operation a)]{aud:ab:7}
+
+\begin{center}
+\begin{tikzpicture}[
+  b bbaum,
+  level 1/.style={level distance=10mm,sibling distance=50mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm}
+]
+\node {50} [->]
+  child {node {10 \nodepart{two} 30}
+    child {node {5 \nodepart{two} 8}}
+    child {node {15 \nodepart{two} 20}}
+    child {node {31 \nodepart{two} 33}}
+  }
+  child {node {70}
+    child {node {60}}
+    child {node {80}}
+  };
+\end{tikzpicture}
+\end{center}
+
+\noindent
+Fügen Sie die Werte 9 und 45 ein. Löschen Sie anschließend die Werte 30
+und 70. Zeichnen Sie den Baum nach jeder Einfüge- bzw. Lösch-Operation.
+
+\begin{bAntwort}
+\bPseudoUeberschrift{9 einfügen}
+
+\begin{tikzpicture}[
+  scale=0.8,
+  transform shape,
+  b bbaum,
+  level 1/.style={level distance=10mm,sibling distance=35mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm},
+]
+\node {10 \nodepart{two} 50} [->]
+  child {node {8}
+    child {node {5}}
+    child {node[thick,font=\bfseries] {9}}
+  }
+  child {node {30}
+    child {node {15 \nodepart{two} 20}}
+    child {node {31 \nodepart{two} 33}}
+  }
+  child {node {70}
+    child {node {60}}
+    child {node {80}}
+  }
+;
+\end{tikzpicture}
+
+\bPseudoUeberschrift{45 einfügen}
+
+\begin{tikzpicture}[
+  scale=0.8,
+  transform shape,
+  b bbaum,
+  level 1/.style={level distance=10mm,sibling distance=45mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm},
+]
+\node {10 \nodepart{two} 50} [->]
+  child {node {8}
+    child {node {5}}
+    child {node {9}}
+  }
+  child {node {30 \nodepart{two} 33}
+    child {node {15 \nodepart{two} 20}}
+    child {node {31}}
+    child {node[thick,font=\bfseries]{45}}
+  }
+  child {node {70}
+    child {node {60}}
+    child {node {80}}
+  }
+;
+\end{tikzpicture}
+
+\bPseudoUeberschrift{30 löschen}
+
+\begin{tikzpicture}[
+  scale=0.8,
+  transform shape,
+  b bbaum,
+  level 1/.style={level distance=10mm,sibling distance=42mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm},
+]
+\node {10 \nodepart{two} 50} [->]
+  child {node {8}
+    child {node {5}}
+    child {node {9}}
+  }
+  child {node {20 \nodepart{two} 33}
+    child {node {15}}
+    child {node {31}}
+    child {node {45}}
+  }
+  child {node {70}
+    child {node {60}}
+    child {node {80}}
+  }
+;
+\end{tikzpicture}
+
+\bPseudoUeberschrift{70 löschen}
+
+\begin{tikzpicture}[
+  scale=0.8,
+  transform shape,
+  b bbaum,
+  level 1/.style={level distance=10mm,sibling distance=32mm},
+  level 2/.style={level distance=10mm,sibling distance=20mm},
+]
+\node {10 \nodepart{two} 33} [->]
+  child {node {8}
+    child {node {5}}
+    child {node {9}}
+  }
+  child {node {20}
+    child {node {15}}
+    child {node {31}}
+  }
+  child {node {50}
+    child {node {45}}
+    child {node {60 \nodepart{two} 80}}
+  }
+;
+\end{tikzpicture}
+\end{bAntwort}
+
+\end{document}

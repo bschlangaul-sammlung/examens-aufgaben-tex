@@ -1,0 +1,125 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,mathe,master-theorem}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {O-Notation},
+  Referenz = 66115-2020-H.T1-TA2-A4,
+  RelativerPfad = Staatsexamen/66115/2020/09/Thema-1/Teilaufgabe-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66115:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Algorithmische Komplexität (O-Notation), Master-Theorem},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 4,
+}
+
+\let\j=\bJavaCode
+\let\T=\bT
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Betrachten Sie das folgende Code-Beispiel (in Java-Notation):
+\index{Algorithmische Komplexität (O-Notation)}
+\footcite{examen:66115:2020:09}
+
+\bJavaExamen[firstline=4,lastline=13]{66115}{2020}{09}{o_notation/Mystery1}
+
+Bestimmen Sie die asymptotische worst-case Laufzeit des Code-Beispiels
+in $\mathcal{O}$-Notation bezüglich der Problemgröße $n$. Begründen Sie
+Ihre Antwort.
+
+\begin{bAntwort}
+Die asymptotische worst-case Laufzeit des Code-Beispiels
+in $\mathcal{O}$-Notation ist $\mathcal{O}(n)$.
+
+Die \j{while}-Schleife wird genau $n$ mal ausgeführt. In der Schleife
+wird die Variable \j{i} in der Zeile \j{i = i + 1;} inkrementiert. \j{i}
+wird mit 0 initialisiert. Die \j{while}-Schleife endet, wenn \j{i} gleich
+groß ist als \j{n}.
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Betrachten Sie das folgende Code-Beispiel (in Java-Notation):
+
+\bJavaExamen[firstline=5,lastline=18]{66115}{2020}{09}{o_notation/Mystery2}
+
+Bestimmen Sie für das Code-Beispiel die asymptotische worst-case
+Laufzeit in $\mathcal{O}$-Notation
+bezüglich der Problemgröße $n$. Begründen Sie Ihre Antwort.
+
+\begin{bAntwort}
+\begin{description}
+\item[\j{while}:]
+$n$-mal
+
+\item[1. \j{for}:]
+$n, n-1, \dots, 2, 1$
+
+\item[2. \j{for}:]
+$1, 2, \dots, n-1, n$
+\end{description}
+
+$n \times n \times n = \mathcal{O}(n^3)$
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Bestimmen Sie eine asymptotische Lösung (in $\Theta$-Schreibweise)
+für die folgende Rekursionsgleichung:
+\index{Master-Theorem}
+
+\def\fn{\textstyle{\frac{1}{2}}n^2 + n}
+
+\begin{displaymath}
+T(n) = \T{}{2} + \fn
+\end{displaymath}
+
+\bMasterExkurs
+
+\begin{bAntwort}
+
+\bMasterVariablenDeklaration
+{1} % a
+{2} % b
+{\fn} % f(n) ohne $mathe$
+
+Nebenrechnung: $\log_b a = \log_2 1 = 0$
+
+\bMasterFallRechnung
+% 1. Fall
+{$\fn \notin \bO{n^{-1}}$}
+% 2. Fall
+{$\fn \notin \bTheta{1}$}
+% 3. Fall
+{$\varepsilon = 2$ \\
+$\fn \in \bOmega{n^2}$ \\
+Für eine Abschätzung suchen wir eine Konstante, damit gilt: \\
+$1 \cdot f(\frac{n}{2}) \leq c \cdot f(n)$ \\
+$\frac{1}{2} \cdot \frac{1}{4} n^2 + \frac{1}{2}n  \leq c \cdot (\frac{1}{2} \cdot n^2 + n)$ \\
+Damit folgt $c = \frac{1}{4}$ \\
+und $0 < c < 1$}
+
+$\Rightarrow \Theta(\frac{1}{2}n^2 + n)$
+
+$\Rightarrow \Theta(n^2)$
+
+\bMasterWolframLink{T[n]=T[n/2]\%2B1/2n^2\%2Bn}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

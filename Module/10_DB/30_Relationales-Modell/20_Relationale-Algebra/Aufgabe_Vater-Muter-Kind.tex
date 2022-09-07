@@ -1,0 +1,46 @@
+\documentclass{bschlangaul-aufgabe}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Division},
+  Thematik = {Vater-Muter-Kind},
+  Referenz = DB.Relationales-Modell.Relationale-Algebra.Vater-Muter-Kind,
+  RelativerPfad = Module/10_DB/30_Relationales-Modell/20_Relationale-Algebra/Aufgabe_Vater-Muter-Kind.tex,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Division},
+}
+
+\bPseudoUeberschrift{$R$}
+\index{Division}
+\bFussnoteUrl{https://de.wikibooks.org/wiki/Relationenalgebra_und_SQL:_Division}
+
+\begin{tabular}{llll}
+Vater  & Mutter    & Kind    & Alter \\
+Hans   & Helga     & Harald  & 5     \\
+Hans   & Helga     & Maria   & 4     \\
+Hans   & Ursula    & Sabine  & 2     \\
+Martin & Melanie   & Gertrud & 7     \\
+Martin & Melanie   & Maria   & 4     \\
+Martin & Melanie   & Sabine  & 2     \\
+Peter  & Christina & Robert  & 9
+\end{tabular}
+
+\bPseudoUeberschrift{$S$}
+
+\begin{tabular}{ll}
+Kind   & Alter \\
+Maria  & 4     \\
+Sabine & 2
+\end{tabular}
+
+\bPseudoUeberschrift{$R \div S$}
+
+\begin{tabular}{ll}
+Kind   & Alter \\
+Maria  & 4     \\
+Sabine & 2
+\end{tabular}
+
+\end{document}

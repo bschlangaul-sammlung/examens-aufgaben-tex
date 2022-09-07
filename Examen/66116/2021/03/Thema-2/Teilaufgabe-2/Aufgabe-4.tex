@@ -1,0 +1,186 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{rmodell,syntax}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 4},
+  Thematik = {Mitarbeiter einer Abteilung},
+  Referenz = 66116-2021-F.T2-TA2-A4,
+  RelativerPfad = Staatsexamen/66116/2021/03/Thema-2/Teilaufgabe-2/Aufgabe-4.tex,
+  ZitatSchluessel = examen:66116:2021:03,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {SQL, SQL mit Übungsdatenbank, Top-N-Query},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2021,
+  Monat = 03,
+  ThemaNr = 2,
+  TeilaufgabeNr = 2,
+  AufgabeNr = 4,
+}
+
+Gegeben sind folgende Relationen:\index{SQL}
+\footcite{examen:66116:2021:03}
+
+\begin{bRelationenModell}
+Mitarbeiter (\bPrimaer{MitarbeiterID}, Vorname, Nachname, Adresse,
+Gehalt, \bFremd{Vorgesetzter [Mitarbeiter]} NOT NULL, \bFremd{AbteilungsID[Abteilung]})
+
+\bigskip
+
+Abteilung (\bPrimaer{AbteilungsID}, Bezeichnung UNIQUE NOT NULL)
+\end{bRelationenModell}
+
+Verwenden Sie im Folgenden nur Standard-SQL und keine
+produktspezifischen Erweiterungen. Sie dürfen bei Bedarf Views anlegen.
+Geben Sie einen Datensatz nicht mehrfach aus.
+
+% Datenbankname: Abteilung
+\begin{minted}{sql}
+CREATE TABLE Abteilung(
+  AbteilungsID INTEGER PRIMARY KEY,
+  Bezeichnung VARCHAR(30) UNIQUE NOT NULL
+);
+
+CREATE TABLE Mitarbeiter(
+  MitarbeiterID INTEGER PRIMARY KEY,
+  Vorname VARCHAR(30),
+  Nachname VARCHAR(30),
+  Adresse VARCHAR(60),
+  Gehalt DECIMAL(7, 2),
+  Vorgesetzter INTEGER NOT NULL REFERENCES Mitarbeiter(MitarbeiterID),
+  AbteilungsID INTEGER REFERENCES Abteilung(AbteilungsID)
+);
+
+INSERT INTO Abteilung VALUES
+  (1, 'Buchhaltung'),
+  (42, 'Vertrieb');
+
+INSERT INTO Mitarbeiter VALUES
+  (1, 'Karl', 'Landsbach', 'Sigmaringstraße 4, 87153 Farnbach', 2467.23, 1, 42),
+  (2, 'Lisa', 'Grätzner', 'Scheidplatz 6, 18434 Tullach', 5382.2, 1, 42),
+  (3, 'Sarah', 'Riedel', 'Am Angera 3, 79527 Töll', 7382.2, 1, 42),
+  (4, 'Franz', 'Rudolf', 'Strewitzstraße 4, 45507 Strewith', 2382.2, 1, 42),
+  (5, 'Sergej', 'Puschkin', 'Radolf 4, 12507 Radstadt', 1382.2, 1, 1);
+
+\end{minted}
+\index{SQL mit Übungsdatenbank}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die die Tabelle Mitarbeiter
+anlegt. Gehen Sie davon aus, dass die Tabelle Abteilung bereits
+existiert.
+
+\begin{bAntwort}
+Siehe oben
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die Vor- und Nachnamen der
+Mitarbeiter der Abteilung mit der Bezeichnung Vertrieb ausgibt,
+absteigend sortiert nach MitarbeiterID.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT m.Vorname, m.Nachname
+FROM Mitarbeiter m, Abteilung a
+WHERE
+  a.AbteilungsID = m.AbteilungsID AND
+  a.Bezeichnung = 'Vertrieb'
+ORDER BY m.MitarbeiterID DESC;
+\end{minted}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die Vor- und Nachnamen sowie das
+Gehalt von Mitarbeitern ausgibt, die mehr verdienen als ihr Chef.
+Sortieren Sie die Ausgabe absteigend nach dem Gehalt.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT m.Vorname, m.Nachname, m.Gehalt
+FROM Mitarbeiter m, Mitarbeiter n
+WHERE
+  m.Vorgesetzter = n.MitarbeiterID AND
+  m.Gehalt > n.Gehalt
+ORDER BY m.Gehalt DESC;
+\end{minted}
+\end{bAntwort}
+
+%%
+% d)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die das Gehalt von allen
+Mitarbeitern aus der Abteilung mit der ID 42 um 10\% erhöht.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+UPDATE Mitarbeiter
+SET Gehalt = Gehalt * 1.1
+WHERE AbteilungsID = 42;
+SELECT * FROM Mitarbeiter;
+\end{minted}
+\end{bAntwort}
+
+%%
+% e)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, welche den Vornamen, die
+Nachnamen und das Gehalt der sieben bestbezahlten Mitarbeiter aus der
+Buchhaltung ausgibt. Standardkonforme Sprachkonstrukte, die eine
+Beschränkung der Ausgabe bewirken, sind erlaubt.
+\index{Top-N-Query}
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT m.Vorname, m.Nachname, m.Gehalt
+FROM Mitarbeiter m, Mitarbeiter n, Abteilung a
+WHERE
+  m.Gehalt <= n.Gehalt AND
+  a.AbteilungsID = m.AbteilungsID AND
+  a.AbteilungsID = n.AbteilungsID AND
+  a.Bezeichnung = 'Buchhaltung'
+GROUP BY m.Vorname, m.Nachname, m.Gehalt
+HAVING COUNT(*) <= 7
+ORDER BY m.Gehalt DESC;
+\end{minted}
+\end{bAntwort}
+
+%%
+% f)
+%%
+
+\item Schreiben Sie eine SQL-Anweisung, die für jede Abteilung die
+Mitarbeiter ermittelt, die am wenigsten verdienen. Dabei sollen Vorname,
+Nachname und die Abteilungsbezeichnung der Mitarbeiter ausgegeben
+werden.
+
+\begin{bAntwort}
+\begin{minted}{sql}
+SELECT m.Vorname, m.Nachname, m.Gehalt, a.Bezeichnung
+FROM Mitarbeiter m, Mitarbeiter n, Abteilung a
+WHERE
+  m.Gehalt >= n.Gehalt AND
+  m.AbteilungsID = n.AbteilungsID AND
+  m.AbteilungsID = a.AbteilungsID
+GROUP BY m.Vorname, m.Nachname, m.Gehalt, m.AbteilungsID, a.Bezeichnung
+HAVING COUNT(*) <= 1
+ORDER BY m.Gehalt DESC;
+\end{minted}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,cyk-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {CYK-Algorithmus},
+  Thematik = {Foliensatz},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.CYK-Algorithmus.Foliensatz,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/CYK-Algorithmus/Aufgabe_Foliensatz.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 46},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {CYK-Algorithmus},
+}
+
+\let\l=\bKurzeTabellenLinie
+
+\begin{bProduktionsRegeln}
+S -> A B | B T,
+A -> B A | a,
+B -> T T | b,
+T -> A B | a
+\end{bProduktionsRegeln}
+\index{CYK-Algorithmus}
+\footcite[Seite 46]{theo:fs:2}
+
+\begin{bAntwort}
+\begin{tabular}{|c|c|c|c|c|}
+b     & a     & a   & a   & b \\\hline\hline
+
+B     & A,T   & A,T & A,T & B \l5
+A,S   & B     & B   & S,T \l4
+-     & S,T,A & B \l3
+S,A,T & S,T \l2
+S,T   \l1
+\end{tabular}
+
+\bWortInSprache{baaab}
+\end{bAntwort}
+
+\end{document}

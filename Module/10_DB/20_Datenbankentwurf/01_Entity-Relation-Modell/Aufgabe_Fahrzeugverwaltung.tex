@@ -1,0 +1,129 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{er}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Fahrzeugverwaltung},
+  Thematik = {Fahrzeugverwaltung},
+  Referenz = DB.Datenbankentwurf.Entity-Relation-Modell.Fahrzeugverwaltung,
+  RelativerPfad = Module/10_DB/20_Datenbankentwurf/01_Entity-Relation-Modell/Aufgabe_Fahrzeugverwaltung.tex,
+  ZitatSchluessel = db:ab:1,
+  ZitatBeschreibung = {Seite 2-3, Aufgabe 4: Fahrzeugverwaltung},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entity-Relation-Modell},
+}
+
+Gegeben ist das folgende ER-Modell der Fahrzeugverwaltung einer Firma:
+\index{Entity-Relation-Modell}
+\footcite[Seite 2-3, Aufgabe 4: Fahrzeugverwaltung]{db:ab:1}
+
+\begin{center}
+\resizebox{0.7\textwidth}{!}{
+\begin{tikzpicture}[scale=1.5]
+\node[entity] (Fahrer) at (0,0) {Fahrer};
+\node[entity] (Fahrzeug) at (5,0) {Fahrzeug};
+\node[entity] (Abteilung) at (10,0) {Abteilung};
+\node[entity] (Garage) at (5,-4) {Garage};
+
+\node[relationship,align=center] (Fahrerlaubnis) at (2.5,0) {Fahrer-\\laubnis}
+  edge (Fahrer)
+  edge (Fahrzeug);
+
+\node[relationship] (gehoert) at (7.5,0) {gehoert}
+  edge (Fahrzeug)
+  edge (Abteilung);
+
+\node[relationship] (stehtIn) at (5,-2) {stehtIn}
+  edge (Fahrzeug)
+  edge (Garage);
+\end{tikzpicture}
+}
+\end{center}
+
+\noindent
+Die Attribute wurden aus Einfachheitsgründen weggelassen. Es gelten
+folgende Bedingungen:
+
+\begin{itemize}
+
+\item Jedes Fahrzeug gehört zu höchstens einer Abteilung, wobei aber
+jede Abteilung mindestens ein Fahrzeug hat.
+
+\item Für fast alle Fahrzeuge gibt es eine (fest zugeordnete)
+Einzelgarage. Jede dieser Garagen ist belegt.
+
+\item Für jedes Fahrzeug muss es mindestens drei Personen mit einer
+entsprechenden Fahrerlaubnis geben. Ansonsten gibt es keine
+Einschränkung.
+\end{itemize}
+
+\begin{enumerate}
+
+%%
+%
+%%
+
+\item Geben Sie gemäß obiger Bedingungen geeignete Funktionalitäten in
+der (min, max)-Notation an.
+
+\begin{bAntwort}
+\begin{center}
+\resizebox{0.7\textwidth}{!}{
+\begin{tikzpicture}[scale=1.5]
+\node[entity] (Fahrer) at (0,0) {Fahrer};
+\node[entity] (Fahrzeug) at (6,0) {Fahrzeug};
+\node[entity] (Abteilung) at (12,0) {Abteilung};
+\node[entity] (Garage) at (6,-4) {Garage};
+
+\node[relationship,align=center] (Fahrerlaubnis) at (3,0) {Fahrer-\\laubnis}
+  edge node[auto,swap] {(0,*)} (Fahrer)
+  edge node[auto,swap] {(3,*)} (Fahrzeug);
+
+\node[relationship] (gehoert) at (9,0) {gehoert}
+  edge node[auto,swap] {(0,1)} (Fahrzeug)
+  edge node[auto,swap] {(1,*)} (Abteilung);
+
+\node[relationship] (stehtIn) at (6,-2) {stehtIn}
+  edge node[auto,swap] {(0,1)} (Fahrzeug)
+  edge node[auto,swap] {(1,1)} (Garage);
+\end{tikzpicture}
+}
+\end{center}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item Wie lauten die entsprechenden Funktionalitätsangaben (\zB 1:1,
+n:m etc.)?
+
+\begin{bAntwort}
+\begin{center}
+\resizebox{0.7\textwidth}{!}{
+\begin{tikzpicture}[scale=1.5]
+\node[entity] (Fahrer) at (0,0) {Fahrer};
+\node[entity] (Fahrzeug) at (6,0) {Fahrzeug};
+\node[entity] (Abteilung) at (12,0) {Abteilung};
+\node[entity] (Garage) at (6,-4) {Garage};
+
+\node[relationship,align=center] (Fahrerlaubnis) at (3,0) {Fahrer-\\laubnis}
+  edge node[auto,swap] {n} (Fahrer)
+  edge node[auto,swap] {m} (Fahrzeug);
+
+\node[relationship] (gehoert) at (9,0) {gehoert}
+  edge node[auto,swap] {n} (Fahrzeug)
+  edge node[auto,swap] {1} (Abteilung);
+
+\node[relationship] (stehtIn) at (6,-2) {stehtIn}
+  edge node[auto,swap] {1} (Fahrzeug)
+  edge node[auto,swap] {1} (Garage);
+\end{tikzpicture}
+}
+\end{center}
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

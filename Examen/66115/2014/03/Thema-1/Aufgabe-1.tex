@@ -1,0 +1,188 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java,vollstaendige-induktion}
+
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 1: „Rekursion und Induktion“},
+  Thematik = {Klasse „LeftFactorial“ und Methode „lfBig()“},
+  Referenz = 66115-2014-F.T1-A1,
+  RelativerPfad = Staatsexamen/66115/2014/03/Thema-1/Aufgabe-1.tex,
+  ZitatSchluessel = examen:66115:2014:03,
+  ZitatBeschreibung = {Seite 2-3},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = korrekt,
+  Ueberprueft = {Die Teilaufgabe b mit einer Dozentenlösung abgeglichen},
+  Stichwoerter = {Vollständige Induktion, Rekursion, Implementierung in Java, Dynamische Programmierung},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2014,
+  Monat = 03,
+  ThemaNr = 1,
+  AufgabeNr = 1,
+}
+
+\let\m=\bInduktionMarkierung
+\let\e=\bInduktionErklaerung
+% lf = lfLong
+\def\lf#1{\text{lfLong}(#1)}
+% sk = summe k
+\def\sk#1{\sum^{#1}_{k=0}k!}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Gegeben\index{Vollständige Induktion}\index{Rekursion}
+\footcite[Seite 2-3]{examen:66115:2014:03} sei die Methode
+\bJavaCode{BigInteger lfBig(int n)} zur Berechnung der eingeschränkten
+Linksfakultät:\footcite[Seite 25]{aud:fs:1}
+
+\begin{equation*}
+!n :=
+\begin{cases}
+n !(n - 1) - (n - 1) !(n - 2) &
+\text{falls } 1 < n < 32767 \\
+
+1 &
+\text{falls } n = 1 \\
+
+0 &
+\text{sonst } \\
+\end{cases}
+\end{equation*}
+
+\bJavaExamen[firstline=3,lastline=30]{66115}{2014}{03}{LeftFactorial}
+
+Implementieren Sie unter Verwendung des Konzeptes der \emph{dynamischen
+Programmierung} die Methode \bJavaCode{BigInteger dp(int n)}, die
+jede $!n$ auch bei mehrfachem Aufrufen mit dem gleichen Parameter
+höchstens einmal rekursiv berechnet. Sie dürfen der Klasse
+\bJavaCode{LeftFactorial} genau ein Attribut beliebigen Datentyps
+hinzufügen und die in \bJavaCode{lfBig(int)} verwendeten Methoden und
+Konstanten ebenfalls nutzen.\footcite[Aufgabe 5]{aud:pu:1}
+\index{Implementierung in Java}\index{Dynamische Programmierung}
+
+\begin{bAntwort}
+Wir führen ein Attribut mit dem Namen \bJavaCode{store} ein und
+erzeugen ein Feld vom Typ \bJavaCode{BigInteger} mit der Länge $n + 1$.
+Die Länge des Feld $n + 1$ hat den Vorteil, dass nicht ständig $n - 1$
+verwendet werden muss, um den gewünschten Wert zu erhalten.
+
+In der untenstehenden Implementation gibt es zwei Methoden mit dem Namen
+\bJavaCode{dp}. Die untenstehende Methode ist nur eine Hüllmethode, mit
+der nach außen hin die Berechnung gestartet und das
+\bJavaCode{store}-Feld neu gesetzt wird. So ist es möglich
+\bJavaCode{dp()} mehrmals hintereinander mit verschiedenen Werten
+aufzurufen (siehe \bJavaCode{main()}-Methode).
+
+\bJavaExamen[firstline=32,lastline=52]{66115}{2014}{03}{LeftFactorial}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Betrachten Sie nun die Methode \bJavaCode{lfLong(int)} zur
+Berechnung der vorangehend definierten Linksfakultät ohne obere
+Schranke. Nehmen Sie im Folgenden an, dass der Datentyp
+\bJavaCode{long} unbeschränkt ist und daher kein Überlauf auftritt.
+
+\bJavaExamen[firstline=54,lastline=62]{66115}{2014}{03}{LeftFactorial}
+
+Beweisen Sie \emph{formal} mittels \emph{vollständiger Induktion}:
+
+\begin{displaymath}
+\forall n \geq 0: \lf{n} \equiv \sk{n - 1}
+\end{displaymath}
+
+\begin{bAntwort}
+
+%%
+%
+%%
+
+\bInduktionAnfang
+
+\begin{displaymath}
+n=1 \Rightarrow
+\texttt{\lf{1}} =
+1 =
+\sk{n - 1} =
+0! =
+1
+\end{displaymath}
+
+\begin{equation*}
+\begin{split}
+n=2 \Rightarrow & \lf{2}\\
+& = (n + 1) \sk{n - 1} - n \sk{n-2} \\
+& = \texttt{2 * \lf{1} - 1 * \lf{0}} \\
+& = 2 \\
+& = \sk{1} \\
+& = 1! + 0! \\
+& = 1 + 1 \\
+& = 2
+\end{split}
+\end{equation*}
+
+%%
+%
+%%
+
+\bInduktionVoraussetzung
+
+\begin{displaymath}
+\texttt{\lf{n}} = \sk{n - 1}
+\end{displaymath}
+
+%%
+%
+%%
+
+\bInduktionSchritt
+
+\begin{align*}
+A(n + 1) \\
+& = \texttt{\lf{n + 1}}\\
+& = \texttt{(n + 1) * \lf{n} - n * \lf{n - 1}} \\
+& = (n + 1) \m{\sk{n - 1}} - n \m{\sk{(n - 1) -1}}
+& \e{Formel eingesetzt}\\
+%
+& = (n + 1) \sk{n - 1} - n \sk{n\m{-2}}
+& \e{subtrahiert}\\
+%
+& = n\sk{n - 1} + \sk{n - 1} - n \sk{n \m{- 2}}
+& \e{ausmultipliziert mit $(n + 1)$}\\
+%
+& = \sk{n - 1} + \m{n\sk{n - 1}} - n \sk{n -2}
+& \e{Reihenfolge der Terme geändert}\\
+%
+& = \sk{n - 1} + n \Bigl(\m{(n - 1)!} + \sk{n - \m{2}}\Bigr) - n \sk{n-2}
+& \e{$(n - 1)!$ aus Summenzeichen entfernt}\\
+%
+& = \sk{n - 1} + \m{n} \Bigl((n - 1)! + \sk{n - 2} \m{- \sk{n-2}}\Bigr)
+& \e{Distributivgesetz $ac - bc = (a - b)c$}\\
+%
+& = \sk{n - 1} + \m{n(n - 1)!}
+& \e{$+\Sigma-\Sigma=0$}\\
+%
+& = \sk{n - 1} + \m{n!}
+& \e{Fakultät erhöht}\\
+%
+& = \sk{\m{n}}
+& \e{Element zum Summenzeichen hinzugefügt}\\
+%
+& = \sk{\m{(n + 1)}-1}
+& \e{mit $(n + 1)$ an der Stelle von $n$}\\
+\end{align*}
+\end{bAntwort}
+
+\begin{bAdditum}
+\bPseudoUeberschrift{Komplette Klasse LeftFactorial}
+
+\bJavaExamen{66115}{2014}{03}{LeftFactorial}
+\end{bAdditum}
+
+\end{enumerate}
+\end{document}

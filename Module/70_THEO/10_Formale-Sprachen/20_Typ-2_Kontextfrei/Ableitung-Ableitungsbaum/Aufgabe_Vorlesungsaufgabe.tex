@@ -1,0 +1,128 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,syntaxbaum}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Ableitung und Parsebaum},
+  Thematik = {Vorlesungsaufgabe},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Ableitung-Ableitungsbaum.Vorlesungsaufgabe,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Ableitung-Ableitungsbaum/Aufgabe_Vorlesungsaufgabe.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 18},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Kontextfreie Sprache, Ableitung (Kontextfreie Sprache), Ableitungsbaum},
+}
+
+% Info_2021-03-12-2021-03-12_13.03.18.mp4 1h43
+\let\m=\bMengeOhneMathe
+
+\begin{enumerate}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item Erstelle eine Ableitung und einen Parsebaum für die folgende
+Grammatik für das Wort
+\index{Kontextfreie Sprache}
+\footcite[Seite 18]{theo:fs:2}
+\index{Ableitung (Kontextfreie Sprache)}
+\index{Ableitungsbaum}
+\bFlaci{Gf6s60uxg}
+
+\bGrammatik{variablen={P}, alphabet={0, 1}}
+
+\begin{bProduktionsRegeln}
+S -> EPSILON | 0 | 1 | 0 S 0 | 1 S 1
+\end{bProduktionsRegeln}
+
+\begin{itemize}
+
+%%
+%
+%%
+
+\item 0000
+
+\begin{bAntwort}
+\bAbleitung{S -> 0S0 -> 00S00 -> 0000}
+
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1cm]
+\Tree [.S 0 [ 0 [.S $\varepsilon$ ] 0 ] 0 ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+%%
+%
+%%
+
+\item 01010
+
+\begin{bAntwort}
+\bAbleitung{S -> 0S0 -> 01S10 -> 01010}
+
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1cm]
+\Tree [.S 0 [ 1 [.S 0 ] 1 ] 0 ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+\end{itemize}
+
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
+\item Erstelle eine Ableitung und einen Parsebaum für die nebenstehende
+Grammatik für das Wort
+\bFlaci{Gpmohr81a}
+
+$V = \m{ S, A, B }$
+
+\bAlphabet{0, 1}
+
+\begin{bProduktionsRegeln}
+S -> A1B,
+A -> 0A | epsilon,
+B -> 0B | 1B | epsilon
+\end{bProduktionsRegeln}
+
+$S = S$
+
+\begin{itemize}
+\item 10101
+
+\begin{bAntwort}
+\bAbleitung{S -> A1B -> 1B -> 10B -> 101B -> 1010B -> 10101B -> 10101}
+
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1cm]
+\Tree [.S [.A $\varepsilon$ ] 1 [.B 0 [.B 1 [.B 0 [.B 1 [.B $\varepsilon$ ] ] ] ] ] ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+
+\item 00100
+
+\begin{bAntwort}
+\bAbleitung{S -> A1B -> 0A1B -> 00A1B -> 001B -> 0010B -> 00100B -> 00100}
+
+\begin{center}
+\begin{tikzpicture}[b syntaxbaum,level distance=1cm]
+\Tree [.S [.A 0 [.A 0 [.A ] $\varepsilon$ ] ] 1 [.B 0 [.B 0 [.B $\varepsilon$  ] ] ] ]
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+\end{itemize}
+
+\item Sind die Parsebäume eindeutig?
+
+\begin{bAntwort}
+Ja, die Parsebäume sind eindeutig.
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

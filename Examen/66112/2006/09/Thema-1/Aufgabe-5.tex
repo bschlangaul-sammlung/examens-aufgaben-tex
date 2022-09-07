@@ -1,0 +1,215 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{uml}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Systementwurf},
+  Thematik = {Flugbuchung},
+  Referenz = 66112-2006-H.T1-A5,
+  RelativerPfad = Staatsexamen/66112/2006/09/Thema-1/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66112:2006:09,
+  BearbeitungsStand = TeX-Fehler,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Vererbung, Klassendiagramm, Objektdiagramm, Sequenzdiagramm, Kommunikationsdiagramm},
+  EinzelpruefungsNr = 66112,
+  Jahr = 2006,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 5,
+}
+
+\begin{enumerate}
+
+%%
+% a)
+%%
+
+\item Erklären Sie den Begriff Vererbung \index{Vererbung} und benennen
+Sie die damit verbundenen Vorteile!\footcite{examen:66112:2006:09}
+
+\begin{bAntwort}
+Vererbung (generalization) beschreibt eine Beziehung zwischen einer
+allgemeinen Klasse (Basisklasse) und einer spezialisierten Klasse. Die
+spezialisierte Klasse ist vollständig konsistent mit der Basisklasse,
+enthält aber zusätzliche Informationen (Attribute, Operationen,
+Assoziationen). Die allgemeine Klasse wird auch als Oberklasse (super
+class), die spezialisierte als Unterklasse (sub class) bezeichnet.
+(vgl. Balzert 1999, S 51)
+
+\bPseudoUeberschrift{Vorteile}
+
+\begin{description}
+\item[Verfeinerung der Oberklasse]
+
+Eine abgeleitete Klasse kann durch neue Bestandteile, wie weitere
+Attribute, Methoden und Beziehungen, verfeinert werden. Auf diese Weise
+können neue Typen von Objekten auf der Basis bereits vorhandener
+Objekt-Definitionen festgelegt werden. Weiter können Methoden der
+Basisklasse verändert werden. Dies wird erreicht, indem die Unterklasse
+eine neue Methode erhält, die den gleichen Namen wie die der Oberklasse
+und geänderte Inhalte hat. Dieser Vorgang heißt Redefinieren oder
+Überschreiben.
+
+\item[Redundanz bei der Definition von Klassen vermieden]
+
+Durch die Vererbung entsteht eine Klassen-Hierarchie bzw. eine
+Vererbungsstruktur. Vererbung ist über mehrere Abstraktionsstufen
+möglich. Man erhält so schnell neue Klassen, ohne den gemeinsamen Code
+neu schreiben zu müssen. Dies hat den Vorteil, dass Redundanz bei der
+Definition von Klassen vermieden wird.
+
+\item[Konsistenz des Programmcodes leichter sichergestellt]
+
+Änderungen in der Oberklasse werden sofort für alle abgeleiteten Klassen
+gültig. Auf diese Weise kann die Konsistenz des Programmcodes leichter
+sichergestellt werden.
+
+\item[Code mit geringerem Aufwand entwickelt]
+
+Vererbung trägt dazu bei, dass der Code mit geringerem Aufwand
+entwickelt und gewartet werden kann.
+\footcite[Seite 11]{brinda}
+\end{description}
+\end{bAntwort}
+
+%%
+% b)
+%%
+
+\item Erstellen Sie zu der folgenden Beschreibung eines Systems zur
+Buchung von Flügen ein Klassendiagramm
+\index{Klassendiagramm}, das neben Attributen und
+Assoziationen mit Kardinalitäten auch Methoden zur Tarifberechnung
+enthält! Setzen Sie dabei das Konzept der Vererbung sinnvoll ein!
+
+\begin{itemize}
+\item Die Fluggesellschaft bietet verschiedene Flugrouten an, die durch
+den jeweiligen Startflughafen und Zielflughafen charakterisiert werden.
+
+\item Jeder Flug besitzt eine Flugnummer, eine Abflugzeit, eine geplante
+Ankunftszeit und ist genau einer Flugroute zugeordnet. Flugrouten sollen
+auch gespeichert werden, falls noch keine zugehörigen Flüge existieren.
+
+\item Flugbuchungen beziehen sich auf einzelne Plätze im Flugzeug.
+Sowohl in der Economy Class als auch in der Business Class gibt es
+Nichtraucher- und Raucherplätze. Zu jeder Buchung wird das Datum
+vermerkt.
+
+\item Zu jedem Passagier müssen die Adressinformationen erfasst werden.
+
+\item Die Berechnung des Tarifs soll vom System unterstützt werden.
+Jeder Flug besitzt einen Grundpreis. Für Plätze der Business Class wird
+ein Aufschlag verrechnet. Auf diesen ermittelten Zwischenpreis sind zwei
+Arten von Rabatten möglich:
+
+\begin{itemize}
+\item Jugendliche Privatkunden unter 25 Jahren erhalten einen Nachlass
+auf den Flugpreis.
+
+\item Geschäftsreisende erhalten Vergünstigungen in Abhängigkeit ihrer
+gesammelten Flugmeilen.
+\end{itemize}
+\end{itemize}
+
+\begin{bAntwort}
+\begin{tikzpicture}
+\umlclass{Fluggesellschaft}{}{}
+\umlclass[right=2cm of Fluggesellschaft]{Flugroute}{
+  + startFlughafen: String\\
+  + zielFlughafen: String
+}{}
+\umlassoc[mult1=1,mult2=0..*,name=bietetAn]{Fluggesellschaft}{Flugroute}
+
+\bUmlLeserichtung{bietetAn}
+
+\umlclass[below=1.5cm of Flugroute]{Flug}{
+  - flugnummer: int\\
+  - abflugzeit: int\\
+  - ankunftszeit: int\\
+}{
+}
+\umlassoc[mult1=0..*,mult2=1,arg2=route]{Flug}{Flugroute}
+
+\umlclass[left=1cm of Flug]{Flugbuchung}{
+  - grundpreis: double\\
+  - datum: Date
+}{
+  + berechneTarif(): double
+}
+
+\umlclass[below=1cm of Flug]{Sitzplatz}{
+  - raucherplatz: boolean\\
+  - businessclass: boolean
+}{}
+
+\umlcompo[mult1=1,mult2=20..*]{Flug}{Sitzplatz}
+
+\umlclass[below=1cm of Flugbuchung]{Passagier}{
+  + adresse: String
+}{
+  \textit{+ berechneRabatt(): double}
+}
+
+\umlclass[below left=1cm and -1.5cm of Passagier]{Privatkunde}{- alter: int}{+ berechneRabatt(): double}
+\umlclass[below right=1cm and -1.5cm of Passagier]{Geschäftskunde}{
+  - flugmeilen: double
+}
+{+ berechneRabatt(): double}
+
+\umlassoc{Passagier}{Sitzplatz}
+\umlassoc{Flugbuchung}{Passagier}
+\umlassoc{Flugbuchung}{Flug}
+
+\umlVHVinherit[arm2=-1.2cm]{Privatkunde}{Passagier}
+\umlVHVinherit[arm2=-1.2cm]{Geschäftskunde}{Passagier}
+
+\end{tikzpicture}
+\end{bAntwort}
+
+%%
+% c)
+%%
+
+\item Erstellen Sie ein exemplarisches Objektdiagramm! Es soll
+mindestens einen Flug enthalten, in dem sowohl ein privater Kunde als
+auch ein Geschäftskunde einen Platz gebucht haben! Wählen Sie geeignete
+Attributwerte!
+\index{Objektdiagramm}
+
+%%
+% d)
+%%
+
+\item Beschreiben Sie den Vorgang „Tarifberechnung“ wahlweise als
+Sequenzdiagramm oder Kommunikationsdiagramm!
+\index{Sequenzdiagramm}
+\index{Kommunikationsdiagramm}
+
+\begin{bAntwort}
+\begin{tikzpicture}[scale=0.6,transform shape]
+\begin{umlseqdiag}
+\umlobject[class=Flugbuchung]{buchung}
+\umlactor[class=Passagier]{passagier}
+\umlactor[class=Privatkunde]{privat}
+\umlactor[class=Geschäftskunde]{geschäft}
+
+\begin{umlcall}[op=berechneTarif(),return=double]{buchung}{passagier}
+
+\begin{umlfragment}[type=alt,label=privat,inner xsep=6]
+\begin{umlcall}[op=berechneRabatt(),return=double]{passagier}{privat}
+\end{umlcall}
+
+\umlfpart[geschäft]
+
+\begin{umlcall}[op=berechneRabatt(),return=double]{passagier}{geschäft}
+\end{umlcall}
+\end{umlfragment}
+
+\end{umlcall}
+
+\end{umlseqdiag}
+\end{tikzpicture}
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

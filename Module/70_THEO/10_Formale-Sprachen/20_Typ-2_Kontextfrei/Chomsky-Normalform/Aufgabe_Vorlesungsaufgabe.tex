@@ -1,0 +1,195 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{formale-sprachen,chomsky-normalform}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Kontextfreien Grammatiken in CNF},
+  Thematik = {Vorlesungsaufgabe (S, SAB, SABCD)},
+  Referenz = THEO.Formale-Sprachen.Typ-2_Kontextfrei.Chomsky-Normalform.Vorlesungsaufgabe,
+  RelativerPfad = Module/70_THEO/10_Formale-Sprachen/20_Typ-2_Kontextfrei/Chomsky-Normalform/Aufgabe_Vorlesungsaufgabe.tex,
+  ZitatSchluessel = theo:fs:2,
+  ZitatBeschreibung = {Seite 37},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Chomsky-Normalform},
+}
+
+\let\schrittE=\bChomskyUeberErklaerung
+
+Überführen Sie die folgenden kontextfreien Grammatiken in CNF
+(Chomsky-Normalform).
+\index{Chomsky-Normalform}
+\footcite[Seite 37]{theo:fs:2}
+
+\begin{enumerate}
+
+%-----------------------------------------------------------------------
+% a
+%-----------------------------------------------------------------------
+
+\item
+
+\begin{bProduktionsRegeln}
+S -> 0S1 | epsilon
+\end{bProduktionsRegeln}
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1}
+
+\begin{bProduktionsRegeln}
+S -> 0S1 | 01
+\end{bProduktionsRegeln}
+\bFlaci{Ghje1ygz9}
+\item \schrittE{2}
+
+\bNichtsZuTun
+
+\item \schrittE{3}
+
+N = Null, E = Eins
+
+\begin{bProduktionsRegeln}
+S -> NSE | NE,
+N -> 0,
+E -> 1
+\end{bProduktionsRegeln}
+
+\item \schrittE{4}
+
+\begin{bProduktionsRegeln}
+S -> NR | NE,
+R -> SE,
+N -> 0,
+E -> 1
+\end{bProduktionsRegeln}
+\end{enumerate}
+\end{bAntwort}
+
+%-----------------------------------------------------------------------
+% b
+%-----------------------------------------------------------------------
+
+\item
+
+\begin{bProduktionsRegeln}
+S -> a | aA | B,
+A -> aBB | epsilon,
+B -> Aa | b
+\end{bProduktionsRegeln}
+\bFlaci{G54gubr9i}
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1}
+
+\begin{bProduktionsRegeln}
+S -> a | aA | B,
+A -> aBB,
+B -> Aa | b | a
+\end{bProduktionsRegeln}
+
+Das leere Wort ist nicht in der Sprache ($\varepsilon \notin L(G )$). In
+der Sprache sind immer Wörter mit mindestens einem Buchstaben. In der
+ersten Produktionsregel wird aus $aA  \rightarrow a \varepsilon$ nur das
+$a$. Das ist aber bereits in der ersten Regel enthalten. In der zweiten
+Regel wird das leere Wort weg gelassen. In der dritten Regel wird noch
+ein $a$ hinzugefügt, das aus $Aa \rightarrow \varepsilon a \rightarrow a$
+entstanden ist.
+
+\item \schrittE{2}
+
+\begin{bProduktionsRegeln}
+S -> a | aA | Aa | b,
+A -> aBB,
+B -> Aa | b | a
+\end{bProduktionsRegeln}
+
+Wir schreiben die Regel, die keine einzelnes Nonterminal auf der rechten
+Seite enthalten, ab. In der ersten Regel wird $B$ mit $Aa | b | a$
+ersetzte, wobei das letzte $a$, dann weggelassen werden kann, da es
+bereits am Anfang der rechten Seite vorkommt. Die $B$-Regel kann nicht
+weggelassen werden, weil sie in der $A$-Regel vorkommt.
+
+\item \schrittE{3}
+
+\begin{bProduktionsRegeln}
+S -> a | VA | AV | b,
+A -> VBB,
+B -> AV | b | a,
+V -> a
+\end{bProduktionsRegeln}
+
+\item \schrittE{4}
+
+\begin{bProduktionsRegeln}
+S -> a | VA | AV | b,
+A -> VC,
+B -> AV | b | a,
+V -> a,
+C -> BB
+\end{bProduktionsRegeln}
+\end{enumerate}
+\end{bAntwort}
+
+%-----------------------------------------------------------------------
+% c
+%-----------------------------------------------------------------------
+
+\item % Video ab 1h26
+
+\begin{bProduktionsRegeln}
+S -> ABC,
+A -> aCD,
+B -> bCD,
+C -> D | epsilon,
+D -> C
+\end{bProduktionsRegeln}
+\bFlaci{Grxwcync2}
+
+\begin{bAntwort}
+\begin{enumerate}
+\item \schrittE{1}
+
+\begin{bProduktionsRegeln}
+S -> ABC | AB,
+A -> aCD | aD,
+B -> bCD | bD,
+C -> D,
+D -> C | epsilon
+\end{bProduktionsRegeln}
+
+In der letzten Regel entsteht ein neues $\varepsilon$. Es muss in der
+nächsten Iteration entfernt werden.
+
+\begin{bProduktionsRegeln}
+S -> ABC | AB,
+A -> aCD | aD | aC | a,
+B -> bCD | bD | bC | b,
+C -> D,
+D -> C
+\end{bProduktionsRegeln}
+
+\item \schrittE{2}
+
+\begin{bProduktionsRegeln}
+S -> AB,
+A -> a,
+B -> b,
+\end{bProduktionsRegeln}
+
+$C$ und $D$ sind nicht produktiv. $C \rightarrow D$ und $D \rightarrow
+C$ können gestrichen werden.
+
+\item \schrittE{3}
+
+\bNichtsZuTun
+
+\item \schrittE{4}
+
+\bNichtsZuTun
+\end{enumerate}
+\end{bAntwort}
+\end{enumerate}
+
+\end{document}

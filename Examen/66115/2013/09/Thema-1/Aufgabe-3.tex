@@ -1,0 +1,75 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{mathe,automaten}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe},
+  Thematik = {DOPP},
+  Referenz = 66115-2013-H.T1-A3,
+  RelativerPfad = Staatsexamen/66115/2013/09/Thema-1/Aufgabe-3.tex,
+  ZitatSchluessel = examen:66115:2013:09,
+  BearbeitungsStand = nur Angabe,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Entscheidbarkeit},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2013,
+  Monat = 09,
+  ThemaNr = 1,
+  AufgabeNr = 3,
+}
+
+Wir\index{Entscheidbarkeit}
+\footcite{examen:66115:2013:09} betrachten das wie folgt definierte Problem DOPP:
+\footcite[Aufgabe 8]{theo:ab:4}
+
+\begin{description}
+\item[GEGEBEN:]
+
+Eine deterministische Turingmaschine $M$, eine Eingabe $x$ (für $M$),
+ein Zustand $q$ (von $M$).
+
+\item[GEFRAGT:]
+
+Wird der Zustand $q$ bei der Berechnung von $M$ auf $x$ mindestens
+zweimal besucht?
+\end{description}
+
+\begin{enumerate}
+
+%%
+% 1.
+%%
+
+\item Zeigen Sie durch Angabe einer Reduktion vom Halteproblem, dass
+DOPP unentscheidbar.
+
+%%
+% 2.
+%%
+\item Begründen Sie, dass DOPP rekursiv aufzählbar (semi-entscheidbar)
+ist.
+
+\end{enumerate}
+
+Die Reduktion $f \colon \text{HALTE} \leq_p \text{DOPP}$, bildet $c(M),
+w$ auf $c(M'), xw, q$ ab, wobei $M'$ eine Turingmaschine mit folgendem
+Verhalten ist:
+
+\begin{itemize}
+\item Sie verfügt über den neuen Startzustand $q$
+
+\item Sie erweitert das Wort $w$ vorne um ein Zeichen $x \notin
+\Gamma_M$ (dies ist nicht unbedingt notwendig, aber schöner, damit die
+neue Maschine auch noch terminiert)
+
+\item Für $q$ wird die Regel $(q, x) \rightarrow (z_0,
+\bTuringLeerzeichen, R)$, wobei $z_0$ der Startzustand von $M$ ist
+
+\item Alle Endzustände $z$ von $M$ erhalten eine neue Regel $(z,
+\bTuringLeerzeichen) \rightarrow (q, \bTuringLeerzeichen, N)$
+\end{itemize}
+
+Hierbei wird davon ausgegangen, dass das Halteproblem eine
+Turingmaschine mit Endzuständen als Eingabe hat und Aufgrund der
+Akzeptanz eines Wortes in diesem Fall das Zeichen gelöscht wird.
+\end{document}

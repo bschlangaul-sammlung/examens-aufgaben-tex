@@ -1,0 +1,260 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{gantt,cpm}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 2},
+  Thematik = {Projektplanung},
+  Referenz = 66116-2020-H.T1-TA1-A2,
+  RelativerPfad = Staatsexamen/66116/2020/09/Thema-1/Teilaufgabe-1/Aufgabe-2.tex,
+  ZitatSchluessel = examen:66116:2020:09,
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Projektplanung, CPM-Netzplantechnik, Gantt-Diagramm},
+  EinzelpruefungsNr = 66116,
+  Jahr = 2020,
+  Monat = 09,
+  ThemaNr = 1,
+  TeilaufgabeNr = 1,
+  AufgabeNr = 2,
+}
+
+\let\f=\footnotesize
+\let\FZ=\bCpmFruehI
+\let\SZ=\bCpmSpaetI
+\let\v=\bCpmVon
+\let\vz=\bCpmVonZu
+\let\z=\bCpmZu
+
+Die Planung eines Softwareprojekts kann \zB in Form von
+Gantt-Diagrammen oder CPM-Netzwerken (kritischer Pfad Methode)
+festgehalten werden.
+
+Folgendes Gantt-Diagramm zeigt einen Teil der Projektplanung in einem
+klassischen Softwareentwicklungsprozess:
+\index{Projektplanung}
+\footcite{examen:66116:2020:09}
+
+\begin{center}
+\begin{ganttchart}[x unit=0.7cm, y unit chart=0.6cm]{0}{6}
+\ganttbar[name=D]{Design}{0}{1} \\
+\ganttbar[name=R]{Realization}{2}{4} \\
+\ganttbar[name=T]{Testing}{3}{5}
+\gantttitlelist[name=Zeit]{0,...,6}{1}\\
+\ganttlink{D}{R}
+\ganttlink[link type=s-s]{R}{T}
+\end{ganttchart}
+\end{center}
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Im Diagramm werden 3 Phasen aus dem klassischen
+Softwareentwicklungsprozess genannt. Welche Phase sollte dem Design
+(Entwurf) immer vorangehen?
+
+\begin{bAntwort}
+Die Anforderungsdefinition
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Wandeln Sie das Gantt-Diagramm in ein CPM-Netzwerk um. Fügen Sie
+dazu einen zusätzlichen Start- und Endknoten hinzu. Das Ende des
+Projekts ist durch das Ende aller Aktivitäten bedingt.
+\index{CPM-Netzplantechnik}
+
+\begin{bAntwort}
+\begin{description}
+\item[$D_A$] Design Anfang
+\item[$R_A$] Realization Anfang
+\item[$T_A$] Testing Anfang
+\item[$D_E$] Design Ende
+\item[$R_E$] Realization Ende
+\item[$T_E$] Testing Ende
+
+\end{description}
+
+\begin{center}
+\begin{tikzpicture}[x=1.5cm,y=1.5cm]
+\bCpmEreignis[name=A]{$A$}{1}{1}
+\bCpmEreignis[name=DA]{$D_A$}{1}{2}
+\bCpmEreignis[name=DE]{$D_E$}{3}{2}
+\bCpmEreignis[name=RA]{$R_A$}{2}{1}
+\bCpmEreignis[name=RE]{$R_E$}{4}{1}
+\bCpmEreignis[name=TA]{$T_A$}{3}{0}
+\bCpmEreignis[name=TE]{$T_E$}{5}{0}
+\bCpmEreignis[name=E]{$E$}{5}{1}
+
+\bCpmVorgang[schein]{A}{DA}{}
+\bCpmVorgang{DA}{DE}{2}
+\bCpmVorgang{RA}{RE}{3}
+\bCpmVorgang{TA}{TE}{3}
+\bCpmVorgang{RA}{TA}{1}
+\bCpmVorgang[schein]{DE}{RA}{}
+\bCpmVorgang[schein]{TE}{E}{}
+\bCpmVorgang[schein]{RE}{E}{}
+\end{tikzpicture}
+\end{center}
+\end{bAntwort}
+%%
+% (c)
+%%
+
+\item Welche im obigen Gantt-Diagramm nicht enthaltenen Beziehungsarten
+zwischen Aktivitäten können in einem Gantt-Diagramm noch auftreten?
+Nennen Sie auch deren Bedeutung.
+\index{Gantt-Diagramm}
+
+\begin{bAntwort}
+Diese Beziehungsarten sind im obigen Gantt-Diagramm vorhanden:
+
+\begin{description}
+\item[Normalfolge EA:]
+\emph{end-to-start relationship}
+%
+Anordnungsbeziehung vom Ende eines Vorgangs zum Anfang seines
+Nachfolgers.
+
+\item[Anfangsfolge AA:]
+\emph{start-to-start relationship}
+%
+Anordnungsbeziehung vom Anfang eines Vorgangs zum Anfang seines
+Nachfolgers.
+\end{description}
+
+Diese Beziehungsarten sind im obigen Gantt-Diagramm \emph{nicht}
+vorhanden:
+\begin{description}
+
+\item[Endefolge EE:]
+\emph{finish-to-finish relationship}
+%
+Anordnungsbeziehung vom Ende eines Vorgangs zum Ende seines Nachfolgers.
+
+\item[Sprungfolge AE:]
+\emph{start-to-finish relationship }
+%
+Anordnungsbeziehung vom Anfang eines Vorgangs zum Ende seines
+Nachfolgers
+\end{description}
+\end{bAntwort}
+
+Gegeben sei nun das folgende CPM-Netzwerk:
+
+\begin{center}
+\begin{tikzpicture}[x=1.5cm,y=1.5cm]
+\bCpmEreignis{a}{0}{1}
+\bCpmEreignis{b}{1}{2}
+\bCpmEreignis{c}{2}{2}
+\bCpmEreignis{d}{2}{1}
+\bCpmEreignis{e}{3}{1}
+\bCpmEreignis{f}{2}{0}
+\bCpmEreignis{g}{4}{1}
+
+\bCpmVorgang[schein]{b}{d}{}
+\bCpmVorgang[schein]{b}{f}{}
+\bCpmVorgang[schein]{d}{e}{}
+\bCpmVorgang{a}{b}{2}
+\bCpmVorgang{a}{f}{3}
+\bCpmVorgang{b}{c}{3}
+\bCpmVorgang{c}{d}{1}
+\bCpmVorgang{c}{e}{5}
+\bCpmVorgang{e}{g}{2}
+\bCpmVorgang{f}{e}{4}
+\end{tikzpicture}
+\end{center}
+
+%%
+% (d)
+%%
+
+\item Geben Sie für jedes Ereignis die früheste Zeit an.
+
+\begin{bAntwort}
+\bCpmFruehErklaerung
+\begin{tabular}{|l|l|r|}
+\hline
+$i$ & Nebenrechnung          & \FZ \\\hline
+a   &                        & 0   \\
+b   &                        & 2   \\
+c   &                        & 5   \\
+d   & $\max(2_b, 6_c)$       & 6   \\
+e   & $\max(6_d, 10_e, 7_f)$ & 10  \\
+f   & $\max(3_f, 2_b)$       & 3   \\
+g   &                        & 12  \\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Geben Sie für jedes Ereignis die späteste Zeit an.
+
+\begin{bAntwort}
+\bCpmSpaetErklaerung
+\begin{tabular}{|l|l|r|}
+\hline
+$i$ & Nebenrechnung        & \SZ \\\hline
+g &                        & 12  \\
+f &                        & 6   \\
+e &                        & 10  \\
+d &                        & 10  \\
+c & $\min(9_d, 5_e)$       & 5   \\
+b & $\min(2_c, 10_d, 6_f)$ & 2   \\
+a &                        & 0   \\\hline
+\end{tabular}
+\end{bAntwort}
+
+%%
+% (f)
+%%
+
+\item Geben Sie einen kritischen Pfad durch das Netz an! Wie wirkt sich
+eine Verzögerung von 5 Zeiteinheiten auf dem kritischen Pfad auf das
+Projektende aus?
+
+\begin{bAntwort}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+$i$ & a & b & c  & d  & e  & f  & g  \\\hline\hline
+\FZ & 0 & 2 & 5  & 6  & 10 & 3  & 12 \\\hline
+\SZ & 0 & 2 & 5  & 10 & 10 & 6  & 12 \\\hline
+GP  & 0 & 0 & 0  & 3  & 0  & 3  & 0  \\\hline
+\end{tabular}
+
+\begin{center}
+\begin{tikzpicture}[x=1.5cm,y=1.5cm]
+\bCpmEreignis{a}{0}{1}
+\bCpmEreignis{b}{1}{2}
+\bCpmEreignis{c}{2}{2}
+\bCpmEreignis{d}{2}{1}
+\bCpmEreignis{e}{3}{1}
+\bCpmEreignis{f}{2}{0}
+\bCpmEreignis{g}{4}{1}
+
+\bCpmVorgang[schein]{b}{d}{}
+\bCpmVorgang[schein]{b}{f}{}
+\bCpmVorgang[schein]{d}{e}{}
+\bCpmVorgang[kritisch]{a}{b}{2}
+\bCpmVorgang{a}{f}{3}
+\bCpmVorgang[kritisch]{b}{c}{3}
+\bCpmVorgang{c}{d}{1}
+\bCpmVorgang[kritisch]{c}{e}{5}
+\bCpmVorgang[kritisch]{e}{g}{2}
+\bCpmVorgang{f}{e}{4}
+\end{tikzpicture}
+\end{center}
+
+Kritischer Pfad: a $\rightarrow$ b $\rightarrow$ c $\rightarrow$ e $\rightarrow$ g
+
+Das Projekt verlängert sich um 5 Zeiteinheiten.
+\end{bAntwort}
+
+\end{enumerate}
+\end{document}

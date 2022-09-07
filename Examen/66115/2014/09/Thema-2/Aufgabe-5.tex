@@ -1,0 +1,93 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{java}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Aufgabe 5},
+  Thematik = {Klasse „Stapel“ mit Methode „merge()“},
+  Referenz = 66115-2014-H.T2-A5,
+  RelativerPfad = Staatsexamen/66115/2014/09/Thema-2/Aufgabe-5.tex,
+  ZitatSchluessel = examen:66115:2014:09,
+  ZitatBeschreibung = {Seite 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Stapel (Stack), Algorithmische Komplexität (O-Notation)},
+  EinzelpruefungsNr = 66115,
+  Jahr = 2014,
+  Monat = 09,
+  ThemaNr = 2,
+  AufgabeNr = 5,
+}
+
+Gegeben sei eine Standarddatenstruktur Stapel (Stack) mit den
+Operationen\index{Stapel (Stack)}
+\footcite[Seite 5]{examen:66115:2014:09}
+
+\bigskip
+
+\begin{compactitem}
+\item \bJavaCode{void push(Element e)}
+\item \bJavaCode{Element pop()},
+\item \bJavaCode{boolean isEmpty()}.
+\end{compactitem}
+
+\bigskip
+
+\noindent
+sowie dem Standardkonstruktor \bJavaCode{Stapel()}, der einen leeren Stapel
+zur Verfügung stellt.\footcite[Seite 2-3, Aufgabe 5]{aud:ab:4}
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Geben Sie eine Methode \bJavaCode{Stapel merge(Stapel s, Stapel
+t)} an, die einen aufsteigend geordneten Stapel zurückgibt, unter der
+Bedingung, dass die beiden übergebenen Stapel aufsteigend sortiert sind,
+\dh \bJavaCode{S.pop()} liefert das größte Element in \bJavaCode{s}
+zurück und \bJavaCode{T.pop()} liefert das größte Element in
+\bJavaCode{t} zurück. Als Hilfsdatenstruktur dürfen Sie nur Stapel
+verwenden, keine Felder oder Listen.
+
+\noindent
+Hinweis: Nehmen Sie an, dass Objekte der Klasse \bJavaCode{Element},
+die auf dem Stapel liegen mit \bJavaCode{compareTo()} vergleichen
+werden können. Zum Testen haben wir Ihnen eine Klasse
+\bJavaCode{StapelTest} zur Verfügung gestellt, sie können Ihre Methode
+hier einfügen und testen, ob die Stapel korrekt sortiert werden.
+Überlegen Sie auch, was geschieht, wenn einer der Stapel (oder beide)
+leer ist!
+
+\begin{bAntwort}
+\bJavaExamen[firstline=46,lastline=65]{66115}{2014}{09}{Stapel}
+
+\bPseudoUeberschrift{Komplette Klasse Stapel}
+
+\bJavaExamen{66115}{2014}{09}{Stapel}
+
+\bPseudoUeberschrift{Komplette Klasse Element}
+
+\bJavaExamen{66115}{2014}{09}{Element}
+
+\bPseudoUeberschrift{Test-Klasse}
+
+\bJavaTestDatei{examen/examen_66115/jahr_2014/herbst/StapelTest}
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Analysieren Sie die Laufzeit Ihrer Methode.
+\index{Algorithmische Komplexität (O-Notation)}
+
+\begin{bAntwort}
+Best case: $\mathcal{O}(1)$
+Worst case: $\mathcal{O}(n^2)$
+\end{bAntwort}
+
+\end{enumerate}
+
+\end{document}

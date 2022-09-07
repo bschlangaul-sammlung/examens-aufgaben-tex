@@ -1,0 +1,369 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{normalformen,synthese-algorithmus}
+\begin{document}
+\bAufgabenMetadaten{
+  Titel = {Synthese-Algorithmus},
+  Thematik = {Supermarkt},
+  Referenz = DB.Relationale-Entwurfstheorie.Normalformen.Synthesealgorithmus.Supermarkt,
+  RelativerPfad = Module/10_DB/50_Relationale-Entwurfstheorie/30_Normalformen/10_Synthesealgorithmus/Aufgabe_Supermarkt.tex,
+  ZitatSchluessel = db:ab:6,
+  ZitatBeschreibung = {Aufgabe 5},
+  BearbeitungsStand = mit Lösung,
+  Korrektheit = unbekannt,
+  Ueberprueft = {unbekannt},
+  Stichwoerter = {Zweite Normalform, Schlüsselkandidat, Update-Anomalie, Delete-Anomalie, Synthese-Algorithmus},
+}
+
+\let\FA=\bFunktionaleAbhaengigkeiten
+\let\fa=\bFunktionaleAbhaengigkeit
+\let\m=\bAttributMenge
+\let\schrittE=\bSyntheseUeberErklaerung
+\let\ah=\bAttributHuelle
+
+Ein Supermarkt speichert seine Bestellungen in nachfolgender Tabelle:
+\footcite[Aufgabe 5]{db:ab:6}
+\bigskip
+
+\noindent
+\bRelation[ARTBEST]{
+  ArtNr,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel,
+  Lieferant,
+  LiefTel,
+  BestDat,
+  Anzahl,
+  EP
+}
+
+\bigskip
+
+\noindent
+Es existieren folgende funktionale Abhängigkeiten:
+
+\bigskip
+
+\FA[F]{
+  ArtNr -> ArtName, ArtArt, Hersteller, HerstTel;
+  Hersteller -> HerstTel;
+  Lieferant -> LiefTel;
+  ArtNr, Lieferant, BestDat -> Anzahl;
+}
+
+\bigskip
+\noindent
+„Bestdat“ steht für Bestelldatum, „EP“ für Einkaufspreis
+
+\begin{enumerate}
+
+%%
+% (a)
+%%
+
+\item Erläutern Sie, warum nur Relationen mit einem zusammengesetzten
+Schlüsselkandidaten die 2. Normalform\index{Zweite Normalform} verletzen
+können!
+
+\begin{bAntwort}
+Eine Relation ist genau dann in der zweiten Normalform, wenn kein
+Nichtprimärattribut funktional von einer echten Teilmenge eines
+Schlüsselkandidaten abhängt.
+
+Anders gesagt: Jedes nicht-primäre Attribut ist jeweils von
+allen ganzen Schlüsseln abhängig, nicht nur von einem Teil
+eines Schlüssels.
+
+Bei nicht zusammengesetzten Schlüsselkandidaten, d. h.
+Schlüsselkandidaten mit nur einem Attribut, können Nichtprimärattribute
+nur von diesem einen Schlüsselkandidaten abhängen,
+sonst wäre es ja kein Schlüsselkandidat / Primär\-schlüssel.
+\end{bAntwort}
+
+%%
+% (b)
+%%
+
+\item Finden Sie den einzigen
+Schlüsselkandidaten\index{Schlüsselkandidat} von ARTBEST.
+
+\begin{bAntwort}
+Ich wähle \m{ArtNr, Lieferant, BestDat} aus, da diese Attribute auf
+keiner rechten Seite einer FD vorkommen. Außerdem wähle ich \m{EP}
+aus, da \m{EP} in keiner FD vorkommt.
+
+\begin{liAHuelle}
+\ah{F, \m{ArtNr, Lieferant, BestDat, EP}} = \\
+\m{
+  ArtNr,
+  Lieferant,
+  BestDat,
+  EP,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel,
+  LiefTel,
+  Anzahl
+} = R
+\end{liAHuelle}
+
+Damit ist gezeigt, dass \m{ArtNr, Lieferant, BestDat, EP} ein
+Superschlüssel ist.
+
+Ich teste mit Hilfe der Attributhülle, ob man den Superschlüssel noch
+weiter verkleinern kann.
+
+\subsection*{ohne \texttt{ArtNr}}
+
+\begin{liAHuelle}
+\ah{F, \m{Lieferant, BestDat, EP}} = \\
+\m{
+  Lieferant,
+  BestDat,
+  EP,
+  LiefTel
+} \neq R
+\end{liAHuelle}
+\subsection*{ohne \texttt{Lieferant}}
+
+\begin{liAHuelle}
+\ah{F, \m{ArtNr, BestDat, EP}} = \\
+\m{
+  ArtNr,
+  BestDat,
+  EP,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel
+} \neq R
+\end{liAHuelle}
+
+\subsection*{ohne \texttt{BestDat}}
+
+\begin{liAHuelle}
+\ah{F, \m{ArtNr, Lieferant, EP}} = \\
+\m{
+  ArtNr,
+  Lieferant,
+  EP,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel,
+  LiefTel
+} \neq R
+\end{liAHuelle}
+
+\subsection*{ohne \texttt{EP}}
+
+\begin{liAHuelle}
+\ah{F, \m{ArtNr, Lieferant, BestDat}} = \\
+\m{
+  ArtNr,
+  Lieferant,
+  BestDat,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel,
+  LiefTel,
+  Anzahl
+} \neq R
+\end{liAHuelle}
+
+Der Superschlüssel \m{ArtNr, Lieferant, BestDat, EP} kann nicht
+mehr weiter verkleinert werden. Er ist bereits minimal. \m{ArtNr,
+Lieferant, BestDat, EP} ist der einzige Schlüsselkandidat und damit
+der Primärschlüssel.
+
+\end{bAntwort}
+
+%%
+% (c)
+%%
+
+\item Erläutern Sie, inwiefern obiges Schema die 3. Normalform verletzt!
+Zeigen Sie anhand obiger Relation \texttt{ARTBEST} zwei mögliche
+Anomalien auf, die bei fehlender Normalisierung auftreten können.
+
+\begin{bAntwort}
+In der dritten Normalform darf kein Nichtschlüsselattribut von einem
+Schlüsselkandidaten transitiv abhängen. In der Relation \texttt{ARTBEST}
+hängt \m{HerstTel} funkional von \m{Hersteller} und
+\m{Hersteller} hängt wiederum funktional von dem Primärschlüssel /
+Schlüsselkandidaten \m{ArtNr, Lieferant, BestDat, EP} ab.
+
+\bigskip
+
+\m{ArtNr, Lieferant, BestDat, EP}
+$\rightarrow$ \m{Hersteller}
+$\rightarrow$ \m{HerstTel}
+
+\subsection*{Update-Anomalie}\index{Update-Anomalie}
+
+Es kann zur Update-Anomalie kommen. Ändert sich zum Beispiel die
+Telefonnummer eines Herstellers, so müssen in allen
+Datensätzen die Telefonnummer geändert werden.
+
+\subsection*{Delete-Anomalie}\index{Delete-Anomalie}
+
+Wird die Datenbank aufgeräumt, d. h. alte Bestellungen gelöscht,
+so verschwindet auch die Hersteller-Telefonnumer von manchen
+Herstelllern.
+\end{bAntwort}
+
+%%
+% (d)
+%%
+
+\item Überführen Sie das obige Relationenschema schrittweise in die 3.
+Normalform! Erläutern Sie die dazu durchzuführenden Schritte jeweils
+kurz!\index{Synthese-Algorithmus}
+
+\begin{bAntwort}
+
+\begin{enumerate}
+\item \schrittE{1}
+
+\begin{enumerate}
+\item \schrittE{1-1}
+
+Die einzige FD mit einer Determinante bestehtend aus mehrere Attributen,
+ist \fa{ArtNr, Lieferant, BestDat -> Anzahl}
+
+\begin{itemize}
+\item ohne \m{ArtNr}
+
+\begin{liAHuelle}
+\m{Anzahl} \notin \ah{F, \m{Lieferant, BestDat}} = \\
+\m{
+  Lieferant,
+  BestDat,
+  LiefTel
+}
+\end{liAHuelle}
+
+\item ohne \m{Lieferant}
+
+\begin{liAHuelle}
+Anzahl \notin \ah{F, \m{ArtNr, BestDat}} = \\
+\m{
+  ArtNr,
+  BestDat,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel
+}
+\end{liAHuelle}
+
+\item ohne \m{BestDat}
+
+\begin{liAHuelle}
+Anzahl \notin \ah{F, \m{ArtNr, Lieferant}} = \\
+\m{
+  ArtNr,
+  Lieferant,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel,
+  LiefTel
+}
+\end{liAHuelle}
+
+\end{itemize}
+
+Die linke Seiten der FDs können nicht reduziert werden.
+
+\item \schrittE{1-2}
+
+Das einzige Attribut, dass auf der rechten Seite der FDs doppelt vorkommt
+ist \m{HerstTel}
+
+\begin{liAHuelle}
+\m{HerstTel} \in \ah{F - \fa{ArtNr -> HerstTel}, \m{ArtNr}} = \\
+\m{
+  ArtNr,
+  ArtName,
+  ArtArt,
+  Hersteller,
+  HerstTel
+}
+\end{liAHuelle}
+
+\item \schrittE{1-3}
+
+\bNichtsZuTun
+
+\item \schrittE{1-4}
+
+\bNichtsZuTun
+\end{enumerate}
+
+Kanonische Überdeckung:
+
+\FA[$F_c$]{
+ArtNr -> ArtName, ArtArt, Hersteller;
+Hersteller -> HerstTel;
+Lieferant -> LiefTel;
+ArtNr, Lieferant, BestDat -> Anzahl;
+}
+
+\item \schrittE{2}
+
+\bRelation[R1]{ArtNr, ArtName, ArtArt, Hersteller}\\
+\bRelation[R2]{Hersteller, HerstTel}\\
+\bRelation[R3]{Lieferant, LiefTel}\\
+\bRelation[R4]{ArtNr, Lieferant, BestDat, Anzahl}
+
+\item \schrittE{3}
+
+Es muss noch eine Relation hinzugefügt werden, nämlich kommt das
+Attribut \m{EP} bisher in keiner Relation vor.
+
+\bRelation[R1]{ArtNr, ArtName, ArtArt, Hersteller}\\
+\bRelation[R2]{Hersteller, HerstTel}\\
+\bRelation[R3]{Lieferant, LiefTel}\\
+\bRelation[R4]{ArtNr, Lieferant, BestDat, Anzahl}\\
+\bRelation[R5]{ArtNr, Lieferant, BestDat, EP}
+
+\item \schrittE{4}
+
+Nicht zu tun.
+
+\end{enumerate}
+
+Ergebnis:
+
+\bRelation[R1]{ArtNr, ArtName, ArtArt, Hersteller}\\
+\bRelation[R2]{Hersteller, HerstTel}\\
+\bRelation[R3]{Lieferant, LiefTel}\\
+\bRelation[R4]{ArtNr, Lieferant, BestDat, Anzahl}\\
+\bRelation[R5]{ArtNr, Lieferant, BestDat, EP}
+
+\end{bAntwort}
+
+%%
+% (e)
+%%
+
+\item Erläutern Sie, inwiefern sich eine vollständige Normalisierung
+nachteilig auf die Geschwindigkeit der Anfragebearbeitung auswirken kann
+und wie darauf reagiert werden kann!
+
+\begin{bAntwort}
+Eine vollständige Normalisierung hat den Effekt, dass die Daten auf mehr
+Relation bzw. Tabellen aufgeteilt werden. In der Regel geht damit
+einher, dass bei Abfragen mehr Joins durchgeführt werden müssen, was
+in der Regel mit mehr Speicherbedarf und Rechenzeit der Anfragen
+einhergeht.
+
+Man könnte auf eine Normalisierung verzichten, oder nur teilweise
+normalisieren und somit zwischen Performance und Redundanz abwägen.
+\end{bAntwort}
+\end{enumerate}
+\end{document}
