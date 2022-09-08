@@ -1,0 +1,318 @@
+- DB:
+    - Datenbank-Übersicht:
+        - Datenbank
+        - Datenbankmanagementsystem
+        - Datenbanksystem
+        - Referentielle Integrität
+        - Datenunabhängigkeit
+        - Drei-Schichten-Modell
+        - Unionkompatibilität
+        - Physische Datenorganisation:
+            - Tupel-Identifikator
+    - Datenbankentwurf:
+        - Entity-Relation-Modell:
+            - IS-A
+    - Relationales Modell:
+        - Relationenmodell:
+            - Verfeinertes Relationenmodell
+            - Kartesisches Produkt
+        - Relationale Algebra:
+            - Equi-Join
+            - Natural-Join
+            - Theta-Join
+            - Division
+            - RelaX - relational algebra calculator
+            - Anfrageoptimierung
+        - Tupelkalkül
+    - Relationale Anfragesprachen:
+        - SQL:
+            - ALTER TABLE
+            - AVG
+            - BETWEEN
+            - CHECK
+            - CONSTRAINT
+            - CREATE TABLE
+            - DELETE
+            - DESC
+            - DROP COLUMN
+            - DROP TABLE
+            - EXCEPT
+            - GROUP BY
+            - HAVING
+            - INSERT
+            - INTERSECT
+            - Korrelierte Anfrage
+            - MAX
+            - Nicht-korrelierte Anfrage
+            - NOT NULL
+            - OR
+            - PRIMARY KEY
+            - REFERENCES
+            - SQL mit Übungsdatenbank
+            - Top-N-Query
+            - TRIGGER
+            - UNION
+            - UPDATE
+            - VIEW
+            - WITH
+    - Relationale Entwurfstheorie:
+        - Normalformen:
+            - Schlüssel
+            - Superschlüssel
+            - Schlüsselkandidat
+            - Funktionale Abhängigkeiten
+            - Kanonische Überdeckung
+            - Synthese-Algorithmus
+            - Erste Normalform
+            - Zweite Normalform
+            - Dritte Normalform
+            - Boyce-Codd-Normalform
+            - Attributhülle
+            - Attributhüllen-Algorithmus
+            - Anomalien:
+                - Update-Anomalie
+                - Insert-Anomalie
+                - Delete-Anomalie
+    - Transaktionsverwaltung:
+        - Transaktionen
+        - Zwei-Phasen-Sperrprotokoll
+        - ACID
+        - Serialisierbarkeitsgraph
+        - Dirty-Read
+        - Lost-Update
+        - Deadlock
+- OOMUP:
+    - Objektorientierung:
+        - Klasse
+        - Objekt
+    - Vererbung:
+        - Generalisierung
+        - Spezialisierung
+    - Implementierung in Java:
+        - Interface
+        - Abstrakte Klasse
+        - Feld (Array)
+        - main-Methode
+        - Sichtbarkeit:
+          - Sichtbarkeit private
+          - Sichtbarkeit package-private
+          - Sichtbarkeit protected
+        - Getter-Methode
+        - Setter-Methode
+- AUD:
+    - Algorithmen und Datenstrukturen
+    - Rekursion:
+        - Iterative Realisation
+    - Suche:
+        - Lineare Suche
+        - Binäre Suche
+    - Sortieralgorithmen:
+        - Bubblesort
+        - Selectionsort
+        - Insertionsort
+        - Quicksort
+        - Mergesort
+        - Heapsort
+        - Bucketsort
+        - Radixsort
+        - Schreibtischlauf (Sortierung)
+    - Algorithmische Komplexität (O-Notation):
+        - Master-Theorem
+    - Algorithmenmuster:
+        - Greedy-Algorithmus
+        - Dynamische Programmierung
+        - Backtracking
+        - Teile-und-Herrsche (Divide-and-Conquer)
+    - Listen:
+        - Einfach-verkettete Liste
+        - Doppelt-verkettete Liste
+        - Stapel (Stack)
+        - Warteschlange (Queue)
+    - Bäume:
+        - Binärbaum
+        - AVL-Baum
+        - Rot-Schwarz-Baum
+        - R-Baum
+        - Halde (Heap):
+            - Min-Heap
+            - Max-Heap
+        - B-Baum
+        - Streutabellen (Hashing):
+            - Hashfunktion
+            - Separate Verkettung
+            - Lineares Sondieren
+            - Quadratisches Sondieren
+            - Offene Adressierung
+    - Graphen:
+        - Adjazenzmatrix
+        - Adjazenzliste
+        - Algorithmus von Dijkstra
+        - Minimaler Spannbaum:
+            - Algorithmus von Kruskal
+            - Algorithmus von Prim
+        - Knotensuchalgorithmen:
+            - Tiefensuche
+            - Breitensuche
+
+- FUMUP:
+    - Funktionale Programmierung mit Haskell
+- SOSY:
+    - Projektmanagement:
+        - Software Engineering
+        - Prozessmodelle:
+            - Wasserfallmodell
+            - Spiralmodell
+            - V-Modell
+            - Agile Methoden:
+                - Kontinuierliche Integration (Continuous Integration)
+                - Refactoring
+            - Agile Prozesse:
+                - EXtreme Programming
+                - SCRUM
+                - Agiles Manifest
+            - Evolutionäre Softwaremodelle
+            - Inkrementelle Prozessmodelle
+            - Iterative Prozessmodelle
+        - Anforderungsanalyse:
+            - Funktionale Anforderungen
+            - Nicht-funktionale Anforderungen
+        - Pflichtenheft
+        - Softwaremaße
+        - Versionsverwaltungssoftware
+        - Prototyping
+    - Modellierung:
+        - UML-Diagramme:
+            - UML-Struktur-Diagramme:
+                - Klassendiagramm:
+                    - Kassendiagramm Wissen
+                    - Klassendiagramm zeichnen
+                - Objektdiagramm
+                - Komponentendiagramm
+            - UML-Verhaltens-Diagramme:
+                - UML-Interaktions-Diagramme:
+                    - Sequenzdiagramm
+                    - Kommunikationsdiagramm
+                - Aktivitätsdiagramm
+                - Anwendungsfalldiagramm
+                - Zustandsdiagramm:
+                    - Zustandsdiagramm Wissen
+                    - Zustandsdiagramm zeichnen
+        - Entwurfsmuster:
+            - Erzeugungsmuster (Creational Patterns):
+                - Abstrakte Fabrik (Abstract Factory)
+                - Einzelstück (Singleton)
+                - Erbauer (Builder)
+                - Fabrikmethode (Factory Method)
+                - Einfache Fabrik (Simple Factory)
+            - Strukturmuster (Structural Patterns):
+                - Adapter:
+                    - Klassenadapter
+                    - Objektadapter
+                - Dekorierer (Decorator)
+                - Kompositum (Composite)
+                - Stellvertreter (Proxy)
+            - Verhaltensmuster (Behavioral Patterns):
+                - Beobachter (Observer)
+                - Kommando (Command)
+                - Schablone (Template)
+                - Wiederholer (Iterator)
+                - Zustand (State)
+            - Sonstige Entwurfsmuster:
+                - Modell-Präsentation-Steuerung (Model-View-Controller)
+                - Einbringen von Abhängigkeiten (Dependency Injection)
+    - Projektplanung:
+        - Gantt-Diagramm
+        - Petri-Netz:
+            - Erreichbarkeitsgraph
+            - Beschränktheit
+            - Lebendigkeit
+            - Verklemmungsfreiheit
+            - Umkehrbarkeit
+        - CPM-Netzplantechnik
+    - Softwarearchitektur:
+        - Blackboard-Muster
+        - Schichtenarchitektur:
+            - 2-Schichtenarchitektur:
+              - Client-Server-Modell
+        - Peer-to-Peer-Architektur
+    - Testen:
+        - Model Checking
+        - White-Box-Testing:
+            - Kontrollflussorientieres Testen:
+                - Überdeckbarkeit
+                - Kontrollflussgraph
+                - C0-Test Anweisungsüberdeckung (Statement Coverage):
+                    - Vollständige Anweisungsüberdeckung
+                - C1-Test Zweigüberdeckung (Branch Coverage):
+                    - Verzweigungsüberdeckung
+                    - Zyklomatische Komplexität nach Mc-Cabe
+                - C2-Test Pfadüberdeckung (Path Coverage):
+                    - C2a Vollständige Pfadüberdeckung (Full Path Coverage)
+                    - C2b Schleife-Inneres-Pfadüberdeckung (Boundary-Interior Path Coverage):
+                        - Schleife-Inneres-Überdeckung
+                    - C2c Strukturierte Pfadüberdeckung (Structured Path Coverage)
+                - C3-Test Bedingungsüberdeckung (Condition Coverage)
+            - Datenflussorientiertes Testen:
+                - Datenfluss-annotierter Kontrollflussgraph
+                - all definitions
+                - all c-uses
+                - all p-uses
+                - all uses
+        - Formale Verifikation:
+            - wp-Kalkül:
+              - Invariante
+              - Totale Korrektheit
+              - Partielle Korrektheit
+              - Terminierungsfunktion
+            - Hoare-Kalkül
+            - Vollständige Induktion
+        - Black-Box-Testing:
+            - Unit-Test
+            - Funktionalorienteres Testen
+            - Anforderungsüberdeckung:
+                - Grenzwertanalyse
+                - Äquivalenzklassenzerlegung
+        - Validation
+        - Verifikation
+        - Design by Contract
+- Technische Informatik:
+    - Ein-Adress-Befehl-Assembler
+    - Mehr-Adress-Befehl-Assembler
+- Theoretische Informatik:
+    - Formale Sprachen:
+        - Reguläre Sprache:
+            - Reguläre Grammatik
+            - Reguläre Ausdrücke
+            - Deterministisch endlicher Automat (DEA)
+            - Nichtdeterministisch endlicher Automat (NEA)
+            - Pumping-Lemma (Reguläre Sprache)
+            - Potenzmengenalgorithmus
+            - Erweiteter Potenzmengenalgorithmus
+            - Minimierungsalgorithmus
+            - Äquivalenzklassen
+            - Ableitung (Reguläre Sprache)
+        - Kontextfreie Sprache:
+            - Kontextfreie Grammatik
+            - Ableitung (Kontextfreie Sprache)
+            - Ableitungsbaum
+            - Kellerautomat:
+                - Konfigurationsfolge
+            - CYK-Algorithmus
+            - Chomsky-Normalform
+            - Pumping-Lemma (Kontextfreie Sprache)
+        - Kontextsensitive Sprache:
+            - Kontextsensitive Grammatik
+        - Unbeschränkte Sprache:
+            - Turing-Maschine
+
+    - Berechenbarkeit:
+        - LOOP-berechenbar
+        - WHILE-berechenbar
+        - GOTO-berechenbar
+        - TURING-berechenbar
+    - Entscheidbarkeit
+    - Komplexitätstheorie:
+        - Polynomialzeitreduktion
+- DDI:
+    - Didaktik
+    - 7. Jahrgangsstufe
