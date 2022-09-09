@@ -1,0 +1,68 @@
+-- Potenzberechnung a^n
+
+-- Erstelle ein rekursives Assemblerprogramm, das seine beiden Parameter ueber zwei
+-- Variablen a und n aus dem Speicher uebernimmt und den Wert power(a, n) berechnet.
+-- Das Ergebnis soll in R0 liegen. Dabei soll die Rekursion gelten:
+-- power(a, n) = a * power(a, n − 1)
+-- Die Loesung der Berechnung soll zum Schluss in R5 liegen.
+
+-- public static int power(int a, int n) {
+--   if (n == 0) {
+--     return 1;
+--   } else {
+--     return a * power(a, n - 1);
+--   }
+-- }
+
+potenz:
+SEG
+                MOVE W I H'0000FFFF', SP
+                JUMP einstieg
+
+power:          PUSHR
+                MOVE W 64+!SP, R1
+                -- if (n == 0)
+                CMP W R1, I 0
+                JEQ istNull
+                MOVE W I -1, -!SP
+                -- n - 1
+                SUB W I 1, R1, -!SP
+                CALL power
+                ADD W I 4, SP
+                -- a * power(a, n - 1);
+                MULT W !SP+, R0
+                JUMP rueckgabe
+
+-- return 1;
+istNull:        MOVE W I 1, R0
+
+rueckgabe:      MOVE W R0, 68+!SP
+                POPR
+                RET
+
+einstieg:       MOVE W I -1, -!SP
+                MOVE W n, -!SP
+                MOVE W a, R0
+                CALL power
+                ADD W I 4, SP
+                -- 3^4 = 81
+                MOVE W !SP+, R5
+                HALT
+
+-- int a = 3;
+a:              DD W 3
+-- int n = 4;
+n:              DD W 4
+
+-- Tests
+
+-- a:           DD W 3
+
+-- n:           DD W 0 -- 1
+-- n:           DD W 1 -- 3
+-- n:           DD W 2 -- 9
+-- n:           DD W 3 -- 27
+-- n:           DD W 4 -- 81
+-- n:           DD W 6 -- 729
+-- n:           DD W 7 -- 2187
+END

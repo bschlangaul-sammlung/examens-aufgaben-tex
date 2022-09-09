@@ -1,0 +1,73 @@
+-- Bestimmung der n-ten Fibonaccizahl (iterativ)
+
+-- public static int fib(int n) {
+--   if (n <= 1)
+--     return n;
+--
+--   int vorletzte = 0;
+--   int letzte = 1;
+--   int erg = 0;
+--
+--   while (n > 1) {
+--     erg = letzte + vorletzte;
+--     vorletzte = letzte;
+--     letzte = erg;
+--     n--;
+--   }
+--   return erg;
+-- }
+
+-- n          R2
+-- vorletzte  R3
+-- letzte     R4
+-- erg        R5
+
+fibonacciIterativ:
+SEG
+                JUMP einstieg
+
+solange:        -- while (n > 1)
+                CMP W R2, I 1
+                JLE abschluss
+                -- erg = letzte + vorletzte;
+                ADD W R3, R4, R5
+                -- vorletzte = letzte;
+                MOVE W R4, R3
+                -- letzte = erg;
+                MOVE W R5, R4
+                -- n--;
+                SUB W I 1, R2
+                JUMP solange
+
+klGleichEins:   MOVE W R2, R5
+                JUMP abschluss
+
+einstieg:       MOVE W n, R2
+                -- if (n <= 1) return n;
+                CMP W R2, I 1
+                JLE klGleichEins
+
+                -- int vorletzte = 0;
+                MOVE W I 0, R3
+                -- int letzte = 1;
+                MOVE W I 1, R4
+                -- int erg = 0;
+                MOVE W I 0, R5
+                JUMP solange
+
+abschluss:      HALT
+
+n:              DD W 7
+
+-- n:           DD W 0 -- 0
+-- n:           DD W 1 -- 1
+-- n:           DD W 2 -- 1
+-- n:           DD W 3 -- 2
+-- n:           DD W 4 -- 3
+-- n:           DD W 5 -- 5
+-- n:           DD W 6 -- 8
+-- n:           DD W 7 -- 13
+-- n:           DD W 8 -- 21
+-- n:           DD W 9 -- 34
+-- n:           DD W 10 -- 55
+END

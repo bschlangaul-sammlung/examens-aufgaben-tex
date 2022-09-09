@@ -1,0 +1,61 @@
+-- Summe der ersten n Zahlen (rekursiv)
+
+-- public static int summe(int n) {
+--   if (n > 0)
+--     return n + summe(n - 1);
+--   else
+--     return 0;
+-- }
+
+summeRekursiv:
+SEG
+                MOVE W I H'0000FFFF', SP
+                JUMP einstieg
+
+-- n R4
+-- erg R5
+summe:          PUSHR
+                MOVE W 64+!SP, R4
+                -- if (n > 0)
+                CMP W R4, I 0
+                JEQ istNull
+                MOVE W I -1, -!SP
+                -- n - 1
+                SUB W I 1, R4, -!SP
+                CALL summe
+                ADD W I 4, SP
+                -- n + summe(n -1);
+                ADD W !SP+, R4
+                JUMP rueckgabe
+
+istNull:        MOVE W I 0, R4
+
+rueckgabe:      MOVE W R4, 68+!SP
+                POPR
+                RET
+
+einstieg:       MOVE W I -1, -!SP
+                MOVE W n, -!SP
+                CALL summe
+                ADD W I 4, SP
+                -- Das Ergebnis sollte 28 sein.
+                MOVE W !SP+, R5
+                HALT
+
+-- int n = 7;
+n:              DD W 7 -- 28
+
+-- Tests
+
+-- n:              DD W 0 -- 0
+-- n:              DD W 1 -- 1
+-- n:              DD W 2 -- 3
+-- n:              DD W 3 -- 6
+-- n:              DD W 4 -- 10
+-- n:              DD W 5 -- 15
+-- n:              DD W 6 -- 21
+-- n:              DD W 7 -- 28
+-- n:              DD W 8 -- 36
+-- n:              DD W 9 -- 45
+-- n:              DD W 10 -- 55
+END

@@ -1,0 +1,44 @@
+# a := 10;
+                LOADI 3
+                STORE a
+# b := 5;
+                LOADI 30
+                STORE b
+# IF a = 0 THEN
+                LOAD a
+                CMPI 0
+                JMPNZ solange
+# ggt := b;
+                LOAD b
+                STORE ggt
+                JMP ende
+
+# WHILE b <> 0 DO
+solange:        LOAD b
+                CMPI 0
+                JMPZ setze_ergebnis
+# IF a > b THEN
+                LOAD a
+                CMP b
+                JMPNP setze_b
+# a := a - b;
+                LOAD a
+                SUB b
+                STORE a
+                JMP solange
+
+# b := b - a;
+setze_b:        LOAD b
+                SUB a
+                STORE b
+                JMP solange
+
+# ggt := a;
+setze_ergebnis: LOAD a
+                STORE ggt
+
+ende:           HOLD
+
+a:              WORD 0
+b:              WORD 0
+ggt:            WORD 0

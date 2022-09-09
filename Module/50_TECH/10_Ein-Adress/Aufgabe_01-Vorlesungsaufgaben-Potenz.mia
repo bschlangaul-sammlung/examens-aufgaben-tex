@@ -1,0 +1,23 @@
+# WHILE n <> 0 DO
+solange:        LOAD n
+                JMPP rechnung
+                JMP ende
+
+# ergebnis := ergebnis * a;
+rechnung:       LOAD a
+                MUL ergebnis
+                STORE ergebnis
+# n := n - 1;
+                LOAD n
+                SUBI 1
+                STORE n
+                JMP solange
+
+ende:           HOLD
+
+# a := 2;
+a:              WORD 2
+# n := 8;
+n:              WORD 8
+# ergebnis := 1;
+ergebnis:       WORD 1

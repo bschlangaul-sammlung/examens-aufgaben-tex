@@ -1,0 +1,52 @@
+-- Bestimmung der Summe der ersten n Zahlen (iterativ)
+
+-- public static int summe(int n) {
+--   int erg = 0;
+--   while (n > 0) {
+--     erg = n + erg;
+--     n--;
+--   }
+--   return erg;
+-- }
+
+summeIterativ:
+SEG
+                JUMP einstieg
+
+-- erg R5
+-- n R4
+
+-- while (n > 0)
+solange:        CMP W R4, I 0
+                JEQ abschluss
+                -- erg = n + erg;
+                ADD W R4, R5
+                -- n--;
+                SUB W I 1, R4
+                JUMP solange
+
+einstieg:       MOVE W n, R4
+                -- int erg = 0;
+                MOVE W I 0, R5
+                JUMP solange
+
+-- Das Ergebnis sollte 28 sein, siehe R5.
+abschluss:      HALT
+
+-- int n = 7;
+n:              DD W 7
+
+-- Tests
+
+-- n:              DD W 0 -- 0
+-- n:              DD W 1 -- 1
+-- n:              DD W 2 -- 3
+-- n:              DD W 3 -- 6
+-- n:              DD W 4 -- 10
+-- n:              DD W 5 -- 15
+-- n:              DD W 6 -- 21
+-- n:              DD W 7 -- 28
+-- n:              DD W 8 -- 36
+-- n:              DD W 9 -- 45
+-- n:              DD W 10 -- 55
+END
