@@ -1,7 +1,7 @@
 readme:
 	bschlangaul-werkzeug.js generiere-readme
 
-aufgaben:
+tex:
 	bschlangaul-werkzeug.js kompiliere-tex
 
 sammlungen_korrekt:

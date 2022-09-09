@@ -38,14 +38,14 @@ Plain-Text-Version (`OCR.txt`) der Text-Erkennung vor.
 `03` steht für Frühjahr und `09` steht für Herbst
 
 eine Aufgabe:
-`Staatsexamen/66116/2018/03/Thema-2/Teilaufgabe-2/Aufgabe-2.tex` bzw.
-`Staatsexamen/66116/2018/03/Thema-2/Teilaufgabe-2/Aufgabe-2.pdf`
+`Examen/66116/2018/03/Thema-2/Teilaufgabe-2/Aufgabe-2.tex` bzw.
+`Examen/66116/2018/03/Thema-2/Teilaufgabe-2/Aufgabe-2.pdf`
 
 gescanntes komplettes Staatsexamen (Angabe):
-`Staatsexamen/66116/2018/03/Scan.pdf`
+`Examen/66116/2018/03/Scan.pdf`
 
 OCR des oben genannten Scans:
-`Staatsexamen/66116/2018/03/OCR.txt`
+`Examen/66116/2018/03/OCR.txt`
 
 {{ staatsexamen }}
 
