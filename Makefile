@@ -17,4 +17,7 @@ sammlungen_alle_examens_aufgaben:
 sync_pdfs:
 	rsync --archive --verbose --delete --prune-empty-dirs --include="*/" --include="*.pdf" --exclude="*" . ../aufgaben_pdf
 
+clean:
+	git clean -dfX
+
 .PHONY: readme aufgaben sammlungen
