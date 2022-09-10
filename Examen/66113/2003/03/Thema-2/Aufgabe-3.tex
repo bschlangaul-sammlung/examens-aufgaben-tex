@@ -85,7 +85,7 @@ ORDER BY Lehrdeputat DESC, p.Name ASC;
 die mindestens zwei Vorlesungen bei \emph{Kant} gehört haben.
 
 \begin{bAntwort}
-\subsection*{Mit einer VIEW}
+\bPseudoUeberschrift{Mit einer VIEW}
 
 \begin{minted}{sql}
 CREATE VIEW hoertKant AS
@@ -113,7 +113,7 @@ GROUP BY Name, MatrNr, Semester
 HAVING COUNT(VorlNr) > 1;
 \end{minted}
 
-\subsection*{In einer Abfrage}
+\bPseudoUeberschrift{In einer Abfrage}
 
 \begin{minted}{sql}
 SELECT s.Name, s.MatrNr, s.Semester

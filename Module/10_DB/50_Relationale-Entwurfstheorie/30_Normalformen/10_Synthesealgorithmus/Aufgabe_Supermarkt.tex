@@ -115,7 +115,7 @@ Superschlüssel ist.
 Ich teste mit Hilfe der Attributhülle, ob man den Superschlüssel noch
 weiter verkleinern kann.
 
-\subsection*{ohne \texttt{ArtNr}}
+\bPseudoUeberschrift{ohne \texttt{ArtNr}}
 
 \begin{liAHuelle}
 \ah{F, \m{Lieferant, BestDat, EP}} = \\
@@ -126,7 +126,7 @@ weiter verkleinern kann.
   LiefTel
 } \neq R
 \end{liAHuelle}
-\subsection*{ohne \texttt{Lieferant}}
+\bPseudoUeberschrift{ohne \texttt{Lieferant}}
 
 \begin{liAHuelle}
 \ah{F, \m{ArtNr, BestDat, EP}} = \\
@@ -141,7 +141,7 @@ weiter verkleinern kann.
 } \neq R
 \end{liAHuelle}
 
-\subsection*{ohne \texttt{BestDat}}
+\bPseudoUeberschrift{ohne \texttt{BestDat}}
 
 \begin{liAHuelle}
 \ah{F, \m{ArtNr, Lieferant, EP}} = \\
@@ -157,7 +157,7 @@ weiter verkleinern kann.
 } \neq R
 \end{liAHuelle}
 
-\subsection*{ohne \texttt{EP}}
+\bPseudoUeberschrift{ohne \texttt{EP}}
 
 \begin{liAHuelle}
 \ah{F, \m{ArtNr, Lieferant, BestDat}} = \\
@@ -202,13 +202,13 @@ Schlüsselkandidaten \m{ArtNr, Lieferant, BestDat, EP} ab.
 $\rightarrow$ \m{Hersteller}
 $\rightarrow$ \m{HerstTel}
 
-\subsection*{Update-Anomalie}\index{Update-Anomalie}
+\bPseudoUeberschrift{Update-Anomalie}\index{Update-Anomalie}
 
 Es kann zur Update-Anomalie kommen. Ändert sich zum Beispiel die
 Telefonnummer eines Herstellers, so müssen in allen
 Datensätzen die Telefonnummer geändert werden.
 
-\subsection*{Delete-Anomalie}\index{Delete-Anomalie}
+\bPseudoUeberschrift{Delete-Anomalie}\index{Delete-Anomalie}
 
 Wird die Datenbank aufgeräumt, d. h. alte Bestellungen gelöscht,
 so verschwindet auch die Hersteller-Telefonnumer von manchen
