@@ -1,0 +1,29 @@
+{
+  "files.exclude": {
+    "**/*.aux": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.fls": true,
+    "**/*.log": true,
+    "**/*.swp": true,
+    "**/*.synctex.gz": true,
+    "**/*.synctex(busy)": true,
+    "**/*.pygstyle": true,
+    "**/*.pygtex": true,
+    "**/*.pyg": true,
+    "**/*_minted-*": true,
+    "**/*.out": true,
+    "**/*.toc": true,
+    "**/*.bbl": true,
+    "**/*.bcf": true,
+    "**/*.blg": true,
+    "**/*.run.xml": true,
+    "**/*.idx": true,
+    "**/*.ilg": true,
+    "**/*.ind": true,
+    "**/*.DS_Store": true,
+    "**/tmp-*": true,
+    "**/*_tmp.sql": true,
+    "**/__latexindent_temp.tex": true,
+    "**/*.pdf": true
+  }
+}
