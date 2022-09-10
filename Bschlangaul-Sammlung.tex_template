@@ -1,6 +1,8 @@
 \documentclass{bschlangaul-sammlung}
 
 \begin{document}
+\input{Vorwort.tex}
+
 \part{Datenbanken (DB)}
 
 {{ gibAufgabenListe("Datenbank-Übersicht", 1) }}

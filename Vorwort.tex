@@ -1,0 +1,40 @@
+\documentclass{bschlangaul-basis}
+
+\begin{document}
+\section{Vorwort}
+
+\subsection{Abkürzungen der Modulnamen}
+
+\begin{tabular}{|l|l|}
+Abk.  & Modulename                                          \\\hline
+MATHE & Mathematische Grundlagen                            \\
+DB    & Datenbanksysteme                                    \\
+OOMUP & Objektorientierte Modellierung und Programmierung   \\
+AUD   & Algorithmen und Datenstrukturen                     \\
+FUMUP & Funktionale Modellierung und Programmierung         \\
+SOSY  & Softwaresysteme und Softwareentwicklungspraktikum   \\
+TECH  & Technische Informatik                               \\
+THEO  & Theoretische Informatik                             \\
+DDI   & Didaktik der Informatik                             \\
+\end{tabular}
+
+\subsection{Repositories}
+
+\def\TmpRepo#1#2{\item[#1] \strut \par
+
+{\footnotesize \url{https://github.com/bschlangaul-sammlung/#1}}
+
+\par #2
+
+}
+
+\begin{description}
+\TmpRepo{examens-aufgaben-tex}{Haupt-Repository des Projekts. LaTeX-Quelltexte. Sammlung von Examensaufgaben und weiteren, zusätzlichen Übungsaufgaben mit Lösungen für das Studium „Lehramt Informatik“ in Bayern.}
+\TmpRepo{examens-aufgaben-pdf}{}
+\TmpRepo{examen-scans}{}
+\TmpRepo{latex-vorlagen}{}
+\TmpRepo{java-fuer-examens-aufgaben}{Java-Code zum Einbetten in die LaTeX-Quelltexte der Aufgaben, Implementation von einigen Datenstrukturen (z. B. AVL-Baum), Kommandozeilen-Werkzeug}
+\TmpRepo{kommandozeilen-werkzeug}{}
+\TmpRepo{logo-grafiken}{}
+\end{description}
+\end{document}
