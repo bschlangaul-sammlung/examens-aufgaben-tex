@@ -1,5 +1,5 @@
 readme:
-	bschlangaul-werkzeug.js generiere-readme
+	bschlangaul-werkzeug.js readme haupt
 
 # sammlungen_korrekt:
 # 	bschlangaul-werkzeug.js sammlungen aufgaben --korrektheit 2 -vvv
