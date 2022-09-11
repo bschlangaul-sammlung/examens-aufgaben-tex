@@ -3,6 +3,10 @@
 \begin{document}
 \section{Vorwort}
 
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
 \subsection{Abkürzungen der Modulnamen}
 
 \begin{tabular}{|l|l|}
@@ -18,7 +22,15 @@ THEO  & Theoretische Informatik                             \\
 DDI   & Didaktik der Informatik                             \\
 \end{tabular}
 
+%-----------------------------------------------------------------------
+%
+%-----------------------------------------------------------------------
+
 \subsection{Repositories}
+
+Das Projekt ist auf mehrere Git-Repositories aufgeteilt. Alle Repos
+sind unter der Github-Organisation
+\url{https://github.com/bschlangaul-sammlung} zusammengefasst.
 
 \def\TmpRepo#1#2{\item[#1] \strut \par
 
@@ -29,12 +41,32 @@ DDI   & Didaktik der Informatik                             \\
 }
 
 \begin{description}
-\TmpRepo{examens-aufgaben-tex}{Haupt-Repository des Projekts. LaTeX-Quelltexte. Sammlung von Examensaufgaben und weiteren, zusätzlichen Übungsaufgaben mit Lösungen für das Studium „Lehramt Informatik“ in Bayern.}
-\TmpRepo{examens-aufgaben-pdf}{}
-\TmpRepo{examen-scans}{}
-\TmpRepo{latex-vorlagen}{}
-\TmpRepo{java-fuer-examens-aufgaben}{Java-Code zum Einbetten in die LaTeX-Quelltexte der Aufgaben, Implementation von einigen Datenstrukturen (z. B. AVL-Baum), Kommandozeilen-Werkzeug}
-\TmpRepo{kommandozeilen-werkzeug}{}
-\TmpRepo{logo-grafiken}{}
+\TmpRepo{examens-aufgaben-tex}
+{Die LaTeX-Quelltexte aller Übungs- und Examensaufgaben.
+Haupt-Repository des Projekts. Sammlung von Examensaufgaben und
+weiteren, zusätzlichen Übungsaufgaben mit Lösungen für das Studium
+„Lehramt Informatik“ in Bayern.}
+
+\TmpRepo{examens-aufgaben-pdf}
+{Die aus den LaTeX-Quellentexten kompilierten PDFs der Aufgabensammlung.}
+
+\TmpRepo{examen-scans}
+{Scans der Staatsexamensaufgaben als PDF- und als Textdateien.}
+
+\TmpRepo{latex-vorlagen}
+{LaTeX- bzw. LuaLaTeX-Pakete und -Klassen zum Setzen der Aufgaben.}
+
+\TmpRepo{java-fuer-examens-aufgaben}
+{Java-Code zum Einbetten in die LaTeX-Quelltexte der Aufgaben,
+Implementation von einigen Datenstrukturen (z. B. AVL-Baum),
+Kommandozeilen-Werkzeug}
+
+\TmpRepo{kommandozeilen-werkzeug}
+{Ein Kommandozeilen-Tool (Werkzeug) geschrieben in Typescript
+(Javascript), um verschiedene administrative Aufgaben, wie z. B. das
+Erzeugen von Aufgaben-Sammlungen, TeX-Vorlagen etc. zu erledigen.}
+
+\TmpRepo{logo-grafiken}
+{Logo und sonstige Grafiken}
 \end{description}
 \end{document}
