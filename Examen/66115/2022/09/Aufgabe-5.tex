@@ -1,0 +1,112 @@
+\documentclass{bschlangaul-aufgabe}
+\bLadePakete{graph,spalten}
+\begin{document}
+
+\begin{bGraphenFormat}
+A: 3 0
+B: 3 1
+C: 4 0
+D: 2 0
+E: 3 -1
+F: 2 1
+G: 2 -1
+H: 1 0
+A -> B: 6
+A -> D: 3
+A -> E: 3
+B -> A: 3
+B -> C: 11
+C -> E: 3
+D -> A: 5
+D -> F: 3
+D -> G: 9
+D -> H: 8
+E -> A: 3
+E -> D: 3
+E -> G: 4
+\end{bGraphenFormat}
+
+\begin{tikzpicture}[li graph,x=3cm, y=3cm]
+\node (A) at (3,0) {A};
+\node (B) at (3,1) {B};
+\node (C) at (4,0) {C};
+\node (D) at (2,0) {D};
+\node (E) at (3,-1) {E};
+\node (F) at (2,1) {F};
+\node (G) at (2,-1) {G};
+\node (H) at (0,0) {H};
+
+\path[->] (A) edge[bend right] node {6} (B);
+\path[->] (A) edge[bend right] node {3} (D);
+\path[->] (A) edge[bend right] node {3} (E);
+\path[->] (B) edge[bend right] node {3} (A);
+\path[->] (B) edge node {11} (C);
+\path[->] (C) edge node {3} (E);
+\path[->] (D) edge[bend right] node {5} (A);
+\path[->] (D) edge node {3} (F);
+\path[->] (D) edge node {9} (G);
+\path[->] (D) edge node {8} (H);
+\path[->] (E) edge[bend right] node {3} (A);
+\path[->] (E) edge node {3} (D);
+\path[->] (E) edge node {4} (G);
+\end{tikzpicture}
+
+Adjazenz-Matrix
+
+\[
+\begin{blockarray}{ccccccccc}
+    &  A &  B &  C &  D &  E &  F &  G &  H \\
+\begin{block}{c(cccccccc)}
+  A &  * &  6 &  - &  3 &  3 &  - &  - &  - \\
+  B &  3 &  * & 11 &  - &  - &  - &  - &  - \\
+  C &  - &  - &  * &  - &  3 &  - &  - &  - \\
+  D &  5 &  - &  - &  * &  - &  3 &  9 &  8 \\
+  E &  3 &  - &  - &  3 &  * &  - &  4 &  - \\
+  F &  - &  - &  - &  - &  - &  * &  - &  - \\
+  G &  - &  - &  - &  - &  - &  - &  * &  - \\
+  H &  - &  - &  - &  - &  - &  - &  - &  * \\
+\end{block}
+\end{blockarray}
+\]
+
+Adjazenz-Liste
+
+\begin{tabular}{lllll}
+A: & $\xrightarrow{~6~}$ B & $\xrightarrow{~3~}$ D & $\xrightarrow{~3~}$ E \\
+B: & $\xrightarrow{~3~}$ A & $\xrightarrow{~11~}$ C \\
+C: & $\xrightarrow{~3~}$ E \\
+D: & $\xrightarrow{~5~}$ A & $\xrightarrow{~3~}$ F & $\xrightarrow{~9~}$ G & $\xrightarrow{~8~}$ H \\
+E: & $\xrightarrow{~3~}$ A & $\xrightarrow{~3~}$ D & $\xrightarrow{~4~}$ G \\
+F: \\
+G: \\
+H: \\
+\end{tabular}
+
+\begin{tabular}{llllllllll}
+\bf{Nr.} & \bf{besucht} & \bf{A} & \bf{B} & \bf{C} & \bf{D} & \bf{E} & \bf{F} & \bf{G} & \bf{H} \\
+\hline
+0 &   & 0 & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
+1 & A & \bf{0} & 6 & $\infty$ & 3 & 3 & $\infty$ & $\infty$ & $\infty$ \\
+2 & D & | & 6 & $\infty$ & \bf{3} & 3 & 6 & 12 & 11 \\
+3 & E & | & 6 & $\infty$ & | & \bf{3} & 6 & 7 & 11 \\
+4 & B & | & \bf{6} & 17 & | & | & 6 & 7 & 11 \\
+5 & F & | & | & 17 & | & | & \bf{6} & 7 & 11 \\
+6 & G & | & | & 17 & | & | & | & \bf{7} & 11 \\
+7 & H & | & | & 17 & | & | & | & | & \bf{11} \\
+8 & C & | & | & \bf{17} & | & | & | & | & | \\
+\end{tabular}
+
+\begin{tabular}{llll}
+\bf{nach} & \bf{Entfernung} & \bf{Reihenfolge} & \bf{Pfad} \\
+\hline
+A  $\rightarrow$  A & 0 & 1 &   \\
+A  $\rightarrow$  B & 6 & 4 & A $\rightarrow$ B \\
+A  $\rightarrow$  C & 17 & 8 & A $\rightarrow$ B $\rightarrow$ C \\
+A  $\rightarrow$  D & 3 & 2 & A $\rightarrow$ D \\
+A  $\rightarrow$  E & 3 & 3 & A $\rightarrow$ E \\
+A  $\rightarrow$  F & 6 & 5 & A $\rightarrow$ D $\rightarrow$ F \\
+A  $\rightarrow$  G & 7 & 6 & A $\rightarrow$ E $\rightarrow$ G \\
+A  $\rightarrow$  H & 11 & 7 & A $\rightarrow$ D $\rightarrow$ H \\
+\end{tabular}
+
+\end{document}
